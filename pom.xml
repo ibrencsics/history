@@ -11,20 +11,39 @@
 
     <modules>
         <module>history-evaluation</module>
+        <module>history-db</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>3.2.6.RELEASE</spring.version>
+        <!--<spring.version>3.2.6.RELEASE</spring.version>-->
+        <spring.version>3.2.1.RELEASE</spring.version>
         <spring.data.jpa.version>1.4.3.RELEASE</spring.data.jpa.version>
+        <!--<spring.data.neo4j.version>2.3.3.RELEASE</spring.data.neo4j.version>-->
+        <spring.data.neo4j.version>2.2.0.RELEASE</spring.data.neo4j.version>
         <hibernate.jpa.api.version>1.0.1.Final</hibernate.jpa.api.version>
         <hibernate.entitymanager.version>4.2.8.Final</hibernate.entitymanager.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <junit.version>4.10</junit.version>
+        <querydsl.version>2.9.0</querydsl.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
 
             <!-- Spring & Spring Data JPA -->
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -50,6 +69,13 @@
                 <version>${spring.data.jpa.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-neo4j</artifactId>
+                <version>${spring.data.neo4j.version}</version>
+            </dependency>
+
+
             <!-- Hibernate -->
 
             <dependency>
@@ -64,7 +90,110 @@
                 <version>${hibernate.entitymanager.version}</version>
             </dependency>
 
+            <!-- Test -->
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-library</artifactId>
+                <version>${hamcrest.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>${hamcrest.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit-dep</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- Misc -->
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+            </dependency>
+
+            <!--<dependency>-->
+                <!--<groupId>org.springframework</groupId>-->
+                <!--<artifactId>spring-tx</artifactId>-->
+                <!--<version>${spring.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>org.springframework</groupId>-->
+                <!--<artifactId>spring-aspects</artifactId>-->
+                <!--<version>${spring.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>org.springframework</groupId>-->
+                <!--<artifactId>spring-orm</artifactId>-->
+                <!--<version>${spring.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>org.neo4j</groupId>-->
+                <!--<artifactId>neo4j-cypher-dsl</artifactId>-->
+                <!--<version>1.8</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>org.apache.lucene</groupId>-->
+                <!--<artifactId>lucene-queries</artifactId>-->
+                <!--<version>3.5.0</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>com.mysema.querydsl</groupId>-->
+                <!--<artifactId>querydsl-lucene</artifactId>-->
+                <!--<version>${querydsl.version}</version>-->
+                <!--<optional>true</optional>-->
+            <!--</dependency>-->
+
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.13</version>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>neo4j-public-release-repository</id>
+            <url>http://m2.neo4j.org/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>
