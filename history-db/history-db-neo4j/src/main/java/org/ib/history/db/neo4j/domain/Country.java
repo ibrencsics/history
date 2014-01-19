@@ -14,4 +14,8 @@ public class Country extends AbstractEntity {
 
     public Country() {
     }
+
+    public String getName() {
+        return name;
+    }
 }
