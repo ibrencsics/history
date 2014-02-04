@@ -13,8 +13,8 @@ import java.util.Set;
 public class Person extends AbstractEntity {
 
     private String name;
-    private String birthDate;
-    private String deathDate;
+    private Date birthDate;
+    private Date deathDate;
 
     @RelatedTo(type = "PARENT_OF")
     @Fetch
@@ -23,7 +23,7 @@ public class Person extends AbstractEntity {
     public Person() {
     }
 
-    public Person(String name, String birthDate, String deathDate) {
+    public Person(String name, Date birthDate, Date deathDate) {
         this.name = name;
         this.birthDate = birthDate;
         this.deathDate = deathDate;
@@ -37,11 +37,11 @@ public class Person extends AbstractEntity {
         return name;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public String getDeathDate() {
+    public Date getDeathDate() {
         return deathDate;
     }
 

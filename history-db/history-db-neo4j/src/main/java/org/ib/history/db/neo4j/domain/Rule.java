@@ -17,13 +17,13 @@ public class Rule extends AbstractEntity {
     @EndNode
     private Country country;
 
-    private String fromDate;
-    private String toDate;
+    private Date fromDate;
+    private Date toDate;
 
     public Rule() {
     }
 
-    public Rule(Person person, Country country, String fromDate, String toDate) {
+    public Rule(Person person, Country country, Date fromDate, Date toDate) {
         this.person = person;
         this.country = country;
         this.fromDate = fromDate;
@@ -38,11 +38,11 @@ public class Rule extends AbstractEntity {
         return country;
     }
 
-    public String getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public String getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 }
