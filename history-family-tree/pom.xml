@@ -61,14 +61,14 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <!--<version>1.0.0.GA</version>-->
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <!--<version>1.0.0.GA</version>-->
             <classifier>sources</classifier>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
 
@@ -122,6 +122,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.ib</groupId>
+            <artifactId>history-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-neo4j</artifactId>
         </dependency>
@@ -136,6 +142,8 @@
     <build>
         <!-- Generate compiled stuff in the folder used for developing mode -->
         <outputDirectory>target/www/WEB-INF/classes</outputDirectory>
+
+        <finalName>familytree</finalName>
 
         <plugins>
 
@@ -167,12 +175,15 @@
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>compile</goal>
+                            <!--<goal>generateAsync</goal>-->
                         </goals>
                     </execution>
                 </executions>
+
                 <!-- Plugin configuration. There are many available options,
                      see gwt-maven-plugin documentation at codehaus.org -->
                 <configuration>
+                    <extraJvmArgs>-XX:MaxPermSize=512m -Xmx1024m</extraJvmArgs>
                     <!-- URL that should be automatically opened in the GWT shell (gwt:run). -->
                     <runTarget>familytree.html</runTarget>
                     <!-- Location of the develop-mode web application structure (gwt:run). -->

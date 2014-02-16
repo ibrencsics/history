@@ -22,6 +22,9 @@
 
     <!-- Other module inherits                                      -->
     <inherits name="com.google.gwt.inject.Inject"/>
+    <inherits name="com.google.gwt.i18n.CldrLocales"/>
+
+    <inherits name="org.ib.history.commons.history-commons"/>
 
     <!-- Specify the app entry point class.                         -->
     <entry-point class='org.ib.history.client.FamilyTree'/>

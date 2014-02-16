@@ -14,9 +14,12 @@ public class FamilyTree implements EntryPoint {
 
     public void onModuleLoad() {
         FamilyTreeApp familyTreeApp = new FamilyTreeApp();
-        container.setSize("100%","100%");
-        familyTreeApp.go(container);
-        RootLayoutPanel.get().add(container);
-        History.fireCurrentHistoryState();
+//        container.setSize("100%","100%");
+//        container.add(new Label("asdasd"));
+//        familyTreeApp.go(container);
+//        RootLayoutPanel.get().add(container);
+        familyTreeApp.go(RootLayoutPanel.get());
+//        History.fireCurrentHistoryState();
+//        History.newItem(Tokens.HOME);
     }
 }

@@ -13,6 +13,7 @@
         <module>history-evaluation</module>
         <module>history-db</module>
 	    <module>history-family-tree</module>
+        <module>history-commons</module>
     </modules>
 
     <properties>

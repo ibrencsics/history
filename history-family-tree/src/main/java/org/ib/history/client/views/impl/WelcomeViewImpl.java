@@ -6,9 +6,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.WelcomePresenter;
 import org.ib.history.client.views.WelcomeView;
 
@@ -19,8 +17,12 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
 
     private WelcomePresenter presenter;
 
-    @UiField Button showCountries;
-    @UiField Button newCountry;
+    @UiField
+    Button showCountries;
+    @UiField
+    Button newCountry;
+    @UiField
+    FlowPanel workspace;
 
     public WelcomeViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -43,5 +45,10 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     @Override
     public void setPresenter(WelcomePresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public HasWidgets getWorkspace() {
+        return workspace;
     }
 }

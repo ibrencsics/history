@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CountryListView extends IsWidget {
     void setPresenter(CountryListPresenter presenter);
-    void setCountries(List<String> countries);
+    void refreshGrid();
 }
