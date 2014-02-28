@@ -25,7 +25,7 @@ public class NativeCypherTest {
         RestCypherQueryEngine engine = new RestCypherQueryEngine(db.getRestAPI());
 
         QueryResult<Map<String, Object>> result;
-        try ( Transaction ignored = db.beginTx() ) {
+        try ( Transaction tx = db.beginTx() ) {
             result = engine.query("match (n) return n", new HashMap<String, Object>());
 
             Iterator<Map<String, Object>> iter = result.iterator();
@@ -44,6 +44,7 @@ public class NativeCypherTest {
                     }
                 }
             }
+            tx.success();
         }
     }
 }
