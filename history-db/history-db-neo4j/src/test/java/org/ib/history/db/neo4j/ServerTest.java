@@ -90,11 +90,15 @@ public class ServerTest {
     }
 
     @Test
+//    @Ignore
     public void test() {
+        Country country = new Country("Germany");
+        Country resCountry = countryRepo.save(country);
+
         EndResult<Country> countries = countryRepo.findAll();
 
         Iterator<Country> it = countries.iterator();
-
+        System.out.println(it.hasNext());
         while (it.hasNext()) {
             System.out.println(it.next().getName());
         }
@@ -103,5 +107,10 @@ public class ServerTest {
 //        for (Country country=countries.iterator().next(); countries.iterator().hasNext(); ) {
 //            System.out.println(country.getName());
 //        }
+    }
+
+    @Test
+    public void testGetCountries() {
+        System.out.println(countryRepo.getCountries());
     }
 }
