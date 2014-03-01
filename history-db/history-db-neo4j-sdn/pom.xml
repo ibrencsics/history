@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>history-db-neo4j</artifactId>
+    <artifactId>history-db-neo4j-sdn</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
