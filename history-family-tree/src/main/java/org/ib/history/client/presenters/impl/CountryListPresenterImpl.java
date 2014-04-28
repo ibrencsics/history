@@ -37,7 +37,7 @@ public class CountryListPresenterImpl extends AsyncDataProvider<CountryDto> impl
         container.clear();
         container.add(countryListView.asWidget());
 
-        countryListView.refreshGrid();
+//        countryListView.refreshGrid();
     }
 
     @Override

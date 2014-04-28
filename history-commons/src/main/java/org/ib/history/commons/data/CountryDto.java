@@ -21,4 +21,9 @@ public class CountryDto extends AbstractDto {
         this.setName(name);
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "CountryDto id:" + getId() + " name:" + getName();
+    }
 }
