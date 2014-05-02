@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Neo4jJdbcTemplate implements Neo4jTemplate {
+public class Neo4jJdbcTemplate implements Neo4jTemplate<ResultSet> {
 
     private Driver driver;
     private Properties props;
@@ -19,21 +19,39 @@ public class Neo4jJdbcTemplate implements Neo4jTemplate {
     public Neo4jJdbcTemplate() {
         driver = new Driver();
         props = new Properties();
+        try {
+            conn = driver.connect("jdbc:neo4j://localhost:7474", props);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public <T> T query(String query, Converter<T> converter) {
+    public <T> T executeQuery(Converter<T, ResultSet> converter, String query, String... params) {
         try {
-            conn = driver.connect("jdbc:neo4j://localhost:7474", props);
-
             PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                System.out.println("." + rs.getString(1));
+            for (int i=1; i<=params.length; i++) {
+                ps.setString(i, params[i-1]);
             }
+            ResultSet rs = ps.executeQuery();
+            T domain = converter.convert(rs);
+            return domain;
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return null;
+    }
+
+    @Override
+    public void executeUpdate(String query, String... params) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            for (int i=1; i<=params.length; i++) {
+                ps.setString(i, params[i-1]);
+            }
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 }

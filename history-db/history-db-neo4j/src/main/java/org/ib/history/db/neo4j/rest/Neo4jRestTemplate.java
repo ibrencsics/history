@@ -10,7 +10,7 @@ import org.neo4j.rest.graphdb.util.QueryResult;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Neo4jRestTemplate implements Neo4jTemplate {
+public class Neo4jRestTemplate implements Neo4jTemplate<QueryResult<Map<String,Object>>> {
 
     private RestGraphDatabase db;
     private RestCypherQueryEngine engine;
@@ -21,7 +21,7 @@ public class Neo4jRestTemplate implements Neo4jTemplate {
     }
 
     @Override
-    public <T> T query(String query, Converter<T> converter) {
+    public <T> T executeQuery(Converter<T, QueryResult<Map<String, Object>>> converter, String query, String... params) {
         QueryResult<Map<String, Object>> result;
         try ( Transaction tx = db.beginTx() ) {
             result = engine.query(query, new HashMap<String, Object>());
@@ -29,5 +29,10 @@ public class Neo4jRestTemplate implements Neo4jTemplate {
             tx.success();
             return domain;
         }
+    }
+
+    @Override
+    public void executeUpdate(String query, String... params) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

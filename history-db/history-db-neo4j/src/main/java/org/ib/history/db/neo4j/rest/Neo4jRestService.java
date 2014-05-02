@@ -1,17 +1,16 @@
 package org.ib.history.db.neo4j.rest;
 
 import org.ib.history.commons.data.CountryDto;
-import org.ib.history.db.neo4j.Neo4jService;
+import org.ib.history.commons.data.EmpirorDto;
+import org.ib.history.commons.data.LocalizedCountryDto;
 import org.ib.history.db.neo4j.Converter;
+import org.ib.history.db.neo4j.Neo4jService;
 import org.neo4j.rest.graphdb.entity.RestNode;
 import org.neo4j.rest.graphdb.util.QueryResult;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Neo4jRestService implements Neo4jService {
 
@@ -23,7 +22,7 @@ public class Neo4jRestService implements Neo4jService {
 
         Neo4jRestTemplate template = new Neo4jRestTemplate();
 
-        Converter<List<CountryDto>> converter = new Converter<List<CountryDto>>() {
+        Converter<List<CountryDto>, QueryResult<Map<String, Object>>> converter = new Converter<List<CountryDto>, QueryResult<Map<String, Object>>>() {
             @Override
             public List<CountryDto> convert(QueryResult<Map<String, Object>> result) {
 
@@ -55,6 +54,26 @@ public class Neo4jRestService implements Neo4jService {
         };
 
        LOG.info("asd");
-       return template.query("match (c:Country) return c", converter);
+       return template.executeQuery(converter, "match (c:Country) return c");
+    }
+
+    @Override
+    public List<CountryDto> getCountries(Locale locale) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putCountry(Locale locale, CountryDto country) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<EmpirorDto> getEmpirors() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<EmpirorDto> getEmpirors(Locale locale) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
