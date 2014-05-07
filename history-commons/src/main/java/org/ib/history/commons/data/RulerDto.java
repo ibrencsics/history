@@ -1,19 +1,10 @@
 package org.ib.history.commons.data;
 
-public class EmpirorDto extends AbstractDto {
-    private String name;
+public class RulerDto extends AbstractDto {
     private String alias;
     private String from;
     private String to;
     private CountryDto countryDto;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getAlias() {
         return alias;
@@ -49,6 +40,6 @@ public class EmpirorDto extends AbstractDto {
 
     @Override
     public String toString() {
-        return "EmpirorDto id:" + getId() + ", name:" + getName() + ", alias: " + getAlias();
+        return "RulerDto id:" + getId() + ", name:" + getName() + ", alias: " + getAlias();
     }
 }

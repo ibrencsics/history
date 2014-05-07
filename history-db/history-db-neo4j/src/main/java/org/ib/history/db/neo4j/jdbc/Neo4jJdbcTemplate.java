@@ -13,14 +13,16 @@ import java.util.Properties;
 public class Neo4jJdbcTemplate implements Neo4jTemplate<ResultSet> {
 
     private Driver driver;
+    private String url;
     private Properties props;
     private Connection conn;
 
-    public Neo4jJdbcTemplate() {
+    public Neo4jJdbcTemplate(String url) {
         driver = new Driver();
         props = new Properties();
+        this.url = url;
         try {
-            conn = driver.connect("jdbc:neo4j://localhost:7474", props);
+            conn = driver.connect(url, props);
         } catch (SQLException e) {
             e.printStackTrace();
         }

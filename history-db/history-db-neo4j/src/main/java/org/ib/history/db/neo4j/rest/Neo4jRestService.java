@@ -1,8 +1,6 @@
 package org.ib.history.db.neo4j.rest;
 
-import org.ib.history.commons.data.CountryDto;
-import org.ib.history.commons.data.EmpirorDto;
-import org.ib.history.commons.data.LocalizedCountryDto;
+import org.ib.history.commons.data.*;
 import org.ib.history.db.neo4j.Converter;
 import org.ib.history.db.neo4j.Neo4jService;
 import org.neo4j.rest.graphdb.entity.RestNode;
@@ -63,17 +61,97 @@ public class Neo4jRestService implements Neo4jService {
     }
 
     @Override
-    public void putCountry(Locale locale, CountryDto country) {
+    public void putCountry(CountryDto defaultCountry) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public List<EmpirorDto> getEmpirors() {
+    public void putCountry(CountryDto defaultCountry, CountryDto localeCountry, Locale locale) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putCountry(LocalizedDto<CountryDto> country) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteCountry(CountryDto country) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<HouseDto> getHouses() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public List<EmpirorDto> getEmpirors(Locale locale) {
+    public List<HouseDto> getHouses(Locale locale) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putHouse(HouseDto house) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putHouse(HouseDto defaultHouse, HouseDto localeHouse, Locale locale) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putHouse(LocalizedDto<HouseDto> house) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteHouse(HouseDto house) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<PersonDto> getPeople() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<PersonDto> getPeople(Locale locale) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putPerson(PersonDto person) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putPerson(PersonDto defaultPerson, PersonDto localePerson, Locale locale) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putPerson(LocalizedDto<PersonDto> person) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deletePerson(PersonDto person) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<RulerDto> getRulers() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<RulerDto> getRulers(Locale locale) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void putRuler(RulerDto ruler) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
