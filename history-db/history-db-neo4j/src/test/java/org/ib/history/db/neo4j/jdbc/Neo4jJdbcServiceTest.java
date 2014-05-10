@@ -1,6 +1,7 @@
 package org.ib.history.db.neo4j.jdbc;
 
 import org.ib.history.commons.data.CountryDto;
+import org.ib.history.commons.data.HouseDto;
 import org.ib.history.commons.data.RulerDto;
 import org.ib.history.commons.data.LocalizedDto;
 import org.junit.Test;
@@ -88,7 +89,7 @@ public class Neo4jJdbcServiceTest {
     public void testLocalizedCountry() {
         Neo4jJdbcService service = getNeo4jJdbcService();
 
-        LocalizedDto country = getHungary();
+        LocalizedDto<CountryDto> country = getHungary();
 
         // put country
         service.putCountry(country);
@@ -123,6 +124,35 @@ public class Neo4jJdbcServiceTest {
         assertEquals(countries.size(), 0);
     }
 
+    @Test
+    public void testLocalizedHouse() {
+        Neo4jJdbcService service = getNeo4jJdbcService();
+
+        LocalizedDto<HouseDto> house = getNormandy();
+
+        // put house
+        service.putHouse(house);
+
+        // get default
+        List<HouseDto> houses = service.getHouses();
+        assertEquals(houses.size(), 1);
+
+        // get locale
+        houses = service.getHouses(new Locale("HU"));
+        assertEquals(houses.size(), 1);
+
+        // delete
+        service.deleteHouse(house.getDefaultLocaleElement());
+
+        // get default
+        houses = service.getHouses();
+        assertEquals(houses.size(), 0);
+
+        // get locale
+        houses = service.getHouses(new Locale("HU"));
+        assertEquals(houses.size(), 0);
+    }
+
     private Neo4jJdbcService getNeo4jJdbcService() {
         return new Neo4jJdbcService("jdbc:neo4j:mem");
     }
@@ -137,5 +167,21 @@ public class Neo4jJdbcServiceTest {
         country.addLocaleElement(new CountryDto().withName("Ungarn"), Locale.GERMAN);
         country.addLocaleElement(new CountryDto().withName("Magyarország"), new Locale("HU"));
         return country;
+    }
+
+    private LocalizedDto<CountryDto> getEngland() {
+        LocalizedDto<CountryDto> country = new LocalizedDto<CountryDto>();
+        country.setDefaultLocaleElement(new CountryDto().withName("England"));
+        country.addLocaleElement(new CountryDto().withName("England"), Locale.GERMAN);
+        country.addLocaleElement(new CountryDto().withName("Anglia"), new Locale("HU"));
+        return country;
+    }
+
+    private LocalizedDto<HouseDto> getNormandy() {
+        LocalizedDto<HouseDto> house = new LocalizedDto<>();
+        house.setDefaultLocaleElement(new HouseDto().withName("House of Normandy"));
+        house.addLocaleElement(new HouseDto().withName("Normannische Dynastie"), Locale.GERMAN);
+        house.addLocaleElement(new HouseDto().withName("Normandiai ház"), new Locale("HU"));
+        return house;
     }
 }

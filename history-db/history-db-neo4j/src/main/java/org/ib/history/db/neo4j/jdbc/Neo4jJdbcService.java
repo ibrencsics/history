@@ -68,6 +68,14 @@ public class Neo4jJdbcService implements Neo4jService {
     }
 
     @Override
+    public void putCountry(LocalizedDto<CountryDto> country) {
+        putCountry(country.getDefaultLocaleElement());
+        for (Map.Entry<Locale,CountryDto> entry : country.getLocales().entrySet()) {
+            putCountry(country.getDefaultLocaleElement(), entry.getValue(), entry.getKey());
+        }
+    }
+
+    @Override
     public void deleteCountry(CountryDto country) {
         template.executeUpdate(
                 "match (c:Country {name:{1}})-[r]-() " +
@@ -76,46 +84,59 @@ public class Neo4jJdbcService implements Neo4jService {
         );
     }
 
-    @Override
-    public void putCountry(LocalizedDto<CountryDto> country) {
-        putCountry(country.getDefaultLocaleElement());
-        for (Map.Entry<Locale,CountryDto> entry : country.getLocales().entrySet()) {
-            putCountry(country.getDefaultLocaleElement(), entry.getValue(), entry.getKey());
-        }
-    }
-
     /**
      * House
      */
 
     @Override
     public List<HouseDto> getHouses() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return template.executeQuery(new HouseListConverter(), "match (h:House) return id(h), h.name");
     }
 
     @Override
     public List<HouseDto> getHouses(Locale locale) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return template.executeQuery(new HouseListConverter(),
+                "match (h:House)-[hr:TRANSLATION{lang:{1}}]->(ht) return id(h), ht.name",
+                locale.getLanguage().toUpperCase());
     }
 
     @Override
-    public void putHouse(HouseDto house) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void putHouse(HouseDto defaultHouse) {
+        template.executeUpdate(
+                "merge (h:House {name:{1}}) " +
+                        "on create set h.created = timestamp() " +
+                        "on match set h.accessed = timestamp()",
+                defaultHouse.getName());
     }
 
     @Override
     public void putHouse(HouseDto defaultHouse, HouseDto localeHouse, Locale locale) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        template.executeUpdate(
+                "match (h:House {name:{1}}) " +
+                        "merge (h)-[hr:TRANSLATION{lang:{2}}]->(ht {name:{3}}) " +
+                        "on create set ht.name = {3} " +
+                        "on match set ht.name = {3}",
+                defaultHouse.getName(),
+                locale.getLanguage().toUpperCase(),
+                localeHouse.getName()
+        );
     }
 
     @Override
     public void putHouse(LocalizedDto<HouseDto> house) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        putHouse(house.getDefaultLocaleElement());
+        for (Map.Entry<Locale,HouseDto> entry : house.getLocales().entrySet()) {
+            putHouse(house.getDefaultLocaleElement(), entry.getValue(), entry.getKey());
+        }
     }
 
     @Override
     public void deleteHouse(HouseDto house) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        template.executeUpdate(
+                "match (h:House {name:{1}})-[r]-() " +
+                        "delete h,r",
+                house.getName()
+        );
     }
 
     /**
@@ -124,7 +145,8 @@ public class Neo4jJdbcService implements Neo4jService {
 
     @Override
     public List<PersonDto> getPeople() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+//        return template.executeQuery(new HouseListConverter(), "match (h:House) return id(h), h.name");
+        return null;
     }
 
     @Override
@@ -228,6 +250,46 @@ public class Neo4jJdbcService implements Neo4jService {
                 e.printStackTrace();
             }
             return rulers;
+        }
+    }
+
+    private class HouseListConverter implements Converter<List<HouseDto>, ResultSet> {
+        @Override
+        public List<HouseDto> convert(ResultSet rs) {
+            List<HouseDto> houses = new ArrayList<>();
+
+            try {
+                while (rs.next()) {
+                    HouseDto house = new HouseDto();
+                    house.setId(Long.parseLong(rs.getString(1)));
+                    house.setName(rs.getString(2));
+                    houses.add(house);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return houses;
+        }
+    }
+
+    private class PersonListConverter implements Converter<List<PersonDto>, ResultSet> {
+        @Override
+        public List<PersonDto> convert(ResultSet rs) {
+            List<PersonDto> people = new ArrayList<>();
+
+            try {
+                while (rs.next()) {
+                    PersonDto person = new PersonDto();
+                    person.setId(Long.parseLong(rs.getString(1)));
+                    person.setName(rs.getString(2));
+//                    person.setDateOfBirth();
+                    people.add(person);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return people;
         }
     }
 }
