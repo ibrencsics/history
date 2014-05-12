@@ -1,9 +1,7 @@
 package org.ib.history.db.neo4j.jdbc;
 
-import org.ib.history.commons.data.CountryDto;
-import org.ib.history.commons.data.HouseDto;
-import org.ib.history.commons.data.RulerDto;
-import org.ib.history.commons.data.LocalizedDto;
+import org.ib.history.commons.data.*;
+import org.ib.history.commons.utils.DateWrapper;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -153,13 +151,30 @@ public class Neo4jJdbcServiceTest {
         assertEquals(houses.size(), 0);
     }
 
-    private Neo4jJdbcService getNeo4jJdbcService() {
-        return new Neo4jJdbcService("jdbc:neo4j:mem");
+    @Test
+    public void testPerson() {
+        Neo4jJdbcService service = getNeo4jJdbcService();
+
+        // put
+        PersonDto person = new PersonDto();
+        person.setName("William");
+        person.setDateOfBirth(new DateWrapper.Builder().year(1000).month(1).day(1).build());
+        person.setDateOfDeath(new DateWrapper.Builder().year(1087).month(1).noDay().build());
+
+        service.putPerson(person);
+
+        // get
+        List<PersonDto> people = service.getPeople();
+        System.out.println(people);
     }
 
     /**
      * Refdata
      */
+
+    private Neo4jJdbcService getNeo4jJdbcService() {
+        return new Neo4jJdbcService("jdbc:neo4j:mem");
+    }
 
     private LocalizedDto<CountryDto> getHungary() {
         LocalizedDto<CountryDto> country = new LocalizedDto<CountryDto>();

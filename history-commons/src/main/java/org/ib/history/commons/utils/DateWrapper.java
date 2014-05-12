@@ -26,11 +26,26 @@ public class DateWrapper {
     }
 
     public Calendar getCalendar() {
+        if (calendar==null) {
+            calendar = new GregorianCalendar();
+        }
         return calendar;
     }
 
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
+    }
+
+    public int getYear() {
+        return calendar.get(Calendar.YEAR);
+    }
+
+    public int getMonth() {
+        return calendar.get(Calendar.MONTH);
+    }
+
+    public int getDay() {
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public boolean isAD() {
@@ -44,5 +59,38 @@ public class DateWrapper {
         if (isThereMonth) sb.append("-" + String.format("%02d", calendar.get(Calendar.MONTH)));
         if (isThereDay) sb.append("-" + String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)));
         return sb.toString();
+    }
+
+    public static class Builder {
+        private DateWrapper dateWrapper = new DateWrapper();
+
+        public Builder year(int year) {
+            dateWrapper.getCalendar().set(Calendar.YEAR, year);
+            return this;
+        }
+
+        public Builder month(int month) {
+            dateWrapper.getCalendar().set(Calendar.MONTH, month);
+            return this;
+        }
+
+        public Builder day(int day) {
+            dateWrapper.getCalendar().set(Calendar.DAY_OF_MONTH, day);
+            return this;
+        }
+
+        public Builder noMonth() {
+            dateWrapper.setThereMonth(false);
+            return this;
+        }
+
+        public Builder noDay() {
+            dateWrapper.setThereDay(false);
+            return this;
+        }
+
+        public DateWrapper build() {
+            return dateWrapper;
+        }
     }
 }

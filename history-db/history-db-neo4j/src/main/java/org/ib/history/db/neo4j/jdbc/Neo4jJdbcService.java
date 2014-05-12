@@ -1,6 +1,7 @@
 package org.ib.history.db.neo4j.jdbc;
 
 import org.ib.history.commons.data.*;
+import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.Converter;
 import org.ib.history.db.neo4j.Neo4jService;
 
@@ -145,8 +146,8 @@ public class Neo4jJdbcService implements Neo4jService {
 
     @Override
     public List<PersonDto> getPeople() {
-//        return template.executeQuery(new HouseListConverter(), "match (h:House) return id(h), h.name");
-        return null;
+        return template.executeQuery(new PersonListConverter(),
+                "match (p:Person) return id(p), p.name, p.birth, p.death");
     }
 
     @Override
@@ -155,8 +156,15 @@ public class Neo4jJdbcService implements Neo4jService {
     }
 
     @Override
-    public void putPerson(PersonDto person) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void putPerson(PersonDto defaultPerson) {
+        Neo4jDateFormat neo4jDateFormat = new Neo4jDateFormat();
+
+        template.executeUpdate(
+                "merge (p:Person {name:{1}}) " +
+                        "on create set p.birth = {2}, p.death = {3}",
+                defaultPerson.getName(),
+                neo4jDateFormat.serialize(defaultPerson.getDateOfBirth()),
+                neo4jDateFormat.serialize(defaultPerson.getDateOfDeath()));
     }
 
     @Override
@@ -276,13 +284,16 @@ public class Neo4jJdbcService implements Neo4jService {
         @Override
         public List<PersonDto> convert(ResultSet rs) {
             List<PersonDto> people = new ArrayList<>();
+            Neo4jDateFormat neo4jDateFormat = new Neo4jDateFormat();
 
             try {
                 while (rs.next()) {
+                    System.out.println(rs.getString(1)+":"+rs.getString(2)+":"+rs.getString(3)+":"+rs.getString(4));
                     PersonDto person = new PersonDto();
                     person.setId(Long.parseLong(rs.getString(1)));
                     person.setName(rs.getString(2));
-//                    person.setDateOfBirth();
+                    person.setDateOfBirth(neo4jDateFormat.parse(rs.getString(3)));
+                    person.setDateOfDeath(neo4jDateFormat.parse(rs.getString(4)));
                     people.add(person);
                 }
             } catch (SQLException e) {

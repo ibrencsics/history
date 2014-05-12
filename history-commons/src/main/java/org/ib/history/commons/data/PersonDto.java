@@ -47,6 +47,6 @@ public class PersonDto extends AbstractDto {
 
     @Override
     public String toString() {
-        return "PersonDto id:" + getId() + " name:" + getName() + " born:" + getDateOfBirth() + " death:" + getDateOfDeath();
+        return "PersonDto id:" + getId() + " name:" + getName() + " born:" + getDateOfBirth().asString() + " death:" + getDateOfDeath().asString();
     }
 }
