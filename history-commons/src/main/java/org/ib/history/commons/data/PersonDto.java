@@ -8,6 +8,7 @@ public class PersonDto extends AbstractDto {
 
     private DateWrapper dateOfBirth;
     private DateWrapper dateOfDeath;
+    private HouseDto house;
 
     public DateWrapper getDateOfBirth() {
         return dateOfBirth;
@@ -24,6 +25,15 @@ public class PersonDto extends AbstractDto {
     public void setDateOfDeath(DateWrapper dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
+
+    public HouseDto getHouse() {
+        return house;
+    }
+
+    public void setHouse(HouseDto house) {
+        this.house = house;
+    }
+
 
     public PersonDto withId(Long id) {
         this.setId(id);
@@ -45,8 +55,15 @@ public class PersonDto extends AbstractDto {
         return this;
     }
 
+    public PersonDto withHouse(HouseDto house) {
+        this.setHouse(house);
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "PersonDto id:" + getId() + " name:" + getName() + " born:" + getDateOfBirth().asString() + " death:" + getDateOfDeath().asString();
+        return "PersonDto id:" + getId() + " name:" + getName() +
+                " born:" + getDateOfBirth().asString() + " death:" + getDateOfDeath().asString() +
+                " house: " + getHouse().getName();
     }
 }
