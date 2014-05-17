@@ -19,6 +19,27 @@ public class Neo4jJavaTemplate {
         this.executionEngine = new ExecutionEngine(graphDatabaseService, new BufferingLogger());
     }
 
+    public void executeUpdate(String query, Map<String,Object> parameters) {
+        Transaction tx = graphDatabaseService.beginTx();
+        try {
+            ExecutionResult result = executionEngine.execute(query, parameters);
+            tx.success();
+        } finally {
+            tx.finish();
+        }
+    }
+
+    public <T> T executeQuery(Converter<T,ExecutionResult> converter, String query) {
+        Transaction tx = graphDatabaseService.beginTx();
+        try {
+            ExecutionResult result = executionEngine.execute(query);
+            tx.success();
+            return converter.convert(result);
+        } finally {
+            tx.finish();
+        }
+    }
+
     public <T> T executeQuery(Converter<T,ExecutionResult> converter, String query, Map<String,Object> parameters) {
         Transaction tx = graphDatabaseService.beginTx();
         try {
@@ -29,4 +50,6 @@ public class Neo4jJavaTemplate {
             tx.finish();
         }
     }
+
+
 }
