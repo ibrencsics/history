@@ -1,7 +1,7 @@
 package org.ib.history.db.neo4j.jdbc;
 
 import org.ib.history.db.neo4j.Converter;
-import org.ib.history.db.neo4j.Neo4jTemplate;
+import org.ib.history.db.neo4j.Neo4jTemplateDeprecated;
 import org.neo4j.jdbc.Driver;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Neo4jJdbcTemplate implements Neo4jTemplate<ResultSet> {
+public class Neo4jJdbcTemplate implements Neo4jTemplateDeprecated<ResultSet> {
 
     private Driver driver;
     private String url;

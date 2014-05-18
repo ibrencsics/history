@@ -3,7 +3,7 @@ package org.ib.history.db.neo4j.jdbc;
 import org.ib.history.commons.data.*;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.Converter;
-import org.ib.history.db.neo4j.Neo4jService;
+import org.ib.history.db.neo4j.Neo4jServiceDeprecated;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Neo4jJdbcService implements Neo4jService {
+public class Neo4jJdbcService implements Neo4jServiceDeprecated {
 
     Neo4jJdbcTemplate template;
 

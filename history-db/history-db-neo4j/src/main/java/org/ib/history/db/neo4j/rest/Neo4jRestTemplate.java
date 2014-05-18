@@ -1,7 +1,7 @@
 package org.ib.history.db.neo4j.rest;
 
 import org.ib.history.db.neo4j.Converter;
-import org.ib.history.db.neo4j.Neo4jTemplate;
+import org.ib.history.db.neo4j.Neo4jTemplateDeprecated;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.rest.graphdb.RestGraphDatabase;
 import org.neo4j.rest.graphdb.query.RestCypherQueryEngine;
@@ -10,7 +10,7 @@ import org.neo4j.rest.graphdb.util.QueryResult;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Neo4jRestTemplate implements Neo4jTemplate<QueryResult<Map<String,Object>>> {
+public class Neo4jRestTemplate implements Neo4jTemplateDeprecated<QueryResult<Map<String,Object>>> {
 
     private RestGraphDatabase db;
     private RestCypherQueryEngine engine;

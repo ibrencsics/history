@@ -5,7 +5,7 @@ import org.ib.history.commons.data.*;
 import java.util.List;
 import java.util.Locale;
 
-public interface Neo4jService {
+public interface Neo4jServiceDeprecated {
 
     public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
 

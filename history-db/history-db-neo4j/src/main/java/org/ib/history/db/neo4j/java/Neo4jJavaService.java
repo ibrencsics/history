@@ -1,14 +1,12 @@
 package org.ib.history.db.neo4j.java;
 
 import org.ib.history.commons.data.*;
-import org.ib.history.db.neo4j.Converter;
-import org.ib.history.db.neo4j.Neo4jService;
-import org.neo4j.cypher.ExecutionResult;
+import org.ib.history.db.neo4j.Neo4jServiceDeprecated;
 import org.neo4j.test.TestGraphDatabaseFactory;
 
 import java.util.*;
 
-public class Neo4jJavaService implements Neo4jService {
+public class Neo4jJavaService implements Neo4jServiceDeprecated {
 
     Neo4jJavaTemplate template;
 

@@ -2,7 +2,7 @@ package org.ib.history.db.neo4j.rest;
 
 import org.ib.history.commons.data.*;
 import org.ib.history.db.neo4j.Converter;
-import org.ib.history.db.neo4j.Neo4jService;
+import org.ib.history.db.neo4j.Neo4jServiceDeprecated;
 import org.neo4j.rest.graphdb.entity.RestNode;
 import org.neo4j.rest.graphdb.util.QueryResult;
 //import org.slf4j.Logger;
@@ -10,7 +10,7 @@ import org.neo4j.rest.graphdb.util.QueryResult;
 
 import java.util.*;
 
-public class Neo4jRestService implements Neo4jService {
+public class Neo4jRestService implements Neo4jServiceDeprecated {
 
 //    private static final Logger logger = LoggerFactory.getLogger(Neo4jRestService.class);
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Neo4jRestService.class);

@@ -20,34 +20,25 @@ public class Neo4jJavaTemplate {
     }
 
     public void executeUpdate(String query, Map<String,Object> parameters) {
-        Transaction tx = graphDatabaseService.beginTx();
-        try {
+        try (Transaction tx = graphDatabaseService.beginTx()) {
             ExecutionResult result = executionEngine.execute(query, parameters);
             tx.success();
-        } finally {
-            tx.finish();
         }
     }
 
     public <T> T executeQuery(Converter<T,ExecutionResult> converter, String query) {
-        Transaction tx = graphDatabaseService.beginTx();
-        try {
+        try (Transaction tx = graphDatabaseService.beginTx()) {
             ExecutionResult result = executionEngine.execute(query);
             tx.success();
             return converter.convert(result);
-        } finally {
-            tx.finish();
         }
     }
 
     public <T> T executeQuery(Converter<T,ExecutionResult> converter, String query, Map<String,Object> parameters) {
-        Transaction tx = graphDatabaseService.beginTx();
-        try {
+        try (Transaction tx = graphDatabaseService.beginTx()) {
             ExecutionResult result = executionEngine.execute(query, parameters);
             tx.success();
             return converter.convert(result);
-        } finally {
-            tx.finish();
         }
     }
 
