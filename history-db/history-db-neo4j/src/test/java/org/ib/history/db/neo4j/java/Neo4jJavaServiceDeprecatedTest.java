@@ -8,7 +8,6 @@ import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.kernel.logging.BufferingLogger;
 import org.neo4j.test.TestGraphDatabaseFactory;
 
@@ -19,7 +18,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class Neo4jJavaServiceTest {
+public class Neo4jJavaServiceDeprecatedTest {
 
 //    @Test
     public void test() {
@@ -49,7 +48,7 @@ public class Neo4jJavaServiceTest {
 
     @Test
     public void countryTest() {
-        Neo4jJavaService service = new Neo4jJavaService();
+        Neo4jJavaServiceDeprecated service = new Neo4jJavaServiceDeprecated();
 
         CountryDto country = new CountryDto().withName("England");
 
@@ -65,7 +64,7 @@ public class Neo4jJavaServiceTest {
 
     @Test
     public void countryLocalizedTest() {
-        Neo4jJavaService service = new Neo4jJavaService();
+        Neo4jJavaServiceDeprecated service = new Neo4jJavaServiceDeprecated();
 
         LocalizedDto<CountryDto> country = Refdata.getHungary();
 
@@ -83,7 +82,7 @@ public class Neo4jJavaServiceTest {
 
     @Test
     public void testDeleteCountry() {
-        Neo4jJavaService service = new Neo4jJavaService();
+        Neo4jJavaServiceDeprecated service = new Neo4jJavaServiceDeprecated();
 
         LocalizedDto<CountryDto> country = Refdata.getHungary();
 

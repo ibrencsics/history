@@ -6,15 +6,15 @@ import org.neo4j.test.TestGraphDatabaseFactory;
 
 import java.util.*;
 
-public class Neo4jJavaService implements Neo4jServiceDeprecated {
+public class Neo4jJavaServiceDeprecated implements Neo4jServiceDeprecated {
 
     Neo4jJavaTemplate template;
 
-    public Neo4jJavaService() {
+    public Neo4jJavaServiceDeprecated() {
         this.template = new Neo4jJavaTemplate(new TestGraphDatabaseFactory().newImpermanentDatabase());
     }
 
-    public Neo4jJavaService(Neo4jJavaTemplate template) {
+    public Neo4jJavaServiceDeprecated(Neo4jJavaTemplate template) {
         this.template = template;
     }
 
