@@ -10,7 +10,7 @@
     <!--<context:annotation-config />-->
     <!--<context:component-scan base-package="org.ib.history" />-->
 
-    <bean class="org.ib.history.db.neo4j.java.dao.CountryDaoJavaImpl" scope="prototype"/>
+    <bean class="org.ib.history.db.neo4j.java.dao.DefaultCountryDaoImpl" scope="prototype"/>
 
     <bean class="org.ib.history.db.neo4j.java.Neo4jJavaServiceImpl"/>
 

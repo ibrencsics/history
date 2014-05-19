@@ -16,12 +16,12 @@ public class Neo4jJavaServiceImpl implements Neo4jService {
     @Override
     @Transactional
     public List<CountryDto> getCountries() {
-        return countryDao.getCountries();
+        return countryDao.getCountries_();
     }
 
     @Override
     @Transactional
     public void putCountry(CountryDto defaultCountry) {
-        countryDao.putCountry(defaultCountry);
+//        countryDao.putCountry(defaultCountry);
     }
 }

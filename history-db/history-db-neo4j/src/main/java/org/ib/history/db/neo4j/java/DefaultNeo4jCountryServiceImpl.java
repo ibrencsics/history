@@ -1,0 +1,59 @@
+package org.ib.history.db.neo4j.java;
+
+import org.ib.history.commons.data.CountryDto;
+import org.ib.history.commons.data.LocalizedDto;
+import org.ib.history.db.neo4j.Neo4jCountryService;
+import org.ib.history.db.neo4j.dao.CountryDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+public class DefaultNeo4jCountryServiceImpl implements Neo4jCountryService {
+
+    @Autowired
+    private CountryDao countryDao;
+
+    @Override
+    @Transactional
+    public List<LocalizedDto<CountryDto>> getCountries() {
+        return countryDao.getCountries();
+    }
+
+    @Override
+    @Transactional
+    public LocalizedDto<CountryDto> getCountryById(Long id) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    @Transactional
+    public LocalizedDto<CountryDto> getCountryByName(String name) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    @Transactional
+    public LocalizedDto<CountryDto> getCountryByName(String name, Locale locale) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    @Transactional
+    public Long putCountry(LocalizedDto<CountryDto> country) {
+        if (country.getId() != null) {
+            countryDao.mergeById(country.getDefaultLocaleElement());
+        } else {
+            countryDao.mergeByName(country.getDefaultLocaleElement());
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void deleteCountry(LocalizedDto<CountryDto> country) {
+        countryDao.deleteCountry(country.getDefaultLocaleElement());
+    }
+}

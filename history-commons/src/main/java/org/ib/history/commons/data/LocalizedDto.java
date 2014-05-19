@@ -32,4 +32,14 @@ public class LocalizedDto<T> extends AbstractDto {
     public Map<Locale,T> getLocales() {
         return locales;
     }
+
+    @Override
+    public Long getId() {
+        return ((AbstractDto)getDefaultLocaleElement()).getId();
+    }
+
+    @Override
+    public String getName() {
+        return ((AbstractDto)getDefaultLocaleElement()).getName();
+    }
 }
