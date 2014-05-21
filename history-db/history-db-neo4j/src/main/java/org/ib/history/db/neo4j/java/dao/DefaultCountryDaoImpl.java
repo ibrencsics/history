@@ -60,7 +60,7 @@ public class DefaultCountryDaoImpl implements CountryDao {
 
     @Override
     public List<LocalizedDto<CountryDto>> getCountries() {
-        String query = "match (c:Country) optional match (c)-[l:TRANSLATION]->(cl) return c,l,cl";
+        String query = "match (c:Country) optional match (c)-[r:TRANSLATION]->(t) return c,r,t";
         ExecutionResult result = getExecutionEngine().execute(query);
         return Converters.getLocalizedCountryListConverter().convert(result);
     }
@@ -97,8 +97,8 @@ public class DefaultCountryDaoImpl implements CountryDao {
 
         ExecutionResult result = getExecutionEngine().execute(
                 "match (c:Country {name:{name}}) " +
-                "create (c)-[t:TRANSLATION{lang:{lang}}]->(l{props}) " +
-                "return c,t,l",
+                "create (c)-[r:TRANSLATION{lang:{lang}}]->(t{props}) " +
+                "return c,r,t",
                 params);
         return Converters.getLocalizedCountryConverter().convert(result);
     }

@@ -42,4 +42,14 @@ public class LocalizedDto<T> extends AbstractDto {
     public String getName() {
         return ((AbstractDto)getDefaultLocaleElement()).getName();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(defaultLocaleElement.toString() + "\n");
+        for (Map.Entry<Locale,T> locale : getLocales().entrySet()) {
+            sb.append("\t" + locale.getKey() + " : " + locale.getValue().toString() + "\n");
+        }
+        return sb.toString();
+    }
 }

@@ -48,6 +48,9 @@ public class DefaultNeo4jCountryServiceImpl implements Neo4jCountryService {
         } else {
             countryDao.mergeByName(country.getDefaultLocaleElement());
         }
+        for (Map.Entry<Locale,CountryDto> locale : country.getLocales().entrySet()) {
+            countryDao.mergeLocale(country.getDefaultLocaleElement(), locale.getValue(), locale.getKey());
+        }
         return null;
     }
 

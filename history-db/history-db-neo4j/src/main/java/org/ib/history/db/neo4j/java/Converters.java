@@ -5,11 +5,11 @@ import org.ib.history.commons.data.LocalizedDto;
 import org.ib.history.db.neo4j.Converter;
 import org.neo4j.cypher.ExecutionResult;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.ResourceIterator;
 import scala.collection.Iterator;
-import scala.collection.immutable.Map;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Converters {
 
@@ -60,10 +60,7 @@ public class Converters {
         return new Converter<List<LocalizedDto<CountryDto>>, ExecutionResult>() {
             @Override
             public List<LocalizedDto<CountryDto>> convert(ExecutionResult result) {
-                List<LocalizedDto<CountryDto>> countries = new ArrayList<>();
-
-
-                return countries;
+                return getCountries(result);
             }
         };
     }
@@ -71,9 +68,40 @@ public class Converters {
     public static Converter<LocalizedDto<CountryDto>, ExecutionResult> getLocalizedCountryConverter() {
         return new Converter<LocalizedDto<CountryDto>, ExecutionResult>() {
             @Override
-            public LocalizedDto<CountryDto> convert(ExecutionResult source) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
+            public LocalizedDto<CountryDto> convert(ExecutionResult result) {
+                return getCountries(result).get(0);
             }
         };
+    }
+
+    private static List<LocalizedDto<CountryDto>> getCountries(ExecutionResult result) {
+        List<LocalizedDto<CountryDto>> countries = new ArrayList<>();
+
+        Map<String,LocalizedDto<CountryDto>> lookupTable = new HashMap<>();
+
+        ResourceIterator<Map<String, Object>> iter = result.javaIterator();
+        while (iter.hasNext()) {
+            Map<String,Object> entry = iter.next();
+
+            Node countryNode = (Node) entry.get("c");
+            Relationship relation = (Relationship) entry.get("r");
+            Node translationNode = (Node) entry.get("t");
+
+
+            String countryName = countryNode.getProperty("name").toString();
+            LocalizedDto<CountryDto> country = lookupTable.get(countryName);
+            if (country == null) {
+                country = new LocalizedDto<>();
+                country.setDefaultLocaleElement(new CountryDto().withId(countryNode.getId()).withName(countryName));
+                lookupTable.put(countryName, country);
+                countries.add(country);
+            }
+
+            country.addLocaleElement(
+                    new CountryDto().withName(translationNode.getProperty("name").toString()),
+                    new Locale(relation.getProperty("lang").toString()));
+        }
+
+        return countries;
     }
 }

@@ -12,7 +12,7 @@
 
     <bean class="org.ib.history.db.neo4j.java.dao.DefaultCountryDaoImpl" scope="prototype"/>
 
-    <bean class="org.ib.history.db.neo4j.java.Neo4jJavaServiceImpl"/>
+    <bean class="org.ib.history.db.neo4j.java.DefaultNeo4jCountryServiceImpl"/>
 
     <tx:annotation-driven transaction-manager="neo4jTransactionManager"/>
 
