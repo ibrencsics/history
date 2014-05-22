@@ -97,9 +97,11 @@ public class Converters {
                 countries.add(country);
             }
 
-            country.addLocaleElement(
-                    new CountryDto().withName(translationNode.getProperty("name").toString()),
-                    new Locale(relation.getProperty("lang").toString()));
+            if (relation!=null && translationNode!=null) {
+                country.addLocaleElement(
+                        new CountryDto().withName(translationNode.getProperty("name").toString()),
+                        new Locale(relation.getProperty("lang").toString()));
+            }
         }
 
         return countries;

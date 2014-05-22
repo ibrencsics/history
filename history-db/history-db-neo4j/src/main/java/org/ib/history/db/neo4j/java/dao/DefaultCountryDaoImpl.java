@@ -28,35 +28,6 @@ public class DefaultCountryDaoImpl implements CountryDao {
         return new ExecutionEngine(graphDatabaseService, new BufferingLogger());
     }
 
-    @Override
-    public List<CountryDto> getCountries_() {
-        String query = "match (c:Country) return c";
-        ExecutionResult result = getExecutionEngine().execute(query);
-        return Converters.getCountryListConverter().convert(result);
-    }
-
-//    @Override
-//    public Long putCountry(CountryDto defaultCountry) {
-//
-//        ParamBuilder paramBuilder = new ParamBuilder();
-//
-////        Map<String,Object> params = new ParamBuilder()
-////                .addParam("props", "name", defaultCountry.getName())
-////                .build();
-////        ExecutionResult result = getExecutionEngine().execute("create (c:Country {props}) return c", params);
-//        return null;
-//    }
-//
-//    @Override
-//    public Long putCountry(CountryDto defaultCountry, CountryDto localeCountry, Locale locale) {
-//        return null;
-//    }
-
-    @Override
-    public void deleteCountry(CountryDto country) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
 
     @Override
     public List<LocalizedDto<CountryDto>> getCountries() {
@@ -101,5 +72,11 @@ public class DefaultCountryDaoImpl implements CountryDao {
                 "return c,r,t",
                 params);
         return Converters.getLocalizedCountryConverter().convert(result);
+    }
+
+    @Override
+    public void deleteCountry(CountryDto country) {
+        Map<String,Object> params = new ParamBuilder().addParam("name", country.getName()).build();
+        getExecutionEngine().execute("match (c:Country {name:{name}})-[t]->(l) delete c,t,l", params);
     }
 }

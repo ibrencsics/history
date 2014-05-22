@@ -31,16 +31,14 @@ public class DefaultNeo4jCountryDaoImplTest {
         else
             mergedDto = dao.mergeByName(countryDto);
 
-        System.out.println(mergedDto);
-        System.out.println(dao.getCountries_());
+        System.out.println(dao.getCountries());
 
         if (mergedDto.getId()!=null)
             mergedDto = dao.mergeById(mergedDto.withName("byId"));
         else
             mergedDto = dao.mergeByName(mergedDto.withName("byName"));
 
-        System.out.println(mergedDto);
-        System.out.println(dao.getCountries_());
+        System.out.println(dao.getCountries());
 
         dao.mergeLocale(mergedDto, Refdata.getEngland().getLocales().get(new Locale("HU")), new Locale("HU"));
         dao.mergeLocale(mergedDto, Refdata.getEngland().getLocales().get(new Locale("DE")), new Locale("DE"));
