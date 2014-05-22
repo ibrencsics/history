@@ -37,6 +37,41 @@ public class DefaultCountryDaoImpl implements CountryDao {
     }
 
     @Override
+    public LocalizedDto<CountryDto> getCountryById(Long id) {
+        Map<String,Object> params = new ParamBuilder()
+                .addParam("id", id)
+                .build();
+        String query = "match (c:Country) where id(c)={id} optional match (c)-[r:TRANSLATION]->(t) return c,r,t";
+        ExecutionResult result = getExecutionEngine().execute(query, params);
+        return Converters.getLocalizedCountryConverter().convert(result);
+    }
+
+    @Override
+    public LocalizedDto<CountryDto> getCountryByName(String name) {
+        Map<String,Object> params = new ParamBuilder()
+                .addParam("name", name)
+                .build();
+        String query = "match (c:Country) where c.name={name} optional match (c)-[r:TRANSLATION]->(t) return c,r,t";
+        ExecutionResult result = getExecutionEngine().execute(query, params);
+        return Converters.getLocalizedCountryConverter().convert(result);
+    }
+
+    @Override
+    public LocalizedDto<CountryDto> getCountryByName(String name, Locale locale) {
+        Map<String,Object> params = new ParamBuilder()
+                .addParam("lang", locale.getLanguage().toUpperCase())
+                .addParam("name", name)
+                .build();
+        String query =
+                "match (c:Country)-[TRANSLATION{lang:{lang}}]->({name:{name}}) " +
+                "with c " +
+                "match (c)-[r:TRANSLATION]->(t) " +
+                "return c,r,t";
+        ExecutionResult result = getExecutionEngine().execute(query, params);
+        return Converters.getLocalizedCountryConverter().convert(result);
+    }
+
+    @Override
     public CountryDto mergeById(CountryDto defaultCountry) {
         Map<String,Object> params = new ParamBuilder()
                 .addParam("id", defaultCountry.getId())

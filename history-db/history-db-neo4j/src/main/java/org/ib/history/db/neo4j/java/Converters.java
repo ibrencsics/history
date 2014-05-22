@@ -69,7 +69,14 @@ public class Converters {
         return new Converter<LocalizedDto<CountryDto>, ExecutionResult>() {
             @Override
             public LocalizedDto<CountryDto> convert(ExecutionResult result) {
-                return getCountries(result).get(0);
+                List<LocalizedDto<CountryDto>> countries = getCountries(result);
+                if (countries.size()==0)
+                    throw new RuntimeException("No result");
+                else if (countries.size()==1) {
+                    return countries.get(0);
+                } else {
+                    throw new RuntimeException("Multiple results");
+                }
             }
         };
     }

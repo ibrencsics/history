@@ -25,19 +25,19 @@ public class DefaultNeo4jCountryServiceImpl implements Neo4jCountryService {
     @Override
     @Transactional
     public LocalizedDto<CountryDto> getCountryById(Long id) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return countryDao.getCountryById(id);
     }
 
     @Override
     @Transactional
     public LocalizedDto<CountryDto> getCountryByName(String name) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return countryDao.getCountryByName(name);
     }
 
     @Override
     @Transactional
     public LocalizedDto<CountryDto> getCountryByName(String name, Locale locale) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return countryDao.getCountryByName(name, locale);
     }
 
     @Override

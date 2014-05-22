@@ -35,5 +35,21 @@ public class DefaultNeo4jCountryServiceImplTest {
         hungary.getLocales().get(new Locale("HU")).withName("Hungária");
         service.putCountry(hungary);
         System.out.println(service.getCountries());
+
+        System.out.println(service.getCountryById(0L));
+        try {
+            System.out.println(service.getCountryById(1L));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println(service.getCountryByName("Hungary"));
+        try {
+            System.out.println(service.getCountryByName("asd"));
+        } catch (Exception e) {
+            System.out.println("No result");
+        }
+
+        System.out.println(service.getCountryByName("Ungarn", Locale.GERMAN));
     }
 }
