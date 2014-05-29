@@ -20,7 +20,7 @@ public class DefaultNeo4jCountryDaoImplTest {
     private CountryDao dao;
 
     @Test
-    @Transactional
+//    @Transactional
     public void getCountriesTest() {
         CountryDto countryDto = Refdata.getEngland().getDefaultLocaleElement();
 

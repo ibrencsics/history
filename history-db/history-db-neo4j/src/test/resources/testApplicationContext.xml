@@ -10,8 +10,8 @@
     <!--<context:annotation-config />-->
     <!--<context:component-scan base-package="org.ib.history" />-->
 
-    <bean class="org.ib.history.db.neo4j.java.dao.DefaultCountryDaoImpl" scope="prototype"/>
-
+    <!--<bean id="defaultCountryDao" class="org.ib.history.db.neo4j.java.dao.DefaultCountryDaoImpl" scope="prototype"/>-->
+    <bean id="restBindingCountryDao" class="org.ib.history.db.neo4j.rest.dao.RestBindingCountryDao" scope="prototype"/>
     <bean class="org.ib.history.db.neo4j.java.DefaultNeo4jCountryServiceImpl"/>
 
     <tx:annotation-driven transaction-manager="neo4jTransactionManager"/>
@@ -20,24 +20,37 @@
         <!--<property name="graphDatabaseService" ref="graphDatabaseService"/>-->
     <!--</bean>-->
 
-    <bean id="testGraphDatabaseFactory" class="org.neo4j.test.TestGraphDatabaseFactory"/>
+    <!--<bean id="testGraphDatabaseFactory" class="org.neo4j.test.TestGraphDatabaseFactory"/>-->
+    <!--<bean id="graphDatabaseService" factory-bean="testGraphDatabaseFactory" factory-method="newImpermanentDatabase"/>-->
 
-    <bean id="graphDatabaseService" factory-bean="testGraphDatabaseFactory" factory-method="newImpermanentDatabase"/>
+    <!--<bean id="testGraphDatabaseFactory" class="org.neo4j.test.TestGraphDatabaseFactory"/>-->
+    <!--<bean id="graphDatabaseService" factory-bean="testGraphDatabaseFactory" factory-method="newImpermanentDatabase">-->
+        <!--&lt;!&ndash;<constructor-arg value="/opt/neo4j-community-2.0.0/data/graph.db"/>&ndash;&gt;-->
+        <!--<constructor-arg value="/home/ivan/temp/graph"/>-->
+    <!--</bean>-->
 
-    <bean id="neo4jTransactionManagerService"
-          class="org.neo4j.kernel.impl.transaction.SpringTransactionManager">
+    <bean id="restApi" class="org.neo4j.rest.graphdb.RestAPIFacade">
+        <constructor-arg value="http://localhost:7474/db/data"/>
+    </bean>
+
+    <bean id="graphDatabaseService" class="org.neo4j.rest.graphdb.RestGraphDatabase">
+        <constructor-arg ref="restApi"/>
+    </bean>
+
+    <bean id="neo4jTransactionManagerService" class="org.neo4j.rest.graphdb.BatchTransactionManager">
+        <constructor-arg ref="restApi" />
+    </bean>
+
+    <!--<bean id="neo4jTransactionManagerService" class="org.neo4j.kernel.impl.transaction.SpringTransactionManager">-->
+        <!--<constructor-arg ref="graphDatabaseService" />-->
+    <!--</bean>-->
+
+    <bean id="neo4jUserTransactionService" class="org.neo4j.kernel.impl.transaction.UserTransactionImpl">
         <constructor-arg ref="graphDatabaseService" />
     </bean>
 
-    <bean id="neo4jUserTransactionService"
-          class="org.neo4j.kernel.impl.transaction.UserTransactionImpl">
-        <constructor-arg ref="graphDatabaseService" />
-    </bean>
-
-    <bean id="neo4jTransactionManager"
-          class="org.springframework.transaction.jta.JtaTransactionManager">
-        <property name="transactionManager" ref="neo4jTransactionManagerService"
-                />
+    <bean id="neo4jTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager" ref="neo4jTransactionManagerService"/>
         <property name="userTransaction" ref="neo4jUserTransactionService" />
     </bean>
 

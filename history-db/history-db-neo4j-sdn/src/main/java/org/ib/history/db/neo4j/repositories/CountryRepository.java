@@ -1,5 +1,6 @@
-package org.ib.history.db.neo4j.domain;
+package org.ib.history.db.neo4j.repositories;
 
+import org.ib.history.db.neo4j.domain.Country;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 

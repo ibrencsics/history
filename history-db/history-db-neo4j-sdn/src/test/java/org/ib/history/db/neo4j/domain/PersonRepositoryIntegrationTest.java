@@ -1,11 +1,10 @@
 package org.ib.history.db.neo4j.domain;
 
 import org.ib.history.db.neo4j.AbstractIntegrationTest;
+import org.ib.history.db.neo4j.repositories.PersonRepository;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;

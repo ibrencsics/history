@@ -88,6 +88,20 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.data</groupId>-->
+            <!--<artifactId>spring-data-neo4j-rest</artifactId>-->
+        <!--</dependency>-->
 
         <!-- SLF4J -->
         <dependency>
@@ -125,6 +139,11 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <type>test-jar</type>
+            <artifactId>neo4j-kernel</artifactId>
         </dependency>
         <dependency>
             <groupId>org.neo4j</groupId>

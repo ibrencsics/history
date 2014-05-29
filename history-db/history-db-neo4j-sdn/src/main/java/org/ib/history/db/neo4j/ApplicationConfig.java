@@ -2,6 +2,7 @@ package org.ib.history.db.neo4j;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
+import org.neo4j.test.TestGraphDatabaseFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +18,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 class ApplicationConfig {
 
-    @Bean(destroyMethod = "shutdown")
-    public GraphDatabaseService graphDatabaseService() {
-        return new EmbeddedGraphDatabase("target/graph.db");
-    }
+//    @Bean(destroyMethod = "shutdown")
+//    public GraphDatabaseService graphDatabaseService() {
+////        return new EmbeddedGraphDatabase("target/graph.db");
+//        return new TestGraphDatabaseFactory().newImpermanentDatabase();
+//    }
 }

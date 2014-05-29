@@ -1,11 +1,14 @@
 package org.ib.history.db.neo4j;
 
 import org.ib.history.db.neo4j.domain.*;
+import org.ib.history.db.neo4j.repositories.CountryRepository;
+import org.ib.history.db.neo4j.repositories.PersonRepository;
+import org.ib.history.db.neo4j.repositories.RuleRepository;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.conversion.EndResult;
+import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -95,7 +98,7 @@ public class ServerTest {
         Country country = new Country("Germany");
         Country resCountry = countryRepo.save(country);
 
-        EndResult<Country> countries = countryRepo.findAll();
+        Result<Country> countries = countryRepo.findAll();
 
         Iterator<Country> it = countries.iterator();
         System.out.println(it.hasNext());

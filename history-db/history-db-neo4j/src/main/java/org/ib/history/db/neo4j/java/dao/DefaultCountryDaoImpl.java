@@ -8,6 +8,7 @@ import org.ib.history.db.neo4j.java.ParamBuilder;
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.logging.BufferingLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,9 +32,12 @@ public class DefaultCountryDaoImpl implements CountryDao {
 
     @Override
     public List<LocalizedDto<CountryDto>> getCountries() {
-        String query = "match (c:Country) optional match (c)-[r:TRANSLATION]->(t) return c,r,t";
-        ExecutionResult result = getExecutionEngine().execute(query);
-        return Converters.getLocalizedCountryListConverter().convert(result);
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            String query = "match (c:Country) optional match (c)-[r:TRANSLATION]->(t) return c,r,t";
+            ExecutionResult result = getExecutionEngine().execute(query);
+            tx.success();
+            return Converters.getLocalizedCountryListConverter().convert(result);
+        }
     }
 
     @Override

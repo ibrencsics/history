@@ -21,35 +21,36 @@ public class DefaultNeo4jCountryServiceImplTest {
 
     @Test
     public void test() {
+        System.setProperty("org.neo4j.rest.batch_transaction", "true");
 
         LocalizedDto<CountryDto> hungary = Refdata.getHungary();
         LocalizedDto<CountryDto> england = Refdata.getEngland();
 
         service.putCountry(hungary);
-        System.out.println(service.getCountries());
-        service.putCountry(england);
-        System.out.println(service.getCountries());
-        service.deleteCountry(england);
-        System.out.println(service.getCountries());
+//        System.out.println(service.getCountries());
+//        service.putCountry(england);
+//        System.out.println(service.getCountries());
+//        service.deleteCountry(england);
+//        System.out.println(service.getCountries());
 
-        hungary.getLocales().get(new Locale("HU")).withName("Hungária");
-        service.putCountry(hungary);
-        System.out.println(service.getCountries());
-
-        System.out.println(service.getCountryById(0L));
-        try {
-            System.out.println(service.getCountryById(1L));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println(service.getCountryByName("Hungary"));
-        try {
-            System.out.println(service.getCountryByName("asd"));
-        } catch (Exception e) {
-            System.out.println("No result");
-        }
-
-        System.out.println(service.getCountryByName("Ungarn", Locale.GERMAN));
+//        hungary.getLocales().get(new Locale("HU")).withName("Hungária");
+//        service.putCountry(hungary);
+//        System.out.println(service.getCountries());
+//
+//        System.out.println(service.getCountryById(0L));
+//        try {
+//            System.out.println(service.getCountryById(1L));
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        System.out.println(service.getCountryByName("Hungary"));
+//        try {
+//            System.out.println(service.getCountryByName("asd"));
+//        } catch (Exception e) {
+//            System.out.println("No result");
+//        }
+//
+//        System.out.println(service.getCountryByName("Ungarn", Locale.GERMAN));
     }
 }

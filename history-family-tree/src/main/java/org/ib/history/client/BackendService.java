@@ -9,7 +9,7 @@ import java.util.List;
 //@RemoteServiceRelativePath("backend")
 @RemoteServiceRelativePath("springGwtServices/backendService")
 public interface BackendService extends RemoteService {
-    List<CountryDto> getCountries();
+    List<CountryDto> getCountries(String locale);
     void addCountry(CountryDto country);
     void deleteCountry(CountryDto country);
 }

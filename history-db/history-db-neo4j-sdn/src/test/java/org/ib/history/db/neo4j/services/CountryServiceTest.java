@@ -1,30 +1,38 @@
 package org.ib.history.db.neo4j.services;
 
+import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.CountryDto;
-import org.ib.history.db.neo4j.AbstractIntegrationTest;
-import org.ib.history.db.neo4j.domain.Country;
-import org.ib.history.db.neo4j.domain.CountryRepository;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.conversion.EndResult;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
-
-public class CountryServiceTest extends AbstractIntegrationTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:testApplicationContext.xml" })
+@Transactional
+public class CountryServiceTest /*extends AbstractIntegrationTest*/ {
 
     @Autowired
-    CountryRepository countryRepository;
+    CountryService countryService;
 
     @Test
+//    @Rollback(false)
     public void test() {
-        EndResult<Country> countries = countryRepository.findAll();
+//        CountryDto countryDto = new CountryDto().withName("Hungary");
+//        CountryDto countryDtoCreated = countryService.addCountry(countryDto);
+//        System.out.println(countryDtoCreated);
+//        countryService.addCountry(countryDtoCreated);
 
-        Iterator<Country> it = countries.iterator();
+        CountryData countryData =
+                new CountryData.Builder().name("Hungary")
+                        .locale("DE", new CountryData.Builder().name("Ungarn").build())
+                        .locale("HU", new CountryData.Builder().name("Magyarország").build())
+                        .build();
+        countryService.addCountry(countryData);
 
-        while (it.hasNext()) {
-            Country country = it.next();
-            System.out.println(country.getName());
-        }
+        System.out.println(countryService.getCountries());
     }
-
 }

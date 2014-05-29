@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestApplicationConfig.class })
-@Transactional
+//@Transactional
 public abstract class AbstractIntegrationTest {
 
-    @Autowired
-    protected Neo4jTemplate template;
+//    @Autowired
+//    protected Neo4jTemplate template;
 }

@@ -64,7 +64,7 @@ public class CountryListPresenterImpl extends AsyncDataProvider<CountryDto> impl
 
     @Override
     protected void onRangeChanged(HasData<CountryDto> countryDTOHasData) {
-        backendService.getCountries(new AsyncCallback<List<CountryDto>>() {
+        backendService.getCountries("DE", new AsyncCallback<List<CountryDto>>() {
             @Override
             public void onFailure(Throwable throwable) {
                 Window.alert("Error " + throwable.getMessage());

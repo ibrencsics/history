@@ -17,7 +17,7 @@ public class DefaultNeo4jCountryServiceImpl implements Neo4jCountryService {
     private CountryDao countryDao;
 
     @Override
-    @Transactional
+//    @Transactional
     public List<LocalizedDto<CountryDto>> getCountries() {
         return countryDao.getCountries();
     }
