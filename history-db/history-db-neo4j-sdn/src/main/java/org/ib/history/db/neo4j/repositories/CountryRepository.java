@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CountryRepository extends GraphRepository<Country> {
 
-    @Query("match (c:Country) return c.name")
+    @Query("match (n:Country{defaultLocale:true}) optional match (n)-[t]->(m) return n,t,m")
     List<String> getCountries();
 }

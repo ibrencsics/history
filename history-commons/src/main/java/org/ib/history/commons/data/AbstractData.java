@@ -1,9 +1,10 @@
 package org.ib.history.commons.data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractData<T> {
+public class AbstractData<T extends AbstractData> implements Serializable {
 
     private Long id;
     private Map<String,T> locales;

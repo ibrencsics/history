@@ -3,6 +3,7 @@ package org.ib.history.db.neo4j.services;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.CountryDto;
 import org.ib.history.db.neo4j.domain.Country;
+import org.ib.history.db.neo4j.domain.DataTransformer;
 import org.ib.history.db.neo4j.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.conversion.Result;
@@ -20,28 +21,18 @@ public class CountryService {
     @Autowired
     CountryRepository countryRepo;
 
-    public List<CountryDto> getCountries() {
-        List<CountryDto> countryDtos = new ArrayList<CountryDto>();
+    public List<CountryData> getCountries() {
+        List<CountryData> countryDataList = new ArrayList<>();
 
         Result<Country> countries = countryRepo.findAll();
 
         Iterator<Country> it = countries.iterator();
 
         while (it.hasNext()) {
-            Country country = it.next();
-            countryDtos.add(new CountryDto().withId(country.getId()).withName(country.getName()));
+            countryDataList.add(DataTransformer.transform(it.next()));
         }
 
-        return countryDtos;
-    }
-
-    public void addCountry(String name) {
-        countryRepo.save(new Country(name));
-    }
-
-    public CountryDto addCountry(CountryDto countryDto) {
-        Country country = countryRepo.save(new Country(countryDto));
-        return new CountryDto().withId(country.getId()).withName(country.getName());
+        return countryDataList;
     }
 
     public CountryData addCountry(CountryData countryData) {
@@ -51,12 +42,12 @@ public class CountryService {
         }
 
         Country countryCreated = countryRepo.save(country);
-        return null;
+        return DataTransformer.transform(countryCreated);
     }
 
     public void deleteCountry(CountryDto countryDto) {
-        Country country = new Country(countryDto.getName());
-        country.setId(countryDto.getId());
-        countryRepo.delete(country);
+//        Country country = new Country(countryDto.getName());
+//        country.setId(countryDto.getId());
+//        countryRepo.delete(country);
     }
 }

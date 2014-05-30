@@ -52,14 +52,14 @@ public class ServerTest {
         Person person = new Person("William I", birth.getTime(), death.getTime());
         Person resPerson = personRepo.save(person);
 
-        Country country = new Country("England");
-        Country resCountry = countryRepo.save(country);
+//        Country country = new Country("England");
+//        Country resCountry = countryRepo.save(country);
 
         Calendar from = new GregorianCalendar(1066, 0, 1);
         Calendar to = new GregorianCalendar(1087, 0, 1);
 
-        Rule rule = new Rule(person, country, from.getTime(), to.getTime());
-        Rule resRule = ruleRepo.save(rule);
+//        Rule rule = new Rule(person, country, from.getTime(), to.getTime());
+//        Rule resRule = ruleRepo.save(rule);
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ServerTest {
     @Test
 //    @Ignore
     public void test() {
-        Country country = new Country("Germany");
-        Country resCountry = countryRepo.save(country);
+//        Country country = new Country("Germany");
+//        Country resCountry = countryRepo.save(country);
 
         Result<Country> countries = countryRepo.findAll();
 

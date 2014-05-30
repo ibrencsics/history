@@ -12,6 +12,7 @@ import java.util.Set;
 public class Country extends AbstractEntity {
 
     private String name;
+    private boolean defaultLocale = false;
 
     @Fetch
     @RelatedToVia
@@ -20,22 +21,15 @@ public class Country extends AbstractEntity {
     public Country() {
     }
 
-    public Country(String name) {
-        this.name = name;
-    }
-
-    public Country(CountryDto countryDto) {
-        this.setId(countryDto.getId());
-        this.setName(countryDto.getName());
-    }
-
     public Country(CountryData countryData) {
         this.setId(countryData.getId());
         this.setName(countryData.getName());
+        this.defaultLocale = true;
 
         for (String locale : countryData.getLocales().keySet()) {
             CountryData localeCountryData = countryData.getLocales().get(locale);
             Country localeCountry = new Country();
+            localeCountry.setId(localeCountryData.getId());
             localeCountry.setName(localeCountryData.getName());
 
             Translation translation = new Translation(this, localeCountry, locale);

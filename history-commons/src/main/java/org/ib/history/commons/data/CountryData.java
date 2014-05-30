@@ -1,6 +1,6 @@
 package org.ib.history.commons.data;
 
-import java.util.Locale;
+import java.util.Map;
 
 public class CountryData extends AbstractData<CountryData> {
 
@@ -14,7 +14,20 @@ public class CountryData extends AbstractData<CountryData> {
         this.name = name;
     }
 
-    public static class Builder {
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("CountryData{ id=" + getId() + " name=" + getName() + " }");
+        for (String locale : getLocales().keySet()) {
+            CountryData localeCountry = getLocales().get(locale);
+            sb.append("\n\tid=" + localeCountry.getId() + " name=" + localeCountry.getName() + " lang=" + locale);
+        }
+
+        return sb.toString();
+    }
+
+    public static class Builder{
         CountryData countryData = new CountryData();
 
         public Builder id(Long id) {
