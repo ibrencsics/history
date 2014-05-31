@@ -2,6 +2,8 @@ package org.ib.history.db.neo4j.repositories;
 
 import org.ib.history.db.neo4j.domain.Country;
 import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.annotation.QueryResult;
+import org.springframework.data.neo4j.annotation.ResultColumn;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 import java.util.List;
@@ -9,5 +11,20 @@ import java.util.List;
 public interface CountryRepository extends GraphRepository<Country> {
 
     @Query("match (n:Country{defaultLocale:true}) optional match (n)-[t]->(m) return n,t,m")
-    List<String> getCountries();
+    List<LocalizedCountry> getCountries();
+
+    @QueryResult
+    public interface LocalizedCountry {
+        @ResultColumn("n")
+        Country getCountry();
+
+        @ResultColumn("t")
+        Country.Translation getTranslation();
+
+        @ResultColumn("m")
+        Country getLocaleCountry();
+    }
+
+    @Query("match (n:Country{defaultLocale:true}) return n")
+    List<Country> getAllCountries();
 }

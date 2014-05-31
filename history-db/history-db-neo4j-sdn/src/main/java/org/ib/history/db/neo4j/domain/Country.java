@@ -1,11 +1,8 @@
 package org.ib.history.db.neo4j.domain;
 
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.CountryDto;
 import org.springframework.data.neo4j.annotation.*;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 @NodeEntity
@@ -19,22 +16,6 @@ public class Country extends AbstractEntity {
     private Set<Translation> locales;
 
     public Country() {
-    }
-
-    public Country(CountryData countryData) {
-        this.setId(countryData.getId());
-        this.setName(countryData.getName());
-        this.defaultLocale = true;
-
-        for (String locale : countryData.getLocales().keySet()) {
-            CountryData localeCountryData = countryData.getLocales().get(locale);
-            Country localeCountry = new Country();
-            localeCountry.setId(localeCountryData.getId());
-            localeCountry.setName(localeCountryData.getName());
-
-            Translation translation = new Translation(this, localeCountry, locale);
-            getLocales().add(translation);
-        }
     }
 
     public String getName() {
@@ -54,6 +35,14 @@ public class Country extends AbstractEntity {
 
     public void setLocales(Set<Translation> locales) {
         this.locales = locales;
+    }
+
+    public boolean isDefaultLocale() {
+        return defaultLocale;
+    }
+
+    public void setDefaultLocale(boolean defaultLocale) {
+        this.defaultLocale = defaultLocale;
     }
 
     @RelationshipEntity(type = "TRANSLATION")

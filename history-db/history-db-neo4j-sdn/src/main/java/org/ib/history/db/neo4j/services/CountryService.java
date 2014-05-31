@@ -24,19 +24,16 @@ public class CountryService {
     public List<CountryData> getCountries() {
         List<CountryData> countryDataList = new ArrayList<>();
 
-        Result<Country> countries = countryRepo.findAll();
-
-        Iterator<Country> it = countries.iterator();
-
-        while (it.hasNext()) {
-            countryDataList.add(DataTransformer.transform(it.next()));
+        List<Country> countryList = countryRepo.getAllCountries();
+        for (Country country : countryList) {
+            countryDataList.add(DataTransformer.transform(country));
         }
 
         return countryDataList;
     }
 
     public CountryData addCountry(CountryData countryData) {
-        Country country = new Country(countryData);
+        Country country = DataTransformer.transform(countryData);
         for (Country.Translation translation : country.getLocales()) {
             countryRepo.save(translation.getTranslation());
         }
@@ -45,9 +42,7 @@ public class CountryService {
         return DataTransformer.transform(countryCreated);
     }
 
-    public void deleteCountry(CountryDto countryDto) {
-//        Country country = new Country(countryDto.getName());
-//        country.setId(countryDto.getId());
-//        countryRepo.delete(country);
+    public void deleteCountry(CountryData countryData) {
+        countryRepo.delete(countryData.getId());
     }
 }

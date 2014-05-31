@@ -20,4 +20,22 @@ public class DataTransformer {
 
         return countryDataBuilder.build();
     }
+
+    public static Country transform(CountryData countryData) {
+        Country country = new Country();
+        country.setId(countryData.getId());
+        country.setName(countryData.getName());
+        country.setDefaultLocale(true);
+
+        for (String locale : countryData.getLocales().keySet()) {
+            CountryData localeCountryData = countryData.getLocales().get(locale);
+            Country localeCountry = new Country();
+            localeCountry.setId(localeCountryData.getId());
+            localeCountry.setName(localeCountryData.getName());
+
+            Country.Translation translation = new Country.Translation(country, localeCountry, locale);
+            country.getLocales().add(translation);
+        }
+        return country;
+    }
 }
