@@ -1,0 +1,1 @@
+/opt/neo4j-community-2.0.0/bin/neo4j-shell -path /tmp/history/neo4j-db-plain/

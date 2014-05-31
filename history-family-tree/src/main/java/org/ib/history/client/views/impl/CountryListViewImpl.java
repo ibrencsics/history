@@ -16,7 +16,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CountryListPresenter;
 import org.ib.history.client.views.CountryListView;
-import org.ib.history.commons.data.CountryDto;
+import org.ib.history.commons.data.CountryData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,14 +29,14 @@ public class CountryListViewImpl extends Composite implements CountryListView {
     private CountryListPresenter presenter;
 
     @UiField(provided = true)
-    CellTable<CountryDto> cellTable;
+    CellTable<CountryData> cellTable;
     final String COLUMN_NAME_NAME = "Name";
     final String COLUMN_NAME_DELETE = "Delete";
 
-    TextColumn<CountryDto> columnName;
-    Column<CountryDto, String> columnDelete;
+    TextColumn<CountryData> columnName;
+    Column<CountryData, String> columnDelete;
 
-    ListDataProvider<CountryDto> dataProviderList;
+    ListDataProvider<CountryData> dataProviderList;
 
     Header<String> detailFooter;
 
@@ -45,7 +45,7 @@ public class CountryListViewImpl extends Composite implements CountryListView {
 
 
     public CountryListViewImpl() {
-        cellTable = new CellTable<CountryDto>();
+        cellTable = new CellTable<CountryData>();
         // Create paging controls.
         pager = new SimplePager();
         pager.setDisplay(cellTable);
@@ -85,10 +85,10 @@ public class CountryListViewImpl extends Composite implements CountryListView {
 //        cellTable.setColumnWidth(1, 60, Style.Unit.PX);
     }
 
-    private TextColumn<CountryDto> buildColumnName() {
-        columnName = new TextColumn<CountryDto>() {
+    private TextColumn<CountryData> buildColumnName() {
+        columnName = new TextColumn<CountryData>() {
             @Override
-            public String getValue(CountryDto object) {
+            public String getValue(CountryData object) {
                 return object.getName();
             }
         };
@@ -96,17 +96,17 @@ public class CountryListViewImpl extends Composite implements CountryListView {
         return columnName;
     }
 
-    private Column<CountryDto, String> buildColumnDelete() {
-        columnDelete = new Column<CountryDto, String>(new TextButtonCell()) {
+    private Column<CountryData, String> buildColumnDelete() {
+        columnDelete = new Column<CountryData, String>(new TextButtonCell()) {
             @Override
-            public String getValue(CountryDto object) {
+            public String getValue(CountryData object) {
                 return "Delete";
             }
         };
         columnDelete.setDataStoreName(COLUMN_NAME_DELETE);
-        columnDelete.setFieldUpdater(new FieldUpdater<CountryDto, String>() {
+        columnDelete.setFieldUpdater(new FieldUpdater<CountryData, String>() {
             @Override
-            public void update(int index, CountryDto object, String value) {
+            public void update(int index, CountryData object, String value) {
                 // presenter.onSelectPhotoClicked(object.getId());
                 GWT.log(object.getName() + " pressed");
                 presenter.deleteCountry(object);
@@ -126,13 +126,13 @@ public class CountryListViewImpl extends Composite implements CountryListView {
     }
 
     private void createWithAsyncDataProvider() {
-        ((AsyncDataProvider<CountryDto>)presenter).addDataDisplay(cellTable);
+        ((AsyncDataProvider<CountryData>)presenter).addDataDisplay(cellTable);
     }
 //
     private void createWithListDataProvider() {
-        List<CountryDto> theList;
+        List<CountryData> theList;
 
-        dataProviderList = new ListDataProvider<CountryDto>();
+        dataProviderList = new ListDataProvider<CountryData>();
         dataProviderList.addDataDisplay(cellTable);
         theList = dataProviderList.getList();
         populate(theList, dataProviderList);
@@ -144,13 +144,13 @@ public class CountryListViewImpl extends Composite implements CountryListView {
 //        addColumnSortListHandling();
     }
 
-    private void populate(final List<CountryDto> theList, final ListDataProvider<CountryDto> dataListProvider) {
+    private void populate(final List<CountryData> theList, final ListDataProvider<CountryData> dataListProvider) {
         Scheduler.get().scheduleIncremental(new Scheduler.RepeatingCommand(){
             int counter = 0;
 
             @Override
             public boolean execute() {
-                CountryDto countryDTO = new CountryDto();
+                CountryData countryDTO = new CountryData();
                 countryDTO.setName("asdsdf");
                 theList.addAll(Arrays.asList(countryDTO));
                 dataListProvider.refresh();

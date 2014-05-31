@@ -19,7 +19,7 @@ public class AbstractData<T extends AbstractData> implements Serializable {
 
     public Map<String, T> getLocales() {
         if (locales==null) {
-            locales = new HashMap<>();
+            locales = new HashMap<String,T>();
         }
         return locales;
     }

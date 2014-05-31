@@ -93,7 +93,7 @@ public class ServerTest {
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void test() {
 //        Country country = new Country("Germany");
 //        Country resCountry = countryRepo.save(country);
@@ -113,6 +113,7 @@ public class ServerTest {
     }
 
     @Test
+    @Ignore
     public void testGetCountries() {
         System.out.println(countryRepo.getCountries());
     }

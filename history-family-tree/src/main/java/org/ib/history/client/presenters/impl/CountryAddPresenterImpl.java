@@ -7,7 +7,7 @@ import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.CountryAddPresenter;
 import org.ib.history.client.views.CountryAddView;
-import org.ib.history.commons.data.CountryDto;
+import org.ib.history.commons.data.CountryData;
 
 public class CountryAddPresenterImpl implements CountryAddPresenter {
 
@@ -39,7 +39,7 @@ public class CountryAddPresenterImpl implements CountryAddPresenter {
 
     @Override
     public void addCountry(String name) {
-        CountryDto country = new CountryDto();
+        CountryData country = new CountryData();
         country.setName(name);
 
         backendService.addCountry(country, new AsyncCallback<Void>() {

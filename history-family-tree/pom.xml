@@ -26,6 +26,9 @@
     </properties>
 
     <dependencies>
+
+        <!-- GWT -->
+
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
@@ -49,7 +52,10 @@
             <artifactId>gin</artifactId>
             <version>2.1.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.code</groupId>
+            <artifactId>spring4gwt</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -66,11 +72,7 @@
             <classifier>sources</classifier>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.google.code</groupId>
-            <artifactId>spring4gwt</artifactId>
-        </dependency>
+        <!-- Spring -->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -97,11 +99,6 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.data</groupId>-->
-            <!--<artifactId>spring-data-neo4j-rest</artifactId>-->
-        <!--</dependency>-->
 
         <!-- SLF4J -->
         <dependency>
@@ -132,9 +129,17 @@
 
         <dependency>
             <groupId>org.ib</groupId>
+            <artifactId>history-db-neo4j-sdn</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.ib</groupId>
             <artifactId>history-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- Neo4j -->
 
         <dependency>
             <groupId>org.neo4j</groupId>
@@ -150,15 +155,10 @@
             <artifactId>neo4j-rest-graphdb</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.data</groupId>-->
-            <!--<artifactId>spring-data-neo4j</artifactId>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.data</groupId>-->
-            <!--<artifactId>spring-data-neo4j-rest</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j</artifactId>
+        </dependency>
 
     </dependencies>
 
