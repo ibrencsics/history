@@ -3,6 +3,7 @@ package org.ib.history.db.neo4j.domain;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 import java.util.Collections;
 import java.util.Date;
@@ -13,20 +14,30 @@ import java.util.Set;
 public class Person extends AbstractEntity {
 
     private String name;
-    private Date birthDate;
-    private Date deathDate;
+    private String dateOfBirth;
+    private String dateOfDeath;
 
     @RelatedTo(type = "PARENT_OF")
-    @Fetch
+//    @Fetch
     private Set<Person> children = new HashSet<Person>();
+
+    @Fetch
+    @RelatedToVia
+    private Set<Translation<Person>> locales;
 
     public Person() {
     }
 
-    public Person(String name, Date birthDate, Date deathDate) {
+    public Person(Long id, String name) {
+        this.setId(id);
         this.name = name;
-        this.birthDate = birthDate;
-        this.deathDate = deathDate;
+    }
+
+    public Person(Long id, String name, String dateOfBirth, String dateOfDeath) {
+        this.setId(id);
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfDeath = dateOfDeath;
     }
 
     public void addChild(Person person) {
@@ -37,15 +48,26 @@ public class Person extends AbstractEntity {
         return name;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public Date getDeathDate() {
-        return deathDate;
+    public String getDateOfDeath() {
+        return dateOfDeath;
     }
 
     public Set<Person> getChildren() {
         return Collections.unmodifiableSet(this.children);
+    }
+
+    public Set<Translation<Person>> getLocales() {
+        if (locales==null) {
+            locales = new HashSet<>();
+        }
+        return locales;
+    }
+
+    public void setLocales(Set<Translation<Person>> locales) {
+        this.locales = locales;
     }
 }

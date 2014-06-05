@@ -12,6 +12,9 @@ import java.util.List;
 
 public interface PersonRepository extends GraphRepository<Person> {
 
+    @Query("match (n:Person{defaultLocale:true}) return n")
+    List<Person> getAllPersons();
+
     Person findOne(Long id);
 
 //    <P extends Person> P save(Person P);

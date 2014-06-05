@@ -44,13 +44,13 @@ public class ServerTest {
     @Ignore
     public void insertTest() {
 
-        Calendar birth = Calendar.getInstance();
-        birth.set(1028, 0, 1);
-        Calendar death = Calendar.getInstance();
-        death.set(1087, 0, 1);
-
-        Person person = new Person("William I", birth.getTime(), death.getTime());
-        Person resPerson = personRepo.save(person);
+//        Calendar birth = Calendar.getInstance();
+//        birth.set(1028, 0, 1);
+//        Calendar death = Calendar.getInstance();
+//        death.set(1087, 0, 1);
+//
+//        Person person = new Person("William I", birth.getTime(), death.getTime());
+//        Person resPerson = personRepo.save(person);
 
 //        Country country = new Country("England");
 //        Country resCountry = countryRepo.save(country);
@@ -67,14 +67,14 @@ public class ServerTest {
     public void queryTest() {
 
 //        Person person = personRepo.findOne(0L);
-//        System.out.println(person.getBirthDate());
+//        System.out.println(person.getDateOfBirth());
         List<PersonRepository.Ruler> rulers = personRepo.getRulers();
 
-        for (PersonRepository.Ruler ruler : rulers) {
-            System.out.println(ruler.getPerson().getName() + " : " + ruler.getCountry().getName() +
-                " : " + ruler.getRule().getFromDate() + "-" + ruler.getRule().getToDate() + " : "
-                    + getCalendar( ruler.getPerson().getBirthDate() ).get(Calendar.YEAR)  );
-        }
+//        for (PersonRepository.Ruler ruler : rulers) {
+//            System.out.println(ruler.getPerson().getName() + " : " + ruler.getCountry().getName() +
+//                " : " + ruler.getRule().getFromDate() + "-" + ruler.getRule().getToDate() + " : "
+//                    + getCalendar( ruler.getPerson().getDateOfBirth() ).get(Calendar.YEAR)  );
+//        }
     }
 
     @Test

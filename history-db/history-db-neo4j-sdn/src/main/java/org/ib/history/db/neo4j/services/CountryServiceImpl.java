@@ -36,7 +36,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public CountryData addCountry(CountryData countryData) {
         Country country = DataTransformer.transform(countryData);
-        for (Country.Translation translation : country.getLocales()) {
+        for (Country.Translation<Country> translation : country.getLocales()) {
             countryRepo.save(translation.getTranslation());
         }
 

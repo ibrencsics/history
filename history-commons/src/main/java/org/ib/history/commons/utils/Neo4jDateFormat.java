@@ -5,8 +5,11 @@ import java.util.GregorianCalendar;
 
 public class Neo4jDateFormat {
 
-    public DateWrapper parse(String stringFormat) {
+    public static DateWrapper parse(String stringFormat) {
         DateWrapper dateWrapper = new DateWrapper();
+
+        if (stringFormat==null)
+            return dateWrapper;
 
         Calendar calendar = GregorianCalendar.getInstance();
 
@@ -53,7 +56,10 @@ public class Neo4jDateFormat {
         return dateWrapper;
     }
 
-    public String serialize(DateWrapper dateWrapper) {
+    public static String serialize(DateWrapper dateWrapper) {
+        if (dateWrapper==null)
+            return null;
+
         StringBuilder sb = new StringBuilder();
         if (!dateWrapper.isAD()) {
             sb.append("-");
