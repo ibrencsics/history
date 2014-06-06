@@ -4,6 +4,8 @@ import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 
+import java.util.List;
+
 public class DataTransformer {
 
     public static CountryData transform(Country country) {
@@ -51,6 +53,10 @@ public class DataTransformer {
             personDataBuilder.child(transform(child));
         }
 
+        for (AbstractEntity.Translation<Person> locale : person.getLocales()) {
+            personDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
+        }
+
         return personDataBuilder.build();
     }
 
@@ -60,6 +66,10 @@ public class DataTransformer {
                 Neo4jDateFormat.serialize(personData.getDateOfBirth()),
                 Neo4jDateFormat.serialize(personData.getDateOfDeath()));
         person.setDefaultLocale(true);
+
+        for (PersonData child : personData.getChildren()) {
+            person.addChild(transform(child));
+        }
 
         for (String locale : personData.getLocales().keySet()) {
             PersonData localePersonData = personData.getLocales().get(locale);

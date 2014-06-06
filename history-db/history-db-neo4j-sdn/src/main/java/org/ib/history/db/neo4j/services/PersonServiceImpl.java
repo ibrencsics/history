@@ -29,6 +29,11 @@ public class PersonServiceImpl implements PersonService {
             personRepo.save(translation.getTranslation());
         }
 
+        for (PersonData child : personData.getChildren()) {
+            PersonData childData = addPerson(child);
+            // TODO: replace the children list with the created ones
+        }
+
         Person personCreated = personRepo.save(person);
         return DataTransformer.transform(personCreated);
     }

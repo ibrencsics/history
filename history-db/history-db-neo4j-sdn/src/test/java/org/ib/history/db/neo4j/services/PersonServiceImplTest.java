@@ -30,6 +30,8 @@ public class PersonServiceImplTest {
                         .locale("HU", new PersonData.Builder().name("Vilmos").build())
                         .build();
 
-        personService.addPerson(personData);
+        PersonData personCreated = personService.addPerson(personData);
+        System.out.println(personCreated);
+        personService.addPerson(personCreated);
     }
 }

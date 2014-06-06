@@ -57,6 +57,9 @@ public class PersonData extends AbstractData<PersonData> {
             PersonData localePerson = getLocales().get(locale);
             sb.append("\n\tid=" + localePerson.getId() + " name=" + localePerson.getName() + " lang=" + locale);
         }
+        for (PersonData child : getChildren()) {
+            sb.append("\n\tchild id=" + child.getId() + " name=" + child.getName());
+        }
 
         return sb.toString();
     }
