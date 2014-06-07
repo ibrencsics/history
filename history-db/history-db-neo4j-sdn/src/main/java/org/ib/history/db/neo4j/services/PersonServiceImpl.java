@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,24 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonData> getPersons() {
-        return null;
+        List<PersonData> personDataList = new ArrayList<>();
+
+        List<Person> personList = personRepo.getAllPersons();
+        for (Person person : personList) {
+            personDataList.add(DataTransformer.transform(person));
+        }
+
+        return personDataList;
+    }
+
+    @Override
+    public List<PersonData> getPersonsByName(String name) {
+        return convertPersonList(personRepo.getPersonsByName(name));
+    }
+
+    @Override
+    public PersonData getPersonById(Long id) {
+        return DataTransformer.transform(personRepo.findOne(id));
     }
 
     @Override
@@ -29,12 +47,22 @@ public class PersonServiceImpl implements PersonService {
             personRepo.save(translation.getTranslation());
         }
 
-        for (PersonData child : personData.getChildren()) {
-            PersonData childData = addPerson(child);
-            // TODO: replace the children list with the created ones
-        }
-
         Person personCreated = personRepo.save(person);
         return DataTransformer.transform(personCreated);
+    }
+
+    private List<PersonData> convertPersonList(List<Person> personList) {
+        List<PersonData> personDataList = new ArrayList<>();
+
+        for (Person person : personList) {
+            personDataList.add(DataTransformer.transform(person));
+        }
+
+        return personDataList;
+    }
+
+    @Override
+    public void deletePerson(PersonData personData) {
+        personRepo.delete(personData.getId());
     }
 }

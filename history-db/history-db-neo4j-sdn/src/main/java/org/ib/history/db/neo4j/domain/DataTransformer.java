@@ -45,9 +45,14 @@ public class DataTransformer {
 
     public static PersonData transform(Person person) {
         PersonData.Builder personDataBuilder = new PersonData.Builder()
-                .id(person.getId()).name(person.getName())
-                .dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth()))
-                .dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
+                .id(person.getId()).name(person.getName());
+
+        if (person.getDateOfBirth() != null)
+            personDataBuilder.dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth()));
+        if (person.getDateOfDeath() != null)
+            personDataBuilder.dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
+//                .dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth()))
+//                .dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
 
         for (Person child : person.getChildren()) {
             personDataBuilder.child(transform(child));

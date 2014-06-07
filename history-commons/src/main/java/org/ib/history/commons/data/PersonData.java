@@ -51,8 +51,13 @@ public class PersonData extends AbstractData<PersonData> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("PersonData{ id=" + getId() + " name=" + getName() + " birth="
-                + getDateOfBirth().asString() + " death=" + getDateOfDeath().asString() + " }");
+        sb.append("PersonData{ id=" + getId() + " name=" + getName());
+        if (getDateOfBirth()!=null)
+            sb.append(" birth=" + getDateOfBirth().asString());
+        if (getDateOfDeath()!=null)
+            sb.append(" death=" + getDateOfDeath().asString());
+        sb.append(" }");
+
         for (String locale : getLocales().keySet()) {
             PersonData localePerson = getLocales().get(locale);
             sb.append("\n\tid=" + localePerson.getId() + " name=" + localePerson.getName() + " lang=" + locale);
