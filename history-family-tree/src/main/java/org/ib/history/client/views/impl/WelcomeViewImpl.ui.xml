@@ -25,11 +25,13 @@
             </g:FlowPanel>
         </g:north>
         <g:west size='15'>
-            <g:FlowPanel styleName="{style.westPanel}">
+            <g:VerticalPanel styleName="{style.westPanel}">
                 <g:Label>This is the WEST panel</g:Label>
                 <g:Button text="List Countries" ui:field="showCountries"></g:Button>
                 <g:Button text="New Country" ui:field="newCountry"></g:Button>
-            </g:FlowPanel>
+                <g:Button text="List Persons" ui:field="showPersons"></g:Button>
+                <g:Button text="New Person" ui:field="newPerson"></g:Button>
+            </g:VerticalPanel>
         </g:west>
         <g:center>
             <g:FlowPanel styleName="{style.centerPanel}" ui:field="workspace">

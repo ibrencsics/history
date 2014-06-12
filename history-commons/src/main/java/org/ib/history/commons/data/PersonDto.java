@@ -1,28 +1,26 @@
 package org.ib.history.commons.data;
 
-import org.ib.history.commons.utils.DateWrapper;
-
-import java.util.Date;
+import org.ib.history.commons.utils.FullDateWrapper;
 
 public class PersonDto extends AbstractDto {
 
-    private DateWrapper dateOfBirth;
-    private DateWrapper dateOfDeath;
+    private FullDateWrapper dateOfBirth;
+    private FullDateWrapper dateOfDeath;
     private HouseDto house;
 
-    public DateWrapper getDateOfBirth() {
+    public FullDateWrapper getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(DateWrapper dateOfBirth) {
+    public void setDateOfBirth(FullDateWrapper dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public DateWrapper getDateOfDeath() {
+    public FullDateWrapper getDateOfDeath() {
         return dateOfDeath;
     }
 
-    public void setDateOfDeath(DateWrapper dateOfDeath) {
+    public void setDateOfDeath(FullDateWrapper dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
 
@@ -45,12 +43,12 @@ public class PersonDto extends AbstractDto {
         return this;
     }
 
-    public PersonDto withDateOfBirth(DateWrapper dateOfBirth) {
+    public PersonDto withDateOfBirth(FullDateWrapper dateOfBirth) {
         this.setDateOfBirth(dateOfBirth);
         return this;
     }
 
-    public PersonDto withDateOfDeath(DateWrapper dateOfDeath) {
+    public PersonDto withDateOfDeath(FullDateWrapper dateOfDeath) {
         this.setDateOfDeath(dateOfDeath);
         return this;
     }
@@ -63,7 +61,7 @@ public class PersonDto extends AbstractDto {
     @Override
     public String toString() {
         return "PersonDto id:" + getId() + " name:" + getName() +
-                " born:" + getDateOfBirth().asString() + " death:" + getDateOfDeath().asString() +
+                " born:" + getDateOfBirth().toString() + " death:" + getDateOfDeath().toString() +
                 " house: " + getHouse().getName();
     }
 }

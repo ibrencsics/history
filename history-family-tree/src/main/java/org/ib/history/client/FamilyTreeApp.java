@@ -40,6 +40,10 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
         injector.getWelcomePresenter().show(injector.getCountryAddPresenter());
     }
 
+    private void doShowPersons() {
+        injector.getWelcomePresenter().show(injector.getPersonPresenter());
+    }
+
     private void bind() {
         History.addValueChangeHandler(this);
 
@@ -48,11 +52,19 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
             public void showCountryList(ScreenChangeEvent event) {
                 doShowCountries();
             }
-
             @Override
             public void showCountryAdd(ScreenChangeEvent event) {
                 doShowNewCountry();
             }
+            @Override
+            public void showPersonList(ScreenChangeEvent event) {
+                doShowPersons();
+            }
+            @Override
+            public void showPersonAdd(ScreenChangeEvent event) {
+
+            }
+
         });
     }
 

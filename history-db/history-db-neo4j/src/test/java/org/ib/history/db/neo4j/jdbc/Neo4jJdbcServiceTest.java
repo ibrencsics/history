@@ -1,7 +1,7 @@
 package org.ib.history.db.neo4j.jdbc;
 
 import org.ib.history.commons.data.*;
-import org.ib.history.commons.utils.DateWrapper;
+import org.ib.history.commons.utils.FullDateWrapper;
 import org.ib.history.db.neo4j.Refdata;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -159,8 +159,8 @@ public class Neo4jJdbcServiceTest {
         // put
         PersonDto person = new PersonDto();
         person.setName("William");
-        person.setDateOfBirth(new DateWrapper.Builder().year(1000).month(1).day(1).build());
-        person.setDateOfDeath(new DateWrapper.Builder().year(1087).month(1).noDay().build());
+        person.setDateOfBirth(new FullDateWrapper.Builder().year(1000).month(1).day(1).build());
+        person.setDateOfDeath(new FullDateWrapper.Builder().year(1087).month(1).noDay().build());
 
         service.putPerson(person);
 

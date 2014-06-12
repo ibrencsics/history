@@ -22,6 +22,10 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     @UiField
     Button newCountry;
     @UiField
+    Button showPersons;
+    @UiField
+    Button newPerson;
+    @UiField
     FlowPanel workspace;
 
     public WelcomeViewImpl() {
@@ -39,6 +43,13 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     public void newCountry(ClickEvent event) {
         if (presenter != null) {
             presenter.onNewCountryClicked();
+        }
+    }
+
+    @UiHandler("showPersons")
+    public void showPersons(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onShowPersonsClicked();
         }
     }
 

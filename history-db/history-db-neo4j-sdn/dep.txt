@@ -1,0 +1,842 @@
+Apache Maven 3.0.5 (r01de14724cdef164cd33c7c8c2fe155faf9602da; 2013-02-19 14:51:28+0100)
+Maven home: /usr/local/apache-maven-3.0.5
+Java version: 1.7.0_21, vendor: Oracle Corporation
+Java home: /usr/local/java/jdk1.7.0_21/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.2.0-56-generic", arch: "amd64", family: "unix"
+[INFO] Error stacktraces are turned on.
+[DEBUG] Reading global settings from /usr/local/apache-maven-3.0.5/conf/settings.xml
+[DEBUG] Reading user settings from /home/ivan/.m2/settings.xml
+[DEBUG] Using local repository at /home/ivan/.m2/repository
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10 for /home/ivan/.m2/repository
+[INFO] Scanning for projects...
+[DEBUG] Extension realms for project org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT: (none)
+[DEBUG] Looking up lifecyle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[WARNING] 'dependencyManagement.dependencies.dependency.systemPath' for com.google.code:spring4gwt:jar should use a variable instead of a hard-coded path /home/ivan/Projects/Experiments/github/history/history-family-tree/src/main/webapp/WEB-INF/lib/spring4gwt-0.0.1.jar @ org.ib:history:0.0.1-SNAPSHOT, /home/ivan/Projects/Experiments/github/history/pom.xml, line 138, column 29
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[DEBUG] Resolving plugin prefix dependency from [org.apache.maven.plugins, org.codehaus.mojo]
+[DEBUG] Resolved plugin prefix dependency to org.apache.maven.plugins:maven-dependency-plugin from POM org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG] === REACTOR BUILD PLAN ================================================
+[DEBUG] Project: org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG] Tasks:   [dependency:tree]
+[DEBUG] Style:   Regular
+[DEBUG] =======================================================================
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building history-db-neo4j-sdn 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[DEBUG] Resolving plugin prefix dependency from [org.apache.maven.plugins, org.codehaus.mojo]
+[DEBUG] Resolved plugin prefix dependency to org.apache.maven.plugins:maven-dependency-plugin from POM org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       org.ib:history-db-neo4j-sdn:0.0.1-SNAPSHOT
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [test]
+[DEBUG] Repositories (dependencies): [neo4j-public-release-repository (http://m2.neo4j.org/releases, releases), central (http://repo.maven.apache.org/maven2, releases)]
+[DEBUG] Repositories (plugins)     : [central (http://repo.maven.apache.org/maven2, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-dependency-plugin:2.1:tree (default-cli)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <excludes>${excludes}</excludes>
+  <includes>${includes}</includes>
+  <localRepository>${localRepository}</localRepository>
+  <output>${output}</output>
+  <outputFile>${outputFile}</outputFile>
+  <project>${project}</project>
+  <scope>${scope}</scope>
+  <tokens default-value="standard">${tokens}</tokens>
+  <verbose default-value="false">${verbose}</verbose>
+</configuration>
+[DEBUG] =======================================================================
+[DEBUG] org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG]    org.ib:history-commons:jar:0.0.1-SNAPSHOT:compile
+[DEBUG]    org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]       org.springframework:spring-tx:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE by org.ib:history:0.0.1-SNAPSHOT)
+[DEBUG]          aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       org.springframework:spring-context:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE by org.ib:history:0.0.1-SNAPSHOT)
+[DEBUG]       org.springframework:spring-beans:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE by org.ib:history:0.0.1-SNAPSHOT)
+[DEBUG]       org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]          org.aspectj:aspectjweaver:jar:1.7.4:compile
+[DEBUG]       org.springframework:spring-core:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE by org.ib:history:0.0.1-SNAPSHOT)
+[DEBUG]       org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[DEBUG]       org.aspectj:aspectjrt:jar:1.8.0:compile
+[DEBUG]       org.springframework.data:spring-data-commons:jar:1.8.0.RELEASE:compile
+[DEBUG]       org.neo4j:neo4j-cypher-dsl:jar:2.0.1:compile
+[DEBUG]       org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]             org.apache.lucene:lucene-core:jar:3.6.2:compile
+[DEBUG]          org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-udc:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-jmx:jar:2.0.3:compile
+[DEBUG]       org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]          org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]             org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]                org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]             net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]          com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]          org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]       org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]    org.springframework.data:spring-data-neo4j-rest:jar:3.1.0.RELEASE:compile
+[DEBUG]       org.springframework:spring-aop:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE by org.ib:history:0.0.1-SNAPSHOT)
+[DEBUG]       org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile
+[DEBUG]       org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]          org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]       com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]          com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]    junit:junit-dep:jar:4.10:test
+[DEBUG]    org.springframework:spring-test:jar:3.2.6.RELEASE:test
+[DEBUG]    org.hamcrest:hamcrest-library:jar:1.3:test
+[DEBUG]    org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]    org.neo4j:neo4j-kernel:jar:tests:2.0.3:compile
+[DEBUG]       org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]    javax.validation:validation-api:jar:1.0.0.GA:runtime
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ history-db-neo4j-sdn ---
+[DEBUG] Created new class realm maven.api
+[DEBUG] Importing foreign packages into class realm maven.api
+[DEBUG]   Imported: org.apache.maven.wagon.events < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.transfer < plexus.core
+[DEBUG]   Imported: org.apache.maven.exception < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.metadata < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.collection < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.version < plexus.core
+[DEBUG]   Imported: org.apache.maven.monitor < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.resource < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.logging < plexus.core
+[DEBUG]   Imported: org.apache.maven.profiles < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.classrealm < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.artifact < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.spi < plexus.core
+[DEBUG]   Imported: org.apache.maven.reporting < plexus.core
+[DEBUG]   Imported: org.apache.maven.usability < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.container < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.component < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[DEBUG]   Imported: org.apache.maven.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.graph < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.settings < plexus.core
+[DEBUG]   Imported: org.codehaus.classworlds < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.impl < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.toolchain < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.deployment < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.observers < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[DEBUG]   Imported: org.apache.maven.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.cli < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.installation < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.context < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[DEBUG]   Imported: org.apache.maven.project < plexus.core
+[DEBUG]   Imported: org.apache.maven.rtinfo < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.artifact < plexus.core
+[DEBUG]   Imported: org.apache.maven.model < plexus.core
+[DEBUG]   Imported: org.apache.maven.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[DEBUG]   Imported: org.sonatype.aether.resolution < plexus.core
+[DEBUG]   Imported: org.apache.maven.plugin < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.* < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.personality < plexus.core
+[DEBUG] Populating class realm maven.api
+[DEBUG] org.apache.maven.plugins:maven-dependency-plugin:jar:2.1:
+[DEBUG]    org.apache.maven:maven-artifact:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-project:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-profile:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-artifact-manager:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-plugin-registry:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-model:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-core:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-error-diagnostics:jar:2.0.9:compile
+[DEBUG]       commons-cli:commons-cli:jar:1.0:compile
+[DEBUG]       org.apache.maven:maven-plugin-descriptor:jar:2.0.9:compile
+[DEBUG]       org.codehaus.plexus:plexus-interactivity-api:jar:1.0-alpha-4:compile
+[DEBUG]       org.apache.maven:maven-monitor:jar:2.0.9:compile
+[DEBUG]       classworlds:classworlds:jar:1.1:compile
+[DEBUG]    org.codehaus.plexus:plexus-archiver:jar:1.0-alpha-9:compile
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:1.4.6:compile
+[DEBUG]    org.apache.maven.shared:file-management:jar:1.1:compile
+[DEBUG]       org.apache.maven.shared:maven-shared-io:jar:1.0:compile
+[DEBUG]          org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-6:compile
+[DEBUG]    org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9-stable-1:compile
+[DEBUG]       junit:junit:jar:3.8.1:compile
+[DEBUG]    org.apache.maven.shared:maven-dependency-analyzer:jar:1.1:compile
+[DEBUG]       asm:asm:jar:3.0:compile
+[DEBUG]    org.apache.maven.shared:maven-dependency-tree:jar:1.2:compile
+[DEBUG]    org.apache.maven.shared:maven-common-artifact-filters:jar:1.0:compile
+[DEBUG]       org.apache.maven.shared:maven-plugin-testing-harness:jar:1.1:compile
+[DEBUG]    org.codehaus.plexus:plexus-io:jar:1.0-alpha-1:compile
+[DEBUG]    org.apache.maven.reporting:maven-reporting-api:jar:2.0.6:compile
+[DEBUG]       org.apache.maven.doxia:doxia-sink-api:jar:1.0-alpha-7:compile
+[DEBUG]    org.apache.maven.reporting:maven-reporting-impl:jar:2.0.4:compile
+[DEBUG]       commons-validator:commons-validator:jar:1.2.0:compile
+[DEBUG]          commons-beanutils:commons-beanutils:jar:1.7.0:compile
+[DEBUG]          commons-digester:commons-digester:jar:1.6:compile
+[DEBUG]             commons-collections:commons-collections:jar:2.1:compile
+[DEBUG]          commons-logging:commons-logging:jar:1.0.4:compile
+[DEBUG]          xml-apis:xml-apis:jar:1.0.b2:compile
+[DEBUG]       org.apache.maven.doxia:doxia-core:jar:1.0-alpha-7:compile
+[DEBUG]       oro:oro:jar:2.0.7:compile
+[DEBUG]       org.apache.maven.doxia:doxia-site-renderer:jar:1.0-alpha-7:compile
+[DEBUG]          org.codehaus.plexus:plexus-i18n:jar:1.0-beta-6:compile
+[DEBUG]          org.codehaus.plexus:plexus-velocity:jar:1.1.2:compile
+[DEBUG]             plexus:plexus-utils:jar:1.0.2:compile
+[DEBUG]             commons-logging:commons-logging-api:jar:1.0.4:compile
+[DEBUG]             velocity:velocity:jar:1.4:compile
+[DEBUG]                velocity:velocity-dep:jar:1.4:runtime
+[DEBUG]          org.apache.maven.doxia:doxia-decoration-model:jar:1.0-alpha-7:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-dependency-plugin:2.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-dependency-plugin:2.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-dependency-plugin:2.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-dependency-plugin:jar:2.1
+[DEBUG]   Included: commons-cli:commons-cli:jar:1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-interactivity-api:jar:1.0-alpha-4
+[DEBUG]   Included: org.codehaus.plexus:plexus-archiver:jar:1.0-alpha-9
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:1.4.6
+[DEBUG]   Included: org.apache.maven.shared:file-management:jar:1.1
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-io:jar:1.0
+[DEBUG]   Included: junit:junit:jar:3.8.1
+[DEBUG]   Included: org.apache.maven.shared:maven-dependency-analyzer:jar:1.1
+[DEBUG]   Included: asm:asm:jar:3.0
+[DEBUG]   Included: org.apache.maven.shared:maven-dependency-tree:jar:1.2
+[DEBUG]   Included: org.apache.maven.shared:maven-common-artifact-filters:jar:1.0
+[DEBUG]   Included: org.apache.maven.shared:maven-plugin-testing-harness:jar:1.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-io:jar:1.0-alpha-1
+[DEBUG]   Included: org.apache.maven.reporting:maven-reporting-api:jar:2.0.6
+[DEBUG]   Included: org.apache.maven.doxia:doxia-sink-api:jar:1.0-alpha-7
+[DEBUG]   Included: org.apache.maven.reporting:maven-reporting-impl:jar:2.0.4
+[DEBUG]   Included: commons-validator:commons-validator:jar:1.2.0
+[DEBUG]   Included: commons-beanutils:commons-beanutils:jar:1.7.0
+[DEBUG]   Included: commons-digester:commons-digester:jar:1.6
+[DEBUG]   Included: commons-collections:commons-collections:jar:2.1
+[DEBUG]   Included: commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   Included: xml-apis:xml-apis:jar:1.0.b2
+[DEBUG]   Included: org.apache.maven.doxia:doxia-core:jar:1.0-alpha-7
+[DEBUG]   Included: oro:oro:jar:2.0.7
+[DEBUG]   Included: org.apache.maven.doxia:doxia-site-renderer:jar:1.0-alpha-7
+[DEBUG]   Included: org.codehaus.plexus:plexus-i18n:jar:1.0-beta-6
+[DEBUG]   Included: org.codehaus.plexus:plexus-velocity:jar:1.1.2
+[DEBUG]   Included: plexus:plexus-utils:jar:1.0.2
+[DEBUG]   Included: commons-logging:commons-logging-api:jar:1.0.4
+[DEBUG]   Included: velocity:velocity:jar:1.4
+[DEBUG]   Included: velocity:velocity-dep:jar:1.4
+[DEBUG]   Included: org.apache.maven.doxia:doxia-decoration-model:jar:1.0-alpha-7
+[DEBUG]   Excluded: org.apache.maven:maven-artifact:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-plugin-api:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-project:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-settings:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-profile:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-artifact-manager:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-plugin-registry:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-model:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-core:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-repository-metadata:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-error-diagnostics:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-plugin-descriptor:jar:2.0.9
+[DEBUG]   Excluded: org.apache.maven:maven-monitor:jar:2.0.9
+[DEBUG]   Excluded: classworlds:classworlds:jar:1.1
+[DEBUG]   Excluded: org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-6
+[DEBUG]   Excluded: org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9-stable-1
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-dependency-plugin:2.1:tree from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-dependency-plugin:2.1, parent: sun.misc.Launcher$AppClassLoader@4ab03512]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-dependency-plugin:2.1:tree' with basic configurator -->
+[DEBUG]   (f) localRepository =        id: local
+      url: file:///home/ivan/.m2/repository/
+   layout: none
+
+[DEBUG]   (f) project = MavenProject: org.ib:history-db-neo4j-sdn:0.0.1-SNAPSHOT @ /home/ivan/Projects/Experiments/github/history/history-db/history-db-neo4j-sdn/pom.xml
+[DEBUG]   (f) tokens = standard
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Dependency tree resolution listener events:
+[DEBUG] testArtifact: artifact=org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG] includeArtifact: artifact=org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG] startProcessChildren: artifact=org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG]   testArtifact: artifact=org.ib:history-commons:jar:0.0.1-SNAPSHOT:compile
+[DEBUG]   includeArtifact: artifact=org.ib:history-commons:jar:0.0.1-SNAPSHOT:compile
+[DEBUG]   startProcessChildren: artifact=org.ib:history-commons:jar:0.0.1-SNAPSHOT:compile
+[DEBUG]   endProcessChildren: artifact=org.ib:history-commons:jar:0.0.1-SNAPSHOT:compile
+[DEBUG]   testArtifact: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]   includeArtifact: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]   startProcessChildren: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-tx:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-tx:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-tx:jar:3.2.6.RELEASE
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile
+[DEBUG]       testArtifact: artifact=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       includeArtifact: artifact=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       startProcessChildren: artifact=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       endProcessChildren: artifact=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       includeArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       startProcessChildren: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]         testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]         includeArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]         startProcessChildren: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]         endProcessChildren: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       endProcessChildren: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       includeArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       startProcessChildren: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       endProcessChildren: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-context:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-context:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-context:jar:3.2.6.RELEASE
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-aop:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-aop:jar:3.2.6.RELEASE
+[DEBUG]       includeArtifact: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]       startProcessChildren: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]         testArtifact: artifact=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]         omitForNearer: omitted=aopalliance:aopalliance:jar:1.0:compile kept=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]         testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]         omitForNearer: omitted=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]         testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]         omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       endProcessChildren: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       testArtifact: artifact=org.springframework:spring-expression:jar:3.2.6.RELEASE:compile
+[DEBUG]       includeArtifact: artifact=org.springframework:spring-expression:jar:3.2.6.RELEASE:compile
+[DEBUG]       startProcessChildren: artifact=org.springframework:spring-expression:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]         testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]         manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]         omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       endProcessChildren: artifact=org.springframework:spring-expression:jar:3.2.6.RELEASE:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]     testArtifact: artifact=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]       testArtifact: artifact=org.aspectj:aspectjweaver:jar:1.7.4:compile
+[DEBUG]       includeArtifact: artifact=org.aspectj:aspectjweaver:jar:1.7.4:compile
+[DEBUG]       startProcessChildren: artifact=org.aspectj:aspectjweaver:jar:1.7.4:compile
+[DEBUG]       endProcessChildren: artifact=org.aspectj:aspectjweaver:jar:1.7.4:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     testArtifact: artifact=org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-expression:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[DEBUG]     testArtifact: artifact=org.aspectj:aspectjrt:jar:1.8.0:compile
+[DEBUG]     includeArtifact: artifact=org.aspectj:aspectjrt:jar:1.8.0:compile
+[DEBUG]     startProcessChildren: artifact=org.aspectj:aspectjrt:jar:1.8.0:compile
+[DEBUG]     endProcessChildren: artifact=org.aspectj:aspectjrt:jar:1.8.0:compile
+[DEBUG]     testArtifact: artifact=org.springframework.data:spring-data-commons:jar:1.8.0.RELEASE:compile
+[DEBUG]     includeArtifact: artifact=org.springframework.data:spring-data-commons:jar:1.8.0.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework.data:spring-data-commons:jar:1.8.0.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       testArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]       includeArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]       startProcessChildren: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]       endProcessChildren: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]       testArtifact: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]       includeArtifact: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]       startProcessChildren: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]         testArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:runtime
+[DEBUG]         omitForNearer: omitted=org.slf4j:slf4j-api:jar:1.7.7:runtime kept=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]       endProcessChildren: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]     endProcessChildren: artifact=org.springframework.data:spring-data-commons:jar:1.8.0.RELEASE:compile
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j-cypher-dsl:jar:2.0.1:compile
+[DEBUG]     includeArtifact: artifact=org.neo4j:neo4j-cypher-dsl:jar:2.0.1:compile
+[DEBUG]     startProcessChildren: artifact=org.neo4j:neo4j-cypher-dsl:jar:2.0.1:compile
+[DEBUG]     endProcessChildren: artifact=org.neo4j:neo4j-cypher-dsl:jar:2.0.1:compile
+[DEBUG]     manageArtifactVersion: artifact=org.neo4j:neo4j:jar:2.0.3:compile, replacement=org.neo4j:neo4j:jar:2.0.3
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]     manageArtifactVersion: artifact=org.neo4j:neo4j:jar:2.0.3:compile, replacement=org.neo4j:neo4j:jar:2.0.3
+[DEBUG]     includeArtifact: artifact=org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]     startProcessChildren: artifact=org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]         includeArtifact: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]         startProcessChildren: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]         endProcessChildren: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.apache.lucene:lucene-core:jar:3.6.2:compile
+[DEBUG]         includeArtifact: artifact=org.apache.lucene:lucene-core:jar:3.6.2:compile
+[DEBUG]         startProcessChildren: artifact=org.apache.lucene:lucene-core:jar:3.6.2:compile
+[DEBUG]         endProcessChildren: artifact=org.apache.lucene:lucene-core:jar:3.6.2:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-udc:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-udc:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-udc:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-udc:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile kept=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]         includeArtifact: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]         startProcessChildren: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]           omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]           includeArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]           startProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]           endProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]           testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]           includeArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]           startProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]           endProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         endProcessChildren: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]         includeArtifact: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]         startProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]           omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]           omitForNearer: omitted=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile kept=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]           omitForNearer: omitted=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]           omitForNearer: omitted=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]           omitForNearer: omitted=org.scala-lang:scala-library:jar:2.10.3:compile kept=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         endProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]         includeArtifact: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]         startProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]           testArtifact: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]           includeArtifact: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]           startProcessChildren: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]             testArtifact: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]             includeArtifact: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]             startProcessChildren: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]             endProcessChildren: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]           endProcessChildren: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]           testArtifact: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]           includeArtifact: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]           startProcessChildren: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]           endProcessChildren: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]           testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]           omitForNearer: omitted=org.scala-lang:scala-library:jar:2.10.3:compile kept=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         endProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         omitForNearer: omitted=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile kept=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         includeArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         startProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         endProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         omitForNearer: omitted=org.scala-lang:scala-library:jar:2.10.3:compile kept=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         includeArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         startProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         endProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-jmx:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-jmx:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-jmx:jar:2.0.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-jmx:jar:2.0.3:compile
+[DEBUG]     endProcessChildren: artifact=org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]     omitForNearer: omitted=org.neo4j:neo4j-cypher:jar:2.0.3:compile kept=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]     includeArtifact: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]     startProcessChildren: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]       omitForNearer: omitted=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile kept=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]       omitForNearer: omitted=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]       omitForNearer: omitted=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         includeArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         startProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         endProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]         testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         includeArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         startProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         endProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile kept=org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]         omitForNearer: omitted=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile kept=org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         omitForNearer: omitted=org.scala-lang:scala-library:jar:2.10.3:compile kept=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]       includeArtifact: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]       startProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]         testArtifact: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]         includeArtifact: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]         startProcessChildren: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]           testArtifact: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]           includeArtifact: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]           startProcessChildren: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]           endProcessChildren: artifact=org.parboiled:parboiled-core:jar:1.1.6:compile
+[DEBUG]         endProcessChildren: artifact=org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[DEBUG]         testArtifact: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]         includeArtifact: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]         startProcessChildren: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]         endProcessChildren: artifact=net.sf.opencsv:opencsv:jar:2.0:compile
+[DEBUG]         testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]         omitForNearer: omitted=org.scala-lang:scala-library:jar:2.10.3:compile kept=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       endProcessChildren: artifact=org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]       omitForNearer: omitted=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile kept=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]       includeArtifact: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]       startProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]       endProcessChildren: artifact=com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[DEBUG]       testArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       omitForNearer: omitted=org.scala-lang:scala-library:jar:2.10.3:compile kept=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       includeArtifact: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       startProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]       endProcessChildren: artifact=org.scala-lang:scala-library:jar:2.10.3:compile
+[DEBUG]     endProcessChildren: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]     testArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     omitForNearer: omitted=org.slf4j:slf4j-api:jar:1.7.7:compile kept=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     includeArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     startProcessChildren: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     endProcessChildren: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     testArtifact: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]     omitForNearer: omitted=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime kept=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]     includeArtifact: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]     startProcessChildren: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]       testArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:runtime
+[DEBUG]       omitForNearer: omitted=org.slf4j:slf4j-api:jar:1.7.7:runtime kept=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     endProcessChildren: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]   endProcessChildren: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]   testArtifact: artifact=org.springframework.data:spring-data-neo4j-rest:jar:3.1.0.RELEASE:compile
+[DEBUG]   includeArtifact: artifact=org.springframework.data:spring-data-neo4j-rest:jar:3.1.0.RELEASE:compile
+[DEBUG]   startProcessChildren: artifact=org.springframework.data:spring-data-neo4j-rest:jar:3.1.0.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-tx:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-tx:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-tx:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-tx:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-context:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-context:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-context:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-context:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-context:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-context:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]     testArtifact: artifact=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile kept=org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-aop:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-aop:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-aop:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]     includeArtifact: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]     startProcessChildren: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]       testArtifact: artifact=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       omitForNearer: omitted=aopalliance:aopalliance:jar:1.0:compile kept=aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-beans:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]       manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]       omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     endProcessChildren: artifact=org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.9.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:compile, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:compile kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]     omitForNearer: omitted=org.neo4j:neo4j-kernel:jar:2.0.3:compile kept=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]     includeArtifact: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]     startProcessChildren: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]       testArtifact: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]       includeArtifact: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]       startProcessChildren: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]       endProcessChildren: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]     endProcessChildren: artifact=org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile, replacement=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile, replacement=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile kept=org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[DEBUG]     manageArtifactVersion: artifact=org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile, replacement=org.neo4j:neo4j-rest-graphdb:jar:2.0.1
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile
+[DEBUG]     manageArtifactVersion: artifact=org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile, replacement=org.neo4j:neo4j-rest-graphdb:jar:2.0.1
+[DEBUG]     includeArtifact: artifact=org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile
+[DEBUG]     startProcessChildren: artifact=org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile
+[DEBUG]       testArtifact: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]       includeArtifact: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]       startProcessChildren: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]         testArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]         includeArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]         startProcessChildren: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]         endProcessChildren: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]         testArtifact: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]         includeArtifact: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]         startProcessChildren: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]           testArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]           omitForNearer: omitted=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile kept=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]         endProcessChildren: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]       endProcessChildren: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]       testArtifact: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]       includeArtifact: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]       startProcessChildren: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]         testArtifact: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]         includeArtifact: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]         startProcessChildren: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]         endProcessChildren: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]       endProcessChildren: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]     endProcessChildren: artifact=org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile
+[DEBUG]     testArtifact: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]     omitForNearer: omitted=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile kept=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]     includeArtifact: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]     startProcessChildren: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]       testArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       includeArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       startProcessChildren: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       endProcessChildren: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       testArtifact: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]       includeArtifact: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]       startProcessChildren: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]         testArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]         omitForNearer: omitted=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile kept=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       endProcessChildren: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]     endProcessChildren: artifact=org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[DEBUG]     testArtifact: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]     omitForNearer: omitted=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile kept=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]     includeArtifact: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]     startProcessChildren: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]       testArtifact: artifact=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]       omitForNearer: omitted=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile kept=org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[DEBUG]     endProcessChildren: artifact=org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[DEBUG]     testArtifact: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]     omitForNearer: omitted=com.sun.jersey:jersey-client:jar:1.9:compile kept=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]     includeArtifact: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]     startProcessChildren: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]       testArtifact: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]       includeArtifact: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]       startProcessChildren: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]       endProcessChildren: artifact=com.sun.jersey:jersey-core:jar:1.9:compile
+[DEBUG]     endProcessChildren: artifact=com.sun.jersey:jersey-client:jar:1.9:compile
+[DEBUG]     manageArtifactVersion: artifact=org.neo4j:neo4j:jar:2.0.3:compile, replacement=org.neo4j:neo4j:jar:2.0.3
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]     manageArtifactVersion: artifact=org.neo4j:neo4j:jar:2.0.3:compile, replacement=org.neo4j:neo4j:jar:2.0.3
+[DEBUG]     omitForNearer: omitted=org.neo4j:neo4j:jar:2.0.3:compile kept=org.neo4j:neo4j:jar:2.0.3:compile
+[DEBUG]     testArtifact: artifact=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]     omitForNearer: omitted=org.neo4j:neo4j-cypher:jar:2.0.3:compile kept=org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[DEBUG]     testArtifact: artifact=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     omitForNearer: omitted=org.slf4j:slf4j-api:jar:1.7.7:compile kept=org.slf4j:slf4j-api:jar:1.7.7:compile
+[DEBUG]     testArtifact: artifact=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]     omitForNearer: omitted=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime kept=org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[DEBUG]   endProcessChildren: artifact=org.springframework.data:spring-data-neo4j-rest:jar:3.1.0.RELEASE:compile
+[DEBUG]   testArtifact: artifact=junit:junit-dep:jar:4.10:test
+[DEBUG]   includeArtifact: artifact=junit:junit-dep:jar:4.10:test
+[DEBUG]   startProcessChildren: artifact=junit:junit-dep:jar:4.10:test
+[DEBUG]     manageArtifactVersion: artifact=org.hamcrest:hamcrest-core:jar:1.1:test, replacement=org.hamcrest:hamcrest-core:jar:1.3
+[DEBUG]     testArtifact: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]     manageArtifactVersion: artifact=org.hamcrest:hamcrest-core:jar:1.3:test, replacement=org.hamcrest:hamcrest-core:jar:1.3
+[DEBUG]     includeArtifact: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]     startProcessChildren: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]     endProcessChildren: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   endProcessChildren: artifact=junit:junit-dep:jar:4.10:test
+[DEBUG]   testArtifact: artifact=org.springframework:spring-test:jar:3.2.6.RELEASE:test
+[DEBUG]   includeArtifact: artifact=org.springframework:spring-test:jar:3.2.6.RELEASE:test
+[DEBUG]   startProcessChildren: artifact=org.springframework:spring-test:jar:3.2.6.RELEASE:test
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:test, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]     testArtifact: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:test
+[DEBUG]     manageArtifactVersion: artifact=org.springframework:spring-core:jar:3.2.6.RELEASE:test, replacement=org.springframework:spring-core:jar:3.2.6.RELEASE
+[DEBUG]     omitForNearer: omitted=org.springframework:spring-core:jar:3.2.6.RELEASE:test kept=org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[DEBUG]   endProcessChildren: artifact=org.springframework:spring-test:jar:3.2.6.RELEASE:test
+[DEBUG]   testArtifact: artifact=org.hamcrest:hamcrest-library:jar:1.3:test
+[DEBUG]   includeArtifact: artifact=org.hamcrest:hamcrest-library:jar:1.3:test
+[DEBUG]   startProcessChildren: artifact=org.hamcrest:hamcrest-library:jar:1.3:test
+[DEBUG]     manageArtifactVersion: artifact=org.hamcrest:hamcrest-core:jar:1.3:test, replacement=org.hamcrest:hamcrest-core:jar:1.3
+[DEBUG]     testArtifact: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]     manageArtifactVersion: artifact=org.hamcrest:hamcrest-core:jar:1.3:test, replacement=org.hamcrest:hamcrest-core:jar:1.3
+[DEBUG]     omitForNearer: omitted=org.hamcrest:hamcrest-core:jar:1.3:test kept=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   endProcessChildren: artifact=org.hamcrest:hamcrest-library:jar:1.3:test
+[DEBUG]   testArtifact: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   omitForNearer: omitted=org.hamcrest:hamcrest-core:jar:1.3:test kept=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   includeArtifact: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   startProcessChildren: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   endProcessChildren: artifact=org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]   testArtifact: artifact=org.neo4j:neo4j-kernel:test-jar:tests:2.0.3:compile
+[DEBUG]   includeArtifact: artifact=org.neo4j:neo4j-kernel:test-jar:tests:2.0.3:compile
+[DEBUG]   startProcessChildren: artifact=org.neo4j:neo4j-kernel:test-jar:tests:2.0.3:compile
+[DEBUG]     testArtifact: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]     omitForNearer: omitted=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile kept=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]     includeArtifact: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]     startProcessChildren: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]     endProcessChildren: artifact=org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[DEBUG]   endProcessChildren: artifact=org.neo4j:neo4j-kernel:test-jar:tests:2.0.3:compile
+[DEBUG]   testArtifact: artifact=javax.validation:validation-api:jar:1.0.0.GA:runtime
+[DEBUG]   includeArtifact: artifact=javax.validation:validation-api:jar:1.0.0.GA:runtime
+[DEBUG]   startProcessChildren: artifact=javax.validation:validation-api:jar:1.0.0.GA:runtime
+[DEBUG]   endProcessChildren: artifact=javax.validation:validation-api:jar:1.0.0.GA:runtime
+[DEBUG] endProcessChildren: artifact=org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[DEBUG] + Filtering omitted nodes from dependency tree
+[INFO] org.ib:history-db-neo4j-sdn:jar:0.0.1-SNAPSHOT
+[INFO] +- org.ib:history-commons:jar:0.0.1-SNAPSHOT:compile
+[INFO] +- org.springframework.data:spring-data-neo4j:jar:3.1.0.RELEASE:compile
+[INFO] |  +- org.springframework:spring-tx:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE)
+[INFO] |  |  \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  +- org.springframework:spring-context:jar:3.2.6.RELEASE:compile (version managed from 3.2.9.RELEASE)
+[INFO] |  +- org.springframework:spring-beans:jar:3.2.6.RELEASE:compile
+[INFO] |  +- org.springframework:spring-aspects:jar:3.2.9.RELEASE:compile
+[INFO] |  |  \- org.aspectj:aspectjweaver:jar:1.7.4:compile
+[INFO] |  +- org.springframework:spring-core:jar:3.2.6.RELEASE:compile
+[INFO] |  +- org.springframework:spring-expression:jar:3.2.9.RELEASE:compile
+[INFO] |  +- org.aspectj:aspectjrt:jar:1.8.0:compile
+[INFO] |  +- org.springframework.data:spring-data-commons:jar:1.8.0.RELEASE:compile
+[INFO] |  +- org.neo4j:neo4j-cypher-dsl:jar:2.0.1:compile
+[INFO] |  +- org.neo4j:neo4j:jar:2.0.3:compile
+[INFO] |  |  +- org.neo4j:neo4j-lucene-index:jar:2.0.3:compile
+[INFO] |  |  |  \- org.apache.lucene:lucene-core:jar:3.6.2:compile
+[INFO] |  |  +- org.neo4j:neo4j-graph-algo:jar:2.0.3:compile
+[INFO] |  |  +- org.neo4j:neo4j-udc:jar:2.0.3:compile
+[INFO] |  |  +- org.neo4j:neo4j-graph-matching:jar:2.0.3:compile
+[INFO] |  |  \- org.neo4j:neo4j-jmx:jar:2.0.3:compile
+[INFO] |  +- org.neo4j:neo4j-cypher:jar:2.0.3:compile
+[INFO] |  |  +- org.neo4j:neo4j-cypher-commons:jar:2.0.3:compile
+[INFO] |  |  +- org.neo4j:neo4j-cypher-compiler-1.9:jar:2.0.3:compile
+[INFO] |  |  +- org.neo4j:neo4j-cypher-compiler-2.0:jar:2.0.3:compile
+[INFO] |  |  |  +- org.parboiled:parboiled-scala_2.10:jar:1.1.6:compile
+[INFO] |  |  |  |  \- org.parboiled:parboiled-core:jar:1.1.6:compile
+[INFO] |  |  |  \- net.sf.opencsv:opencsv:jar:2.0:compile
+[INFO] |  |  +- com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:jar:1.3.1:compile
+[INFO] |  |  \- org.scala-lang:scala-library:jar:2.10.3:compile
+[INFO] |  +- org.slf4j:slf4j-api:jar:1.7.7:compile
+[INFO] |  \- org.slf4j:jcl-over-slf4j:jar:1.7.7:runtime
+[INFO] +- org.springframework.data:spring-data-neo4j-rest:jar:3.1.0.RELEASE:compile
+[INFO] |  +- org.springframework:spring-aop:jar:3.2.6.RELEASE:compile
+[INFO] |  +- org.neo4j:neo4j-kernel:jar:2.0.3:compile
+[INFO] |  +- org.neo4j:neo4j-rest-graphdb:jar:2.0.1:compile
+[INFO] |  +- org.codehaus.jackson:jackson-jaxrs:jar:1.9.7:compile
+[INFO] |  |  \- org.codehaus.jackson:jackson-core-asl:jar:1.9.7:compile
+[INFO] |  +- org.codehaus.jackson:jackson-mapper-asl:jar:1.9.7:compile
+[INFO] |  \- com.sun.jersey:jersey-client:jar:1.9:compile
+[INFO] |     \- com.sun.jersey:jersey-core:jar:1.9:compile
+[INFO] +- junit:junit-dep:jar:4.10:test
+[INFO] +- org.springframework:spring-test:jar:3.2.6.RELEASE:test
+[INFO] +- org.hamcrest:hamcrest-library:jar:1.3:test
+[INFO] +- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] +- org.neo4j:neo4j-kernel:test-jar:tests:2.0.3:compile
+[INFO] |  \- org.apache.geronimo.specs:geronimo-jta_1.1_spec:jar:1.1.1:compile
+[INFO] \- javax.validation:validation-api:jar:1.0.0.GA:runtime
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.985s
+[INFO] Finished at: Mon Jun 09 00:35:55 CEST 2014
+[INFO] Final Memory: 10M/213M
+[INFO] ------------------------------------------------------------------------

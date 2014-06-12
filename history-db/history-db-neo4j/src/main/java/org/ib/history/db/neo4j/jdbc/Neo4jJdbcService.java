@@ -292,8 +292,8 @@ public class Neo4jJdbcService implements Neo4jServiceDeprecated {
                     PersonDto person = new PersonDto();
                     person.setId(Long.parseLong(rs.getString(1)));
                     person.setName(rs.getString(2));
-                    person.setDateOfBirth(neo4jDateFormat.parse(rs.getString(3)));
-                    person.setDateOfDeath(neo4jDateFormat.parse(rs.getString(4)));
+                    person.setDateOfBirth(neo4jDateFormat.parseFull(rs.getString(3)));
+                    person.setDateOfDeath(neo4jDateFormat.parseFull(rs.getString(4)));
                     people.add(person);
                 }
             } catch (SQLException e) {

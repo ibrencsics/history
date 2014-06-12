@@ -1,6 +1,7 @@
 package org.ib.history.commons.data;
 
 import org.ib.history.commons.utils.DateWrapper;
+import org.ib.history.commons.utils.FullDateWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class PersonData extends AbstractData<PersonData> {
 
     public List<PersonData> getChildren() {
         if (children==null) {
-            children = new ArrayList<>();
+            children = new ArrayList<PersonData>();
         }
         return children;
     }
@@ -53,9 +54,9 @@ public class PersonData extends AbstractData<PersonData> {
 
         sb.append("PersonData{ id=" + getId() + " name=" + getName());
         if (getDateOfBirth()!=null)
-            sb.append(" birth=" + getDateOfBirth().asString());
+            sb.append(" birth=" + getDateOfBirth().toString());
         if (getDateOfDeath()!=null)
-            sb.append(" death=" + getDateOfDeath().asString());
+            sb.append(" death=" + getDateOfDeath().toString());
         sb.append(" }");
 
         for (String locale : getLocales().keySet()) {

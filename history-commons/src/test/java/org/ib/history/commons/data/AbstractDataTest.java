@@ -1,8 +1,8 @@
 package org.ib.history.commons.data;
 
-import org.ib.history.commons.utils.DateWrapper;
+import org.ib.history.commons.utils.FullDateWrapper;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import static org.junit.Assert.assertEquals;
 
 public class AbstractDataTest {
@@ -23,7 +23,7 @@ public class AbstractDataTest {
     public void personDataTest() {
         PersonData personData =
                 new PersonData.Builder().id(0L).name("William")
-                .dateOfDeath(new DateWrapper.Builder().year(1087).build())
+                .dateOfDeath(new FullDateWrapper.Builder().year(1087).build())
                 .child(new PersonData.Builder().id(1L).name("William").build())
                 .locale("DE", new PersonData.Builder().name("Wilhelm").build())
                 .locale("HU", new PersonData.Builder().name("Vilmos").build())

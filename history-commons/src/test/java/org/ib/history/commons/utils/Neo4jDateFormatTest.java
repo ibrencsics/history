@@ -6,26 +6,48 @@ import org.junit.Test;
 public class Neo4jDateFormatTest {
 
     @Test
-    public void testParse() {
-        Neo4jDateFormat neo4jDateFormat = new Neo4jDateFormat();
-        DateWrapper dateWrapper;
+    public void testParseFull() {
+        FullDateWrapper dateWrapper;
 
-        dateWrapper = neo4jDateFormat.parse("19950000");
-        assertEquals(dateWrapper.asString(), "1995");
+        dateWrapper = Neo4jDateFormat.parse("19950000", FullDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1995");
 
-        dateWrapper = neo4jDateFormat.parse("19950600");
-        assertEquals(dateWrapper.asString(), "1995-06");
+        dateWrapper = Neo4jDateFormat.parse("19950600", FullDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1995-06");
 
-        dateWrapper = neo4jDateFormat.parse("19950602");
-        assertEquals(dateWrapper.asString(), "1995-06-02");
+        dateWrapper = Neo4jDateFormat.parse("19950602", FullDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1995-06-02");
 
-        dateWrapper = neo4jDateFormat.parse("-02350000");
-        assertEquals(dateWrapper.asString(), "-235");
+        dateWrapper = Neo4jDateFormat.parse("-02350000", FullDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "-235");
 
-//        dateWrapper = neo4jDateFormat.parse("00000000");
+//        dateWrapper = neo4jDateFormat.parseFull("00000000");
 //        System.out.println(dateWrapper.asString());
 
-        dateWrapper = neo4jDateFormat.parse("10000101");
-        assertEquals(dateWrapper.asString(), "1000-01-01");
+        dateWrapper = Neo4jDateFormat.parse("10000101", FullDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1000-01-01");
+    }
+
+    @Test
+    public void testParseSimple() {
+        SimpleDateWrapper dateWrapper;
+
+        dateWrapper = Neo4jDateFormat.parse("19950000", SimpleDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1995");
+
+        dateWrapper = Neo4jDateFormat.parse("19950600", SimpleDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1995-06");
+
+        dateWrapper = Neo4jDateFormat.parse("19950602", SimpleDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1995-06-02");
+
+        dateWrapper = Neo4jDateFormat.parse("-02350000", SimpleDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "-235");
+
+//        dateWrapper = neo4jDateFormat.parseFull("00000000");
+//        System.out.println(dateWrapper.asString());
+
+        dateWrapper = Neo4jDateFormat.parse("10000101", SimpleDateWrapper.class);
+        assertEquals(Neo4jDateFormat.dateWrapperToString(dateWrapper), "1000-01-01");
     }
 }

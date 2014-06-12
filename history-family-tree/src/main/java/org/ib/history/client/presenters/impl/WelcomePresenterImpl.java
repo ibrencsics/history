@@ -50,4 +50,14 @@ public class WelcomePresenterImpl implements WelcomePresenter {
 //        History.newItem(Tokens.COUNTRY_ADD);
         eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.COUNTRY_ADD));
     }
+
+    @Override
+    public void onShowPersonsClicked() {
+        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.PERSON_LIST));
+    }
+
+    @Override
+    public void onNewPersonClicked() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

@@ -1,10 +1,11 @@
 package org.ib.history.commons.data;
 
 import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractData<T extends AbstractData> implements Serializable {
+public class AbstractData<T extends AbstractData> implements IsSerializable {
 
     private Long id;
     private Map<String,T> locales;

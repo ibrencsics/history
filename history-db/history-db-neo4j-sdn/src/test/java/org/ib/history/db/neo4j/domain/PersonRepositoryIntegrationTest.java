@@ -1,6 +1,5 @@
 package org.ib.history.db.neo4j.domain;
 
-import org.ib.history.db.neo4j.AbstractIntegrationTest;
 import org.ib.history.db.neo4j.repositories.PersonRepository;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,7 +9,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class PersonRepositoryIntegrationTest extends AbstractIntegrationTest {
+public class PersonRepositoryIntegrationTest {
 
     @Autowired
     PersonRepository repository;
