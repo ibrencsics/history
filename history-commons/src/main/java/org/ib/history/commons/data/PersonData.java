@@ -1,16 +1,13 @@
 package org.ib.history.commons.data;
 
-import org.ib.history.commons.utils.DateWrapper;
-import org.ib.history.commons.utils.FullDateWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonData extends AbstractData<PersonData> {
 
     private String name;
-    private DateWrapper dateOfBirth;
-    private DateWrapper dateOfDeath;
+    private FlexibleDate dateOfBirth;
+    private FlexibleDate dateOfDeath;
     private List<PersonData> children;
 
     public String getName() {
@@ -21,19 +18,19 @@ public class PersonData extends AbstractData<PersonData> {
         this.name = name;
     }
 
-    public DateWrapper getDateOfBirth() {
+    public FlexibleDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(DateWrapper dateOfBirth) {
+    public void setDateOfBirth(FlexibleDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public DateWrapper getDateOfDeath() {
+    public FlexibleDate getDateOfDeath() {
         return dateOfDeath;
     }
 
-    public void setDateOfDeath(DateWrapper dateOfDeath) {
+    public void setDateOfDeath(FlexibleDate dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
 
@@ -83,12 +80,12 @@ public class PersonData extends AbstractData<PersonData> {
             return this;
         }
 
-        public Builder dateOfBirth(DateWrapper dateOfBirth) {
+        public Builder dateOfBirth(FlexibleDate dateOfBirth) {
             personData.setDateOfBirth(dateOfBirth);
             return this;
         }
 
-        public Builder dateOfDeath(DateWrapper dateOfDeath) {
+        public Builder dateOfDeath(FlexibleDate dateOfDeath) {
             personData.setDateOfDeath(dateOfDeath);
             return this;
         }

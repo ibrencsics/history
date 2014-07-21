@@ -1,6 +1,8 @@
 package org.ib.history.commons.utils;
 
-public abstract class DateWrapper {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public abstract class DateWrapper implements IsSerializable {
     public abstract boolean isThereMonth();
     public abstract boolean isThereDay();
     public abstract int getYear();

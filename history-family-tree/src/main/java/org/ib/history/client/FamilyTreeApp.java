@@ -28,8 +28,7 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
     }
 
     private void doWelcome() {
-        WelcomePresenter pres = injector.getWelcomePresenter();
-        pres.go(container);
+        injector.getWelcomePresenter().go(container);
     }
 
     private void doShowCountries() {

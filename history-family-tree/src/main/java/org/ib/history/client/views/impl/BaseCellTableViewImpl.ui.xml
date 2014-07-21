@@ -4,26 +4,42 @@
 
     <ui:style>
         .panel {
+            width: 100%;
         }
         .bgc {
-        background-color: #F00;
+            background-color: #0F0;
+            height: 100px;
+            width: 100%;
+        }
+        .list {
+            background-color: #F00;
+            height: 500px;
+            width: 100%;
         }
     </ui:style>
 
-    <g:DockLayoutPanel unit="PX">
-        <g:north size="22">
-            <g:Label>Base CellTable View</g:Label>
-        </g:north>
-        <g:south size="33">
-            <c:SimplePager ui:field="pager" />
-        </g:south>
-        <g:center>
-            <g:ResizeLayoutPanel addStyleNames="{style.bgc}">
-                <g:CustomScrollPanel>
-                    <c:CellTable ui:field="cellTable" />
-                </g:CustomScrollPanel>
-            </g:ResizeLayoutPanel>
-        </g:center>
-    </g:DockLayoutPanel>
+    <!--<g:DockLayoutPanel unit="PX">-->
+        <!--<g:north size="22">-->
+            <!--<c:SimplePager ui:field="pager" />-->
+        <!--</g:north>-->
+        <!--<g:south size="33">-->
+            <!--<g:Button text="sdf"/>-->
+        <!--</g:south>-->
+        <!--<g:center>-->
+            <!--<g:ResizeLayoutPanel addStyleNames="{style.bgc}">-->
+                <!--<g:CustomScrollPanel>-->
+                    <!--<c:CellTable ui:field="cellTable" />-->
+                <!--</g:CustomScrollPanel>-->
+            <!--</g:ResizeLayoutPanel>-->
+        <!--</g:center>-->
+    <!--</g:DockLayoutPanel>-->
+
+    <g:VerticalPanel addStyleNames="{style.panel}">
+        <g:AbsolutePanel ui:field="addItemPanel" addStyleNames="{style.bgc}"/>
+        <g:AbsolutePanel addStyleNames="{style.list}">
+            <c:CellTable ui:field="cellTable"/>
+        </g:AbsolutePanel>
+        <c:SimplePager ui:field="pager" />
+    </g:VerticalPanel>
 
 </ui:UiBinder>

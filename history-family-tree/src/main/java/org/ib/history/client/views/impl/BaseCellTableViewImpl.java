@@ -8,6 +8,7 @@ import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextHeader;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -22,6 +23,9 @@ public abstract class BaseCellTableViewImpl<T> extends Composite {
     @UiField(provided = true)
     SimplePager pager;
 
+    @UiField
+    AbsolutePanel addItemPanel;
+
     Header<String> detailFooter;
 
     public BaseCellTableViewImpl() {
@@ -31,10 +35,12 @@ public abstract class BaseCellTableViewImpl<T> extends Composite {
         pager.setDisplay(cellTable);
 
         initWidget(uiBinder.createAndBindUi(this));
-        cellTable.setSize("100%", "100%");
-        this.setSize("100%", "100%");
+//        cellTable.setSize("100%", "100%");
+//        this.setSize("100%", "100%");
 
         buildTable();
+        buildAddItemPanel();
+
         Window.enableScrolling(false);
     }
 
@@ -48,4 +54,9 @@ public abstract class BaseCellTableViewImpl<T> extends Composite {
     }
 
     protected abstract void buildColumns();
+    protected abstract void buildAddItemPanel();
+
+    protected void setAddItemForm(Widget addItemForm) {
+        addItemPanel.add(addItemForm);
+    }
 }

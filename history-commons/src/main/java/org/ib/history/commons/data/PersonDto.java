@@ -1,26 +1,25 @@
 package org.ib.history.commons.data;
 
-import org.ib.history.commons.utils.FullDateWrapper;
 
 public class PersonDto extends AbstractDto {
 
-    private FullDateWrapper dateOfBirth;
-    private FullDateWrapper dateOfDeath;
+    private FlexibleDate dateOfBirth;
+    private FlexibleDate dateOfDeath;
     private HouseDto house;
 
-    public FullDateWrapper getDateOfBirth() {
+    public FlexibleDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(FullDateWrapper dateOfBirth) {
+    public void setDateOfBirth(FlexibleDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public FullDateWrapper getDateOfDeath() {
+    public FlexibleDate getDateOfDeath() {
         return dateOfDeath;
     }
 
-    public void setDateOfDeath(FullDateWrapper dateOfDeath) {
+    public void setDateOfDeath(FlexibleDate dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
 
@@ -43,12 +42,12 @@ public class PersonDto extends AbstractDto {
         return this;
     }
 
-    public PersonDto withDateOfBirth(FullDateWrapper dateOfBirth) {
+    public PersonDto withDateOfBirth(FlexibleDate dateOfBirth) {
         this.setDateOfBirth(dateOfBirth);
         return this;
     }
 
-    public PersonDto withDateOfDeath(FullDateWrapper dateOfDeath) {
+    public PersonDto withDateOfDeath(FlexibleDate dateOfDeath) {
         this.setDateOfDeath(dateOfDeath);
         return this;
     }

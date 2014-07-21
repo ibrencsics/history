@@ -1,7 +1,7 @@
 package org.ib.history.db.neo4j.services;
 
+import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.utils.FullDateWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -27,7 +27,7 @@ public class PersonServiceImplTest {
 
         PersonData personData =
                 new PersonData.Builder().name("William")
-                        .dateOfDeath(new FullDateWrapper.Builder().year(1087).noMonth().noDay().build())
+                        .dateOfDeath(new FlexibleDate.Builder().year(1087).noMonth().noDay().build())
                         .child(new PersonData.Builder().name("William2").build())
                         .locale("DE", new PersonData.Builder().name("Wilhelm").build())
                         .locale("HU", new PersonData.Builder().name("Vilmos").build())
@@ -37,7 +37,7 @@ public class PersonServiceImplTest {
         assertNotNull(personCreated.getId());
         assertEquals(personCreated.getLocales().size(), 2);
 
-        personCreated.setDateOfBirth(new FullDateWrapper.Builder().year(1065).noMonth().noDay().build());
+        personCreated.setDateOfBirth(new FlexibleDate.Builder().year(1065).noMonth().noDay().build());
         personCreated = personService.addPerson(personCreated);
 
         PersonData child = personService.getPersonById(personCreated.getChildren().get(0).getId());

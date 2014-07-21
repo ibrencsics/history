@@ -3,7 +3,6 @@ package org.ib.history.db.neo4j.domain;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.Neo4jDateFormat;
-import org.ib.history.commons.utils.SimpleDateWrapper;
 
 public class DataTransformer {
 
@@ -47,9 +46,9 @@ public class DataTransformer {
                 .id(person.getId()).name(person.getName());
 
         if (person.getDateOfBirth() != null)
-            personDataBuilder.dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth(), SimpleDateWrapper.class));
+            personDataBuilder.dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth()));
         if (person.getDateOfDeath() != null)
-            personDataBuilder.dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath(), SimpleDateWrapper.class));
+            personDataBuilder.dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
 
         for (Person child : person.getChildren()) {
             personDataBuilder.child(transform(child));

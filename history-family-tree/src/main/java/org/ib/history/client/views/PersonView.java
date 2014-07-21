@@ -5,4 +5,5 @@ import org.ib.history.client.presenters.impl.PersonPresenterImpl;
 
 public interface PersonView extends IsWidget {
     void setPresenter(PersonPresenterImpl presenter);
+    void refreshGrid();
 }
