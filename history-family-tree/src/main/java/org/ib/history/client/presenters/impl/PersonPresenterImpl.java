@@ -55,6 +55,9 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
 
             @Override
             public void onSuccess(List<PersonData> personDataList) {
+                for (PersonData personData : personDataList) {
+                    GWT.log(personData.toString());
+                }
                 updateRowData(range.getStart(), personDataList);
             }
         });
