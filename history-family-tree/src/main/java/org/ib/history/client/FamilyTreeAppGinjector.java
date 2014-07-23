@@ -3,14 +3,8 @@ package org.ib.history.client;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
-import org.ib.history.client.presenters.CountryAddPresenter;
-import org.ib.history.client.presenters.CountryListPresenter;
-import org.ib.history.client.presenters.PersonPresenter;
-import org.ib.history.client.presenters.WelcomePresenter;
-import org.ib.history.client.views.CountryAddView;
-import org.ib.history.client.views.CountryListView;
-import org.ib.history.client.views.PersonView;
-import org.ib.history.client.views.WelcomeView;
+import org.ib.history.client.presenters.*;
+import org.ib.history.client.views.*;
 
 @GinModules(FamilyTreeGinModule.class)
 public interface FamilyTreeAppGinjector extends Ginjector {
@@ -19,10 +13,14 @@ public interface FamilyTreeAppGinjector extends Ginjector {
 
     WelcomeView getWelcomeView();
     WelcomePresenter getWelcomePresenter();
-    CountryListView getCountryListView();
-    CountryListPresenter getCountryListPresenter();
-    CountryAddView getCountryAddView();
-    CountryAddPresenter getCountryAddPresenter();
+
+//    CountryListView getCountryListView();
+//    CountryListPresenter getCountryListPresenter();
+//    CountryAddView getCountryAddView();
+//    CountryAddPresenter getCountryAddPresenter();
+
+    CountryView getCountryView();
+    CountryPresenter getCountryPresenter();
     PersonView getPersonView();
     PersonPresenter getPersonPresenter();
 }

@@ -8,8 +8,8 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 import org.ib.history.client.event.ScreenChangeEvent;
 import org.ib.history.client.event.ScreenChangeEventHandler;
-import org.ib.history.client.presenters.CountryAddPresenter;
-import org.ib.history.client.presenters.CountryListPresenter;
+//import org.ib.history.client.presenters.CountryAddPresenter;
+//import org.ib.history.client.presenters.CountryListPresenter;
 import org.ib.history.client.presenters.WelcomePresenter;
 
 import java.util.logging.Logger;
@@ -32,11 +32,11 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
     }
 
     private void doShowCountries() {
-        injector.getWelcomePresenter().show(injector.getCountryListPresenter());
+        injector.getWelcomePresenter().show(injector.getCountryPresenter());
     }
 
     private void doShowNewCountry() {
-        injector.getWelcomePresenter().show(injector.getCountryAddPresenter());
+//        injector.getWelcomePresenter().show(injector.getCountryAddPresenter());
     }
 
     private void doShowPersons() {
