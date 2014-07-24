@@ -9,6 +9,7 @@ public class AbstractData<T extends AbstractData> implements IsSerializable {
 
     private Long id;
     private Map<String,T> locales;
+    private String name;
 
     public Long getId() {
         return id;
@@ -35,5 +36,13 @@ public class AbstractData<T extends AbstractData> implements IsSerializable {
 
     public T getLocale(String locale) {
         return getLocales().get(locale);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

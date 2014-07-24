@@ -5,18 +5,18 @@ import java.util.List;
 
 public class PersonData extends AbstractData<PersonData> {
 
-    private String name;
+//    private String name;
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
     private List<PersonData> children;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public FlexibleDate getDateOfBirth() {
         return dateOfBirth;
