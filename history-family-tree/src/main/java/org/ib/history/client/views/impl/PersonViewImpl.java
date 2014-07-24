@@ -97,7 +97,7 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
         private TextBox tbName;
         private TextBox tbBirth;
         private TextBox tbDeath;
-        private Button btmSubmit;
+        private Button btnSubmit;
 
         private PersonPresenter presenter;
         private PersonData personDataSelected;
@@ -107,28 +107,30 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
             tbName = new TextBox();
             tbBirth = new TextBox();
             tbDeath = new TextBox();
-            btmSubmit = new Button("Add");
+            btnSubmit = new Button("Add");
             panel.add(tbName);
             panel.add(tbBirth);
             panel.add(tbDeath);
-            panel.add(btmSubmit);
+            panel.add(btnSubmit);
 
             initWidget(panel);
+
+            bind();
         }
 
         public void setPresenter(PersonPresenter presenter) {
             this.presenter = presenter;
-            bind();
+//            bind();
         }
 
         private void bind() {
-            btmSubmit.addClickHandler(new ClickHandler() {
+            btnSubmit.addClickHandler(new ClickHandler() {
                 @Override
                 public void onClick(ClickEvent event) {
                     System.out.println("presenter " + presenter);
                     presenter.addPerson(
                             new PersonData.Builder()
-                                    .id(personDataSelected!=null ? personDataSelected.getId() : null)
+                                    .id(personDataSelected != null ? personDataSelected.getId() : null)
                                     .name(tbName.getText())
                                     .dateOfBirth(GwtDateFormat.convert(tbBirth.getText()))
                                     .dateOfDeath(GwtDateFormat.convert(tbDeath.getText()))
