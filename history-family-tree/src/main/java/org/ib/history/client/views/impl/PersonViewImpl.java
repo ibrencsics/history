@@ -1,13 +1,7 @@
 package org.ib.history.client.views.impl;
 
-import com.google.gwt.cell.client.FieldUpdater;
-import com.google.gwt.cell.client.TextButtonCell;
-import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -15,23 +9,17 @@ import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.presenters.impl.PersonPresenterImpl;
 import org.ib.history.client.views.PersonView;
-import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
 public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements PersonView {
 
-    final String COLUMN_NAME_NAME = "Name";
     final String COLUMN_DATE_OF_BIRTH_NAME = "Date of birth";
     final String COLUMN_DATE_OF_DEATH_NAME = "Date of death";
-    final String COLUMN_NAME_EDIT = "Edit";
-    final String COLUMN_NAME_DELETE = "Delete";
 
-    TextColumn<PersonData> columnName;
+
     TextColumn<PersonData> columnDateOfBirth;
     TextColumn<PersonData> columnDateOfDeath;
-    Column<PersonData, String> columnEdit;
-    Column<PersonData, String> columnDelete;
 
     private PersonPresenter presenter;
     private PersonAddViewImpl personAddView;
@@ -44,21 +32,11 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
         buildColumnEdit();
         buildColumnDelete();
 
-        cellTable.addColumn(columnName, buildHeader(COLUMN_NAME_NAME), buildHeader(COLUMN_NAME_NAME));
-        cellTable.addColumn(columnDateOfBirth, buildHeader(COLUMN_DATE_OF_BIRTH_NAME), buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
-        cellTable.addColumn(columnDateOfDeath, buildHeader(COLUMN_DATE_OF_DEATH_NAME), buildHeader(COLUMN_DATE_OF_DEATH_NAME));
-        cellTable.addColumn(columnEdit, buildHeader(COLUMN_NAME_EDIT), detailFooter);
-        cellTable.addColumn(columnDelete, buildHeader(COLUMN_NAME_DELETE), detailFooter);
-    }
-
-    private void buildColumnName() {
-        columnName = new TextColumn<PersonData>() {
-            @Override
-            public String getValue(PersonData object) {
-                return object.getName();
-            }
-        };
-        columnName.setDataStoreName(COLUMN_NAME_NAME);
+        cellTable.addColumn(columnName, buildHeader(COLUMN_NAME));
+        cellTable.addColumn(columnDateOfBirth, buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
+        cellTable.addColumn(columnDateOfDeath, buildHeader(COLUMN_DATE_OF_DEATH_NAME));
+        cellTable.addColumn(columnEdit, buildHeader(COLUMN_EDIT));
+        cellTable.addColumn(columnDelete, buildHeader(COLUMN_DELETE));
     }
 
     private void buildColumnDateOfBirth() {
@@ -81,50 +59,14 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
         columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH_NAME);
     }
 
-    private Column<PersonData, String> buildColumnEdit() {
-        columnEdit = new Column<PersonData, String>(new TextButtonCell()) {
-            @Override
-            public String getValue(PersonData object) {
-                return "Edit";
-            }
-        };
-        columnEdit.setDataStoreName(COLUMN_NAME_EDIT);
-        columnEdit.setFieldUpdater(new FieldUpdater<PersonData, String>() {
-            @Override
-            public void update(int index, PersonData object, String value) {
-                GWT.log(object.getName() + " pressed");
-                personAddView.setPersonDataSelected(object);
-            }
-        });
-        return columnEdit;
+    @Override
+    protected void onEdit(PersonData personData) {
+        personAddView.setPersonDataSelected(personData);
     }
 
-    private Column<PersonData, String> buildColumnDelete() {
-        columnDelete = new Column<PersonData, String>(new TextButtonCell()) {
-            @Override
-            public String getValue(PersonData object) {
-                return "Delete";
-            }
-        };
-        columnDelete.setDataStoreName(COLUMN_NAME_DELETE);
-        columnDelete.setFieldUpdater(new FieldUpdater<PersonData, String>() {
-            @Override
-            public void update(int index, PersonData object, String value) {
-                GWT.log(object.getName() + " pressed");
-                presenter.deletePerson(object);
-            }
-        });
-        return columnDelete;
-    }
-
-    private Header<String> buildHeader(final String text) {
-        Header<String> head = new Header<String>(new TextCell()) {
-            @Override
-            public String getValue() {
-                return text;
-            }
-        };
-        return head;
+    @Override
+    protected void onDelete(PersonData personData) {
+        presenter.deletePerson(personData);
     }
 
     @Override
