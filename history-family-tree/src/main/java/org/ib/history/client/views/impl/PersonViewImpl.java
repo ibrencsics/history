@@ -18,9 +18,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     final String COLUMN_DATE_OF_DEATH_NAME = "Date of death";
 
 
-    TextColumn<PersonData> columnDateOfBirth;
-    TextColumn<PersonData> columnDateOfDeath;
-
     private PersonAddViewImpl personAddView;
 
     @Override
@@ -30,44 +27,33 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
     @Override
     protected void buildListColumns() {
-        buildColumnDateOfBirth();
-        buildColumnDateOfDeath();
-
         ctList.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
-        ctList.addColumn(columnDateOfBirth, buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
-        ctList.addColumn(columnDateOfDeath, buildHeader(COLUMN_DATE_OF_DEATH_NAME));
+        ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
+        ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH_NAME));
         ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_EDIT));
-        ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_DELETE));
+        ctList.addColumn(buildColumnDelete(), buildHeader(COLUMN_DELETE));
     }
 
-    private void buildColumnDateOfBirth() {
-        columnDateOfBirth = new TextColumn<PersonData>() {
+    private TextColumn<PersonData>  buildColumnDateOfBirth() {
+        TextColumn<PersonData> columnDateOfBirth = new TextColumn<PersonData>() {
             @Override
             public String getValue(PersonData personData) {
                 return GwtDateFormat.convert(personData.getDateOfBirth());
             }
         };
         columnDateOfBirth.setDataStoreName(COLUMN_DATE_OF_BIRTH_NAME);
+        return columnDateOfBirth;
     }
 
-    private void buildColumnDateOfDeath() {
-        columnDateOfDeath = new TextColumn<PersonData>() {
+    private TextColumn<PersonData>  buildColumnDateOfDeath() {
+        TextColumn<PersonData> columnDateOfDeath = new TextColumn<PersonData>() {
             @Override
             public String getValue(PersonData personData) {
                 return GwtDateFormat.convert(personData.getDateOfDeath());
             }
         };
         columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH_NAME);
-    }
-
-    @Override
-    protected void onEdit(PersonData personData) {
-        personAddView.setPersonDataSelected(personData);
-    }
-
-    @Override
-    protected void onDelete(PersonData personData) {
-        presenter.deleteItem(personData);
+        return columnDateOfDeath;
     }
 
 //    @Override
@@ -75,10 +61,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 //        personAddView = new PersonAddViewImpl();
 //        setAddItemForm(personAddView);
 //    }
-
-    private void createWithAsyncDataProvider() {
-        ((AsyncDataProvider<PersonData>)presenter).addDataDisplay(ctList);
-    }
 
 
     class PersonAddViewImpl extends Composite {

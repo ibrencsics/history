@@ -131,7 +131,8 @@ public abstract class BaseCrudViewImpl<T extends AbstractData> extends Composite
             @Override
             public void update(int index, T object, String value) {
                 GWT.log(object.getName() + " pressed");
-                onEdit(object);
+                localeProvider.getList().clear();
+                localeProvider.getList().add(object);
             }
         });
         return columnEdit;
@@ -149,15 +150,12 @@ public abstract class BaseCrudViewImpl<T extends AbstractData> extends Composite
             @Override
             public void update(int index, T object, String value) {
                 GWT.log(object.getName() + " pressed");
-                onDelete(object);
+                presenter.deleteItem(object);
             }
         });
         return columnDelete;
     }
 
-
-    protected abstract void onEdit(T data);
-    protected abstract void onDelete(T data);
 
     protected void setAddItemForm(Widget addItemForm) {
 //        addItemPanel.add(addItemForm);

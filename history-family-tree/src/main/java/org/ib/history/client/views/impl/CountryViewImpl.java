@@ -17,7 +17,8 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
 
     @Override
     protected void buildEditColumns() {
-        localeProvider.getList().add(new CountryData.Builder().name("qqq").build());
+//        localeProvider.getList().add(new CountryData.Builder().name("qqq").build());
+        ctEdit.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
     }
 
     @Override
@@ -27,25 +28,11 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
         ctList.addColumn(buildColumnDelete(), buildHeader(COLUMN_DELETE));
     }
 
-    @Override
-    protected void onEdit(CountryData data) {
-        countryAddView.setCountryDataSelected(data);
-    }
-
-    @Override
-    protected void onDelete(CountryData data) {
-        presenter.deleteItem(data);
-    }
-
 //    @Override
 //    protected void buildAddItemPanel() {
 //        countryAddView = new CountryAddViewImpl();
 //        setAddItemForm(countryAddView);
 //    }
-
-    private void createWithAsyncDataProvider() {
-        ((AsyncDataProvider<CountryData>)presenter).addDataDisplay(ctList);
-    }
 
 
     class CountryAddViewImpl extends Composite {
