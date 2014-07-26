@@ -11,19 +11,19 @@ import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.CountryPresenter;
 import org.ib.history.client.views.CountryView;
+import org.ib.history.client.views.CrudView;
 import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.PersonData;
 
 import java.util.List;
 
 public class CountryPresenterImpl extends AsyncDataProvider<CountryData> implements CountryPresenter {
 
-    private final CountryView countryView;
+    private final CountryView view;
     private BackendServiceAsync backendService;
 
     @Inject
-    public CountryPresenterImpl(CountryView countryView) {
-        this.countryView = countryView;
+    public CountryPresenterImpl(CountryView view) {
+        this.view = view;
     }
 
     @Inject
@@ -35,12 +35,12 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
     public void go(HasWidgets container) {
         bind();
         container.clear();
-        container.add(countryView.asWidget());
+        container.add(view.asWidget());
     }
 
     @Override
     public void bind() {
-        countryView.setPresenter(this);
+        view.setPresenter(this);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
     }
 
     @Override
-    public void addCountry(CountryData countryData) {
+    public void addItem(CountryData countryData) {
         backendService.addCountry(countryData, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
@@ -73,13 +73,13 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
 
             @Override
             public void onSuccess(Void aVoid) {
-                countryView.refreshGrid();
+                view.refreshGrid();
             }
         });
     }
 
     @Override
-    public void deleteCountry(CountryData countryData) {
+    public void deleteItem(CountryData countryData) {
         backendService.deleteCountry(countryData, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
@@ -88,7 +88,7 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
 
             @Override
             public void onSuccess(Void aVoid) {
-                countryView.refreshGrid();
+                view.refreshGrid();
             }
         });
     }

@@ -12,7 +12,7 @@ import org.ib.history.client.views.PersonView;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
-public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements PersonView {
+public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements PersonView {
 
     final String COLUMN_DATE_OF_BIRTH_NAME = "Date of birth";
     final String COLUMN_DATE_OF_DEATH_NAME = "Date of death";
@@ -21,22 +21,23 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
     TextColumn<PersonData> columnDateOfBirth;
     TextColumn<PersonData> columnDateOfDeath;
 
-    private PersonPresenter presenter;
     private PersonAddViewImpl personAddView;
 
     @Override
-    protected void buildColumns() {
-        buildColumnName();
+    protected void buildEditColumns() {
+
+    }
+
+    @Override
+    protected void buildListColumns() {
         buildColumnDateOfBirth();
         buildColumnDateOfDeath();
-        buildColumnEdit();
-        buildColumnDelete();
 
-        cellTable.addColumn(columnName, buildHeader(COLUMN_NAME));
-        cellTable.addColumn(columnDateOfBirth, buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
-        cellTable.addColumn(columnDateOfDeath, buildHeader(COLUMN_DATE_OF_DEATH_NAME));
-        cellTable.addColumn(columnEdit, buildHeader(COLUMN_EDIT));
-        cellTable.addColumn(columnDelete, buildHeader(COLUMN_DELETE));
+        ctList.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
+        ctList.addColumn(columnDateOfBirth, buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
+        ctList.addColumn(columnDateOfDeath, buildHeader(COLUMN_DATE_OF_DEATH_NAME));
+        ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_EDIT));
+        ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_DELETE));
     }
 
     private void buildColumnDateOfBirth() {
@@ -66,31 +67,19 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
 
     @Override
     protected void onDelete(PersonData personData) {
-        presenter.deletePerson(personData);
+        presenter.deleteItem(personData);
     }
 
-    @Override
-    protected void buildAddItemPanel() {
-        personAddView = new PersonAddViewImpl();
-        setAddItemForm(personAddView);
-    }
-
-    @Override
-    public void setPresenter(PersonPresenterImpl presenter) {
-        this.presenter = presenter;
-        personAddView.setPresenter(presenter);
-        createWithAsyncDataProvider();
-    }
+//    @Override
+//    protected void buildAddItemPanel() {
+//        personAddView = new PersonAddViewImpl();
+//        setAddItemForm(personAddView);
+//    }
 
     private void createWithAsyncDataProvider() {
-        ((AsyncDataProvider<PersonData>)presenter).addDataDisplay(cellTable);
+        ((AsyncDataProvider<PersonData>)presenter).addDataDisplay(ctList);
     }
 
-    @Override
-    public void refreshGrid() {
-        cellTable.setVisibleRangeAndClearData(new Range(0, 25), true);
-        cellTable.redraw();
-    }
 
     class PersonAddViewImpl extends Composite {
 
@@ -128,7 +117,7 @@ public class PersonViewImpl extends BaseCellTableViewImpl<PersonData> implements
                 @Override
                 public void onClick(ClickEvent event) {
                     System.out.println("presenter " + presenter);
-                    presenter.addPerson(
+                    presenter.addItem(
                             new PersonData.Builder()
                                     .id(personDataSelected != null ? personDataSelected.getId() : null)
                                     .name(tbName.getText())

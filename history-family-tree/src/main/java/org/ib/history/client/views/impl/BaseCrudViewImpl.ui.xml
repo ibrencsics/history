@@ -8,7 +8,6 @@
         }
         .bgc {
             background-color: #0F0;
-            height: 100px;
             width: 100%;
         }
         .list {
@@ -28,16 +27,20 @@
         <!--<g:center>-->
             <!--<g:ResizeLayoutPanel addStyleNames="{style.bgc}">-->
                 <!--<g:CustomScrollPanel>-->
-                    <!--<c:CellTable ui:field="cellTable" />-->
+                    <!--<c:CellTable ui:field="ctList" />-->
                 <!--</g:CustomScrollPanel>-->
             <!--</g:ResizeLayoutPanel>-->
         <!--</g:center>-->
     <!--</g:DockLayoutPanel>-->
 
     <g:VerticalPanel addStyleNames="{style.panel}">
-        <g:AbsolutePanel ui:field="addItemPanel" addStyleNames="{style.bgc}"/>
+        <g:VerticalPanel ui:field="addItemPanel" addStyleNames="{style.bgc}">
+            <c:CellTable ui:field="ctEdit"/>
+            <g:Button ui:field="btnAdd" text="Add"/>
+            <g:Button ui:field="btnSave" text="Save"/>
+        </g:VerticalPanel>
         <g:AbsolutePanel addStyleNames="{style.list}">
-            <c:CellTable ui:field="cellTable"/>
+            <c:CellTable ui:field="ctList"/>
         </g:AbsolutePanel>
         <c:SimplePager ui:field="pager" />
     </g:VerticalPanel>

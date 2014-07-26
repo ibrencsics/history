@@ -10,20 +10,20 @@ import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.PersonPresenter;
+import org.ib.history.client.views.CrudView;
 import org.ib.history.client.views.PersonView;
-import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
 
 import java.util.List;
 
 public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implements PersonPresenter {
 
-    private final PersonView personView;
+    private final PersonView view;
     private BackendServiceAsync backendService;
 
     @Inject
-    public PersonPresenterImpl(PersonView personView) {
-        this.personView = personView;
+    public PersonPresenterImpl(PersonView view) {
+        this.view = view;
     }
 
     @Inject
@@ -35,12 +35,12 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     public void go(HasWidgets container) {
         bind();
         container.clear();
-        container.add(personView.asWidget());
+        container.add(view.asWidget());
     }
 
     @Override
     public void bind() {
-        personView.setPresenter(this);
+        view.setPresenter(this);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     }
 
     @Override
-    public void addPerson(PersonData personData) {
+    public void addItem(PersonData personData) {
         GWT.log(personData.toString());
         backendService.addPerson(personData, new AsyncCallback<Void>() {
             @Override
@@ -74,13 +74,13 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
 
             @Override
             public void onSuccess(Void aVoid) {
-                personView.refreshGrid();
+                view.refreshGrid();
             }
         });
     }
 
     @Override
-    public void deletePerson(PersonData personData) {
+    public void deleteItem(PersonData personData) {
         backendService.deletePerson(personData, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
@@ -89,7 +89,7 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
 
             @Override
             public void onSuccess(Void aVoid) {
-                personView.refreshGrid();
+                view.refreshGrid();
             }
         });
     }

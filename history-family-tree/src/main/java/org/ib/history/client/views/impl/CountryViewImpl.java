@@ -2,30 +2,29 @@ package org.ib.history.client.views.impl;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CountryPresenter;
+import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.views.CountryView;
 import org.ib.history.commons.data.CountryData;
+import org.ib.history.commons.data.PersonData;
 
-public class CountryViewImpl extends BaseCellTableViewImpl<CountryData> implements CountryView {
+public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements CountryView {
 
-    private CountryPresenter presenter;
     private CountryAddViewImpl countryAddView;
 
     @Override
-    protected void buildColumns() {
-        buildColumnName();
-        buildColumnEdit();
-        buildColumnDelete();
+    protected void buildEditColumns() {
+        localeProvider.getList().add(new CountryData.Builder().name("qqq").build());
+    }
 
-        cellTable.addColumn(columnName, buildHeader(COLUMN_NAME));
-        cellTable.addColumn(columnEdit, buildHeader(COLUMN_EDIT));
-        cellTable.addColumn(columnDelete, buildHeader(COLUMN_DELETE));
+    @Override
+    protected void buildListColumns() {
+        ctList.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
+        ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_EDIT));
+        ctList.addColumn(buildColumnDelete(), buildHeader(COLUMN_DELETE));
     }
 
     @Override
@@ -35,50 +34,61 @@ public class CountryViewImpl extends BaseCellTableViewImpl<CountryData> implemen
 
     @Override
     protected void onDelete(CountryData data) {
-        presenter.deleteCountry(data);
+        presenter.deleteItem(data);
     }
 
-    @Override
-    protected void buildAddItemPanel() {
-        countryAddView = new CountryAddViewImpl();
-        setAddItemForm(countryAddView);
-    }
-
-    @Override
-    public void setPresenter(CountryPresenter presenter) {
-        this.presenter = presenter;
-        countryAddView.setPresenter(presenter);
-        createWithAsyncDataProvider();
-    }
+//    @Override
+//    protected void buildAddItemPanel() {
+//        countryAddView = new CountryAddViewImpl();
+//        setAddItemForm(countryAddView);
+//    }
 
     private void createWithAsyncDataProvider() {
-        ((AsyncDataProvider<CountryData>)presenter).addDataDisplay(cellTable);
+        ((AsyncDataProvider<CountryData>)presenter).addDataDisplay(ctList);
     }
 
-    @Override
-    public void refreshGrid() {
-        cellTable.setVisibleRangeAndClearData(new Range(0, 25), true);
-        cellTable.redraw();
-    }
 
     class CountryAddViewImpl extends Composite {
 
-        private TextBox tbName;
+        private FlexTable flexTable;
+
+        private Button btnAddLocale;
         private Button btnSubmit;
 
         private CountryPresenter presenter;
         private CountryData countryDataSelected;
 
         CountryAddViewImpl() {
-            FlowPanel panel = new FlowPanel();
-            tbName = new TextBox();
-            btnSubmit = new Button("Add");
-            panel.add(tbName);
+            VerticalPanel panel = new VerticalPanel();
+
+            setupFlexTable(null);
+            panel.add(flexTable);
+
+            btnAddLocale = new Button("Add");
+            panel.add(btnAddLocale);
+
+            btnSubmit = new Button("Save");
             panel.add(btnSubmit);
 
             initWidget(panel);
 
             bind();
+        }
+
+        private void setupFlexTable(PersonData personData) {
+            if (flexTable==null) {
+                flexTable = new FlexTable();
+            } else {
+                flexTable.clear();
+            }
+
+            if (personData==null) {
+                flexTable.setWidget(0, 0, new TextBox());
+                flexTable.setWidget(0, 1, new Button("Delete"));
+            } else {
+
+                flexTable.setWidget(0, 0, new TextBox());
+            }
         }
 
         public void setPresenter(CountryPresenter presenter) {
@@ -91,21 +101,21 @@ public class CountryViewImpl extends BaseCellTableViewImpl<CountryData> implemen
                 @Override
                 public void onClick(ClickEvent event) {
                     System.out.println("presenter " + presenter);
-                    presenter.addCountry(
+                    presenter.addItem(
                             new CountryData.Builder()
                                     .id(countryDataSelected != null ? countryDataSelected.getId() : null)
-                                    .name(tbName.getText())
+//                                    .name(tbName.getText())
                                     .build());
 
                     countryDataSelected = null;
-                    tbName.setText("");
+//                    tbName.setText("");
                 }
             });
         }
 
         void setCountryDataSelected(CountryData countryDataSelected) {
             this.countryDataSelected = countryDataSelected;
-            tbName.setText(countryDataSelected.getName());
+//            tbName.setText(countryDataSelected.getName());
         }
     }
 }

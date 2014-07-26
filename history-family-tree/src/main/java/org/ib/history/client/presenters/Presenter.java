@@ -3,6 +3,6 @@ package org.ib.history.client.presenters;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 public interface Presenter {
-    public void go(final HasWidgets container);
-    public void bind();
+    void go(final HasWidgets container);
+    void bind();
 }
