@@ -34,6 +34,23 @@ public class AbstractData<T extends AbstractData> implements IsSerializable {
         getLocales().put(locale, data);
     }
 
+    public T removeLocale(String locale) {
+        return getLocales().remove(locale);
+    }
+
+    public T removeLocale(T localeToRemove) {
+        String localeFound = null;
+        for (Map.Entry<String, T> locale: getLocales().entrySet()) {
+            if (locale.getValue().equals(localeToRemove))
+                localeFound = locale.getKey();
+        }
+
+        if (localeFound!=null) {
+            return removeLocale(localeFound);
+        }
+        return null;
+    }
+
     public T getLocale(String locale) {
         return getLocales().get(locale);
     }

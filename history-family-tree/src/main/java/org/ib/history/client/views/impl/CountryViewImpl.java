@@ -17,8 +17,10 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
 
     @Override
     protected void buildEditColumns() {
-//        localeProvider.getList().add(new CountryData.Builder().name("qqq").build());
-        ctEdit.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
+        localeProvider.getList().add(new CountryData.Builder().name("").build());
+        ctEdit.addColumn(buildEditableColumnName(), buildHeader(COLUMN_NAME));
+        ctEdit.addColumn(buildEditableColumnDelete(), buildHeader(COLUMN_DELETE));
+        ctEdit.addColumn(buildEditableColumnSave(), buildHeader(COLUMN_SAVE));
     }
 
     @Override
