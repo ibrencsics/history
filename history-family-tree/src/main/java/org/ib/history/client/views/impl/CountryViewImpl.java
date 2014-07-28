@@ -3,10 +3,7 @@ package org.ib.history.client.views.impl;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
-import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CountryPresenter;
-import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.views.CountryView;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
@@ -17,10 +14,11 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
 
     @Override
     protected void buildEditColumns() {
-        localeProvider.getList().add(new CountryData.Builder().name("").build());
+        localeProvider.getList().add(new LocaleWrapper("EN", new CountryData.Builder().name("").build()));
+        ctEdit.addColumn(buildEditableColumnLang(), buildHeader(COLUMN_LANG));
         ctEdit.addColumn(buildEditableColumnName(), buildHeader(COLUMN_NAME));
         ctEdit.addColumn(buildEditableColumnDelete(), buildHeader(COLUMN_DELETE));
-        ctEdit.addColumn(buildEditableColumnSave(), buildHeader(COLUMN_SAVE));
+//        ctEdit.addColumn(buildEditableColumnSave(), buildHeader(COLUMN_SAVE));
     }
 
     @Override

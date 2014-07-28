@@ -51,6 +51,10 @@ public class AbstractData<T extends AbstractData> implements IsSerializable {
         return null;
     }
 
+    public void removeLocals() {
+        getLocales().clear();
+    }
+
     public T getLocale(String locale) {
         return getLocales().get(locale);
     }
