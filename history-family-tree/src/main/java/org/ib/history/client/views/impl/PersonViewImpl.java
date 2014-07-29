@@ -17,9 +17,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     final String COLUMN_DATE_OF_BIRTH_NAME = "Date of birth";
     final String COLUMN_DATE_OF_DEATH_NAME = "Date of death";
 
-
-    private PersonAddViewImpl personAddView;
-
     @Override
     protected void buildEditColumns() {
 
@@ -56,70 +53,8 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         return columnDateOfDeath;
     }
 
-//    @Override
-//    protected void buildAddItemPanel() {
-//        personAddView = new PersonAddViewImpl();
-//        setAddItemForm(personAddView);
-//    }
-
-
-    class PersonAddViewImpl extends Composite {
-
-        private TextBox tbName;
-        private TextBox tbBirth;
-        private TextBox tbDeath;
-        private Button btnSubmit;
-
-        private PersonPresenter presenter;
-        private PersonData personDataSelected;
-
-        public PersonAddViewImpl() {
-            FlowPanel panel = new FlowPanel();
-            tbName = new TextBox();
-            tbBirth = new TextBox();
-            tbDeath = new TextBox();
-            btnSubmit = new Button("Add");
-            panel.add(tbName);
-            panel.add(tbBirth);
-            panel.add(tbDeath);
-            panel.add(btnSubmit);
-
-            initWidget(panel);
-
-            bind();
-        }
-
-        public void setPresenter(PersonPresenter presenter) {
-            this.presenter = presenter;
-//            bind();
-        }
-
-        private void bind() {
-            btnSubmit.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent event) {
-                    System.out.println("presenter " + presenter);
-                    presenter.addItem(
-                            new PersonData.Builder()
-                                    .id(personDataSelected != null ? personDataSelected.getId() : null)
-                                    .name(tbName.getText())
-                                    .dateOfBirth(GwtDateFormat.convert(tbBirth.getText()))
-                                    .dateOfDeath(GwtDateFormat.convert(tbDeath.getText()))
-                                    .build());
-
-                    personDataSelected = null;
-                    tbName.setText("");
-                    tbBirth.setText("");
-                    tbDeath.setText("");
-                }
-            });
-        }
-
-        void setPersonDataSelected(PersonData personDataSelected) {
-            this.personDataSelected = personDataSelected;
-            tbName.setText(personDataSelected.getName());
-            tbBirth.setText(GwtDateFormat.convert(personDataSelected.getDateOfBirth()));
-            tbDeath.setText(GwtDateFormat.convert(personDataSelected.getDateOfDeath()));
-        }
+    @Override
+    protected PersonData getEmptyItem() {
+        return new PersonData.Builder().name("").dateOfBirth(null).dateOfDeath(null).build();
     }
 }

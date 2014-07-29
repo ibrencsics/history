@@ -5,6 +5,8 @@ import org.ib.history.commons.data.FlexibleDate;
 public class GwtDateFormat {
 
     public static String convert(FlexibleDate flexDate) {
+        if (flexDate==null) return null;
+
         StringBuilder sb = new StringBuilder();
         sb.append(flexDate.isAD() ? "" : "-");
         sb.append(flexDate.getYear());

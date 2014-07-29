@@ -17,7 +17,6 @@ import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.views.CrudView;
 import org.ib.history.commons.data.AbstractData;
-import org.ib.history.commons.data.CountryData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,8 +47,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
     protected ListDataProvider<LocaleWrapper<T>> localeProvider;
     protected CrudPresenter<T> presenter;
-
-//    protected T selected;
 
     protected final String COLUMN_NAME = "Name";
     protected final String COLUMN_EDIT = "Edit";
@@ -159,8 +156,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         for (Map.Entry<String, T> entry: selected.getLocales().entrySet()) {
             localeProvider.getList().add( new LocaleWrapper<T>(entry.getKey(), entry.getValue()) );
         }
-
-//        this.selected = selected;
     }
 
     protected Column<T, String> buildColumnDelete() {
@@ -235,26 +230,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
             @Override
             public void update(int index, LocaleWrapper<T> object, String value) {
                 GWT.log(object.item.getName() + " pressed");
-//                selected.removeLocale(object.item);
-//                setSelected(selected);
-            }
-        });
-        return columnDelete;
-    }
-
-    protected Column<LocaleWrapper<T>, String> buildEditableColumnSave() {
-        Column<LocaleWrapper<T>, String> columnDelete = new Column<LocaleWrapper<T>, String>(new TextButtonCell()) {
-            @Override
-            public String getValue(LocaleWrapper<T> object) {
-                return COLUMN_SAVE;
-            }
-        };
-        columnDelete.setDataStoreName(COLUMN_SAVE);
-        columnDelete.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
-            @Override
-            public void update(int index, LocaleWrapper<T> object, String value) {
-                GWT.log(object.item.getName() + " pressed");
-                presenter.addItem(object.item);
             }
         });
         return columnDelete;
@@ -267,16 +242,12 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     @UiHandler("btnNew")
     public void newItem(ClickEvent clickEvent) {
         localeProvider.getList().clear();
-        localeProvider.getList().add(new LocaleWrapper("EN", new CountryData.Builder().name("").build()));
+        localeProvider.getList().add(new LocaleWrapper("EN", getEmptyItem()));
     }
 
     @UiHandler("btnAdd")
     public void addLocale(ClickEvent clickEvent) {
-        LocaleWrapper<T> selected = ctEdit.getVisibleItem(0);
-        GWT.log("selected: " + selected.item.getName());
-        localeProvider.getList().add(new LocaleWrapper("--", new CountryData.Builder().name("").build()));
-//        selected.item.addLocale("--", selected.item);
-//        setSelected(selected.item);
+        localeProvider.getList().add(new LocaleWrapper("--", getEmptyItem()));
     }
 
     @UiHandler("btnSave")
@@ -303,6 +274,8 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
             presenter.addItem(defaultItem);
         }
     }
+
+    protected abstract T getEmptyItem();
 
 
     static class LocaleWrapper<T> {
