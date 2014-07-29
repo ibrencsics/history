@@ -51,7 +51,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     protected final String COLUMN_NAME = "Name";
     protected final String COLUMN_EDIT = "Edit";
     protected final String COLUMN_DELETE = "Delete";
-    protected final String COLUMN_SAVE = "Save";
     protected final String COLUMN_LANG = "Lang";
 
 
@@ -96,11 +95,18 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
      */
 
     private void buildEditTable() {
+        localeProvider.getList().add(new LocaleWrapper("EN", getEmptyItem()));
+        ctEdit.addColumn(buildEditableColumnLang(), buildHeader(COLUMN_LANG));
+        ctEdit.addColumn(buildEditableColumnName(), buildHeader(COLUMN_NAME));
         buildEditColumns();
+        ctEdit.addColumn(buildEditableColumnDelete(), buildHeader(COLUMN_DELETE));
     }
 
     private void buildListTable() {
+        ctList.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
         buildListColumns();
+        ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_EDIT));
+        ctList.addColumn(buildColumnDelete(), buildHeader(COLUMN_DELETE));
     }
 
     protected abstract void buildEditColumns();
