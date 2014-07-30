@@ -32,6 +32,7 @@
                 <!--<g:Button text="List Persons" ui:field="showPersons"></g:Button>-->
                 <!--<g:Button text="New Person" ui:field="newPerson"></g:Button>-->
                 <g:Button text="Country" ui:field="country"/>
+                <g:Button text="House" ui:field="house"/>
                 <g:Button text="Person" ui:field="person"/>
             </g:VerticalPanel>
         </g:west>

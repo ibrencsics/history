@@ -3,19 +3,17 @@ package org.ib.history.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.ib.history.client.BackendService;
 import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.db.neo4j.Neo4jCountryService;
 import org.ib.history.db.neo4j.services.CountryService;
+import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service("backendService")
 public class BackendServiceImpl extends RemoteServiceServlet implements BackendService {
@@ -26,8 +24,9 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     CountryService countryService;
     @Autowired
     PersonService personService;
+    @Autowired
+    HouseService houseService;
 
-//    Neo4jCountryService neo4jCountryService;
 
     @Override
     public List<CountryData> getCountries(String locale) {
@@ -46,13 +45,23 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
 
 
     @Override
+    public List<HouseData> getHouses() {
+        return houseService.getHouses();
+    }
+
+    @Override
+    public void addHouse(HouseData house) {
+        houseService.addHouse(house);
+    }
+
+    @Override
+    public void deleteHouse(HouseData house) {
+        houseService.deleteHouse(house);
+    }
+
+
+    @Override
     public List<PersonData> getPersons() {
-//        List<PersonData> ret = new ArrayList<>();
-//        ret.add(new PersonData.Builder().name("dd")
-//                .dateOfBirth(new FlexibleDate.Builder().year(1234).noMonth().noDay().build())
-//                .dateOfDeath(new FlexibleDate.Builder().year(1345).noMonth().noDay().build())
-//                .build());
-//        return ret;
         List<PersonData> persons = personService.getPersons();
         log.debug(persons.toString());
         return persons;

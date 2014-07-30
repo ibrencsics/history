@@ -35,8 +35,8 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
         injector.getWelcomePresenter().show(injector.getCountryPresenter());
     }
 
-    private void doShowNewCountry() {
-//        injector.getWelcomePresenter().show(injector.getCountryAddPresenter());
+    private void doShowHouses() {
+        injector.getWelcomePresenter().show(injector.getHousePresenter());
     }
 
     private void doShowPersons() {
@@ -48,22 +48,17 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
 
         eventBus.addHandler(ScreenChangeEvent.TYPE, new ScreenChangeEventHandler() {
             @Override
-            public void showCountryList(ScreenChangeEvent event) {
+            public void showCountry(ScreenChangeEvent event) {
                 doShowCountries();
             }
             @Override
-            public void showCountryAdd(ScreenChangeEvent event) {
-                doShowNewCountry();
+            public void showHouse(ScreenChangeEvent event) {
+                doShowHouses();
             }
             @Override
-            public void showPersonList(ScreenChangeEvent event) {
+            public void showPerson(ScreenChangeEvent event) {
                 doShowPersons();
             }
-            @Override
-            public void showPersonAdd(ScreenChangeEvent event) {
-
-            }
-
         });
     }
 
@@ -76,7 +71,7 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
             if (token.startsWith(Tokens.COUNTRY_LIST)) {
                 doShowCountries();
             } else if (token.startsWith(Tokens.COUNTRY_ADD)) {
-                doShowNewCountry();
+                doShowCountries();
             } else {
                 doWelcome();
             }

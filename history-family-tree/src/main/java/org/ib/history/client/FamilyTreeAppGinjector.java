@@ -23,6 +23,8 @@ public interface FamilyTreeAppGinjector extends Ginjector {
 
     CountryView getCountryView();
     CountryPresenter getCountryPresenter();
+    HouseView getHouseView();
+    HousePresenter getHousePresenter();
     PersonView getPersonView();
     PersonPresenter getPersonPresenter();
 

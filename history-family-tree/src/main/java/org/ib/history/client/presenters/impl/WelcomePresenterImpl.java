@@ -1,11 +1,8 @@
 package org.ib.history.client.presenters.impl;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import org.ib.history.client.Tokens;
 import org.ib.history.client.event.ScreenChangeEvent;
 import org.ib.history.client.presenters.Presenter;
 import org.ib.history.client.presenters.WelcomePresenter;
@@ -41,23 +38,16 @@ public class WelcomePresenterImpl implements WelcomePresenter {
 
     @Override
     public void onShowCountriesClicked() {
-//        History.newItem(Tokens.COUNTRY_LIST);
-        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.COUNTRY_LIST));
+        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.COUNTRY));
     }
 
-//    @Override
-//    public void onNewCountryClicked() {
-////        History.newItem(Tokens.COUNTRY_ADD);
-//        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.COUNTRY_ADD));
-//    }
+    @Override
+    public void onShowHousesClicked() {
+        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.HOUSE));
+    }
 
     @Override
     public void onShowPersonsClicked() {
-        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.PERSON_LIST));
+        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.PERSON));
     }
-
-//    @Override
-//    public void onNewPersonClicked() {
-//        //To change body of implemented methods use File | Settings | File Templates.
-//    }
 }

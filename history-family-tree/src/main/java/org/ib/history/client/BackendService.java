@@ -3,6 +3,7 @@ package org.ib.history.client;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import org.ib.history.commons.data.CountryData;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public interface BackendService extends RemoteService {
     List<CountryData> getCountries(String locale);
     void addCountry(CountryData country);
     void deleteCountry(CountryData country);
+
+    List<HouseData> getHouses();
+    void addHouse(HouseData house);
+    void deleteHouse(HouseData house);
 
     List<PersonData> getPersons();
     void addPerson(PersonData person);

@@ -4,9 +4,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface WelcomePresenter extends Presenter {
     public void onShowCountriesClicked();
-//    public void onNewCountryClicked();
+    public void onShowHousesClicked();
     public void onShowPersonsClicked();
-//    public void onNewPersonClicked();
 
     public void show(Presenter presenter);
 }

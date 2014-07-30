@@ -1,6 +1,7 @@
 package org.ib.history.db.neo4j.domain;
 
 import org.ib.history.commons.data.CountryData;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 
@@ -39,6 +40,41 @@ public class DataTransformer {
             country.getLocales().add(translation);
         }
         return country;
+    }
+
+    public static HouseData transform(House house) {
+        HouseData.Builder houseDataBuilder = new HouseData.Builder()
+                .id(house.getId()).name(house.getName());
+
+        for (House.Translation<House> translation : house.getLocales()) {
+            houseDataBuilder.locale(
+                    translation.getLang(),
+                    new HouseData.Builder()
+                            .id(translation.getTranslation().getId())
+                            .name(translation.getTranslation().getName())
+                            .build()
+            );
+        }
+
+        return houseDataBuilder.build();
+    }
+
+    public static House transform(HouseData houseData) {
+        House house = new House();
+        house.setId(houseData.getId());
+        house.setName(houseData.getName());
+        house.setDefaultLocale(true);
+
+        for (String locale : houseData.getLocales().keySet()) {
+            HouseData localeHouseData = houseData.getLocales().get(locale);
+            House localeHouse = new House();
+            localeHouse.setId(localeHouseData.getId());
+            localeHouse.setName(localeHouseData.getName());
+
+            House.Translation translation = new House.Translation(house, localeHouse, locale);
+            house.getLocales().add(translation);
+        }
+        return house;
     }
 
     public static PersonData transform(Person person) {
