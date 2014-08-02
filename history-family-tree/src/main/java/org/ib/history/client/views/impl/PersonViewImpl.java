@@ -12,6 +12,7 @@ import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.presenters.impl.PersonPresenterImpl;
 import org.ib.history.client.views.PersonView;
+import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
@@ -19,6 +20,12 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
     final String COLUMN_DATE_OF_BIRTH_NAME = "Date of birth";
     final String COLUMN_DATE_OF_DEATH_NAME = "Date of death";
+
+
+    @Override
+    protected ItemEditor<PersonData> getItemEditor() {
+        return null;
+    }
 
     @Override
     protected void buildEditColumns() {

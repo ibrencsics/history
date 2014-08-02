@@ -3,19 +3,21 @@ package org.ib.history.client.views.impl;
 import com.google.gwt.cell.client.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.*;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CrudPresenter;
+import org.ib.history.client.utils.SupportedLocales;
 import org.ib.history.client.views.CrudView;
+import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.AbstractData;
 
 import java.util.Arrays;
@@ -29,6 +31,9 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
     @UiField(provided = true)
     protected CellTable<LocaleWrapper<T>> ctEdit;
+
+    @UiField(provided = true)
+    ItemEditor<T> itemEditor;
 
     @UiField
     Button btnNew;
@@ -53,13 +58,14 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     protected final String COLUMN_DELETE = "Delete";
     protected final String COLUMN_LANG = "Lang";
 
-
     public BaseCrudViewImpl() {
         ctEdit = new CellTable<LocaleWrapper<T>>();
         ctList = new CellTable<T>();
 
         pager = new SimplePager();
         pager.setDisplay(ctList);
+
+        itemEditor = getItemEditor();
 
         initWidget(uiBinder.createAndBindUi(this));
 //        ctList.setSize("100%", "100%");
@@ -74,6 +80,8 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         Window.enableScrolling(false);
     }
 
+    protected abstract ItemEditor<T> getItemEditor();
+
     /**
      * CrudView methods
      */
@@ -81,6 +89,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     @Override
     public void setPresenter(CrudPresenter<T> presenter) {
         this.presenter = presenter;
+        itemEditor.setPresenter(presenter);
         ((AsyncDataProvider<T>)this.presenter).addDataDisplay(ctList);
     }
 
@@ -150,7 +159,8 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
             @Override
             public void update(int index, T object, String value) {
                 GWT.log(object.getName() + " pressed");
-                setSelected(object);
+//                setSelected(object);
+                itemEditor.setSelectedItem(object);
             }
         });
         return columnEdit;

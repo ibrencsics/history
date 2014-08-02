@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+             xmlns:c="urn:import:com.google.gwt.user.cellview.client"
+             xmlns:w="urn:import:org.ib.history.client.widget">
 
     <ui:style>
         .panel {
@@ -34,18 +35,25 @@
     <!--</g:DockLayoutPanel>-->
 
     <g:VerticalPanel addStyleNames="{style.panel}">
+
         <g:VerticalPanel ui:field="addItemPanel" addStyleNames="{style.bgc}">
             <c:CellTable ui:field="ctEdit"/>
+
+            <w:ItemEditor text="editor" ui:field="itemEditor"/>
+
             <g:HorizontalPanel>
                 <g:Button ui:field="btnNew" text="New"/>
                 <g:Button ui:field="btnAdd" text="Add"/>
                 <g:Button ui:field="btnSave" text="Save"/>
             </g:HorizontalPanel>
         </g:VerticalPanel>
+
         <g:AbsolutePanel addStyleNames="{style.list}">
             <c:CellTable ui:field="ctList"/>
         </g:AbsolutePanel>
+
         <c:SimplePager ui:field="pager" />
+
     </g:VerticalPanel>
 
 </ui:UiBinder>
