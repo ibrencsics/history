@@ -1,9 +1,13 @@
 package org.ib.history.client.views.impl;
 
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
+import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.CountryView;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.CountryData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements CountryView {
 
@@ -13,10 +17,10 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
         return new ItemEditorImpl();
     }
 
-    @Override
-    protected void buildEditColumns() {
-
-    }
+//    @Override
+//    protected void buildEditColumns() {
+//
+//    }
 
     @Override
     protected void buildListColumns() {
@@ -31,8 +35,18 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
     private class ItemEditorImpl extends ItemEditor<CountryData> {
 
         @Override
-        protected void visualizeOthers() {
-            flexTable.setWidget(0, 2, new Label("Stuff"));
+        protected List<String> getHeaders() {
+            return new ArrayList<String>(0);
+        }
+
+        @Override
+        protected List<Widget> getDefaultLocaleWidgets() {
+            return new ArrayList<Widget>(0);
+        }
+
+        @Override
+        protected List<Widget> getLocaleWidgets(SupportedLocale locale) {
+            return new ArrayList<Widget>(0);
         }
     }
 }

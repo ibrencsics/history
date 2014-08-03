@@ -11,10 +11,10 @@ public class HouseViewImpl extends BaseCrudViewImpl<HouseData> implements HouseV
         return null;
     }
 
-    @Override
-    protected void buildEditColumns() {
-
-    }
+//    @Override
+//    protected void buildEditColumns() {
+//
+//    }
 
     @Override
     protected void buildListColumns() {

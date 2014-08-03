@@ -7,10 +7,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.CrudPresenter;
-import org.ib.history.client.utils.SupportedLocales;
+import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.commons.data.AbstractData;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ItemEditor<T extends AbstractData<T>> extends Composite implements IsWidget, HasText {
 
@@ -33,6 +34,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     protected T selectedItem;
     protected CrudPresenter<T> presenter;
+    protected FlexTableHandler flexTableHandler;
 
     public ItemEditor() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -49,21 +51,79 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     }
 
     private void visualize() {
-        TextBox textBox = new TextBox();
+        flexTableHandler = new FlexTableHandler();
 
-        flexTable.clear();
-        flexTable.setWidget(0, 0, new Label("Lang"));
-        flexTable.setWidget(0, 1, new Label("Name"));
+        // headers
+        List<String> headers = new ArrayList<String>(5);
+        headers.add("Lang");
+        headers.add("Name");
+        headers.addAll(getHeaders());
+        flexTableHandler.addStringRow(headers);
 
-        SupportedLocales defaultLocale = SupportedLocales.getDefault();
-        flexTable.setWidget(1, 0, new Label(defaultLocale.name()));
-        textBox.setText(selectedItem.getName());
-        flexTable.setWidget(1, 1, textBox);
+        // default locale
+        List<Widget> defaultLocaleRow = new ArrayList<Widget>(5);
+        defaultLocaleRow.add(new Label(SupportedLocale.getDefault().name()));
 
-        visualizeOthers();
+        TextBox tbName = new TextBox();
+        tbName.setText(selectedItem.getName());
+        defaultLocaleRow.add(tbName);
+
+        defaultLocaleRow.addAll(getDefaultLocaleWidgets());
+
+        flexTableHandler.addWidgetRow(defaultLocaleRow);
+
+        // locales
+        for (SupportedLocale locale : SupportedLocale.getLocalesExceptDefault()) {
+            List<Widget> localeRow = new ArrayList<Widget>();
+
+            localeRow.add(new Label(locale.name()));
+
+            T selectedItemLocale = selectedItem.getLocale(locale.name());
+
+            tbName = new TextBox();
+            tbName.setText(selectedItemLocale != null ? selectedItem.getLocale(locale.name()).getName() : "");
+            localeRow.add(tbName);
+
+            localeRow.addAll(getLocaleWidgets(locale));
+
+            flexTableHandler.addWidgetRow(localeRow);
+        }
     }
 
-    protected abstract void visualizeOthers();
+    protected abstract List<String> getHeaders();
+    protected abstract List<Widget> getDefaultLocaleWidgets();
+    protected abstract List<Widget> getLocaleWidgets(SupportedLocale locale);
+
+
+    private class FlexTableHandler {
+        private int nextRow = 0;
+
+        private FlexTableHandler() {
+            flexTable.clear();
+        }
+
+        protected void addCell(int x, int y, Widget widget) {
+            flexTable.setWidget(x, y, widget);
+        }
+
+        protected void addStringRow(List<String> items) {
+            List<Label> labels = new ArrayList<Label>();
+            for (String item : items) {
+                labels.add(new Label(item));
+            }
+            addWidgetRow(labels);
+        }
+
+        protected void addWidgetRow(List<? extends Widget> widgets) {
+            int column=0;
+            for (Widget widget : widgets) {
+                addCell(nextRow, column++, widget);
+            }
+            nextRow++;
+        }
+    }
+
+
 
     public void setPresenter(CrudPresenter<T> presenter) {
         this.presenter = presenter;

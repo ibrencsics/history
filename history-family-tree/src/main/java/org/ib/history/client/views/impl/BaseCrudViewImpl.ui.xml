@@ -37,15 +37,15 @@
     <g:VerticalPanel addStyleNames="{style.panel}">
 
         <g:VerticalPanel ui:field="addItemPanel" addStyleNames="{style.bgc}">
-            <c:CellTable ui:field="ctEdit"/>
+            <!--<c:CellTable ui:field="ctEdit"/>-->
 
             <w:ItemEditor text="editor" ui:field="itemEditor"/>
 
-            <g:HorizontalPanel>
-                <g:Button ui:field="btnNew" text="New"/>
-                <g:Button ui:field="btnAdd" text="Add"/>
-                <g:Button ui:field="btnSave" text="Save"/>
-            </g:HorizontalPanel>
+            <!--<g:HorizontalPanel>-->
+                <!--<g:Button ui:field="btnNew" text="New"/>-->
+                <!--<g:Button ui:field="btnAdd" text="Add"/>-->
+                <!--<g:Button ui:field="btnSave" text="Save"/>-->
+            <!--</g:HorizontalPanel>-->
         </g:VerticalPanel>
 
         <g:AbsolutePanel addStyleNames="{style.list}">

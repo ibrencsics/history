@@ -3,8 +3,6 @@ package org.ib.history.client.views.impl;
 import com.google.gwt.cell.client.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -15,7 +13,6 @@ import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CrudPresenter;
-import org.ib.history.client.utils.SupportedLocales;
 import org.ib.history.client.views.CrudView;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.AbstractData;
@@ -29,20 +26,20 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     interface BaseCrudUiBinder extends UiBinder<Widget, BaseCrudViewImpl> {}
     private static BaseCrudUiBinder uiBinder = GWT.create(BaseCrudUiBinder.class);
 
-    @UiField(provided = true)
-    protected CellTable<LocaleWrapper<T>> ctEdit;
+//    @UiField(provided = true)
+//    protected CellTable<LocaleWrapper<T>> ctEdit;
 
     @UiField(provided = true)
     ItemEditor<T> itemEditor;
 
-    @UiField
-    Button btnNew;
-
-    @UiField
-    Button btnAdd;
-
-    @UiField
-    Button btnSave;
+//    @UiField
+//    Button btnNew;
+//
+//    @UiField
+//    Button btnAdd;
+//
+//    @UiField
+//    Button btnSave;
 
     @UiField(provided = true)
     protected CellTable<T> ctList;
@@ -50,7 +47,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     @UiField(provided = true)
     SimplePager pager;
 
-    protected ListDataProvider<LocaleWrapper<T>> localeProvider;
+//    protected ListDataProvider<LocaleWrapper<T>> localeProvider;
     protected CrudPresenter<T> presenter;
 
     protected final String COLUMN_NAME = "Name";
@@ -59,7 +56,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     protected final String COLUMN_LANG = "Lang";
 
     public BaseCrudViewImpl() {
-        ctEdit = new CellTable<LocaleWrapper<T>>();
+//        ctEdit = new CellTable<LocaleWrapper<T>>();
         ctList = new CellTable<T>();
 
         pager = new SimplePager();
@@ -71,10 +68,10 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 //        ctList.setSize("100%", "100%");
 //        this.setSize("100%", "100%");
 
-        localeProvider = new ListDataProvider<LocaleWrapper<T>>();
-        localeProvider.addDataDisplay(ctEdit);
+//        localeProvider = new ListDataProvider<LocaleWrapper<T>>();
+//        localeProvider.addDataDisplay(ctEdit);
 
-        buildEditTable();
+//        buildEditTable();
         buildListTable();
 
         Window.enableScrolling(false);
@@ -103,22 +100,22 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
      * GUI
      */
 
-    private void buildEditTable() {
-        localeProvider.getList().add(new LocaleWrapper("EN", getEmptyItem()));
-        ctEdit.addColumn(buildEditableColumnLang(), buildHeader(COLUMN_LANG));
-        ctEdit.addColumn(buildEditableColumnName(), buildHeader(COLUMN_NAME));
-        buildEditColumns();
-        ctEdit.addColumn(buildEditableColumnDelete(), buildHeader(COLUMN_DELETE));
-    }
+//    private void buildEditTable() {
+//        localeProvider.getList().add(new LocaleWrapper("EN", getEmptyItem()));
+//        ctEdit.addColumn(buildEditableColumnLang(), buildHeader(COLUMN_LANG));
+//        ctEdit.addColumn(buildEditableColumnName(), buildHeader(COLUMN_NAME));
+//        buildEditColumns();
+//        ctEdit.addColumn(buildEditableColumnDelete(), buildHeader(COLUMN_DELETE));
+//    }
 
     private void buildListTable() {
         ctList.addColumn(buildColumnName(), buildHeader(COLUMN_NAME));
-        buildListColumns();
+//        buildListColumns();
         ctList.addColumn(buildColumnEdit(), buildHeader(COLUMN_EDIT));
         ctList.addColumn(buildColumnDelete(), buildHeader(COLUMN_DELETE));
     }
 
-    protected abstract void buildEditColumns();
+//    protected abstract void buildEditColumns();
     protected abstract void buildListColumns();
 
 
@@ -166,13 +163,13 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         return columnEdit;
     }
 
-    private void setSelected(T selected) {
-        localeProvider.getList().clear();
-        localeProvider.getList().add( new LocaleWrapper<T>("EN", selected) );
-        for (Map.Entry<String, T> entry: selected.getLocales().entrySet()) {
-            localeProvider.getList().add( new LocaleWrapper<T>(entry.getKey(), entry.getValue()) );
-        }
-    }
+//    private void setSelected(T selected) {
+//        localeProvider.getList().clear();
+//        localeProvider.getList().add( new LocaleWrapper<T>("EN", selected) );
+//        for (Map.Entry<String, T> entry: selected.getLocales().entrySet()) {
+//            localeProvider.getList().add( new LocaleWrapper<T>(entry.getKey(), entry.getValue()) );
+//        }
+//    }
 
     protected Column<T, String> buildColumnDelete() {
         Column<T, String> columnDelete = new Column<T, String>(new TextButtonCell()) {
@@ -196,100 +193,100 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
      * Editable
      */
 
-    protected Column<LocaleWrapper<T>, String> buildEditableColumnLang() {
-        final String[] languages = new String[] { "--", "EN", "DE", "HU" };
-        SelectionCell langCell = new SelectionCell(Arrays.asList(languages));
-        Column<LocaleWrapper<T>, String> categoryColumn = new Column<LocaleWrapper<T>, String>(langCell) {
-            @Override
-            public String getValue(LocaleWrapper<T> localeWrapper) {
-                return localeWrapper.getLocale();
-            }
-        };
-        categoryColumn.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
-            @Override
-            public void update(int i, LocaleWrapper<T> localeWrapper, String newLang) {
-                GWT.log("updated: " + newLang);
-                localeWrapper.setLocale(newLang);
-            }
-        });
-
-        return categoryColumn;
-    }
-
-    protected Column<LocaleWrapper<T>, String> buildEditableColumnName() {
-        Column<LocaleWrapper<T>, String> columnName = new Column<LocaleWrapper<T>, String>(new EditTextCell()) {
-            @Override
-            public String getValue(LocaleWrapper<T> t) {
-                return t.item.getName();
-            }
-        };
-        columnName.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
-            @Override
-            public void update(int i, LocaleWrapper<T> localeWrapper, String newName) {
-                GWT.log("updated(" + localeWrapper.getLocale() + "): " + newName);
-                localeWrapper.getItem().setName(newName);
-            }
-        });
-        columnName.setDataStoreName(COLUMN_NAME);
-        return columnName;
-    }
-
-    protected Column<LocaleWrapper<T>, String> buildEditableColumnDelete() {
-        Column<LocaleWrapper<T>, String> columnDelete = new Column<LocaleWrapper<T>, String>(new TextButtonCell()) {
-            @Override
-            public String getValue(LocaleWrapper<T> object) {
-                return COLUMN_DELETE;
-            }
-        };
-        columnDelete.setDataStoreName(COLUMN_DELETE);
-        columnDelete.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
-            @Override
-            public void update(int index, LocaleWrapper<T> object, String value) {
-                GWT.log(object.item.getName() + " pressed");
-            }
-        });
-        return columnDelete;
-    }
+//    protected Column<LocaleWrapper<T>, String> buildEditableColumnLang() {
+//        final String[] languages = new String[] { "--", "EN", "DE", "HU" };
+//        SelectionCell langCell = new SelectionCell(Arrays.asList(languages));
+//        Column<LocaleWrapper<T>, String> categoryColumn = new Column<LocaleWrapper<T>, String>(langCell) {
+//            @Override
+//            public String getValue(LocaleWrapper<T> localeWrapper) {
+//                return localeWrapper.getLocale();
+//            }
+//        };
+//        categoryColumn.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
+//            @Override
+//            public void update(int i, LocaleWrapper<T> localeWrapper, String newLang) {
+//                GWT.log("updated: " + newLang);
+//                localeWrapper.setLocale(newLang);
+//            }
+//        });
+//
+//        return categoryColumn;
+//    }
+//
+//    protected Column<LocaleWrapper<T>, String> buildEditableColumnName() {
+//        Column<LocaleWrapper<T>, String> columnName = new Column<LocaleWrapper<T>, String>(new EditTextCell()) {
+//            @Override
+//            public String getValue(LocaleWrapper<T> t) {
+//                return t.item.getName();
+//            }
+//        };
+//        columnName.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
+//            @Override
+//            public void update(int i, LocaleWrapper<T> localeWrapper, String newName) {
+//                GWT.log("updated(" + localeWrapper.getLocale() + "): " + newName);
+//                localeWrapper.getItem().setName(newName);
+//            }
+//        });
+//        columnName.setDataStoreName(COLUMN_NAME);
+//        return columnName;
+//    }
+//
+//    protected Column<LocaleWrapper<T>, String> buildEditableColumnDelete() {
+//        Column<LocaleWrapper<T>, String> columnDelete = new Column<LocaleWrapper<T>, String>(new TextButtonCell()) {
+//            @Override
+//            public String getValue(LocaleWrapper<T> object) {
+//                return COLUMN_DELETE;
+//            }
+//        };
+//        columnDelete.setDataStoreName(COLUMN_DELETE);
+//        columnDelete.setFieldUpdater(new FieldUpdater<LocaleWrapper<T>, String>() {
+//            @Override
+//            public void update(int index, LocaleWrapper<T> object, String value) {
+//                GWT.log(object.item.getName() + " pressed");
+//            }
+//        });
+//        return columnDelete;
+//    }
 
     /**
      * Editable Local
      */
 
-    @UiHandler("btnNew")
-    public void newItem(ClickEvent clickEvent) {
-        localeProvider.getList().clear();
-        localeProvider.getList().add(new LocaleWrapper("EN", getEmptyItem()));
-    }
-
-    @UiHandler("btnAdd")
-    public void addLocale(ClickEvent clickEvent) {
-        localeProvider.getList().add(new LocaleWrapper("--", getEmptyItem()));
-    }
-
-    @UiHandler("btnSave")
-    public void saveLocale(ClickEvent clickEvent) {
-        List<LocaleWrapper<T>> items = ctEdit.getVisibleItems();
-        GWT.log("size: " + items.size());
-        T defaultItem = null;
-        for (LocaleWrapper<T> item : items) {
-            if (item.getLocale().equals("EN")) {
-                defaultItem = item.getItem();
-                defaultItem.removeLocals();
-                break;
-            }
-        }
-
-        if (defaultItem!=null) {
-            for (LocaleWrapper<T> item : items) {
-                if (!item.getLocale().equals("EN")) {
-                    defaultItem.addLocale(item.getLocale(), item.getItem());
-                }
-            }
-
-            GWT.log("to save: " + defaultItem);
-            presenter.addItem(defaultItem);
-        }
-    }
+//    @UiHandler("btnNew")
+//    public void newItem(ClickEvent clickEvent) {
+//        localeProvider.getList().clear();
+//        localeProvider.getList().add(new LocaleWrapper("EN", getEmptyItem()));
+//    }
+//
+//    @UiHandler("btnAdd")
+//    public void addLocale(ClickEvent clickEvent) {
+//        localeProvider.getList().add(new LocaleWrapper("--", getEmptyItem()));
+//    }
+//
+//    @UiHandler("btnSave")
+//    public void saveLocale(ClickEvent clickEvent) {
+//        List<LocaleWrapper<T>> items = ctEdit.getVisibleItems();
+//        GWT.log("size: " + items.size());
+//        T defaultItem = null;
+//        for (LocaleWrapper<T> item : items) {
+//            if (item.getLocale().equals("EN")) {
+//                defaultItem = item.getItem();
+//                defaultItem.removeLocals();
+//                break;
+//            }
+//        }
+//
+//        if (defaultItem!=null) {
+//            for (LocaleWrapper<T> item : items) {
+//                if (!item.getLocale().equals("EN")) {
+//                    defaultItem.addLocale(item.getLocale(), item.getItem());
+//                }
+//            }
+//
+//            GWT.log("to save: " + defaultItem);
+//            presenter.addItem(defaultItem);
+//        }
+//    }
 
     protected abstract T getEmptyItem();
 
