@@ -18,6 +18,8 @@ public class GwtDateFormat {
     public static FlexibleDate convert(String strDate) {
         FlexibleDate.Builder flexDateBuilder = new FlexibleDate.Builder();
 
+        if (strDate==null || strDate.equals("")) return null;
+
         String[] tokens = strDate.split("-");
         flexDateBuilder.year(Integer.valueOf(tokens[0]));
         if (tokens.length>1)

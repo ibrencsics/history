@@ -40,8 +40,13 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
         initWidget(uiBinder.createAndBindUi(this));
     }
 
+    /**
+     * Visualize
+     */
+
     public void setSelectedItem(T selectedItem) {
         this.selectedItem = selectedItem;
+        GWT.log(selectedItem.toString());
         visualize();
     }
 
@@ -90,9 +95,41 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
         }
     }
 
+    protected abstract T getEmptyItem();
     protected abstract List<String> getHeaders();
     protected abstract List<Widget> getDefaultLocaleWidgets();
     protected abstract List<Widget> getLocaleWidgets(SupportedLocale locale);
+
+    /**
+     * Save
+     */
+
+    private void save() {
+
+        // default locale
+        List<Widget> defaultLocale = flexTableHandler.getRow(1);
+        selectedItem.setName( ((TextBox)defaultLocale.get(1)).getText() );
+        updateDefaultLocale(defaultLocale.subList(2, defaultLocale.size()));
+
+        // locales
+        int localeNum = 2;
+        for (SupportedLocale locale : SupportedLocale.getLocalesExceptDefault()) {
+            List<Widget> localeWidgets = flexTableHandler.getRow(localeNum++);
+            TextBox tbName = ((TextBox)localeWidgets.get(1));
+            if (tbName.getText()!=null && !tbName.getText().equals("")) {
+                if (selectedItem.getLocale(locale.name()) == null) {
+                    selectedItem.addLocale(locale.name(), getEmptyItem());
+                }
+                selectedItem.getLocale(locale.name()).setName( tbName.getText() );
+                updateLocale(locale, localeWidgets.subList(2, localeWidgets.size()));
+            }
+        }
+
+        GWT.log(selectedItem.toString());
+    }
+
+    protected abstract void updateDefaultLocale(List<Widget> widgets);
+    protected abstract void updateLocale(SupportedLocale locale, List<Widget> widgets);
 
 
     private class FlexTableHandler {
@@ -121,6 +158,16 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
             }
             nextRow++;
         }
+
+        protected List<Widget> getRow(int row) {
+            List<Widget> widgets = new ArrayList<Widget>();
+
+            for (int column=0; column<flexTable.getCellCount(row); column++) {
+                widgets.add( flexTable.getWidget(row, column) );
+            }
+
+            return widgets;
+        }
     }
 
 
@@ -141,11 +188,11 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     @UiHandler("btnNew")
     public void newItem(ClickEvent clickEvent) {
-
+        createNewItem(getEmptyItem());
     }
 
     @UiHandler("btnSave")
     public void saveItem(ClickEvent clickEvent) {
-
+        save();
     }
 }

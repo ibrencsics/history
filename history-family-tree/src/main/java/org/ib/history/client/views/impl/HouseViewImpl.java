@@ -20,9 +20,4 @@ public class HouseViewImpl extends BaseCrudViewImpl<HouseData> implements HouseV
     protected void buildListColumns() {
 
     }
-
-    @Override
-    protected HouseData getEmptyItem() {
-        return new HouseData.Builder().name("").build();
-    }
 }

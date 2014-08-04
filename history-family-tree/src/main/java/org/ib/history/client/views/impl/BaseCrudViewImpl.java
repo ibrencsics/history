@@ -288,32 +288,30 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 //        }
 //    }
 
-    protected abstract T getEmptyItem();
 
-
-    static class LocaleWrapper<T> {
-        private String locale;
-        private T item;
-
-        LocaleWrapper(String locale, T item) {
-            this.locale = locale;
-            this.item = item;
-        }
-
-        String getLocale() {
-            return locale;
-        }
-
-        void setLocale(String locale) {
-            this.locale = locale;
-        }
-
-        T getItem() {
-            return item;
-        }
-
-        void setItem(T item) {
-            this.item = item;
-        }
-    }
+//    static class LocaleWrapper<T> {
+//        private String locale;
+//        private T item;
+//
+//        LocaleWrapper(String locale, T item) {
+//            this.locale = locale;
+//            this.item = item;
+//        }
+//
+//        String getLocale() {
+//            return locale;
+//        }
+//
+//        void setLocale(String locale) {
+//            this.locale = locale;
+//        }
+//
+//        T getItem() {
+//            return item;
+//        }
+//
+//        void setItem(T item) {
+//            this.item = item;
+//        }
+//    }
 }

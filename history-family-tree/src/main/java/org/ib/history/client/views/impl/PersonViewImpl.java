@@ -2,6 +2,7 @@ package org.ib.history.client.views.impl;
 
 import com.google.gwt.cell.client.EditTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
@@ -106,12 +107,13 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 //        return columnDateOfDeath;
 //    }
 
-    @Override
-    protected PersonData getEmptyItem() {
-        return new PersonData.Builder().name("").dateOfBirth(null).dateOfDeath(null).build();
-    }
 
     private class ItemEditorImpl extends ItemEditor<PersonData> {
+
+        @Override
+        protected PersonData getEmptyItem() {
+            return new PersonData.Builder().name("").dateOfBirth(null).dateOfDeath(null).build();
+        }
 
         @Override
         protected List<String> getHeaders() {
@@ -148,6 +150,24 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             widgets.add(tbDateOfDeath);
 
             return widgets;
+        }
+
+        @Override
+        protected void updateDefaultLocale(List<Widget> widgets) {
+            TextBox tbDateOfBirth = (TextBox) widgets.get(0);
+            selectedItem.setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
+
+            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
+            selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
+        }
+
+        @Override
+        protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
+            TextBox tbDateOfBirth = (TextBox) widgets.get(0);
+            selectedItem.getLocale(locale.name()).setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
+
+            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
+            selectedItem.getLocale(locale.name()).setDateOfDeath( GwtDateFormat.convert(tbDateOfDeath.getText()) );
         }
     }
 }
