@@ -2,6 +2,7 @@ package org.ib.history.client.views.impl;
 
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
+import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.PersonView;
 import org.ib.history.client.widget.ItemEditor;
@@ -14,8 +15,9 @@ import java.util.List;
 
 public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements PersonView {
 
-    final String COLUMN_DATE_OF_BIRTH_NAME = "Date of birth";
-    final String COLUMN_DATE_OF_DEATH_NAME = "Date of death";
+    final String COLUMN_DATE_OF_BIRTH = "Date of birth";
+    final String COLUMN_DATE_OF_DEATH = "Date of death";
+    final String COLUMN_HOUSE = "House";
 
 
     @Override
@@ -25,8 +27,8 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
     @Override
     protected void buildListColumns() {
-        ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH_NAME));
-        ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH_NAME));
+        ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH));
+        ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH));
     }
 
     private TextColumn<PersonData>  buildColumnDateOfBirth() {
@@ -36,7 +38,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
                 return GwtDateFormat.convert(personData.getDateOfBirth());
             }
         };
-        columnDateOfBirth.setDataStoreName(COLUMN_DATE_OF_BIRTH_NAME);
+        columnDateOfBirth.setDataStoreName(COLUMN_DATE_OF_BIRTH);
         return columnDateOfBirth;
     }
 
@@ -47,7 +49,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
                 return GwtDateFormat.convert(personData.getDateOfDeath());
             }
         };
-        columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH_NAME);
+        columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH);
         return columnDateOfDeath;
     }
 
@@ -61,7 +63,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
         @Override
         protected List<String> getHeaders() {
-            return Arrays.asList(COLUMN_DATE_OF_BIRTH_NAME, COLUMN_DATE_OF_DEATH_NAME);
+            return Arrays.asList(COLUMN_DATE_OF_BIRTH, COLUMN_DATE_OF_DEATH, COLUMN_HOUSE);
         }
 
         @Override
@@ -76,6 +78,11 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
             widgets.add(tbDateOfDeath);
 
+            RpcSuggestOracle suggestOracle = new RpcSuggestOracle();
+            SuggestBox sbHouse = new SuggestBox(suggestOracle);
+            suggestOracle.setSuggestBox(sbHouse);
+            widgets.add(sbHouse);
+
             return widgets;
         }
 
@@ -83,15 +90,15 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         protected List<Widget> getLocaleWidgets(SupportedLocale locale) {
             List<Widget> widgets = new ArrayList<Widget>();
 
-            PersonData selectedItemLocale = selectedItem.getLocale(locale.name());
-
-            TextBox tbDateOfBirth = new TextBox();
-            tbDateOfBirth.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfBirth()) : "" );
-            widgets.add(tbDateOfBirth);
-
-            TextBox tbDateOfDeath = new TextBox();
-            tbDateOfDeath.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfDeath()) : "" );
-            widgets.add(tbDateOfDeath);
+//            PersonData selectedItemLocale = selectedItem.getLocale(locale.name());
+//
+//            TextBox tbDateOfBirth = new TextBox();
+//            tbDateOfBirth.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfBirth()) : "" );
+//            widgets.add(tbDateOfBirth);
+//
+//            TextBox tbDateOfDeath = new TextBox();
+//            tbDateOfDeath.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfDeath()) : "" );
+//            widgets.add(tbDateOfDeath);
 
             return widgets;
         }
@@ -107,11 +114,11 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
         @Override
         protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
-            TextBox tbDateOfBirth = (TextBox) widgets.get(0);
-            selectedItem.getLocale(locale.name()).setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
-
-            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
-            selectedItem.getLocale(locale.name()).setDateOfDeath( GwtDateFormat.convert(tbDateOfDeath.getText()) );
+//            TextBox tbDateOfBirth = (TextBox) widgets.get(0);
+//            selectedItem.getLocale(locale.name()).setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
+//
+//            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
+//            selectedItem.getLocale(locale.name()).setDateOfDeath( GwtDateFormat.convert(tbDateOfDeath.getText()) );
         }
     }
 }
