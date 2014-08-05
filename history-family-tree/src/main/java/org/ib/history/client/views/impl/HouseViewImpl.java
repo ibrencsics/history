@@ -8,13 +8,13 @@ public class HouseViewImpl extends BaseCrudViewImpl<HouseData> implements HouseV
 
     @Override
     protected ItemEditor<HouseData> getItemEditor() {
-        return null;
+        return new DefaultItemEditorImpl() {
+            @Override
+            protected HouseData getEmptyItem() {
+                return new HouseData.Builder().name("").build();
+            }
+        };
     }
-
-//    @Override
-//    protected void buildEditColumns() {
-//
-//    }
 
     @Override
     protected void buildListColumns() {

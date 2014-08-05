@@ -44,6 +44,11 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
      * Visualize
      */
 
+    public void hide() {
+        flexTable.removeAllRows();
+        selectedItem = null;
+    }
+
     public void setSelectedItem(T selectedItem) {
         this.selectedItem = selectedItem;
         GWT.log(selectedItem.toString());
@@ -126,6 +131,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
         }
 
         GWT.log(selectedItem.toString());
+        presenter.addItem(selectedItem);
     }
 
     protected abstract void updateDefaultLocale(List<Widget> widgets);

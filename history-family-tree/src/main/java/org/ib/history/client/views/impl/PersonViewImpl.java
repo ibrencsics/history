@@ -1,9 +1,5 @@
 package org.ib.history.client.views.impl;
 
-import com.google.gwt.cell.client.EditTextCell;
-import com.google.gwt.cell.client.FieldUpdater;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.utils.SupportedLocale;
@@ -26,12 +22,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     protected ItemEditor<PersonData> getItemEditor() {
         return new ItemEditorImpl();
     }
-
-//    @Override
-//    protected void buildEditColumns() {
-//        ctEdit.addColumn(buildEditableColumnDateOfBirth(), COLUMN_DATE_OF_BIRTH_NAME);
-//        ctEdit.addColumn(buildEditableColumnDateOfDeath(), COLUMN_DATE_OF_DEATH_NAME);
-//    }
 
     @Override
     protected void buildListColumns() {
@@ -60,52 +50,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH_NAME);
         return columnDateOfDeath;
     }
-
-//    private Column<LocaleWrapper<PersonData>,String> buildEditableColumnDateOfBirth() {
-//        Column<LocaleWrapper<PersonData>,String> columnDateOfBirth = new Column<LocaleWrapper<PersonData>, String>(new EditTextCell()) {
-//            @Override
-//            public String getValue(LocaleWrapper<PersonData> localeWrapper) {
-//                if (localeWrapper.getItem().getDateOfBirth()==null)
-//                    return "";
-//                else
-//                    return GwtDateFormat.convert(localeWrapper.getItem().getDateOfBirth());
-//            }
-//        };
-//        columnDateOfBirth.setDataStoreName(COLUMN_DATE_OF_BIRTH_NAME);
-//        columnDateOfBirth.setFieldUpdater(new FieldUpdater<LocaleWrapper<PersonData>, String>() {
-//            @Override
-//            public void update(int i, LocaleWrapper<PersonData> personDataLocaleWrapper, String newDate) {
-//                if (newDate==null || newDate.equals(""))
-//                    personDataLocaleWrapper.getItem().setDateOfBirth(null);
-//                else
-//                    personDataLocaleWrapper.getItem().setDateOfBirth( GwtDateFormat.convert(newDate) );
-//            }
-//        });
-//        return columnDateOfBirth;
-//    }
-//
-//    private Column<LocaleWrapper<PersonData>,String> buildEditableColumnDateOfDeath() {
-//        Column<LocaleWrapper<PersonData>,String> columnDateOfDeath = new Column<LocaleWrapper<PersonData>, String>(new EditTextCell()) {
-//            @Override
-//            public String getValue(LocaleWrapper<PersonData> localeWrapper) {
-//                if (localeWrapper.getItem().getDateOfDeath()==null)
-//                    return "";
-//                else
-//                    return GwtDateFormat.convert(localeWrapper.getItem().getDateOfDeath());
-//            }
-//        };
-//        columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH_NAME);
-//        columnDateOfDeath.setFieldUpdater(new FieldUpdater<LocaleWrapper<PersonData>, String>() {
-//            @Override
-//            public void update(int i, LocaleWrapper<PersonData> personDataLocaleWrapper, String newDate) {
-//                if (newDate==null || newDate.equals(""))
-//                    personDataLocaleWrapper.getItem().setDateOfDeath(null);
-//                else
-//                    personDataLocaleWrapper.getItem().setDateOfDeath( GwtDateFormat.convert(newDate) );
-//            }
-//        });
-//        return columnDateOfDeath;
-//    }
 
 
     private class ItemEditorImpl extends ItemEditor<PersonData> {
