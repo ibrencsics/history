@@ -2,10 +2,13 @@ package org.ib.history.client.views.impl;
 
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
+import org.ib.history.client.presenters.PersonPresenter;
+import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.PersonView;
 import org.ib.history.client.widget.ItemEditor;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
@@ -78,7 +81,12 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
             widgets.add(tbDateOfDeath);
 
-            RpcSuggestOracle suggestOracle = new RpcSuggestOracle();
+            RpcSuggestOracle suggestOracle = new RpcSuggestOracle() {
+                @Override
+                public void setSuggestions(AsyncCallback<List<HouseData>> callback) {
+                    ((PersonPresenter)presenter).setHouseSuggestions(callback);
+                }
+            };
             SuggestBox sbHouse = new SuggestBox(suggestOracle);
             suggestOracle.setSuggestBox(sbHouse);
             widgets.add(sbHouse);

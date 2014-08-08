@@ -10,8 +10,8 @@ import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.PersonPresenter;
-import org.ib.history.client.views.CrudView;
 import org.ib.history.client.views.PersonView;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 
 import java.util.List;
@@ -90,6 +90,21 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
             @Override
             public void onSuccess(Void aVoid) {
                 view.refreshGrid();
+            }
+        });
+    }
+
+    @Override
+    public void setHouseSuggestions(final org.ib.history.client.utils.AsyncCallback<List<HouseData>> callback) {
+        backendService.getHouses(new AsyncCallback<List<HouseData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<HouseData> houseDatas) {
+                callback.onSuccess(houseDatas);
             }
         });
     }
