@@ -1,6 +1,7 @@
 package org.ib.history.db.neo4j.services;
 
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +32,7 @@ public class PersonServiceImplTest {
                         .child(new PersonData.Builder().name("William2").build())
                         .locale("DE", new PersonData.Builder().name("Wilhelm").build())
                         .locale("HU", new PersonData.Builder().name("Vilmos").build())
+                        .house(new HouseData.Builder().name("house").build())
                         .build();
 
         PersonData personCreated = personService.addPerson(personData);

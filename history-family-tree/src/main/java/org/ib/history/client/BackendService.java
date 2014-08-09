@@ -18,6 +18,7 @@ public interface BackendService extends RemoteService {
     void deleteCountry(CountryData country);
 
     List<HouseData> getHouses();
+    List<HouseData> getHousesByPattern(String pattern);
     void addHouse(HouseData house);
     void deleteHouse(HouseData house);
 

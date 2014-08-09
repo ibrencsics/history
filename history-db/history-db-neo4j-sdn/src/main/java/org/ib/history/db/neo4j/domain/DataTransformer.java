@@ -94,6 +94,10 @@ public class DataTransformer {
             personDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
         }
 
+        if (person.getHouse() != null) {
+            personDataBuilder.house(transform(person.getHouse()));
+        }
+
         return personDataBuilder.build();
     }
 
@@ -101,7 +105,8 @@ public class DataTransformer {
         Person person = new Person(
                 personData.getId(), personData.getName(),
                 Neo4jDateFormat.serialize(personData.getDateOfBirth()),
-                Neo4jDateFormat.serialize(personData.getDateOfDeath()));
+                Neo4jDateFormat.serialize(personData.getDateOfDeath()),
+                personData.getHouse()==null ? null : transform(personData.getHouse()));
         person.setDefaultLocale(true);
 
         for (PersonData child : personData.getChildren()) {

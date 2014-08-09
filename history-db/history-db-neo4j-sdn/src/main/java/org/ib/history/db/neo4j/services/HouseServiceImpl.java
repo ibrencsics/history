@@ -31,6 +31,18 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<HouseData> getHousesByPattern(String pattern) {
+        List<HouseData> houseDataList = new ArrayList<>();
+
+        List<House> houseList = houseRepo.getHousesByPattern("(?i).*" + pattern + ".*");
+        for (House house : houseList) {
+            houseDataList.add(DataTransformer.transform(house));
+        }
+
+        return houseDataList;
+    }
+
+    @Override
     public HouseData addHouse(HouseData houseData) {
         House house = DataTransformer.transform(houseData);
         for (House.Translation<House> translation : house.getLocales()) {

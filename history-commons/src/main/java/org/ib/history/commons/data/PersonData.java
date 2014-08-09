@@ -9,6 +9,7 @@ public class PersonData extends AbstractData<PersonData> {
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
     private List<PersonData> children;
+    private HouseData house;
 
 //    public String getName() {
 //        return name;
@@ -43,6 +44,14 @@ public class PersonData extends AbstractData<PersonData> {
 
     public void setChildren(List<PersonData> children) {
         this.children = children;
+    }
+
+    public HouseData getHouse() {
+        return house;
+    }
+
+    public void setHouse(HouseData house) {
+        this.house = house;
     }
 
     @Override
@@ -97,6 +106,11 @@ public class PersonData extends AbstractData<PersonData> {
 
         public Builder locale(String locale, PersonData localePersonData) {
             personData.addLocale(locale, localePersonData);
+            return this;
+        }
+
+        public Builder house(HouseData house) {
+            personData.setHouse(house);
             return this;
         }
 

@@ -7,5 +7,5 @@ import org.ib.history.commons.data.PersonData;
 import java.util.List;
 
 public interface PersonPresenter extends CrudPresenter<PersonData> {
-    void setHouseSuggestions(AsyncCallback<List<HouseData>> callback);
+    void setHouseSuggestions(String pattern, AsyncCallback<List<HouseData>> callback);
 }

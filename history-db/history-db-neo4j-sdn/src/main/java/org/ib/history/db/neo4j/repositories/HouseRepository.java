@@ -10,4 +10,8 @@ public interface HouseRepository extends GraphRepository<House> {
 
     @Query("match (n:House{defaultLocale:true}) return n")
     List<House> getAllHouses();
+
+//    @Query("match (n:House{defaultLocale:true}) where n.name=~'.*(?i){0}.*'  return n")
+    @Query("match (n:House{defaultLocale:true}) where n.name=~{0}  return n")
+    List<House> getHousesByPattern(String pattern);
 }

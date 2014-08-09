@@ -21,6 +21,9 @@ public class Person extends AbstractEntity {
 //    @Fetch
     private Set<Person> children = new HashSet<Person>();
 
+    @RelatedTo(type = "IN_HOUSE")
+    private House house;
+
     @Fetch
     @RelatedToVia
     private Set<Translation<Person>> locales;
@@ -33,11 +36,12 @@ public class Person extends AbstractEntity {
         this.name = name;
     }
 
-    public Person(Long id, String name, String dateOfBirth, String dateOfDeath) {
+    public Person(Long id, String name, String dateOfBirth, String dateOfDeath, House house) {
         this.setId(id);
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
+        this.house = house;
     }
 
     public void addChild(Person person) {
@@ -54,6 +58,10 @@ public class Person extends AbstractEntity {
 
     public String getDateOfDeath() {
         return dateOfDeath;
+    }
+
+    public House getHouse() {
+        return house;
     }
 
     public Set<Person> getChildren() {

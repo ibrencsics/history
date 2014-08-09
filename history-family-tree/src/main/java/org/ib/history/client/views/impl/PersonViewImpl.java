@@ -81,10 +81,10 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
             widgets.add(tbDateOfDeath);
 
-            RpcSuggestOracle suggestOracle = new RpcSuggestOracle() {
+            RpcSuggestOracle suggestOracle = new RpcSuggestOracle<HouseData>() {
                 @Override
-                public void setSuggestions(AsyncCallback<List<HouseData>> callback) {
-                    ((PersonPresenter)presenter).setHouseSuggestions(callback);
+                public void setSuggestions(String pattern, AsyncCallback<List<HouseData>> callback) {
+                    ((PersonPresenter)presenter).setHouseSuggestions(pattern, callback);
                 }
             };
             SuggestBox sbHouse = new SuggestBox(suggestOracle);
@@ -118,6 +118,8 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
             TextBox tbDateOfDeath = (TextBox) widgets.get(1);
             selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
+
+//            selectedItem.setHouse();
         }
 
         @Override

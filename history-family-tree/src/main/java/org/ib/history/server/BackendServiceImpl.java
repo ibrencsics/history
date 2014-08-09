@@ -50,6 +50,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public List<HouseData> getHousesByPattern(String pattern) {
+        return houseService.getHousesByPattern(pattern);
+    }
+
+    @Override
     public void addHouse(HouseData house) {
         houseService.addHouse(house);
     }
