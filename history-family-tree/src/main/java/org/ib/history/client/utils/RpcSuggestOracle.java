@@ -1,5 +1,7 @@
 package org.ib.history.client.utils;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -20,6 +22,7 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
     private BackendServiceAsync backendService;
 
     private SuggestBox suggestBox;
+    private T selected;
 
     public RpcSuggestOracle() {
         m_timer = new Timer() {
@@ -40,7 +43,8 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
                             List<Suggestion> suggestions = new ArrayList<Suggestion>();
 
                             for (T houseData : houseDatas) {
-                                Suggestion suggestion = new MultiWordSuggestOracle.MultiWordSuggestion(houseData.getName(), houseData.getName());
+//                                Suggestion suggestion = new MultiWordSuggestOracle.MultiWordSuggestion(houseData.getName(), houseData.getName());
+                                Suggestion suggestion = new Suggestion(houseData);
                                 suggestions.add(suggestion);
                             }
 
@@ -59,6 +63,22 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
 
     public void setSuggestBox(SuggestBox suggestBox) {
         this.suggestBox = suggestBox;
+
+        this.suggestBox.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
+            @Override
+            public void onSelection(SelectionEvent<SuggestOracle.Suggestion> suggestionSelectionEvent) {
+                selected = ((Suggestion<T>)suggestionSelectionEvent.getSelectedItem()).getSelection();
+            }
+        });
+    }
+
+    public void setSelected(T selected) {
+        this.selected = selected;
+        suggestBox.setText(selected.getName());
+    }
+
+    public T getSelected() {
+        return selected;
     }
 
     @Override
@@ -72,28 +92,26 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
 
     public abstract void setSuggestions(String pattern, org.ib.history.client.utils.AsyncCallback<List<T>> callback);
 
-//    private void getSuggestions() {
-//        GWT.log("--- suggest");
-//
-//        backendService.getHouses(new AsyncCallback<List<HouseData>>() {
-//            @Override
-//            public void onFailure(Throwable throwable) {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(List<HouseData> houseDatas) {
-//                SuggestOracle.Response r = new SuggestOracle.Response();
-//                List<Suggestion> suggestions = new ArrayList<Suggestion>();
-//
-//                for (HouseData houseData : houseDatas) {
-//                    Suggestion suggestion = new MultiWordSuggestOracle.MultiWordSuggestion(houseData.getName(), houseData.getName());
-//                    suggestions.add(suggestion);
-//                }
-//
-//                r.setSuggestions(suggestions);
-//                m_callback.onSuggestionsReady(m_request, r);
-//            }
-//        });
-//    }
+    public static class Suggestion<T extends AbstractData<T>> implements SuggestOracle.Suggestion {
+
+        private final T selection;
+
+        public Suggestion(T selection) {
+            this.selection = selection;
+        }
+
+        @Override
+        public String getDisplayString() {
+            return selection.getName();
+        }
+
+        @Override
+        public String getReplacementString() {
+            return selection.getName();
+        }
+
+        public T getSelection() {
+            return selection;
+        }
+    }
 }

@@ -21,6 +21,7 @@ public class Person extends AbstractEntity {
 //    @Fetch
     private Set<Person> children = new HashSet<Person>();
 
+    @Fetch
     @RelatedTo(type = "IN_HOUSE")
     private House house;
 

@@ -63,6 +63,8 @@ public class PersonData extends AbstractData<PersonData> {
             sb.append(" birth=" + getDateOfBirth().toString());
         if (getDateOfDeath()!=null)
             sb.append(" death=" + getDateOfDeath().toString());
+        if (getHouse()!=null)
+            sb.append(" house=" + getHouse().getName());
         sb.append(" }");
 
         for (String locale : getLocales().keySet()) {

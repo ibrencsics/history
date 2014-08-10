@@ -1,5 +1,8 @@
 package org.ib.history.client.views.impl;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.PersonPresenter;
@@ -32,9 +35,10 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     protected void buildListColumns() {
         ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH));
         ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH));
+        ctList.addColumn(buildColumnHouse(), buildHeader(COLUMN_HOUSE));
     }
 
-    private TextColumn<PersonData>  buildColumnDateOfBirth() {
+    private TextColumn<PersonData> buildColumnDateOfBirth() {
         TextColumn<PersonData> columnDateOfBirth = new TextColumn<PersonData>() {
             @Override
             public String getValue(PersonData personData) {
@@ -45,7 +49,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         return columnDateOfBirth;
     }
 
-    private TextColumn<PersonData>  buildColumnDateOfDeath() {
+    private TextColumn<PersonData> buildColumnDateOfDeath() {
         TextColumn<PersonData> columnDateOfDeath = new TextColumn<PersonData>() {
             @Override
             public String getValue(PersonData personData) {
@@ -54,6 +58,17 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         };
         columnDateOfDeath.setDataStoreName(COLUMN_DATE_OF_DEATH);
         return columnDateOfDeath;
+    }
+
+    private TextColumn<PersonData> buildColumnHouse() {
+        TextColumn<PersonData> columnHouse = new TextColumn<PersonData>() {
+            @Override
+            public String getValue(PersonData personData) {
+                return (personData.getHouse()!=null) ? personData.getHouse().getName() : "";
+            }
+        };
+        columnHouse.setDataStoreName(COLUMN_HOUSE);
+        return columnHouse;
     }
 
 
@@ -89,6 +104,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             };
             SuggestBox sbHouse = new SuggestBox(suggestOracle);
             suggestOracle.setSuggestBox(sbHouse);
+            suggestOracle.setSelected(selectedItem.getHouse());
             widgets.add(sbHouse);
 
             return widgets;
@@ -119,7 +135,9 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             TextBox tbDateOfDeath = (TextBox) widgets.get(1);
             selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
 
-//            selectedItem.setHouse();
+            SuggestBox sbHouse = (SuggestBox) widgets.get(2);
+            GWT.log("house selected: " + ((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected().toString());
+            selectedItem.setHouse(((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected());
         }
 
         @Override

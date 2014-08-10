@@ -130,7 +130,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
             }
         }
 
-        GWT.log(selectedItem.toString());
+        GWT.log("item to save" + selectedItem.toString());
         presenter.addItem(selectedItem);
     }
 

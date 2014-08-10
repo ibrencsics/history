@@ -102,11 +102,17 @@ public class DataTransformer {
     }
 
     public static Person transform(PersonData personData) {
+        House house=null;
+        if (personData.getHouse()!=null) {
+            house = new House();
+            house.setId(personData.getHouse().getId());
+        }
+
         Person person = new Person(
                 personData.getId(), personData.getName(),
                 Neo4jDateFormat.serialize(personData.getDateOfBirth()),
                 Neo4jDateFormat.serialize(personData.getDateOfDeath()),
-                personData.getHouse()==null ? null : transform(personData.getHouse()));
+                house);
         person.setDefaultLocale(true);
 
         for (PersonData child : personData.getChildren()) {
