@@ -17,17 +17,15 @@ public class Rules extends AbstractEntity {
     @EndNode
     private Country country;
 
-    private String title;
     private Date fromDate;
     private Date toDate;
 
     public Rules() {
     }
 
-    public Rules(Ruler ruler, Country country, String title, Date fromDate, Date toDate) {
+    public Rules(Ruler ruler, Country country, Date fromDate, Date toDate) {
         this.ruler = ruler;
         this.country = country;
-        this.title = title;
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
@@ -38,10 +36,6 @@ public class Rules extends AbstractEntity {
 
     public Country getCountry() {
         return country;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public Date getFromDate() {

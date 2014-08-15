@@ -3,6 +3,7 @@ package org.ib.history.db.neo4j.domain;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 
 public class DataTransformer {
@@ -128,5 +129,18 @@ public class DataTransformer {
         }
 
         return person;
+    }
+
+    public static RulerData transform(Ruler ruler) {
+        RulerData.Builder rulerDataBuilder = new RulerData.Builder()
+                .id(ruler.getId()).name(ruler.getName());
+
+        return rulerDataBuilder.build();
+    }
+
+    public static Ruler transform(RulerData rulerData) {
+        Ruler ruler = new Ruler();
+
+        return ruler;
     }
 }

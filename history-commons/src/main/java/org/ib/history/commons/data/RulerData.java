@@ -31,6 +31,44 @@ public class RulerData extends AbstractData<RulerData> {
         return sb.toString();
     }
 
+    public static class Builder {
+        RulerData rulerData = new RulerData();
+
+        public Builder id(Long id) {
+            rulerData.setId(id);
+            return this;
+        }
+
+        public Builder name(String name) {
+            rulerData.setName(name);
+            return this;
+        }
+
+        public Builder alias(String alias) {
+            rulerData.setAlias(alias);
+            return this;
+        }
+
+        public Builder title(String title) {
+            rulerData.setTitle(title);
+            return this;
+        }
+
+        public Builder job(Rules job) {
+            rulerData.getJobs().add(job);
+            return this;
+        }
+
+        public Builder locale(String locale, RulerData localeRulerData) {
+            rulerData.addLocale(locale, localeRulerData);
+            return this;
+        }
+
+        public RulerData build() {
+            return rulerData;
+        }
+    }
+
     public String getAlias() {
         return alias;
     }
