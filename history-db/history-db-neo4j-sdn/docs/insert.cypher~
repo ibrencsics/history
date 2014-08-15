@@ -1,6 +1,6 @@
 match (n) optional match (n)-[r]-() delete n,r;
 
-create (england:Country { name: "England", __type__: "org.ib.history.db.neo4j.domain.Country"})
+create (england:Country { name: "England" })
 create (england)-[:TRANSLATION{lang:"HU"}]->({name: "Anglia"})
 create (england)-[:TRANSLATION{lang:"DE"}]->({name: "England"})
 

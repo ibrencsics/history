@@ -2,7 +2,7 @@ package org.ib.history.db.neo4j.repositories;
 
 import org.ib.history.db.neo4j.domain.Country;
 import org.ib.history.db.neo4j.domain.Person;
-import org.ib.history.db.neo4j.domain.Rule;
+import org.ib.history.db.neo4j.domain.Rules;
 import org.springframework.data.neo4j.annotation.MapResult;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.annotation.ResultColumn;
@@ -33,7 +33,7 @@ public interface PersonRepository extends GraphRepository<Person> {
     interface Ruler {
         @ResultColumn("person") Person getPerson();
         @ResultColumn("rules")
-        Rule getRule();
+        Rules getRule();
         @ResultColumn("country")
         Country getCountry();
     }

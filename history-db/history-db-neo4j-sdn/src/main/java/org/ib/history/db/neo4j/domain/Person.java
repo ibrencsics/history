@@ -4,6 +4,7 @@ import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
+import org.springframework.data.neo4j.template.Neo4jOperations;
 
 import java.util.Collections;
 import java.util.Date;
@@ -11,23 +12,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NodeEntity
-public class Person extends AbstractEntity {
+public class Person extends AbstractEntity<Person> {
 
     private String name;
     private String dateOfBirth;
     private String dateOfDeath;
 
     @RelatedTo(type = "PARENT_OF")
-//    @Fetch
     private Set<Person> children = new HashSet<Person>();
 
     @Fetch
     @RelatedTo(type = "IN_HOUSE")
     private House house;
 
+    @RelatedTo(type = "AS")
+    private Set<Ruler> jobs;
+
     @Fetch
     @RelatedToVia
     private Set<Translation<Person>> locales;
+
 
     public Person() {
     }
@@ -43,6 +47,11 @@ public class Person extends AbstractEntity {
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
         this.house = house;
+    }
+
+    public void addJob(Neo4jOperations template, Ruler ruler) {
+        this.jobs.add(ruler);
+        template.save(this);
     }
 
     public void addChild(Person person) {
@@ -63,6 +72,10 @@ public class Person extends AbstractEntity {
 
     public House getHouse() {
         return house;
+    }
+
+    public Set<Ruler> getJobs() {
+        return Collections.unmodifiableSet(this.jobs);
     }
 
     public Set<Person> getChildren() {

@@ -7,35 +7,41 @@ import org.springframework.data.neo4j.annotation.StartNode;
 
 import java.util.Date;
 
-@RelationshipEntity(type = "RULES")
-public class Rule extends AbstractEntity {
+@RelationshipEntity
+public class Rules extends AbstractEntity {
 
     @StartNode
-    private Person person;
+    private Ruler ruler;
 
     @Fetch
     @EndNode
     private Country country;
 
+    private String title;
     private Date fromDate;
     private Date toDate;
 
-    public Rule() {
+    public Rules() {
     }
 
-    public Rule(Person person, Country country, Date fromDate, Date toDate) {
-        this.person = person;
+    public Rules(Ruler ruler, Country country, String title, Date fromDate, Date toDate) {
+        this.ruler = ruler;
         this.country = country;
+        this.title = title;
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
 
-    public Person getPerson() {
-        return person;
+    public Ruler getRuler() {
+        return ruler;
     }
 
     public Country getCountry() {
         return country;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public Date getFromDate() {
