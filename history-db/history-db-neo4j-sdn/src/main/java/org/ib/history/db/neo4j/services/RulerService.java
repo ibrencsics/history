@@ -6,6 +6,6 @@ import org.ib.history.commons.data.RulerData;
 import java.util.Set;
 
 public interface RulerService {
-    void addRuler(PersonData person, RulerData ruler);
-    Set<RulerData> getRulers(PersonData person);
+    RulerData addRuler(PersonData personData, RulerData rulerData);
+    Set<RulerData> getRulers(PersonData personData);
 }

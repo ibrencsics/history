@@ -1,11 +1,10 @@
 package org.ib.history.db.neo4j.domain;
 
-import org.springframework.data.neo4j.annotation.EndNode;
-import org.springframework.data.neo4j.annotation.Fetch;
-import org.springframework.data.neo4j.annotation.RelationshipEntity;
-import org.springframework.data.neo4j.annotation.StartNode;
+import org.springframework.data.neo4j.annotation.*;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @RelationshipEntity
 public class Rules extends AbstractEntity {
@@ -17,13 +16,15 @@ public class Rules extends AbstractEntity {
     @EndNode
     private Country country;
 
-    private Date fromDate;
-    private Date toDate;
+    private String fromDate;
+    private String toDate;
+
 
     public Rules() {
     }
 
-    public Rules(Ruler ruler, Country country, Date fromDate, Date toDate) {
+    public Rules(Long id, Ruler ruler, Country country, String fromDate, String toDate) {
+        setId(id);
         this.ruler = ruler;
         this.country = country;
         this.fromDate = fromDate;
@@ -38,11 +39,11 @@ public class Rules extends AbstractEntity {
         return country;
     }
 
-    public Date getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public Date getToDate() {
+    public String getToDate() {
         return toDate;
     }
 }

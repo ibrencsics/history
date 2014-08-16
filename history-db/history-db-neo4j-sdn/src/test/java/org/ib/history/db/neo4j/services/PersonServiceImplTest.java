@@ -50,10 +50,10 @@ public class PersonServiceImplTest {
         personService.addPerson(personDataList.get(0));
 
         List<PersonData> personList = personService.getPersons();
-        assertEquals(personList.size(), 2);
+        assertEquals(2, personList.size());
 
         personService.deletePerson(child);
         personList = personService.getPersons();
-        assertEquals(personList.size(), 1);
+        assertEquals(1, personList.size());
     }
 }

@@ -37,3 +37,10 @@ create (stephen)-[:AS]->(stephenEmp:Empiror {name: "Stephen", alias:"Stephen of 
 create (stephenEmp)-[:RULES{from: "22-12-1135", to: "1154"}]->(england)
 
 ;
+
+
+
+
+
+
+/opt/neo4j-community-2.0.0/bin/neo4j-shell -path /home/ivan/history-neo4j-data/ -v

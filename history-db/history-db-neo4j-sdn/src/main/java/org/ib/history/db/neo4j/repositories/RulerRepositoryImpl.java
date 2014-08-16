@@ -12,6 +12,6 @@ public class RulerRepositoryImpl implements RulerRepositoryCustom {
 
     @Override
     public void addRuler(Person person, Ruler ruler) {
-        person.addJob(template, ruler);
+        person.saveJob(template, ruler);
     }
 }

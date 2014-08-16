@@ -26,7 +26,7 @@ public class Person extends AbstractEntity<Person> {
     private House house;
 
     @RelatedTo(type = "AS")
-    private Set<Ruler> jobs;
+    private Set<Ruler> jobs = new HashSet<>();
 
     @Fetch
     @RelatedToVia
@@ -49,9 +49,13 @@ public class Person extends AbstractEntity<Person> {
         this.house = house;
     }
 
-    public void addJob(Neo4jOperations template, Ruler ruler) {
-        this.jobs.add(ruler);
+    public void saveJob(Neo4jOperations template, Ruler ruler) {
+        addJob(ruler);
         template.save(this);
+    }
+
+    public void addJob(Ruler ruler) {
+        this.jobs.add(ruler);
     }
 
     public void addChild(Person person) {

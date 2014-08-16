@@ -1,12 +1,13 @@
 package org.ib.history.commons.data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class RulerData extends AbstractData<RulerData> {
 
     private String alias;
     private String title;
-    private Set<Rules> jobs;
+    private Set<RulesData> jobs = new HashSet<RulesData>();
 
     @Override
     public String toString() {
@@ -24,7 +25,7 @@ public class RulerData extends AbstractData<RulerData> {
             sb.append("\n\t lang=" + locale +  " " + localeRuler.toString());
         }
 
-        for (Rules job : getJobs()) {
+        for (RulesData job : getJobs()) {
             sb.append("\n\t" + job.toString());
         }
 
@@ -54,7 +55,7 @@ public class RulerData extends AbstractData<RulerData> {
             return this;
         }
 
-        public Builder job(Rules job) {
+        public Builder job(RulesData job) {
             rulerData.getJobs().add(job);
             return this;
         }
@@ -85,16 +86,16 @@ public class RulerData extends AbstractData<RulerData> {
         this.title = title;
     }
 
-    public Set<Rules> getJobs() {
+    public Set<RulesData> getJobs() {
         return jobs;
     }
 
-    public void setJobs(Set<Rules> jobs) {
+    public void setJobs(Set<RulesData> jobs) {
         this.jobs = jobs;
     }
 
 
-    public static class Rules {
+    public static class RulesData {
 
         private Long id;
         private FlexibleDate from;
@@ -105,7 +106,7 @@ public class RulerData extends AbstractData<RulerData> {
         public String toString() {
             StringBuilder sb = new StringBuilder();
 
-            sb.append("Rules{ id=" + getId());
+            sb.append("RulesData{ id=" + getId());
             if (getFrom()!=null)
                 sb.append(" from=" + getFrom().toString());
             if (getTo()!=null)
@@ -118,7 +119,7 @@ public class RulerData extends AbstractData<RulerData> {
         }
 
         public static class Builder {
-            Rules rules = new Rules();
+            RulesData rules = new RulesData();
 
             public Builder id(Long id) {
                 rules.setId(id);
@@ -140,7 +141,7 @@ public class RulerData extends AbstractData<RulerData> {
                 return this;
             }
 
-            public Rules build() {
+            public RulesData build() {
                 return rules;
             }
         }

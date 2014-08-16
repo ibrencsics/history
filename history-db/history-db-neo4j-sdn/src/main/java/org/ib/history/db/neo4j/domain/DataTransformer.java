@@ -135,11 +135,63 @@ public class DataTransformer {
         RulerData.Builder rulerDataBuilder = new RulerData.Builder()
                 .id(ruler.getId()).name(ruler.getName());
 
+        if (ruler.getAlias() != null) {
+            rulerDataBuilder.alias(ruler.getAlias());
+        }
+        if (ruler.getTitle() != null) {
+            rulerDataBuilder.title(ruler.getTitle());
+        }
+
+        for (Rules rules : ruler.getAllRules()) {
+            RulerData.RulesData.Builder rulesDataBuilder = new RulerData.RulesData.Builder().id(rules.getId());
+            if (rules.getFromDate() != null) {
+                rulesDataBuilder.from(Neo4jDateFormat.parse(rules.getFromDate()));
+            }
+            if (rules.getToDate() != null) {
+                rulesDataBuilder.to(Neo4jDateFormat.parse(rules.getToDate()));
+            }
+            if (rules.getCountry() != null) {
+                rulesDataBuilder.country(transform(rules.getCountry()));
+            }
+
+            rulerDataBuilder.job(rulesDataBuilder.build());
+        }
+
+        for (AbstractEntity.Translation<Ruler> locale : ruler.getLocales()) {
+            rulerDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
+        }
+
         return rulerDataBuilder.build();
     }
 
     public static Ruler transform(RulerData rulerData) {
-        Ruler ruler = new Ruler();
+        Ruler ruler = new Ruler(
+                rulerData.getId(),
+                rulerData.getName(),
+                rulerData.getAlias(),
+                rulerData.getTitle()
+        );
+        ruler.setDefaultLocale(true);
+
+        for (RulerData.RulesData rulesData : rulerData.getJobs()) {
+            Rules rules = new Rules(
+                    rulesData.getId(),
+                    ruler,
+                    transform(rulesData.getCountry()),
+                    Neo4jDateFormat.serialize(rulesData.getFrom()),
+                    Neo4jDateFormat.serialize(rulesData.getTo())
+            );
+
+            ruler.addRules(rules);
+        }
+
+        for (String locale : rulerData.getLocales().keySet()) {
+            RulerData localeRulerData = rulerData.getLocales().get(locale);
+            Ruler localeRuler = new Ruler(localeRulerData.getId(), localeRulerData.getName(), localeRulerData.getAlias(), localeRulerData.getTitle());
+
+            Ruler.Translation<Ruler> translation = new AbstractEntity.Translation<Ruler>(ruler, localeRuler, locale);
+            ruler.getLocales().add(translation);
+        }
 
         return ruler;
     }
