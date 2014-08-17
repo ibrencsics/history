@@ -16,20 +16,12 @@ public interface FamilyTreeAppGinjector extends Ginjector {
     WelcomeView getWelcomeView();
     WelcomePresenter getWelcomePresenter();
 
-//    CountryListView getCountryListView();
-//    CountryListPresenter getCountryListPresenter();
-//    CountryAddView getCountryAddView();
-//    CountryAddPresenter getCountryAddPresenter();
-
     CountryView getCountryView();
     CountryPresenter getCountryPresenter();
     HouseView getHouseView();
     HousePresenter getHousePresenter();
     PersonView getPersonView();
     PersonPresenter getPersonPresenter();
-
-//    CrudView<CountryData> getCountryView();
-//    CrudPresenter<CountryData> getCountryPresenter();
-//    CrudView<PersonData> getPersonView();
-//    CrudPresenter<PersonData> getPersonPresenter();
+    RulerView getRulerView();
+    RulerPresenter getRulerPresenter();
 }

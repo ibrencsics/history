@@ -19,12 +19,14 @@ public class FamilyTreeGinModule extends AbstractGinModule {
         bind(CountryView.class).to(CountryViewImpl.class).in(Singleton.class);
         bind(HouseView.class).to(HouseViewImpl.class).in(Singleton.class);
         bind(PersonView.class).to(PersonViewImpl.class).in(Singleton.class);
+        bind(RulerView.class).to(RulerViewImpl.class).in(Singleton.class);
 
         bind(WelcomePresenter.class).to(WelcomePresenterImpl.class);
 
         bind(CountryPresenter.class).to(CountryPresenterImpl.class);
         bind(HousePresenter.class).to(HousePresenterImpl.class);
         bind(PersonPresenter.class).to(PersonPresenterImpl.class);
+        bind(RulerPresenter.class).to(RulerPresenterImpl.class);
 
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
     }

@@ -18,7 +18,7 @@ public interface PersonRepository extends GraphRepository<Person> {
     @Query("match (p:Person{defaultLocale:true, name:{0}}) return p")
     List<Person> getPersonsByName(String name);
 
-    Person findOne(Long id);
+//    Person findOne(Long id);
 
 //    <P extends Person> P save(Person P);
 

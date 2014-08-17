@@ -8,4 +8,5 @@ import java.util.Set;
 public interface RulerService {
     RulerData addRuler(PersonData personData, RulerData rulerData);
     Set<RulerData> getRulers(PersonData personData);
+    Set<RulerData> getAllRulers();
 }

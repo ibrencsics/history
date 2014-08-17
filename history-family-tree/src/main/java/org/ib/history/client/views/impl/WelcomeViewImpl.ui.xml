@@ -27,13 +27,10 @@
         <g:west size='15'>
             <g:VerticalPanel styleName="{style.westPanel}">
                 <g:Label>This is the WEST panel</g:Label>
-                <!--<g:Button text="List Countries" ui:field="showCountries"></g:Button>-->
-                <!--<g:Button text="New Country" ui:field="newCountry"></g:Button>-->
-                <!--<g:Button text="List Persons" ui:field="showPersons"></g:Button>-->
-                <!--<g:Button text="New Person" ui:field="newPerson"></g:Button>-->
                 <g:Button text="Country" ui:field="country"/>
                 <g:Button text="House" ui:field="house"/>
                 <g:Button text="Person" ui:field="person"/>
+                <g:Button text="Ruler" ui:field="ruler"/>
             </g:VerticalPanel>
         </g:west>
         <g:center>

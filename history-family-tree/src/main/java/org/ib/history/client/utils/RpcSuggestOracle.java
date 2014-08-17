@@ -3,7 +3,6 @@ package org.ib.history.client.utils;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import org.ib.history.client.BackendServiceAsync;
@@ -38,13 +37,12 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
                         }
 
                         @Override
-                        public void onSuccess(List<T> houseDatas) {
+                        public void onSuccess(List<T> datas) {
                             SuggestOracle.Response r = new SuggestOracle.Response();
                             List<Suggestion> suggestions = new ArrayList<Suggestion>();
 
-                            for (T houseData : houseDatas) {
-//                                Suggestion suggestion = new MultiWordSuggestOracle.MultiWordSuggestion(houseData.getName(), houseData.getName());
-                                Suggestion suggestion = new Suggestion(houseData);
+                            for (T data : datas) {
+                                Suggestion suggestion = new Suggestion(data);
                                 suggestions.add(suggestion);
                             }
 
