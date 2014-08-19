@@ -5,15 +5,18 @@ import org.ib.history.client.BackendService;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.RulerData;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
+import org.ib.history.db.neo4j.services.RulerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service("backendService")
 public class BackendServiceImpl extends RemoteServiceServlet implements BackendService {
@@ -26,6 +29,8 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     PersonService personService;
     @Autowired
     HouseService houseService;
+    @Autowired
+    RulerService rulerService;
 
 
     @Override
@@ -81,5 +86,24 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     @Override
     public void deletePerson(PersonData person) {
         personService.deletePerson(person);
+    }
+
+
+    @Override
+    public Set<RulerData> getRulers() {
+        Set<RulerData> rulers = rulerService.getAllRulers();
+        log.debug(rulers.toString());
+        return rulers;
+    }
+
+    @Override
+    public void addRuler(PersonData person, RulerData ruler) {
+        log.debug(ruler.toString());
+        rulerService.addRuler(person, ruler);
+    }
+
+    @Override
+    public void deleteRuler(RulerData ruler) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

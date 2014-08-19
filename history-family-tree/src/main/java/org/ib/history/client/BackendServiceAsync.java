@@ -4,8 +4,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.RulerData;
 
 import java.util.List;
+import java.util.Set;
 
 public interface BackendServiceAsync {
 
@@ -21,4 +23,8 @@ public interface BackendServiceAsync {
     void getPersons(AsyncCallback<List<PersonData>> persons);
     void addPerson(PersonData person, AsyncCallback<Void> callback);
     void deletePerson(PersonData person, AsyncCallback<Void> callback);
+
+    void getRulers(AsyncCallback<Set<RulerData>> rulers);
+    void addRuler(PersonData person, RulerData ruler, AsyncCallback<Void> callback);
+    void deleteRuler(RulerData ruler, AsyncCallback<Void> callback);
 }

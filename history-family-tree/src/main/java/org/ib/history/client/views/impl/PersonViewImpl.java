@@ -76,7 +76,9 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
         @Override
         protected PersonData getEmptyItem() {
-            return new PersonData.Builder().name("").dateOfBirth(null).dateOfDeath(null).build();
+            return new PersonData.Builder().name("").dateOfBirth(null).dateOfDeath(null)
+                    .house(new HouseData.Builder().name("").build())
+                    .build();
         }
 
         @Override
