@@ -78,6 +78,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public PersonData getPerson(RulerData ruler) {
+        return personService.getPersonByRuler(ruler);
+    }
+
+    @Override
     public void addPerson(PersonData person) {
         log.debug(person.toString());
         personService.addPerson(person);
