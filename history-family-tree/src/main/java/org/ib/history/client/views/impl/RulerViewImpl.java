@@ -1,11 +1,16 @@
 package org.ib.history.client.views.impl;
 
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import org.ib.history.client.presenters.RulerPresenter;
+import org.ib.history.client.utils.AsyncCallback;
+import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.RulerView;
 import org.ib.history.client.widget.ItemEditor;
+import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
@@ -87,6 +92,27 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
 
             TextBox tbTitle = new TextBox();
             widgets.add(tbTitle);
+
+            RpcSuggestOracle<PersonData> suggestOracle = new RpcSuggestOracle<PersonData>() {
+                @Override
+                public void setSuggestions(String pattern, AsyncCallback<List<PersonData>> callback) {
+                    ((RulerPresenter)presenter).setPersonSuggestions(pattern, callback);
+                }
+
+                @Override
+                public String displayString(PersonData selected) {
+                    return selected.getName() + " (" + GwtDateFormat.convert(selected.getDateOfDeath()) + ")";
+                }
+
+                @Override
+                public String replacementString(PersonData selected) {
+                    return selected.getName() + " (" + GwtDateFormat.convert(selected.getDateOfDeath()) + ")";
+                }
+            };
+            SuggestBox sbPerson = new SuggestBox(suggestOracle);
+            suggestOracle.setSuggestBox(sbPerson);
+//            suggestOracle.setSelected();
+            widgets.add(sbPerson);
 
             return widgets;
         }

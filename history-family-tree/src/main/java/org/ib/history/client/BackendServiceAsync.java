@@ -22,6 +22,7 @@ public interface BackendServiceAsync {
 
     void getPersons(AsyncCallback<List<PersonData>> persons);
     void getPerson(RulerData ruler, AsyncCallback<PersonData> callback);
+    void getPersonsByPattern(String pattern, AsyncCallback<List<PersonData>> callback);
     void addPerson(PersonData person, AsyncCallback<Void> callback);
     void deletePerson(PersonData person, AsyncCallback<Void> callback);
 

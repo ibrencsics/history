@@ -42,6 +42,18 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public List<PersonData> getPersonsByPattern(String pattern) {
+        List<PersonData> personDataList = new ArrayList<>();
+
+        List<Person> personList = personRepo.getPersonsByPattern("(?i).*" + pattern + ".*");
+        for (Person person : personList) {
+            personDataList.add(DataTransformer.transform(person));
+        }
+
+        return personDataList;
+    }
+
+    @Override
     public PersonData getPersonByRuler(RulerData rulerData) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

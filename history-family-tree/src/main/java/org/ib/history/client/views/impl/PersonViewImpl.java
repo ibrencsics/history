@@ -103,6 +103,16 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
                 public void setSuggestions(String pattern, AsyncCallback<List<HouseData>> callback) {
                     ((PersonPresenter)presenter).setHouseSuggestions(pattern, callback);
                 }
+
+                @Override
+                public String displayString(HouseData selected) {
+                    return selected.getName();
+                }
+
+                @Override
+                public String replacementString(HouseData selected) {
+                    return selected.getName();
+                }
             };
             SuggestBox sbHouse = new SuggestBox(suggestOracle);
             suggestOracle.setSuggestBox(sbHouse);

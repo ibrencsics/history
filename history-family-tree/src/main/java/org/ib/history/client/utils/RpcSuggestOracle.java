@@ -65,7 +65,7 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
         this.suggestBox.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
             @Override
             public void onSelection(SelectionEvent<SuggestOracle.Suggestion> suggestionSelectionEvent) {
-                selected = ((Suggestion<T>)suggestionSelectionEvent.getSelectedItem()).getSelection();
+                selected = ((Suggestion)suggestionSelectionEvent.getSelectedItem()).getSelection();
             }
         });
     }
@@ -89,8 +89,10 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
     }
 
     public abstract void setSuggestions(String pattern, org.ib.history.client.utils.AsyncCallback<List<T>> callback);
+    public abstract String displayString(T selected);
+    public abstract String replacementString(T selected);
 
-    public static class Suggestion<T extends AbstractData<T>> implements SuggestOracle.Suggestion {
+    public class Suggestion/*<T extends AbstractData<T>>*/ implements SuggestOracle.Suggestion {
 
         private final T selection;
 
@@ -100,12 +102,14 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
 
         @Override
         public String getDisplayString() {
-            return selection.getName();
+//            return selection.getName();
+            return displayString(selection);
         }
 
         @Override
         public String getReplacementString() {
-            return selection.getName();
+//            return selection.getName();
+            return replacementString(selection);
         }
 
         public T getSelection() {

@@ -83,6 +83,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public List<PersonData> getPersonsByPattern(String pattern) {
+        return personService.getPersonsByPattern(pattern);
+    }
+
+    @Override
     public void addPerson(PersonData person) {
         log.debug(person.toString());
         personService.addPerson(person);

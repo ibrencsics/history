@@ -11,6 +11,7 @@ import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.RulerPresenter;
 import org.ib.history.client.views.RulerView;
+import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 
 import java.util.ArrayList;
@@ -73,5 +74,20 @@ public class RulerPresenterImpl extends AsyncDataProvider<RulerData> implements 
     @Override
     public void deleteItem(RulerData item) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void setPersonSuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<PersonData>> callback) {
+        backendService.getPersonsByPattern(pattern, new AsyncCallback<List<PersonData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<PersonData> personDatas) {
+                callback.onSuccess(personDatas);
+            }
+        });
     }
 }
