@@ -4,12 +4,10 @@ import org.ib.history.commons.data.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -59,11 +57,12 @@ public class RulerServiceImplTest {
                 .to(new FlexibleDate.Builder().year(1087).noMonth().noDay().build()).country(countryDataCreated).build();
 
         RulerData rulerData = new RulerData.Builder()
-                .name("I. William").alias("William the Conquerer").title("King").job(rulesData)
+                .name("I. William").alias("William the Conquerer").title("King").rule(rulesData)
                 .locale("DE", new RulerData.Builder().name("Wilhelm I").alias("Wilhelm der Eroberer").title("König").build())
                 .locale("HU", new RulerData.Builder().name("I. Vilmos").alias("Hódító Vilmos").title("Király").build())
+                .person(personDataCreated)
                 .build();
-        RulerData rulerDataCreated = rulerService.addRuler(personDataCreated, rulerData);
+        RulerData rulerDataCreated = rulerService.addRuler(rulerData);
         assertNotNull(rulerDataCreated.getId());
 
 

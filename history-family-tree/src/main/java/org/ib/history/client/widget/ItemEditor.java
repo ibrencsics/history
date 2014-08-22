@@ -75,7 +75,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
         defaultLocaleRow.add(new Label(SupportedLocale.getDefault().name()));
 
         TextBox tbName = new TextBox();
-        tbName.setText(selectedItem.getName());
+        tbName.setText(selectedItem!=null ? selectedItem.getName() : "");
         defaultLocaleRow.add(tbName);
 
         defaultLocaleRow.addAll(getDefaultLocaleWidgets());
@@ -88,7 +88,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
             localeRow.add(new Label(locale.name()));
 
-            T selectedItemLocale = selectedItem.getLocale(locale.name());
+            T selectedItemLocale = selectedItem!=null ? selectedItem.getLocale(locale.name()) : null;
 
             tbName = new TextBox();
             tbName.setText(selectedItemLocale != null ? selectedItem.getLocale(locale.name()).getName() : "");

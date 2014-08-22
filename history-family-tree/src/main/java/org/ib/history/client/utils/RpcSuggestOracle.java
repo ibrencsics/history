@@ -72,7 +72,7 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
 
     public void setSelected(T selected) {
         this.selected = selected;
-        suggestBox.setText(selected.getName());
+        suggestBox.setText(displayString(selected));
     }
 
     public T getSelected() {

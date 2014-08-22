@@ -27,6 +27,6 @@ public interface BackendServiceAsync {
     void deletePerson(PersonData person, AsyncCallback<Void> callback);
 
     void getRulers(AsyncCallback<Set<RulerData>> rulers);
-    void addRuler(PersonData person, RulerData ruler, AsyncCallback<Void> callback);
+    void addRuler(RulerData ruler, AsyncCallback<Void> callback);
     void deleteRuler(RulerData ruler, AsyncCallback<Void> callback);
 }

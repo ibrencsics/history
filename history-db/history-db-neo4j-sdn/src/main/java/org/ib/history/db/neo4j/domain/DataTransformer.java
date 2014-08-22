@@ -154,7 +154,7 @@ public class DataTransformer {
                 rulesDataBuilder.country(transform(rules.getCountry()));
             }
 
-            rulerDataBuilder.job(rulesDataBuilder.build());
+            rulerDataBuilder.rule(rulesDataBuilder.build());
         }
 
         if (ruler.getPerson() != null) {
@@ -177,7 +177,7 @@ public class DataTransformer {
         );
         ruler.setDefaultLocale(true);
 
-        for (RulerData.RulesData rulesData : rulerData.getJobs()) {
+        for (RulerData.RulesData rulesData : rulerData.getRules()) {
             Rules rules = new Rules(
                     rulesData.getId(),
                     ruler,

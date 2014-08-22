@@ -107,13 +107,13 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
-    public void addRuler(PersonData person, RulerData ruler) {
+    public void addRuler(RulerData ruler) {
         log.debug(ruler.toString());
-        rulerService.addRuler(person, ruler);
+        rulerService.addRuler(ruler);
     }
 
     @Override
     public void deleteRuler(RulerData ruler) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        rulerService.deleteRuler(ruler);
     }
 }

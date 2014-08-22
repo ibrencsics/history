@@ -31,7 +31,7 @@ public interface BackendService extends RemoteService {
     void deletePerson(PersonData person);
 
     Set<RulerData> getRulers();
-    void addRuler(PersonData person, RulerData ruler);
+    void addRuler(RulerData ruler);
     void deleteRuler(RulerData ruler);
 
 //    SuggestOracle.Response getSuggestions(SuggestOracle.Request request);

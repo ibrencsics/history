@@ -7,7 +7,7 @@ public class RulerData extends AbstractData<RulerData> {
 
     private String alias;
     private String title;
-    private Set<RulesData> jobs = new HashSet<RulesData>();
+    private Set<RulesData> rules = new HashSet<RulesData>();
     private PersonData person;
 
     @Override
@@ -26,8 +26,8 @@ public class RulerData extends AbstractData<RulerData> {
             sb.append("\n\t lang=" + locale +  " " + localeRuler.toString());
         }
 
-        for (RulesData job : getJobs()) {
-            sb.append("\n\t" + job.toString());
+        for (RulesData rule : getRules()) {
+            sb.append("\n\t" + rule.toString());
         }
 
         if (getPerson() != null) {
@@ -60,8 +60,8 @@ public class RulerData extends AbstractData<RulerData> {
             return this;
         }
 
-        public Builder job(RulesData job) {
-            rulerData.getJobs().add(job);
+        public Builder rule(RulesData rule) {
+            rulerData.getRules().add(rule);
             return this;
         }
 
@@ -96,12 +96,12 @@ public class RulerData extends AbstractData<RulerData> {
         this.title = title;
     }
 
-    public Set<RulesData> getJobs() {
-        return jobs;
+    public Set<RulesData> getRules() {
+        return rules;
     }
 
-    public void setJobs(Set<RulesData> jobs) {
-        this.jobs = jobs;
+    public void setRules(Set<RulesData> rules) {
+        this.rules = rules;
     }
 
     public PersonData getPerson() {

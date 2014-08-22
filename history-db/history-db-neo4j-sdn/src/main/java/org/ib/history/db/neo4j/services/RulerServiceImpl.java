@@ -27,9 +27,10 @@ public class RulerServiceImpl implements RulerService {
     RulerRepository rulerRepo;
 
     @Override
-    public RulerData addRuler(PersonData personData, RulerData rulerData) {
+    public RulerData addRuler(RulerData rulerData) {
 
-        Person person = DataTransformer.transform(personData);
+//        Person person = DataTransformer.transform(personData);
+        Person person = DataTransformer.transform(rulerData.getPerson());
 
         Ruler ruler = DataTransformer.transform(rulerData);
         for (Ruler.Translation<Ruler> translation : ruler.getLocales()) {
@@ -70,5 +71,10 @@ public class RulerServiceImpl implements RulerService {
         }
 
         return rulerDataList;
+    }
+
+    @Override
+    public void deleteRuler(RulerData rulerData) {
+        rulerRepo.delete(rulerData.getId());
     }
 }

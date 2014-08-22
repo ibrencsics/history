@@ -68,7 +68,7 @@ public class RulerPresenterImpl extends AsyncDataProvider<RulerData> implements 
 
     @Override
     public void addItem(RulerData rulerData) {
-        backendService.addRuler(rulerData.getPerson(), rulerData, new AsyncCallback<Void>() {
+        backendService.addRuler(rulerData, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
                 Window.alert("Error " + throwable.getMessage());
@@ -82,8 +82,18 @@ public class RulerPresenterImpl extends AsyncDataProvider<RulerData> implements 
     }
 
     @Override
-    public void deleteItem(RulerData item) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void deleteItem(RulerData rulerData) {
+        backendService.deleteRuler(rulerData, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                Window.alert("Error " + throwable.getMessage());
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                view.refreshGrid();
+            }
+        });
     }
 
     @Override

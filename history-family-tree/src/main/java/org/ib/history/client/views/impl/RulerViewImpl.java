@@ -71,6 +71,12 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
         return columnHouse;
     }
 
+    private String personDisplayText(PersonData personData) {
+        if (personData==null)
+            return "";
+        return personData.getName() + " (" + GwtDateFormat.convert(personData.getDateOfDeath()) + ")";
+    }
+
 
     private class ItemEditorImpl extends ItemEditor<RulerData> {
 
@@ -89,11 +95,11 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
             List<Widget> widgets = new ArrayList<Widget>();
 
             TextBox tbAlias = new TextBox();
-            tbAlias.setText(selectedItem.getAlias());
+            tbAlias.setText(selectedItem!=null ? selectedItem.getAlias() : "");
             widgets.add(tbAlias);
 
             TextBox tbTitle = new TextBox();
-            tbTitle.setText(selectedItem.getTitle());
+            tbTitle.setText(selectedItem!=null ? selectedItem.getTitle() : "");
             widgets.add(tbTitle);
 
             RpcSuggestOracle<PersonData> suggestOracle = new RpcSuggestOracle<PersonData>() {
@@ -104,17 +110,17 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
 
                 @Override
                 public String displayString(PersonData selected) {
-                    return selected.getName() + " (" + GwtDateFormat.convert(selected.getDateOfDeath()) + ")";
+                    return personDisplayText(selected);
                 }
 
                 @Override
                 public String replacementString(PersonData selected) {
-                    return selected.getName() + " (" + GwtDateFormat.convert(selected.getDateOfDeath()) + ")";
+                    return personDisplayText(selected);
                 }
             };
             SuggestBox sbPerson = new SuggestBox(suggestOracle);
             suggestOracle.setSuggestBox(sbPerson);
-            suggestOracle.setSelected(selectedItem.getPerson());
+            suggestOracle.setSelected(selectedItem!=null ? selectedItem.getPerson() : null);
             widgets.add(sbPerson);
 
             return widgets;
