@@ -1,5 +1,6 @@
 package org.ib.history.client.views.impl;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -10,6 +11,7 @@ import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.RulerView;
 import org.ib.history.client.widget.ItemEditor;
+import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
@@ -62,8 +64,7 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
         TextColumn<RulerData> columnHouse = new TextColumn<RulerData>() {
             @Override
             public String getValue(RulerData rulerData) {
-                // TODO: call backendService.getPerson(rulerData);
-                return "";
+                return rulerData.getPerson().getName();
             }
         };
         columnHouse.setDataStoreName(COLUMN_PERSON);
@@ -88,9 +89,11 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
             List<Widget> widgets = new ArrayList<Widget>();
 
             TextBox tbAlias = new TextBox();
+            tbAlias.setText(selectedItem.getAlias());
             widgets.add(tbAlias);
 
             TextBox tbTitle = new TextBox();
+            tbTitle.setText(selectedItem.getTitle());
             widgets.add(tbTitle);
 
             RpcSuggestOracle<PersonData> suggestOracle = new RpcSuggestOracle<PersonData>() {
@@ -111,7 +114,7 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
             };
             SuggestBox sbPerson = new SuggestBox(suggestOracle);
             suggestOracle.setSuggestBox(sbPerson);
-//            suggestOracle.setSelected();
+            suggestOracle.setSelected(selectedItem.getPerson());
             widgets.add(sbPerson);
 
             return widgets;
@@ -119,17 +122,41 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
 
         @Override
         protected List<Widget> getLocaleWidgets(SupportedLocale locale) {
-            return new ArrayList<Widget>(0);
+            List<Widget> widgets = new ArrayList<Widget>(0);
+
+            RulerData selectedItemLocale = selectedItem.getLocale(locale.name());
+
+            TextBox tbAlias = new TextBox();
+            tbAlias.setText( selectedItemLocale!=null ? selectedItemLocale.getAlias() : "" );
+            widgets.add(tbAlias);
+
+            TextBox tbTitle = new TextBox();
+            tbTitle.setText( selectedItemLocale!=null ? selectedItemLocale.getTitle() : "" );
+            widgets.add(tbTitle);
+
+            return widgets;
         }
 
         @Override
         protected void updateDefaultLocale(List<Widget> widgets) {
-            //To change body of implemented methods use File | Settings | File Templates.
+            TextBox tbAlias = (TextBox) widgets.get(0);
+            selectedItem.setAlias(tbAlias.getText());
+
+            TextBox tbTitle = (TextBox) widgets.get(1);
+            selectedItem.setTitle(tbTitle.getText());
+
+            SuggestBox sbPerson = (SuggestBox) widgets.get(2);
+            GWT.log("person selected: " + ((RpcSuggestOracle<PersonData>) sbPerson.getSuggestOracle()).getSelected().toString());
+            selectedItem.setPerson(((RpcSuggestOracle<PersonData>) sbPerson.getSuggestOracle()).getSelected());
         }
 
         @Override
         protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
-            //To change body of implemented methods use File | Settings | File Templates.
+            TextBox tbAlias = (TextBox) widgets.get(0);
+            selectedItem.getLocale(locale.name()).setAlias(tbAlias.getText());
+
+            TextBox tbTitle = (TextBox) widgets.get(1);
+            selectedItem.getLocale(locale.name()).setTitle(tbTitle.getText());
         }
     }
 }

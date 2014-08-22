@@ -1,5 +1,6 @@
 package org.ib.history.db.neo4j.domain;
 
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -27,6 +28,9 @@ public class Ruler extends AbstractEntity<Ruler> {
     @RelatedToVia
     private Set<Translation<Ruler>> locales;
 
+    @Fetch
+    @RelatedTo(type = "AS", direction = Direction.INCOMING)
+    private Person person;
 
     public Ruler() {
     }
@@ -56,6 +60,14 @@ public class Ruler extends AbstractEntity<Ruler> {
 
     public Set<Rules> getAllRules() {
         return Collections.unmodifiableSet(allRules);
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public Set<Translation<Ruler>> getLocales() {

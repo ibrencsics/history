@@ -1,5 +1,6 @@
 package org.ib.history.db.neo4j.domain;
 
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -25,7 +26,7 @@ public class Person extends AbstractEntity<Person> {
     @RelatedTo(type = "IN_HOUSE")
     private House house;
 
-    @RelatedTo(type = "AS")
+    @RelatedTo(type = "AS", direction = Direction.OUTGOING)
     private Set<Ruler> jobs = new HashSet<>();
 
     @Fetch

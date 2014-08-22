@@ -157,6 +157,10 @@ public class DataTransformer {
             rulerDataBuilder.job(rulesDataBuilder.build());
         }
 
+        if (ruler.getPerson() != null) {
+            rulerDataBuilder.person( transform(ruler.getPerson()) );
+        }
+
         for (AbstractEntity.Translation<Ruler> locale : ruler.getLocales()) {
             rulerDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
         }
@@ -183,6 +187,10 @@ public class DataTransformer {
             );
 
             ruler.addRules(rules);
+        }
+
+        if (rulerData.getPerson() != null) {
+            ruler.setPerson(DataTransformer.transform(rulerData.getPerson()));
         }
 
         for (String locale : rulerData.getLocales().keySet()) {
