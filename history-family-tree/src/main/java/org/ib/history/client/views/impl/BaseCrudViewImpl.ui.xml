@@ -16,6 +16,10 @@
             height: 500px;
             width: 100%;
         }
+        .custom {
+            border: thin solid #444444;
+            width: 100%;
+        }
     </ui:style>
 
     <!--<g:DockLayoutPanel unit="PX">-->
@@ -39,7 +43,9 @@
         <g:VerticalPanel ui:field="addItemPanel" addStyleNames="{style.bgc}">
             <!--<c:CellTable ui:field="ctEdit"/>-->
 
-            <w:ItemEditor text="editor" ui:field="itemEditor"/>
+            <w:ItemEditor text="Edit Item" ui:field="itemEditor"/>
+
+            <g:AbsolutePanel ui:field="customPanel" addStyleNames="{style.custom}"/>
 
             <!--<g:HorizontalPanel>-->
                 <!--<g:Button ui:field="btnNew" text="New"/>-->

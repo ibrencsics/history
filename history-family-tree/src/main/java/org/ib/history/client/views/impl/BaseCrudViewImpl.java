@@ -25,13 +25,16 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     private static BaseCrudUiBinder uiBinder = GWT.create(BaseCrudUiBinder.class);
 
     @UiField(provided = true)
-    ItemEditor<T> itemEditor;
+    protected ItemEditor<T> itemEditor;
+
+    @UiField
+    protected AbsolutePanel customPanel;
 
     @UiField(provided = true)
     protected CellTable<T> ctList;
 
     @UiField(provided = true)
-    SimplePager pager;
+    protected SimplePager pager;
 
     protected CrudPresenter<T> presenter;
 
@@ -55,6 +58,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     }
 
     protected abstract ItemEditor<T> getItemEditor();
+    protected abstract void notifyCustomPanel(T selected);
 
     /**
      * CrudView methods
@@ -123,9 +127,10 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         columnEdit.setDataStoreName(COLUMN_EDIT);
         columnEdit.setFieldUpdater(new FieldUpdater<T, String>() {
             @Override
-            public void update(int index, T object, String value) {
-                GWT.log(object.getName() + " pressed");
-                itemEditor.setSelectedItem(object);
+            public void update(int index, T selected, String value) {
+                GWT.log(selected.getName() + " pressed");
+                itemEditor.setSelectedItem(selected);
+                notifyCustomPanel(selected);
             }
         });
         return columnEdit;
@@ -182,5 +187,14 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
 
         }
+    }
+
+    /**
+     * Custom panel
+     */
+
+    protected void addCustomPanel(Widget widget) {
+        customPanel.clear();
+        customPanel.add(widget);
     }
 }

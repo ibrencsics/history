@@ -17,6 +17,9 @@ public class HouseViewImpl extends BaseCrudViewImpl<HouseData> implements HouseV
     }
 
     @Override
+    protected void notifyCustomPanel(HouseData selected) {}
+
+    @Override
     protected void buildListColumns() {
 
     }

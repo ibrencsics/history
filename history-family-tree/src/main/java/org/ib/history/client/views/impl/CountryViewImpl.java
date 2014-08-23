@@ -23,41 +23,10 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
     }
 
     @Override
+    protected void notifyCustomPanel(CountryData selected) {}
+
+    @Override
     protected void buildListColumns() {
 
     }
-
-
-//    private class ItemEditorImpl extends ItemEditor<CountryData> {
-//
-//        @Override
-//        protected CountryData getEmptyItem() {
-//            return new CountryData.Builder().name("").build();
-//        }
-//
-//        @Override
-//        protected List<String> getHeaders() {
-//            return new ArrayList<String>(0);
-//        }
-//
-//        @Override
-//        protected List<Widget> getDefaultLocaleWidgets() {
-//            return new ArrayList<Widget>(0);
-//        }
-//
-//        @Override
-//        protected List<Widget> getLocaleWidgets(SupportedLocale locale) {
-//            return new ArrayList<Widget>(0);
-//        }
-//
-//        @Override
-//        protected void updateDefaultLocale(List<Widget> widgets) {
-//
-//        }
-//
-//        @Override
-//        protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
-//
-//        }
-//    }
 }

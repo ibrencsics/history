@@ -1,0 +1,55 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+    <ui:style>
+        .title {
+        background-color: #2E9AFE;
+        font-weight: bold;
+        font-stretch: wider;
+        border: 1px solid black;
+        }
+
+        .bodyPanel {
+        border: 1px solid black;
+        }
+
+        .flexTable {
+        border-top: thin solid #444444;
+        border-left: thin solid #444444;
+        border-right: thin solid #111111;
+        border-bottom: thin solid #111111;
+        background-color:  #FFFFFF;
+        }
+
+        .flexTable tr:first-child td {
+        font-weight:bold;
+        }
+
+        .flexTable tr {
+        height: 30px;
+        }
+
+        .flexTable td {
+        border: 1px solid #BBBBBB;
+        }
+
+    </ui:style>
+
+    <g:FlowPanel>
+
+        <g:FlowPanel styleName="{style.title}">
+            <g:Label ui:field="title" />
+        </g:FlowPanel>
+
+        <g:FlowPanel styleName="{style.bodyPanel}" ui:field="bodyPanel">
+            <g:FlexTable ui:field="flexTable" styleName="{style.flexTable}"/>
+        </g:FlowPanel>
+
+        <g:HorizontalPanel>
+            <g:Button text="Add" ui:field="btnAdd"/>
+        </g:HorizontalPanel>
+
+    </g:FlowPanel>
+
+</ui:UiBinder>

@@ -11,6 +11,7 @@ import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.RulerView;
 import org.ib.history.client.widget.ItemEditor;
+import org.ib.history.client.widget.RuleEditor;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
@@ -26,9 +27,22 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
     final String COLUMN_TITLE = "Title";
     final String COLUMN_PERSON = "Person";
 
+    private RuleEditor ruleEditor;
+
+    public RulerViewImpl() {
+        ruleEditor = new RuleEditor();
+        ruleEditor.setText("Edit Rule");
+        addCustomPanel(ruleEditor);
+    }
+
     @Override
     protected ItemEditor<RulerData> getItemEditor() {
         return new ItemEditorImpl();
+    }
+
+    @Override
+    protected void notifyCustomPanel(RulerData selected) {
+        ruleEditor.setSelected(selected);
     }
 
     @Override

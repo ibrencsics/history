@@ -32,6 +32,9 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     }
 
     @Override
+    protected void notifyCustomPanel(PersonData selected) {}
+
+    @Override
     protected void buildListColumns() {
         ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH));
         ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH));
