@@ -34,7 +34,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     protected T selectedItem;
     protected CrudPresenter<T> presenter;
-    protected FlexTableHandler flexTableHandler;
+    protected FlexTableWrapper flexTableWrapper;
 
     public ItemEditor() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -61,26 +61,26 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     }
 
     private void visualize() {
-        flexTableHandler = new FlexTableHandler();
+        flexTableWrapper = new FlexTableWrapper(flexTable);
 
         // headers
         List<String> headers = new ArrayList<String>(5);
         headers.add("Lang");
         headers.add("Name");
         headers.addAll(getHeaders());
-        flexTableHandler.addStringRow(headers);
+        flexTableWrapper.addStringRow(headers);
 
         // default locale
         List<Widget> defaultLocaleRow = new ArrayList<Widget>(5);
         defaultLocaleRow.add(new Label(SupportedLocale.getDefault().name()));
 
         TextBox tbName = new TextBox();
-        tbName.setText(selectedItem!=null ? selectedItem.getName() : "");
+        tbName.setText(selectedItem != null ? selectedItem.getName() : "");
         defaultLocaleRow.add(tbName);
 
         defaultLocaleRow.addAll(getDefaultLocaleWidgets());
 
-        flexTableHandler.addWidgetRow(defaultLocaleRow);
+        flexTableWrapper.addWidgetRow(defaultLocaleRow);
 
         // locales
         for (SupportedLocale locale : SupportedLocale.getLocalesExceptDefault()) {
@@ -96,7 +96,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
             localeRow.addAll(getLocaleWidgets(locale));
 
-            flexTableHandler.addWidgetRow(localeRow);
+            flexTableWrapper.addWidgetRow(localeRow);
         }
     }
 
@@ -112,14 +112,14 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     private void save() {
 
         // default locale
-        List<Widget> defaultLocale = flexTableHandler.getRow(1);
+        List<Widget> defaultLocale = flexTableWrapper.getRow(1);
         selectedItem.setName( ((TextBox)defaultLocale.get(1)).getText() );
         updateDefaultLocale(defaultLocale.subList(2, defaultLocale.size()));
 
         // locales
         int localeNum = 2;
         for (SupportedLocale locale : SupportedLocale.getLocalesExceptDefault()) {
-            List<Widget> localeWidgets = flexTableHandler.getRow(localeNum++);
+            List<Widget> localeWidgets = flexTableWrapper.getRow(localeNum++);
             TextBox tbName = ((TextBox)localeWidgets.get(1));
             if (tbName.getText()!=null && !tbName.getText().equals("")) {
                 if (selectedItem.getLocale(locale.name()) == null) {
@@ -136,46 +136,6 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     protected abstract void updateDefaultLocale(List<Widget> widgets);
     protected abstract void updateLocale(SupportedLocale locale, List<Widget> widgets);
-
-
-    private class FlexTableHandler {
-        private int nextRow = 0;
-
-        private FlexTableHandler() {
-            flexTable.clear();
-        }
-
-        protected void addCell(int x, int y, Widget widget) {
-            flexTable.setWidget(x, y, widget);
-        }
-
-        protected void addStringRow(List<String> items) {
-            List<Label> labels = new ArrayList<Label>();
-            for (String item : items) {
-                labels.add(new Label(item));
-            }
-            addWidgetRow(labels);
-        }
-
-        protected void addWidgetRow(List<? extends Widget> widgets) {
-            int column=0;
-            for (Widget widget : widgets) {
-                addCell(nextRow, column++, widget);
-            }
-            nextRow++;
-        }
-
-        protected List<Widget> getRow(int row) {
-            List<Widget> widgets = new ArrayList<Widget>();
-
-            for (int column=0; column<flexTable.getCellCount(row); column++) {
-                widgets.add( flexTable.getWidget(row, column) );
-            }
-
-            return widgets;
-        }
-    }
-
 
 
     public void setPresenter(CrudPresenter<T> presenter) {

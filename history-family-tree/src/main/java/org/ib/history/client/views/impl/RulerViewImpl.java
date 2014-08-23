@@ -5,6 +5,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.presenters.RulerPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
@@ -12,7 +13,6 @@ import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.RulerView;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.client.widget.RuleEditor;
-import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
@@ -43,6 +43,12 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
     @Override
     protected void notifyCustomPanel(RulerData selected) {
         ruleEditor.setSelected(selected);
+    }
+
+    @Override
+    public void setPresenter(CrudPresenter<RulerData> presenter) {
+        super.setPresenter(presenter);
+        ruleEditor.setPresenter((RulerPresenter) presenter);
     }
 
     @Override
