@@ -187,6 +187,11 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
 
         }
+
+        @Override
+        protected void updateCustom() {
+
+        }
     }
 
     /**

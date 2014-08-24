@@ -34,6 +34,18 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    public List<CountryData> getCountriesByPatter(String pattern) {
+        List<CountryData> countryDataList = new ArrayList<>();
+
+        List<Country> countryList = countryRepo.getCountriesByPattern("(?i).*" + pattern + ".*");
+        for (Country country : countryList) {
+            countryDataList.add(DataTransformer.transform(country));
+        }
+
+        return countryDataList;
+    }
+
+    @Override
     public CountryData addCountry(CountryData countryData) {
         Country country = DataTransformer.transform(countryData);
         for (Country.Translation<Country> translation : country.getLocales()) {

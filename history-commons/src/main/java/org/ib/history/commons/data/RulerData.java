@@ -1,5 +1,7 @@
 package org.ib.history.commons.data;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -113,7 +115,7 @@ public class RulerData extends AbstractData<RulerData> {
     }
 
 
-    public static class RulesData {
+    public static class RulesData implements IsSerializable {
 
         private Long id;
         private FlexibleDate from;

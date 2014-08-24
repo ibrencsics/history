@@ -17,9 +17,7 @@ import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerView {
 
@@ -183,6 +181,11 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
 
             TextBox tbTitle = (TextBox) widgets.get(1);
             selectedItem.getLocale(locale.name()).setTitle(tbTitle.getText());
+        }
+
+        @Override
+        protected void updateCustom() {
+            selectedItem.setRules(new HashSet<RulerData.RulesData>(ruleEditor.save()));
         }
     }
 }

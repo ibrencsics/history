@@ -16,6 +16,7 @@ import java.util.Set;
 public interface BackendService extends RemoteService {
 
     List<CountryData> getCountries(String locale);
+    List<CountryData> getCountriesByPattern(String pattern);
     void addCountry(CountryData country);
     void deleteCountry(CountryData country);
 

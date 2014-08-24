@@ -7,9 +7,15 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.RulerPresenter;
+import org.ib.history.client.utils.AsyncCallback;
+import org.ib.history.client.utils.RpcSuggestOracle;
+import org.ib.history.commons.data.CountryData;
+import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
+import org.ib.history.commons.utils.GwtDateFormat;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class RuleEditor extends Composite implements IsWidget, HasText {
@@ -70,10 +76,70 @@ public class RuleEditor extends Composite implements IsWidget, HasText {
         headers.add("To");
         headers.add("Country");
         flexTableWrapper.addStringRow(headers);
+
+        for (RulerData.RulesData rules : selectedRuler.getRules()) {
+            addRow(rules);
+        }
     }
 
     @UiHandler("btnAdd")
     public void addItem(ClickEvent clickEvent) {
+        addRow(new RulerData.RulesData.Builder().build());
+    }
 
+    private void addRow(RulerData.RulesData rules) {
+        List<Widget> ruleRow = new ArrayList<Widget>();
+
+        TextBox tbFrom = new TextBox();
+        tbFrom.setText(GwtDateFormat.convert(rules.getFrom()));
+        ruleRow.add(tbFrom);
+
+        TextBox tbTo = new TextBox();
+        tbTo.setText(GwtDateFormat.convert(rules.getTo()));
+        ruleRow.add(tbTo);
+
+        RpcSuggestOracle suggestOracle = new RpcSuggestOracle<CountryData>() {
+            @Override
+            public void setSuggestions(String pattern, AsyncCallback<List<CountryData>> callback) {
+                presenter.setCountrySuggestions(pattern, callback);
+            }
+
+            @Override
+            public String displayString(CountryData selected) {
+                return selected.getName();
+            }
+
+            @Override
+            public String replacementString(CountryData selected) {
+                return selected.getName();
+            }
+        };
+        SuggestBox sbCountry = new SuggestBox(suggestOracle);
+        suggestOracle.setSuggestBox(sbCountry);
+        suggestOracle.setSelected(rules.getCountry());
+        ruleRow.add(sbCountry);
+
+        flexTableWrapper.addWidgetRowWithDelete(ruleRow);
+    }
+
+    public List<RulerData.RulesData> save() {
+        List<RulerData.RulesData> rules = new ArrayList<RulerData.RulesData>();
+
+        Iterator<List<? extends Widget>> iter = flexTableWrapper.iterator();
+        while (iter.hasNext()) {
+            List<? extends Widget> row = iter.next();
+
+            SuggestBox sbCountry = ((SuggestBox)row.get(2));
+            CountryData country = ((RpcSuggestOracle<CountryData>) sbCountry.getSuggestOracle()).getSelected();
+
+            RulerData.RulesData.Builder builder = new RulerData.RulesData.Builder()
+                    .from(GwtDateFormat.convert( ((TextBox)row.get(0)).getText() ))
+                    .to(GwtDateFormat.convert( ((TextBox)row.get(1)).getText() ))
+                    .country(country);
+
+            rules.add(builder.build());
+        }
+
+        return rules;
     }
 }

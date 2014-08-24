@@ -39,6 +39,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public List<CountryData> getCountriesByPattern(String pattern) {
+        return countryService.getCountriesByPatter(pattern);
+    }
+
+    @Override
     public void addCountry(CountryData country) {
         countryService.addCountry(country);
     }

@@ -129,6 +129,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
                 updateLocale(locale, localeWidgets.subList(2, localeWidgets.size()));
             }
         }
+        updateCustom();
 
         GWT.log("item to save" + selectedItem.toString());
         presenter.addItem(selectedItem);
@@ -136,6 +137,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     protected abstract void updateDefaultLocale(List<Widget> widgets);
     protected abstract void updateLocale(SupportedLocale locale, List<Widget> widgets);
+    protected abstract void updateCustom();
 
 
     public void setPresenter(CrudPresenter<T> presenter) {

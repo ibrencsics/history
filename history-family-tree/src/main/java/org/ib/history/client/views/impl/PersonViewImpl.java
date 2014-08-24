@@ -163,5 +163,10 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 //            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
 //            selectedItem.getLocale(locale.name()).setDateOfDeath( GwtDateFormat.convert(tbDateOfDeath.getText()) );
         }
+
+        @Override
+        protected void updateCustom() {
+
+        }
     }
 }
