@@ -12,6 +12,7 @@ import com.google.gwt.view.client.Range;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.CrudView;
+import org.ib.history.client.widget.Editor;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.AbstractData;
 
@@ -26,9 +27,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
     @UiField(provided = true)
     protected ItemEditor<T> itemEditor;
-
-    @UiField
-    protected AbsolutePanel customPanel;
 
     @UiField(provided = true)
     protected CellTable<T> ctList;
@@ -58,7 +56,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     }
 
     protected abstract ItemEditor<T> getItemEditor();
-    protected abstract void notifyCustomPanel(T selected);
 
     /**
      * CrudView methods
@@ -130,7 +127,6 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
             public void update(int index, T selected, String value) {
                 GWT.log(selected.getName() + " pressed");
                 itemEditor.setSelectedItem(selected);
-                notifyCustomPanel(selected);
             }
         });
         return columnEdit;
@@ -179,6 +175,11 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         }
 
         @Override
+        protected Editor<T> getCustomEditor() {
+            return null;
+        }
+
+        @Override
         protected void updateDefaultLocale(List<Widget> widgets) {
 
         }
@@ -187,19 +188,5 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
 
         }
-
-        @Override
-        protected void updateCustom() {
-
-        }
-    }
-
-    /**
-     * Custom panel
-     */
-
-    protected void addCustomPanel(Widget widget) {
-        customPanel.clear();
-        customPanel.add(widget);
     }
 }

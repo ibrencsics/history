@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
+import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.presenters.RulerPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
@@ -15,10 +16,11 @@ import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class RuleEditor extends Composite implements IsWidget, HasText {
+public class RuleEditor extends Composite implements Editor<RulerData> {
 
     private static RuleEditorUiBinder uiBinder = GWT.create(RuleEditorUiBinder.class);
 
@@ -43,8 +45,9 @@ public class RuleEditor extends Composite implements IsWidget, HasText {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
-    public void setPresenter(RulerPresenter presenter) {
-        this.presenter = presenter;
+    @Override
+    public void setPresenter(CrudPresenter<RulerData> presenter) {
+        this.presenter = (RulerPresenter) presenter;
     }
 
     @Override
@@ -62,6 +65,7 @@ public class RuleEditor extends Composite implements IsWidget, HasText {
         selectedRuler = null;
     }
 
+    @Override
     public void setSelected(RulerData selectedRuler) {
         this.selectedRuler = selectedRuler;
         visualize();
@@ -122,7 +126,8 @@ public class RuleEditor extends Composite implements IsWidget, HasText {
         flexTableWrapper.addWidgetRowWithDelete(ruleRow);
     }
 
-    public List<RulerData.RulesData> save() {
+    @Override
+    public void save(RulerData created) {
         List<RulerData.RulesData> rules = new ArrayList<RulerData.RulesData>();
 
         Iterator<List<? extends Widget>> iter = flexTableWrapper.iterator();
@@ -140,6 +145,6 @@ public class RuleEditor extends Composite implements IsWidget, HasText {
             rules.add(builder.build());
         }
 
-        return rules;
+        created.setRules(new HashSet<RulerData.RulesData>(rules));
     }
 }

@@ -11,6 +11,7 @@ import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.RulerView;
+import org.ib.history.client.widget.Editor;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.client.widget.RuleEditor;
 import org.ib.history.commons.data.PersonData;
@@ -30,17 +31,11 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
     public RulerViewImpl() {
         ruleEditor = new RuleEditor();
         ruleEditor.setText("Edit Rule");
-        addCustomPanel(ruleEditor);
     }
 
     @Override
     protected ItemEditor<RulerData> getItemEditor() {
         return new ItemEditorImpl();
-    }
-
-    @Override
-    protected void notifyCustomPanel(RulerData selected) {
-        ruleEditor.setSelected(selected);
     }
 
     @Override
@@ -162,6 +157,13 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
         }
 
         @Override
+        protected Editor<RulerData> getCustomEditor() {
+            RuleEditor ruleEditor =  new RuleEditor();
+            ruleEditor.setText("Edit rules");
+            return ruleEditor;
+        }
+
+        @Override
         protected void updateDefaultLocale(List<Widget> widgets) {
             TextBox tbAlias = (TextBox) widgets.get(0);
             selectedItem.setAlias(tbAlias.getText());
@@ -181,11 +183,6 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
 
             TextBox tbTitle = (TextBox) widgets.get(1);
             selectedItem.getLocale(locale.name()).setTitle(tbTitle.getText());
-        }
-
-        @Override
-        protected void updateCustom() {
-            selectedItem.setRules(new HashSet<RulerData.RulesData>(ruleEditor.save()));
         }
     }
 }

@@ -16,42 +16,12 @@
             height: 500px;
             width: 100%;
         }
-        .custom {
-            border: thin solid #444444;
-            width: 100%;
-        }
     </ui:style>
-
-    <!--<g:DockLayoutPanel unit="PX">-->
-        <!--<g:north size="22">-->
-            <!--<c:SimplePager ui:field="pager" />-->
-        <!--</g:north>-->
-        <!--<g:south size="33">-->
-            <!--<g:Button text="sdf"/>-->
-        <!--</g:south>-->
-        <!--<g:center>-->
-            <!--<g:ResizeLayoutPanel addStyleNames="{style.bgc}">-->
-                <!--<g:CustomScrollPanel>-->
-                    <!--<c:CellTable ui:field="ctList" />-->
-                <!--</g:CustomScrollPanel>-->
-            <!--</g:ResizeLayoutPanel>-->
-        <!--</g:center>-->
-    <!--</g:DockLayoutPanel>-->
 
     <g:VerticalPanel addStyleNames="{style.panel}">
 
         <g:VerticalPanel ui:field="addItemPanel" addStyleNames="{style.bgc}">
-            <!--<c:CellTable ui:field="ctEdit"/>-->
-
             <w:ItemEditor text="Edit Item" ui:field="itemEditor"/>
-
-            <g:AbsolutePanel ui:field="customPanel" addStyleNames="{style.custom}"/>
-
-            <!--<g:HorizontalPanel>-->
-                <!--<g:Button ui:field="btnNew" text="New"/>-->
-                <!--<g:Button ui:field="btnAdd" text="Add"/>-->
-                <!--<g:Button ui:field="btnSave" text="Save"/>-->
-            <!--</g:HorizontalPanel>-->
         </g:VerticalPanel>
 
         <g:AbsolutePanel addStyleNames="{style.list}">

@@ -33,7 +33,10 @@
         .flexTable td {
         border: 1px solid #BBBBBB;
         }
-
+        .custom {
+        border: thin solid #444444;
+        width: 100%;
+        }
     </ui:style>
 
     <g:FlowPanel>
@@ -45,6 +48,8 @@
         <g:FlowPanel styleName="{style.bodyPanel}" ui:field="bodyPanel">
             <g:FlexTable ui:field="flexTable" styleName="{style.flexTable}"/>
         </g:FlowPanel>
+
+        <g:AbsolutePanel ui:field="customPanel" addStyleNames="{style.custom}"/>
 
         <g:HorizontalPanel>
             <g:Button text="New" ui:field="btnNew"/>

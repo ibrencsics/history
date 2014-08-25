@@ -1,8 +1,6 @@
 package org.ib.history.client.views.impl;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.PersonPresenter;
@@ -10,6 +8,7 @@ import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.PersonView;
+import org.ib.history.client.widget.Editor;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
@@ -30,9 +29,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     protected ItemEditor<PersonData> getItemEditor() {
         return new ItemEditorImpl();
     }
-
-    @Override
-    protected void notifyCustomPanel(PersonData selected) {}
 
     @Override
     protected void buildListColumns() {
@@ -143,6 +139,11 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         }
 
         @Override
+        protected Editor<PersonData> getCustomEditor() {
+            return null;
+        }
+
+        @Override
         protected void updateDefaultLocale(List<Widget> widgets) {
             TextBox tbDateOfBirth = (TextBox) widgets.get(0);
             selectedItem.setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
@@ -162,11 +163,6 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 //
 //            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
 //            selectedItem.getLocale(locale.name()).setDateOfDeath( GwtDateFormat.convert(tbDateOfDeath.getText()) );
-        }
-
-        @Override
-        protected void updateCustom() {
-
         }
     }
 }

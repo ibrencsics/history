@@ -3,6 +3,7 @@ package org.ib.history.client.views.impl;
 import com.google.gwt.user.client.ui.Widget;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.CountryView;
+import org.ib.history.client.widget.Editor;
 import org.ib.history.client.widget.ItemEditor;
 import org.ib.history.commons.data.CountryData;
 
@@ -21,9 +22,6 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
             }
         };
     }
-
-    @Override
-    protected void notifyCustomPanel(CountryData selected) {}
 
     @Override
     protected void buildListColumns() {

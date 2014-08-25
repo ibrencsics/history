@@ -27,6 +27,9 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     protected FlexTable flexTable;
 
     @UiField
+    protected AbsolutePanel customPanel;
+
+    @UiField
     Button btnNew;
 
     @UiField
@@ -35,8 +38,10 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     protected T selectedItem;
     protected CrudPresenter<T> presenter;
     protected FlexTableWrapper flexTableWrapper;
+    protected Editor<T> customEditor;
 
     public ItemEditor() {
+        customEditor = getCustomEditor();
         initWidget(uiBinder.createAndBindUi(this));
     }
 
@@ -51,6 +56,8 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     public void setSelectedItem(T selectedItem) {
         this.selectedItem = selectedItem;
+        if (customEditor!=null)
+            customEditor.setSelected(selectedItem);
         GWT.log(selectedItem.toString());
         visualize();
     }
@@ -98,12 +105,20 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
             flexTableWrapper.addWidgetRow(localeRow);
         }
+
+        // custom
+
+        if (customEditor != null) {
+            customPanel.clear();
+            customPanel.add(customEditor);
+        }
     }
 
     protected abstract T getEmptyItem();
     protected abstract List<String> getHeaders();
     protected abstract List<Widget> getDefaultLocaleWidgets();
     protected abstract List<Widget> getLocaleWidgets(SupportedLocale locale);
+    protected abstract Editor<T> getCustomEditor();
 
     /**
      * Save
@@ -129,7 +144,8 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
                 updateLocale(locale, localeWidgets.subList(2, localeWidgets.size()));
             }
         }
-        updateCustom();
+
+        customEditor.save(selectedItem);
 
         GWT.log("item to save" + selectedItem.toString());
         presenter.addItem(selectedItem);
@@ -137,11 +153,12 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     protected abstract void updateDefaultLocale(List<Widget> widgets);
     protected abstract void updateLocale(SupportedLocale locale, List<Widget> widgets);
-    protected abstract void updateCustom();
 
 
     public void setPresenter(CrudPresenter<T> presenter) {
         this.presenter = presenter;
+        if (customEditor!=null)
+            customEditor.setPresenter(presenter);
     }
 
     @Override
