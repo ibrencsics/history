@@ -52,6 +52,9 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     public void hide() {
         flexTable.removeAllRows();
         selectedItem = null;
+        if (customEditor!=null) {
+            customEditor.hide();
+        }
     }
 
     public void setSelectedItem(T selectedItem) {
@@ -145,7 +148,8 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
             }
         }
 
-        customEditor.save(selectedItem);
+        if (customEditor!=null)
+            customEditor.save(selectedItem);
 
         GWT.log("item to save" + selectedItem.toString());
         presenter.addItem(selectedItem);

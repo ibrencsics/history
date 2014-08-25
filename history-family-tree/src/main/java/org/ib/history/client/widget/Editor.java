@@ -9,4 +9,5 @@ public interface Editor<T extends AbstractData<T>> extends IsWidget, HasText {
     void setSelected(T selected);
     void setPresenter(CrudPresenter<T> presenter);
     void save(T created);
+    void hide();
 }

@@ -43,6 +43,7 @@ public class RuleEditor extends Composite implements Editor<RulerData> {
 
     public RuleEditor() {
         initWidget(uiBinder.createAndBindUi(this));
+        visualize();
     }
 
     @Override
@@ -60,6 +61,7 @@ public class RuleEditor extends Composite implements Editor<RulerData> {
         title.setText(text);
     }
 
+    @Override
     public void hide() {
         flexTable.removeAllRows();
         selectedRuler = null;
@@ -81,8 +83,10 @@ public class RuleEditor extends Composite implements Editor<RulerData> {
         headers.add("Country");
         flexTableWrapper.addStringRow(headers);
 
-        for (RulerData.RulesData rules : selectedRuler.getRules()) {
-            addRow(rules);
+        if (selectedRuler!=null) {
+            for (RulerData.RulesData rules : selectedRuler.getRules()) {
+                addRow(rules);
+            }
         }
     }
 
