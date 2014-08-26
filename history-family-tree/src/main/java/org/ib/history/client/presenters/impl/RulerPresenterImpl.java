@@ -39,6 +39,7 @@ public class RulerPresenterImpl extends AsyncDataProvider<RulerData> implements 
     public void go(HasWidgets container) {
         bind();
         container.clear();
+        view.refreshGrid();
         container.add(view.asWidget());
     }
 

@@ -99,6 +99,7 @@ public class DataTransformer {
             personDataBuilder.house(transform(person.getHouse()));
         }
 
+        // Only the Ruler ID considered (lazy loading)
         if (person.getJobs() != null) {
             for (Ruler ruler : person.getJobs()) {
                 personDataBuilder.ruler(new RulerData.Builder().id(ruler.getId()).build());
@@ -126,6 +127,7 @@ public class DataTransformer {
             person.addChild(transform(child));
         }
 
+        // only the Ruler Id considered (lazy loading)
         if (personData.getRulers() !=  null) {
             for(RulerData rulerData : personData.getRulers()) {
                 Ruler ruler = new Ruler();

@@ -70,6 +70,9 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
 
     public void createNewItem(T emptyNewItem) {
         this.selectedItem = emptyNewItem;
+        customEditor = getCustomEditor();
+        if (customEditor!=null)
+            customEditor.setPresenter(presenter);
         visualize();
     }
 

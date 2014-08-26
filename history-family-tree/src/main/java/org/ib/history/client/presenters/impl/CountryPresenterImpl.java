@@ -35,6 +35,7 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
     public void go(HasWidgets container) {
         bind();
         container.clear();
+        view.refreshGrid();
         container.add(view.asWidget());
     }
 

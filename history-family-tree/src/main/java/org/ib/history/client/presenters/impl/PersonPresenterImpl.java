@@ -35,6 +35,7 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     public void go(HasWidgets container) {
         bind();
         container.clear();
+        view.refreshGrid();
         container.add(view.asWidget());
     }
 

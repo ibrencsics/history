@@ -35,6 +35,7 @@ public class HousePresenterImpl extends AsyncDataProvider<HouseData> implements 
     public void go(HasWidgets container) {
         bind();
         container.clear();
+        view.refreshGrid();
         container.add(view.asWidget());
     }
 

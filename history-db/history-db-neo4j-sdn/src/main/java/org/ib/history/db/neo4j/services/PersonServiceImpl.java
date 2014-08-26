@@ -21,9 +21,6 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     PersonRepository personRepo;
 
-//    @Autowired
-//    RulerRepository rulerRepo;
-
     @Override
     public List<PersonData> getPersons() {
         List<PersonData> personDataList = new ArrayList<>();
