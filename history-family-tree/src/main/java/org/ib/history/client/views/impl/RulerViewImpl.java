@@ -77,7 +77,7 @@ public class RulerViewImpl extends BaseCrudViewImpl<RulerData> implements RulerV
         TextColumn<RulerData> columnHouse = new TextColumn<RulerData>() {
             @Override
             public String getValue(RulerData rulerData) {
-                return rulerData.getPerson().getName();
+                return rulerData.getPerson()!=null ? rulerData.getPerson().getName() : null;
             }
         };
         columnHouse.setDataStoreName(COLUMN_PERSON);

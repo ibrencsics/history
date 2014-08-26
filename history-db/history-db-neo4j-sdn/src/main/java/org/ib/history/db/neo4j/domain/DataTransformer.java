@@ -99,6 +99,12 @@ public class DataTransformer {
             personDataBuilder.house(transform(person.getHouse()));
         }
 
+        if (person.getJobs() != null) {
+            for (Ruler ruler : person.getJobs()) {
+                personDataBuilder.ruler(new RulerData.Builder().id(ruler.getId()).build());
+            }
+        }
+
         return personDataBuilder.build();
     }
 
@@ -118,6 +124,14 @@ public class DataTransformer {
 
         for (PersonData child : personData.getChildren()) {
             person.addChild(transform(child));
+        }
+
+        if (personData.getRulers() !=  null) {
+            for(RulerData rulerData : personData.getRulers()) {
+                Ruler ruler = new Ruler();
+                ruler.setId(rulerData.getId());
+                person.addJob(ruler);
+            }
         }
 
         for (String locale : personData.getLocales().keySet()) {

@@ -9,11 +9,12 @@ import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.commons.data.AbstractData;
+import org.ib.history.commons.data.RulerData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ItemEditor<T extends AbstractData<T>> extends Composite implements IsWidget, HasText {
+public abstract class ItemEditor<T extends AbstractData<T>> extends Composite implements Editor<T> {
 
     private static ItemEditorUiBinder uiBinder = GWT.create(ItemEditorUiBinder.class);
 
@@ -49,6 +50,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
      * Visualize
      */
 
+    @Override
     public void hide() {
         flexTable.removeAllRows();
         selectedItem = null;
@@ -57,7 +59,8 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
         }
     }
 
-    public void setSelectedItem(T selectedItem) {
+    @Override
+    public void setSelected(T selectedItem) {
         this.selectedItem = selectedItem;
         if (customEditor!=null)
             customEditor.setSelected(selectedItem);
@@ -127,7 +130,8 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
      * Save
      */
 
-    private void save() {
+    @Override
+    public void save() {
 
         // default locale
         List<Widget> defaultLocale = flexTableWrapper.getRow(1);
@@ -155,10 +159,16 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
         presenter.addItem(selectedItem);
     }
 
+    @Override
+    public void save(T created) {
+        // Not implemented
+    }
+
     protected abstract void updateDefaultLocale(List<Widget> widgets);
     protected abstract void updateLocale(SupportedLocale locale, List<Widget> widgets);
 
 
+    @Override
     public void setPresenter(CrudPresenter<T> presenter) {
         this.presenter = presenter;
         if (customEditor!=null)

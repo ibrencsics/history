@@ -1,7 +1,9 @@
 package org.ib.history.commons.data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PersonData extends AbstractData<PersonData> {
 
@@ -10,6 +12,7 @@ public class PersonData extends AbstractData<PersonData> {
     private FlexibleDate dateOfDeath;
     private List<PersonData> children;
     private HouseData house;
+    private Set<RulerData> rulers;
 
 //    public String getName() {
 //        return name;
@@ -52,6 +55,13 @@ public class PersonData extends AbstractData<PersonData> {
 
     public void setHouse(HouseData house) {
         this.house = house;
+    }
+
+    public Set<RulerData> getRulers() {
+        if (rulers==null) {
+            rulers = new HashSet<RulerData>();
+        }
+        return rulers;
     }
 
     @Override
@@ -113,6 +123,11 @@ public class PersonData extends AbstractData<PersonData> {
 
         public Builder house(HouseData house) {
             personData.setHouse(house);
+            return this;
+        }
+
+        public Builder ruler(RulerData ruler) {
+            personData.getRulers().add(ruler);
             return this;
         }
 

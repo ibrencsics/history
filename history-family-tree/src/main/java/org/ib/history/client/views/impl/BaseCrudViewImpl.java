@@ -126,7 +126,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
             @Override
             public void update(int index, T selected, String value) {
                 GWT.log(selected.getName() + " pressed");
-                itemEditor.setSelectedItem(selected);
+                itemEditor.setSelected(selected);
             }
         });
         return columnEdit;

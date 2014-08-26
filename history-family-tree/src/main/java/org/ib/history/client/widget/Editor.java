@@ -8,6 +8,7 @@ import org.ib.history.commons.data.AbstractData;
 public interface Editor<T extends AbstractData<T>> extends IsWidget, HasText {
     void setSelected(T selected);
     void setPresenter(CrudPresenter<T> presenter);
+    void save();
     void save(T created);
     void hide();
 }

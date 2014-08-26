@@ -131,6 +131,11 @@ public class RuleEditor extends Composite implements Editor<RulerData> {
     }
 
     @Override
+    public void save() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public void save(RulerData created) {
         List<RulerData.RulesData> rules = new ArrayList<RulerData.RulesData>();
 

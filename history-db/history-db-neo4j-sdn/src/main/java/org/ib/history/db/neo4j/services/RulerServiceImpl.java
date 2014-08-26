@@ -42,6 +42,8 @@ public class RulerServiceImpl implements RulerService {
         return DataTransformer.transform(rulerCreated);
     }
 
+
+
     @Override
     public Set<RulerData> getRulers(PersonData personData) {
         Person person = null;

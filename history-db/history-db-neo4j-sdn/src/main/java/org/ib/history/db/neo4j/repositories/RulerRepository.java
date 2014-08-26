@@ -10,4 +10,7 @@ public interface RulerRepository extends GraphRepository<Ruler>, RulerRepository
 
     @Query("match (n:Ruler{defaultLocale:true}) return n")
     Set<Ruler> getAllRulers();
+
+//    @Query("match (n:Ruler{defaultLocale:true})<-[:AS]-(p:PERSON{defaultLocale:true, }) return n")
+//    Set<Ruler> getRulerByPerson(Long personId);
 }
