@@ -10,6 +10,7 @@ import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.PersonView;
 import org.ib.history.client.widget.Editor;
 import org.ib.history.client.widget.ItemEditor;
+import org.ib.history.client.widget.ParentEditor;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
@@ -140,7 +141,9 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
         @Override
         protected Editor<PersonData> getCustomEditor() {
-            return null;
+            ParentEditor parentEditor = new ParentEditor();
+            parentEditor.setText("Edit parents");
+            return parentEditor;
         }
 
         @Override

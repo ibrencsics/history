@@ -1,17 +1,10 @@
 package org.ib.history.client.widget;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
-import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.presenters.RulerPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
@@ -20,60 +13,17 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class RuleEditor extends Composite implements Editor<RulerData> {
+public class RuleEditor extends CustomItemEditor<RulerData> {
 
-    private static RuleEditorUiBinder uiBinder = GWT.create(RuleEditorUiBinder.class);
-
-    interface RuleEditorUiBinder extends UiBinder<Widget, RuleEditor> {
-    }
-
-    @UiField
-    Label title;
-
-    @UiField
-    protected FlexTable flexTable;
-
-    @UiField
-    Button btnAdd;
-
-    private RulerData selectedRuler;
-    protected RulerPresenter presenter;
     protected FlexTableWrapper flexTableWrapper;
 
 
     public RuleEditor() {
-        initWidget(uiBinder.createAndBindUi(this));
-        visualize();
+        super();
     }
 
     @Override
-    public void setPresenter(CrudPresenter<RulerData> presenter) {
-        this.presenter = (RulerPresenter) presenter;
-    }
-
-    @Override
-    public String getText() {
-        return title.getText();
-    }
-
-    @Override
-    public void setText(String text) {
-        title.setText(text);
-    }
-
-    @Override
-    public void hide() {
-        flexTable.removeAllRows();
-        selectedRuler = null;
-    }
-
-    @Override
-    public void setSelected(RulerData selectedRuler) {
-        this.selectedRuler = selectedRuler;
-        visualize();
-    }
-
-    private void visualize() {
+    protected void visualize() {
         flexTableWrapper = new FlexTableWrapper(flexTable);
 
         // headers
@@ -83,15 +33,15 @@ public class RuleEditor extends Composite implements Editor<RulerData> {
         headers.add("Country");
         flexTableWrapper.addStringRow(headers);
 
-        if (selectedRuler!=null) {
-            for (RulerData.RulesData rules : selectedRuler.getRules()) {
+        if (getSelectedItem()!=null) {
+            for (RulerData.RulesData rules : getSelectedItem().getRules()) {
                 addRow(rules);
             }
         }
     }
 
-    @UiHandler("btnAdd")
-    public void addItem(ClickEvent clickEvent) {
+    @Override
+    protected void addRow() {
         addRow(new RulerData.RulesData.Builder().build());
     }
 
@@ -109,7 +59,7 @@ public class RuleEditor extends Composite implements Editor<RulerData> {
         RpcSuggestOracle suggestOracle = new RpcSuggestOracle<CountryData>() {
             @Override
             public void setSuggestions(String pattern, AsyncCallback<List<CountryData>> callback) {
-                presenter.setCountrySuggestions(pattern, callback);
+                ((RulerPresenter)getPresenter()).setCountrySuggestions(pattern, callback);
             }
 
             @Override

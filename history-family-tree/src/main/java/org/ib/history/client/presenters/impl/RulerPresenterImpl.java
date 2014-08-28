@@ -70,6 +70,7 @@ public class RulerPresenterImpl extends AsyncDataProvider<RulerData> implements 
 
     @Override
     public void addItem(RulerData rulerData) {
+        GWT.log("to save: " + rulerData);
         backendService.addRuler(rulerData, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
