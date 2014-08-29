@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface PersonPresenter extends CrudPresenter<PersonData> {
     void setHouseSuggestions(String pattern, AsyncCallback<List<HouseData>> callback);
+    void setPersonSuggestions(String pattern, AsyncCallback<List<PersonData>> callback);
+    void getPersonsByIds(List<PersonData> personsIdOnly, AsyncCallback<List<PersonData>> callback);
 }

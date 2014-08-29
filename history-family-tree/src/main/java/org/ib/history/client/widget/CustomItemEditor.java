@@ -25,6 +25,7 @@ public abstract class CustomItemEditor<T extends AbstractData<T>> extends Compos
 
     private T selectedItem;
     private CrudPresenter<T> presenter;
+    protected FlexTableWrapper flexTableWrapper;
 
     public CustomItemEditor() {
         initWidget(uiBinder.createAndBindUi(this));

@@ -109,4 +109,34 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
             }
         });
     }
+
+    @Override
+    public void setPersonSuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<PersonData>> callback) {
+        backendService.getPersonsByPattern(pattern, new AsyncCallback<List<PersonData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<PersonData> personDatas) {
+                callback.onSuccess(personDatas);
+            }
+        });
+    }
+
+    @Override
+    public void getPersonsByIds(List<PersonData> personsIdOnly, final org.ib.history.client.utils.AsyncCallback<List<PersonData>> callback) {
+        backendService.getPersonsByIds(personsIdOnly, new AsyncCallback<List<PersonData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<PersonData> personDatas) {
+                callback.onSuccess(personDatas);
+            }
+        });
+    }
 }

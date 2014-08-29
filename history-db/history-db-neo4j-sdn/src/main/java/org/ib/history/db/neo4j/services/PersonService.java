@@ -11,6 +11,7 @@ public interface PersonService {
     PersonData getPersonById(Long id);
     List<PersonData> getPersonsByPattern(String pattern);
     PersonData getPersonByRuler(RulerData rulerData);
+    List<PersonData> getPersonsById(List<PersonData> personsOnlyIds);
     PersonData addPerson(PersonData personData);
     void deletePerson(PersonData personData);
 }

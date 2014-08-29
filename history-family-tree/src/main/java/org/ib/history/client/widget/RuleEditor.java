@@ -15,8 +15,6 @@ import java.util.List;
 
 public class RuleEditor extends CustomItemEditor<RulerData> {
 
-    protected FlexTableWrapper flexTableWrapper;
-
 
     public RuleEditor() {
         super();

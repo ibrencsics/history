@@ -61,6 +61,17 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public List<PersonData> getPersonsById(List<PersonData> personsOnlyIds) {
+        List<PersonData> personsFull = new ArrayList<>();
+
+        for (PersonData personIdOnly : personsOnlyIds) {
+            personsFull.add( DataTransformer.transform( personRepo.findOne(personIdOnly.getId()) ) );
+        }
+
+        return personsFull;
+    }
+
+    @Override
     public PersonData addPerson(PersonData personData) {
         Person person = DataTransformer.transform(personData);
         for (Person.Translation<Person> translation : person.getLocales()) {

@@ -19,8 +19,8 @@ public class Person extends AbstractEntity<Person> {
     private String dateOfBirth;
     private String dateOfDeath;
 
-    @RelatedTo(type = "PARENT_OF")
-    private Set<Person> children = new HashSet<Person>();
+    @RelatedTo(type = "CHILD_OF")
+    private Set<Person> parents = new HashSet<Person>();
 
     @Fetch
     @RelatedTo(type = "IN_HOUSE")
@@ -59,8 +59,8 @@ public class Person extends AbstractEntity<Person> {
         this.jobs.add(ruler);
     }
 
-    public void addChild(Person person) {
-        this.children.add(person);
+    public void addParent(Person person) {
+        this.parents.add(person);
     }
 
     public String getName() {
@@ -83,8 +83,8 @@ public class Person extends AbstractEntity<Person> {
         return Collections.unmodifiableSet(this.jobs);
     }
 
-    public Set<Person> getChildren() {
-        return Collections.unmodifiableSet(this.children);
+    public Set<Person> getParents() {
+        return Collections.unmodifiableSet(this.parents);
     }
 
     public Set<Translation<Person>> getLocales() {

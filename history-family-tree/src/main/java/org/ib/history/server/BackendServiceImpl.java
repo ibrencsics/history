@@ -93,6 +93,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public List<PersonData> getPersonsByIds(List<PersonData> personsOnlyIds) {
+        return personService.getPersonsById(personsOnlyIds);
+    }
+
+    @Override
     public void addPerson(PersonData person) {
         log.debug(person.toString());
         personService.addPerson(person);

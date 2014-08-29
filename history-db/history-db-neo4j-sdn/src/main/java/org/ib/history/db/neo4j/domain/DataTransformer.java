@@ -87,8 +87,8 @@ public class DataTransformer {
         if (person.getDateOfDeath() != null)
             personDataBuilder.dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
 
-        for (Person child : person.getChildren()) {
-            personDataBuilder.child(transform(child));
+        for (Person parent : person.getParents()) {
+            personDataBuilder.parent(transform(parent));
         }
 
         for (AbstractEntity.Translation<Person> locale : person.getLocales()) {
@@ -123,8 +123,8 @@ public class DataTransformer {
                 house);
         person.setDefaultLocale(true);
 
-        for (PersonData child : personData.getChildren()) {
-            person.addChild(transform(child));
+        for (PersonData parent : personData.getParents()) {
+            person.addParent(transform(parent));
         }
 
         // only the Ruler Id considered (lazy loading)

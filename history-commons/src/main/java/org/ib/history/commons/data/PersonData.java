@@ -10,7 +10,7 @@ public class PersonData extends AbstractData<PersonData> {
 //    private String name;
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
-    private List<PersonData> children;
+    private List<PersonData> parents;
     private HouseData house;
     private Set<RulerData> rulers;
 
@@ -38,15 +38,15 @@ public class PersonData extends AbstractData<PersonData> {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public List<PersonData> getChildren() {
-        if (children==null) {
-            children = new ArrayList<PersonData>();
+    public List<PersonData> getParents() {
+        if (parents==null) {
+            parents = new ArrayList<PersonData>();
         }
-        return children;
+        return parents;
     }
 
-    public void setChildren(List<PersonData> children) {
-        this.children = children;
+    public void setParents(List<PersonData> parents) {
+        this.parents = parents;
     }
 
     public HouseData getHouse() {
@@ -81,8 +81,8 @@ public class PersonData extends AbstractData<PersonData> {
             PersonData localePerson = getLocales().get(locale);
             sb.append("\n\tid=" + localePerson.getId() + " name=" + localePerson.getName() + " lang=" + locale);
         }
-        for (PersonData child : getChildren()) {
-            sb.append("\n\tchild id=" + child.getId() + " name=" + child.getName());
+        for (PersonData parent : getParents()) {
+            sb.append("\n\tparent id=" + parent.getId() + " name=" + parent.getName());
         }
 
         return sb.toString();
@@ -111,8 +111,8 @@ public class PersonData extends AbstractData<PersonData> {
             return this;
         }
 
-        public Builder child(PersonData child) {
-            personData.getChildren().add(child);
+        public Builder parent(PersonData parent) {
+            personData.getParents().add(parent);
             return this;
         }
 

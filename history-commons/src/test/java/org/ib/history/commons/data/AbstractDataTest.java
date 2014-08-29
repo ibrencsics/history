@@ -23,7 +23,7 @@ public class AbstractDataTest {
         PersonData personData =
                 new PersonData.Builder().id(0L).name("William")
                 .dateOfDeath(new FlexibleDate.Builder().year(1087).build())
-                .child(new PersonData.Builder().id(1L).name("William").build())
+                .parent(new PersonData.Builder().id(1L).name("William").build())
                 .locale("DE", new PersonData.Builder().name("Wilhelm").build())
                 .locale("HU", new PersonData.Builder().name("Vilmos").build())
                 .build();

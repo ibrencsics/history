@@ -29,7 +29,7 @@ public class PersonServiceImplTest {
         PersonData personData =
                 new PersonData.Builder().name("William")
                         .dateOfDeath(new FlexibleDate.Builder().year(1087).noMonth().noDay().build())
-                        .child(new PersonData.Builder().name("William2").build())
+                        .parent(new PersonData.Builder().name("William2").build())
                         .locale("DE", new PersonData.Builder().name("Wilhelm").build())
                         .locale("HU", new PersonData.Builder().name("Vilmos").build())
                         .house(new HouseData.Builder().name("house").build())
@@ -42,7 +42,7 @@ public class PersonServiceImplTest {
         personCreated.setDateOfBirth(new FlexibleDate.Builder().year(1065).noMonth().noDay().build());
         personCreated = personService.addPerson(personCreated);
 
-        PersonData child = personService.getPersonById(personCreated.getChildren().get(0).getId());
+        PersonData child = personService.getPersonById(personCreated.getParents().get(0).getId());
         assertEquals(child.getName(), "William2");
 
         List<PersonData> personDataList = personService.getPersonsByName("William2");
