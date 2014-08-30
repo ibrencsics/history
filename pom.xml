@@ -7,7 +7,7 @@
     <groupId>org.ib</groupId>
     <artifactId>history</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <modules>
         <!--<module>history-evaluation</module>-->
