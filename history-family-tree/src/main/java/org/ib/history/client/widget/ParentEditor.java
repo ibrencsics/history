@@ -39,12 +39,6 @@ public class ParentEditor extends CustomItemEditor<PersonData> {
                 }
             });
         }
-
-//        if (getSelectedItem()!=null) {
-//            for (PersonData parent : getSelectedItem().getParents()) {
-//                addRow(parent);
-//            }
-//        }
     }
 
     @Override
@@ -81,7 +75,7 @@ public class ParentEditor extends CustomItemEditor<PersonData> {
     }
 
     private String personDisplayText(PersonData personData) {
-        if (personData==null)
+        if (personData==null || personData.getName()==null  )
             return "";
         return personData.getName() +
                 " (" + GwtDateFormat.convert(personData.getDateOfBirth()) + "-" + GwtDateFormat.convert(personData.getDateOfDeath()) + "), " +

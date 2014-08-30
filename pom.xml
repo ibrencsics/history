@@ -289,6 +289,17 @@
 
         </plugins>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.4.0</version>
+                    <extensions>true</extensions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <!--<pluginManagement>-->
             <!--<plugins>-->
                 <!--&lt;!&ndash; GWT Maven Plugin&ndash;&gt;-->
@@ -327,5 +338,12 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <scm>
+        <connection>scm:git:https://github.com/ibrencsics/history.git</connection>
+        <developerConnection>scm:git:git@github.com:ibrencsics/history.git</developerConnection>
+        <url>https://github.com/ibrencsics/history</url>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>
