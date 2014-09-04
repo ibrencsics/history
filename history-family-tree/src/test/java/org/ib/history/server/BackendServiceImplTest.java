@@ -1,6 +1,5 @@
 package org.ib.history.server;
 
-import org.ib.history.db.neo4j.Neo4jCountryService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

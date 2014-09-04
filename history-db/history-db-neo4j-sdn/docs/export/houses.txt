@@ -1,0 +1,2 @@
+{"id":44943,"locales":{"DE":{"id":44942,"name":"Normannische Dynastie"},"HU":{"id":44941,"name":"Normandiai ház"}},"name":"House of Normandy"}
+{"id":74902,"name":"House of Flanders"}
