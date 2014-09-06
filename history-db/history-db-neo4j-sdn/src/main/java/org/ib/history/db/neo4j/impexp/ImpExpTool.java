@@ -15,63 +15,86 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class ImpExpTool {
+
+    private static final String BACKUP_FOLDER = "/home/ivan/Projects/Experiments/github/history/history-db/history-db-neo4j-sdn/docs/export/";
+    private static final String BACKUP_COUNTRY = "countries.txt";
+    private static final String BACKUP_HOUSE = "houses.txt";
+    private static final String BACKUP_PERSON = "persons.txt";
+    private static final String BACKUP_RULER = "rulers.txt";
+    private static final String RESTORE_FOLDER = "/home/ivan/history-neo4j-data-backup";
+
+    private static final String APPCTX_TO_BACKUP_FROM = "sdn-ApplicationContext.xml";
+    private static final String APPCTX_TO_RESTORE_TO = "sdn-ApplicationContextBackup.xml";
 
     Map<Long, Long> countryIdMap = new HashMap<>();
     Map<Long, Long> houseIdMap = new HashMap<>();
     Map<Long, Long> personIdMap = new HashMap<>();
+    Map<Long, PersonData> personMap = new HashMap<>();
+
 
     public static void main(String[] args) throws IOException {
-//        new ImpExpTool().export();
-//        new ImpExpTool().importTest();
+//        new ImpExpTool().exportToFile();
         new ImpExpTool().importFromFile();
     }
 
-    public void export() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("sdn-ApplicationContext.xml");
-
-        StringBuilder sb = new StringBuilder();
-
+    public void exportToFile() throws IOException {
+        ApplicationContext context = new ClassPathXmlApplicationContext(APPCTX_TO_BACKUP_FROM);
         Gson gson = new Gson();
 
+        File dir = new File(BACKUP_FOLDER);
+        for(File file: dir.listFiles()) file.delete();
+
+        BufferedWriter out = new BufferedWriter(new FileWriter(BACKUP_FOLDER + BACKUP_COUNTRY));
+        StringBuilder sb = new StringBuilder();
         CountryService countryService = context.getBean(CountryService.class);
         for (CountryData country : countryService.getCountries()) {
             sb.append(gson.toJson(country));
             sb.append("\r\n");
         }
+        out.write(sb.toString());
+        out.close();
 
+        out = new BufferedWriter(new FileWriter(BACKUP_FOLDER + BACKUP_HOUSE));
+        sb = new StringBuilder();
         HouseService houseService = context.getBean(HouseService.class);
         for (HouseData house : houseService.getHouses()) {
             sb.append(gson.toJson(house));
             sb.append("\r\n");
         }
+        out.write(sb.toString());
+        out.close();
 
+        out = new BufferedWriter(new FileWriter(BACKUP_FOLDER + BACKUP_PERSON));
+        sb = new StringBuilder();
         PersonService personService = context.getBean(PersonService.class);
         for (PersonData person : personService.getPersons()) {
             sb.append(gson.toJson(person));
             sb.append("\r\n");
         }
+        out.write(sb.toString());
+        out.close();
 
+        out = new BufferedWriter(new FileWriter(BACKUP_FOLDER + BACKUP_RULER));
+        sb = new StringBuilder();
         RulerService rulerService = context.getBean(RulerService.class);
         for (RulerData ruler : rulerService.getAllRulers()) {
             sb.append(gson.toJson(ruler));
             sb.append("\r\n");
         }
-
-        System.out.println(sb.toString());
+        out.write(sb.toString());
+        out.close();
     }
 
     private void importFromFile() throws IOException {
+        File dir = new File(RESTORE_FOLDER);
+        for(File file: dir.listFiles()) file.delete();
+
         Gson gson = new Gson();
-        ApplicationContext context = new ClassPathXmlApplicationContext("sdn-ApplicationContextTest.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext(APPCTX_TO_RESTORE_TO);
 
         GraphDatabaseService graphDb = context.getBean(GraphDatabaseService.class);
 
@@ -79,7 +102,7 @@ public class ImpExpTool {
             importCountries(gson, context);
             importHouses(gson, context);
             importPersons(gson, context);
-    //        importRulers(gson, context);
+            importRulers(gson, context);
 
             tx.success();
 //            tx.failure();
@@ -89,19 +112,21 @@ public class ImpExpTool {
     private void importCountries(Gson gson, ApplicationContext context) throws IOException {
         CountryService countryService = context.getBean(CountryService.class);
 
-        BufferedReader in = new BufferedReader(new FileReader("/home/ivan/Projects/Experiments/github/history/history-db/history-db-neo4j-sdn/docs/export/countries.txt"));
+        BufferedReader in = new BufferedReader(new FileReader(BACKUP_FOLDER + BACKUP_COUNTRY));
 
         while (in.ready()) {
             String s = in.readLine();
 
             CountryData countryData = gson.fromJson(s, CountryData.class);
 
+            Long oldId = countryData.getId();
             countryData.setId(null);
             for (CountryData locale : countryData.getLocales().values()) {
                 locale.setId(null);
             }
 
-            countryService.addCountry(countryData);
+            CountryData countryDataCreated = countryService.addCountry(countryData);
+            countryIdMap.put(oldId, countryDataCreated.getId());
         }
         in.close();
     }
@@ -109,7 +134,7 @@ public class ImpExpTool {
     private void importHouses(Gson gson, ApplicationContext context) throws IOException {
         HouseService houseService = context.getBean(HouseService.class);
 
-        BufferedReader in = new BufferedReader(new FileReader("/home/ivan/Projects/Experiments/github/history/history-db/history-db-neo4j-sdn/docs/export/houses.txt"));
+        BufferedReader in = new BufferedReader(new FileReader(BACKUP_FOLDER + BACKUP_HOUSE));
 
         while (in.ready()) {
             String s = in.readLine();
@@ -127,18 +152,15 @@ public class ImpExpTool {
         }
         in.close();
 
-        for (Map.Entry<Long,Long> idEntry : houseIdMap.entrySet()) {
-            System.out.println("house old: " + idEntry.getKey() + " new: " + idEntry.getValue());
-        }
+//        for (Map.Entry<Long,Long> idEntry : houseIdMap.entrySet()) {
+//            System.out.println("house old: " + idEntry.getKey() + " new: " + idEntry.getValue());
+//        }
     }
 
     private void importPersons(Gson gson, ApplicationContext context) throws IOException {
         PersonService personService = context.getBean(PersonService.class);
 
-        BufferedReader in = new BufferedReader(new FileReader("/home/ivan/Projects/Experiments/github/history/history-db/history-db-neo4j-sdn/docs/export/persons.txt"));
-
-        List<PersonData> persons = new ArrayList<>();
-
+        BufferedReader in = new BufferedReader(new FileReader(BACKUP_FOLDER + BACKUP_PERSON));
 
         while (in.ready()) {
             String s = in.readLine();
@@ -161,10 +183,11 @@ public class ImpExpTool {
             PersonData personDataCreated = personService.addPerson(personData);
             personIdMap.put(oldId, personDataCreated.getId());
             personDataCreated.setParents(parents);
-            persons.add(personDataCreated);
+//            persons.add(personDataCreated);
+            personMap.put(oldId, personDataCreated);
         }
 
-        for (PersonData personData : persons) {
+        for (PersonData personData : personMap.values()) {
             for (PersonData parent : personData.getParents()) {
                 parent.setId( personIdMap.get(parent.getId()) );
             }
@@ -178,44 +201,34 @@ public class ImpExpTool {
     private void importRulers(Gson gson, ApplicationContext context) throws IOException {
         RulerService rulerService = context.getBean(RulerService.class);
 
-        BufferedReader in = new BufferedReader(new FileReader("/home/ivan/Projects/Experiments/github/history/history-db/history-db-neo4j-sdn/docs/export/rulers.txt"));
+        BufferedReader in = new BufferedReader(new FileReader(BACKUP_FOLDER + BACKUP_RULER));
 
         while (in.ready()) {
             String s = in.readLine();
 
             RulerData rulerData = gson.fromJson(s, RulerData.class);
-            System.out.println(rulerData);
+//            System.out.println(rulerData);
+
+            rulerData.setId(null);
+            for (RulerData locale : rulerData.getLocales().values()) {
+                locale.setId(null);
+            }
+
+            for (RulerData.RulesData rulesData : rulerData.getRules()) {
+                rulesData.setId(null);
+                rulesData.getCountry().setId( countryIdMap.get(rulesData.getCountry().getId()) );
+            }
+
+            Long oldPersonId = rulerData.getPerson().getId();
+            rulerData.setPerson(personMap.get(oldPersonId));
+
+//            System.out.println(rulerData);
+            RulerData rulerDataCreated = rulerService.addRuler(rulerData);
+            personMap.put(oldPersonId, rulerDataCreated.getPerson());
         }
         in.close();
     }
 
-
-    private void importTest() {
-        Gson gson = new Gson();
-
-        String country = "{\"id\":44940,\"locales\":{\"DE\":{\"id\":44938,\"name\":\"England\"},\"HU\":{\"id\":44937,\"name\":\"Anglia\"}},\"name\":\"England\"}";
-        CountryData countryData = gson.fromJson(country, CountryData.class);
-        System.out.println(countryData);
-
-        countryData.setId(null);
-        for (CountryData locale : countryData.getLocales().values()) {
-            locale.setId(null);
-        }
-
-        ApplicationContext context = new ClassPathXmlApplicationContext("sdn-ApplicationContextTest.xml");
-
-        CountryService countryService = context.getBean(CountryService.class);
-        countryService.addCountry(countryData);
-
-
-//        String person = "{\"dateOfBirth\":{\"isThereDay\":false,\"isThereMonth\":false,\"isAD\":true,\"day\":1,\"month\":0,\"year\":1050,\"value\":\"1050\"},\"dateOfDeath\":{\"isThereDay\":true,\"isThereMonth\":true,\"isAD\":true,\"day\":3,\"month\":2,\"year\":1134,\"value\":\"1134-02-03\"},\"parents\":[{\"id\":74901},{\"id\":44944}],\"house\":{\"id\":44943,\"locales\":{\"DE\":{\"id\":44942,\"name\":\"Normannische Dynastie\"},\"HU\":{\"id\":44941,\"name\":\"Normandiai ház\"}},\"name\":\"House of Normandy\"},\"rulers\":[{\"rules\":[],\"id\":74900}],\"id\":74899,\"name\":\"Robert Curthose\"}";
-//        PersonData personData = gson.fromJson(person, PersonData.class);
-//        System.out.println(personData);
-//
-//        String ruler = "{\"alias\":\"Henry Beauclerc\",\"title\":\"King\",\"rules\":[{\"id\":56347,\"from\":{\"isThereDay\":true,\"isThereMonth\":true,\"isAD\":true,\"day\":2,\"month\":8,\"year\":110,\"value\":\"110-08-02\"},\"to\":{\"isThereDay\":true,\"isThereMonth\":true,\"isAD\":true,\"day\":1,\"month\":12,\"year\":1135,\"value\":\"1135-12-01\"},\"country\":{\"id\":44940,\"locales\":{\"DE\":{\"id\":44938,\"name\":\"England\"},\"HU\":{\"id\":44937,\"name\":\"Anglia\"}},\"name\":\"England\"}}],\"person\":{\"dateOfBirth\":{\"isThereDay\":false,\"isThereMonth\":false,\"isAD\":true,\"day\":1,\"month\":0,\"year\":1068,\"value\":\"1068\"},\"dateOfDeath\":{\"isThereDay\":true,\"isThereMonth\":true,\"isAD\":true,\"day\":1,\"month\":12,\"year\":1135,\"value\":\"1135-12-01\"},\"parents\":[{\"id\":74901},{\"id\":44944}],\"house\":{\"id\":44943,\"locales\":{\"DE\":{\"id\":44942,\"name\":\"Normannische Dynastie\"},\"HU\":{\"id\":44941,\"name\":\"Normandiai ház\"}},\"name\":\"House of Normandy\"},\"rulers\":[{\"rules\":[],\"id\":74912},{\"rules\":[],\"id\":74916}],\"id\":74908,\"locales\":{\"DE\":{\"id\":74907,\"name\":\"Heinrich\"},\"HU\":{\"id\":74906,\"name\":\"Henrik\"}},\"name\":\"Henry\"},\"id\":74916,\"locales\":{\"DE\":{\"alias\":\"\",\"title\":\"König\",\"rules\":[],\"id\":74911,\"name\":\"Heinrich I\"},\"HU\":{\"alias\":\"\",\"title\":\"Király\",\"rules\":[],\"id\":74909,\"name\":\"I. Henrik\"}},\"name\":\"Henry I\"}";
-//        RulerData rulerData = gson.fromJson(ruler, RulerData.class);
-//        System.out.println(rulerData);
-    }
 
 //    {"id":44940,"locales":{"DE":{"id":44938,"name":"England"},"HU":{"id":44937,"name":"Anglia"}},"name":"England"}
 //    {"id":59916,"locales":{"DE":{"id":45001,"name":"Papsttum"},"HU":{"id":45000,"name":"Pápaság"}},"name":"Papacy"}

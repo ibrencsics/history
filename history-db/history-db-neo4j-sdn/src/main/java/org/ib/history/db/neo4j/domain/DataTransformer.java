@@ -110,6 +110,9 @@ public class DataTransformer {
     }
 
     public static Person transform(PersonData personData) {
+        if (personData==null)
+            return null;
+
         House house=null;
         if (personData.getHouse()!=null) {
             house = new House();

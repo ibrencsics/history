@@ -40,11 +40,11 @@ public class RulerServiceImpl implements RulerService {
         // TODO: add the RULES values separarely like the locales
 
         Ruler rulerCreated = rulerRepo.save(ruler);
-        rulerRepo.addRuler(person, rulerCreated);
+        if (person!=null)
+            rulerRepo.addRuler(person, rulerCreated);
+
         return DataTransformer.transform(rulerCreated);
     }
-
-
 
     @Override
     public Set<RulerData> getRulers(PersonData personData) {

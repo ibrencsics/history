@@ -33,7 +33,7 @@ public class RulerData extends AbstractData<RulerData> {
         }
 
         if (getPerson() != null) {
-            sb.append("\n\t person=" + getPerson().getName());
+            sb.append("\n\t person id=" + getPerson().getId() + " name=" + getPerson().getName());
         }
 
         return sb.toString();
@@ -132,7 +132,7 @@ public class RulerData extends AbstractData<RulerData> {
             if (getTo()!=null)
                 sb.append(" to=" + getTo().toString());
             if (getCountry()!=null)
-                sb.append(" country=" + getCountry().getName());
+                sb.append(" country id=" + getCountry().getId() + " name=" + getCountry().getName());
             sb.append(" }");
 
             return sb.toString();

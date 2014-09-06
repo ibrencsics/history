@@ -18,7 +18,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.ib.history.db.neo4j.services" />
 
-    <neo4j:config storeDirectory="/home/ivan/history-neo4j-data" base-package="org.ib.history.db.neo4j.domain"/>
+    <neo4j:config storeDirectory="/home/ivan/history-neo4j-data-backup" base-package="org.ib.history.db.neo4j.domain"/>
     <neo4j:repositories base-package="org.ib.history.db.neo4j.repositories"/>
 
     <tx:annotation-driven />
