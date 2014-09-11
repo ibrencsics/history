@@ -1,3 +1,5 @@
-{"id":44940,"locales":{"DE":{"id":44938,"name":"England"},"HU":{"id":44937,"name":"Anglia"}},"name":"England"}
-{"id":59916,"locales":{"DE":{"id":45001,"name":"Papsttum"},"HU":{"id":45000,"name":"Pápaság"}},"name":"Papacy"}
-{"id":59928,"name":"Duchy of Normandy"}
+{"id":2,"locales":{"DE":{"id":1,"name":"England"},"HU":{"id":0,"name":"Anglia"}},"name":"England"}
+{"id":5,"locales":{"DE":{"id":4,"name":"Papsttum"},"HU":{"id":3,"name":"Pápaság"}},"name":"Papacy"}
+{"id":6,"name":"Duchy of Normandy"}
+{"id":131826,"name":"Blois"}
+{"id":131833,"name":"Anjou"}

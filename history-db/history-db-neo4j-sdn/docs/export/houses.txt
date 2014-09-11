@@ -1,2 +1,5 @@
-{"id":44943,"locales":{"DE":{"id":44942,"name":"Normannische Dynastie"},"HU":{"id":44941,"name":"Normandiai ház"}},"name":"House of Normandy"}
-{"id":74902,"name":"House of Flanders"}
+{"id":9,"locales":{"DE":{"id":8,"name":"Normannische Dynastie"},"HU":{"id":7,"name":"Normandiai ház"}},"name":"House of Normandy"}
+{"id":10,"name":"House of Flanders"}
+{"id":131824,"name":"House of Blois"}
+{"id":131829,"name":"House of Dunkeld"}
+{"id":131832,"name":"House of Plantagenet"}

@@ -25,10 +25,10 @@ public class ImpExpTool {
     private static final String BACKUP_HOUSE = "houses.txt";
     private static final String BACKUP_PERSON = "persons.txt";
     private static final String BACKUP_RULER = "rulers.txt";
-    private static final String RESTORE_FOLDER = "/home/ivan/history-neo4j-data-backup";
+    private static final String RESTORE_FOLDER = "/home/ivan/history-neo4j-data";
 
     private static final String APPCTX_TO_BACKUP_FROM = "sdn-ApplicationContext.xml";
-    private static final String APPCTX_TO_RESTORE_TO = "sdn-ApplicationContextBackup.xml";
+    private static final String APPCTX_TO_RESTORE_TO = "sdn-ApplicationContext.xml";
 
     Map<Long, Long> countryIdMap = new HashMap<>();
     Map<Long, Long> houseIdMap = new HashMap<>();
@@ -91,7 +91,8 @@ public class ImpExpTool {
 
     private void importFromFile() throws IOException {
         File dir = new File(RESTORE_FOLDER);
-        for(File file: dir.listFiles()) file.delete();
+        if (dir.exists())
+            for(File file: dir.listFiles()) file.delete();
 
         Gson gson = new Gson();
         ApplicationContext context = new ClassPathXmlApplicationContext(APPCTX_TO_RESTORE_TO);
