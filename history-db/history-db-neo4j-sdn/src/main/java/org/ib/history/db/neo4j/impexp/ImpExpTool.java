@@ -37,8 +37,8 @@ public class ImpExpTool {
 
 
     public static void main(String[] args) throws IOException {
-//        new ImpExpTool().exportToFile();
-        new ImpExpTool().importFromFile();
+        new ImpExpTool().exportToFile();
+//        new ImpExpTool().importFromFile();
     }
 
     public void exportToFile() throws IOException {

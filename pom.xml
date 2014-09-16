@@ -29,6 +29,7 @@
         <neo4j-jdbc.version>2.0.1</neo4j-jdbc.version>
         <neo4j-rest.version>2.0.1</neo4j-rest.version>
         <gwt.version>2.6.1</gwt.version>
+        <poi.version>3.10.1</poi.version>
         <asd>/home/ivan/Projects/Experiments/github/history/history-family-tree/src/main/webapp/WEB-INF/lib/spring4gwt-0.0.1.jar</asd>
     </properties>
 
@@ -154,6 +155,14 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.entitymanager.version}</version>
+            </dependency>
+
+            <!-- POI -->
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
             </dependency>
 
             <!-- Test -->
