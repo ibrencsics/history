@@ -13,7 +13,7 @@ import java.util.List;
 public interface PersonRepository extends GraphRepository<Person> {
 
     @Query("match (n:Person{defaultLocale:true}) return n")
-    List<Person> getAllPersons();
+    List<Person> getPersons();
 
     @Query("match (p:Person{defaultLocale:true, name:{0}}) return p")
     List<Person> getPersonsByName(String name);
@@ -25,19 +25,19 @@ public interface PersonRepository extends GraphRepository<Person> {
 
 //    <P extends Person> P save(Person P);
 
-    Person findByName(String name);
+//    Person findByName(String name);
 
 
-    @Query(" MATCH person-[rules:RULES]->country " +
-           " RETURN person, rules, country")
-    List<Ruler> getRulers();
+//    @Query(" MATCH person-[rules:RULES]->country " +
+//           " RETURN person, rules, country")
+//    List<Ruler> getRulers();
 
-    @MapResult
-    interface Ruler {
-        @ResultColumn("person") Person getPerson();
-        @ResultColumn("rules")
-        Rules getRule();
-        @ResultColumn("country")
-        Country getCountry();
-    }
+//    @MapResult
+//    interface Ruler {
+//        @ResultColumn("person") Person getPerson();
+//        @ResultColumn("rules")
+//        Rules getRule();
+//        @ResultColumn("country")
+//        Country getCountry();
+//    }
 }

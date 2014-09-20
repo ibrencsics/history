@@ -4,9 +4,7 @@ import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulerData;
 import org.ib.history.db.neo4j.domain.DataTransformer;
 import org.ib.history.db.neo4j.domain.Person;
-import org.ib.history.db.neo4j.domain.Ruler;
 import org.ib.history.db.neo4j.repositories.PersonRepository;
-import org.ib.history.db.neo4j.repositories.RulerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +23,7 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonData> getPersons() {
         List<PersonData> personDataList = new ArrayList<>();
 
-        List<Person> personList = personRepo.getAllPersons();
+        List<Person> personList = personRepo.getPersons();
         for (Person person : personList) {
             personDataList.add(DataTransformer.transform(person));
         }

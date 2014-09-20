@@ -2,20 +2,19 @@ package org.ib.history.db.neo4j.domain;
 
 import org.springframework.data.neo4j.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 
 @RelationshipEntity
-public class Rules extends AbstractEntity {
+public class Rules extends BaseEntity {
 
     @StartNode
-    private Ruler ruler;
+    private Person ruler;
 
     @Fetch
     @EndNode
     private Country country;
 
+    private String title;
+    private Integer number;
     private String fromDate;
     private String toDate;
 
@@ -23,16 +22,27 @@ public class Rules extends AbstractEntity {
     public Rules() {
     }
 
-    public Rules(Long id, Ruler ruler, Country country, String fromDate, String toDate) {
+    public Rules(Long id, Person ruler, Country country, String title, Integer number, String fromDate, String toDate) {
         setId(id);
         this.ruler = ruler;
         this.country = country;
+        this.title = title;
+        this.number = number;
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
 
-    public Ruler getRuler() {
+    public Person getRuler() {
         return ruler;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Integer getNumber() {
+        return number;
     }
 
     public Country getCountry() {

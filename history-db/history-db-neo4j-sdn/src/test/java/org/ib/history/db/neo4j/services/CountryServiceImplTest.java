@@ -30,23 +30,23 @@ public class CountryServiceImplTest {
                         .build();
         CountryData countryDataCreated = countryService.addCountry(countryData);
         assertNotNull(countryDataCreated.getId());
-        assertEquals(countryDataCreated.getLocales().size(), 2);
+        assertEquals(2, countryDataCreated.getLocales().size());
 
         countryDataCreated.getLocale("HU").setName("Hungária");
         countryDataCreated = countryService.addCountry(countryDataCreated);
-        assertEquals(countryDataCreated.getLocales().get("HU").getName(), "Hungária");
+        assertEquals("Hungária", countryDataCreated.getLocales().get("HU").getName());
 
         countryDataCreated.addLocale("SR", new CountryData.Builder().name("Mađarska").build());
         countryDataCreated = countryService.addCountry(countryDataCreated);
-        assertEquals(countryDataCreated.getLocales().size(), 3);
+        assertEquals(3, countryDataCreated.getLocales().size());
 
         List<CountryData> allCountries = countryService.getCountries();
         assertEquals(allCountries.size(), 1);
-        assertEquals(allCountries.get(0).getLocales().size(), 3);
+        assertEquals(3, allCountries.get(0).getLocales().size());
 
         countryService.deleteCountry(countryDataCreated);
 
         allCountries = countryService.getCountries();
-        assertEquals(allCountries.size(), 0);
+        assertEquals(0, allCountries.size());
     }
 }

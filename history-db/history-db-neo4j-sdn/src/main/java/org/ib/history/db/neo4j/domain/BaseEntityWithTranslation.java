@@ -2,24 +2,9 @@ package org.ib.history.db.neo4j.domain;
 
 import org.springframework.data.neo4j.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public abstract class AbstractEntity<T extends AbstractEntity> {
-
-    @GraphId
-    private Long id;
+public abstract class BaseEntityWithTranslation<T extends BaseEntity> extends BaseEntity {
 
     private boolean defaultLocale = false;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public boolean isDefaultLocale() {
         return defaultLocale;
@@ -30,28 +15,8 @@ public abstract class AbstractEntity<T extends AbstractEntity> {
     }
 
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (id == null || obj == null || !getClass().equals(obj.getClass())) {
-            return false;
-        }
-        return id.equals(((AbstractEntity) obj).id);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id == null ? 0 : id.hashCode();
-    }
-
-
     @RelationshipEntity(type = "TRANSLATION")
-    public static class Translation<T extends AbstractEntity> extends AbstractEntity {
+    public static class Translation<T extends BaseEntity> extends BaseEntity {
         @StartNode
         private T defaultEntity;
 

@@ -5,13 +5,11 @@ import org.apache.poi.ss.usermodel.*;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.data.RulerData;
 import org.ib.history.commons.utils.GwtDateFormat;
 import org.ib.history.db.neo4j.domain.Country;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
-import org.ib.history.db.neo4j.services.RulerService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -191,66 +189,66 @@ public class ExcelTool {
     }
 
     private void createRulerSheet() {
-        XSSFSheet sheet = workbook.createSheet("Ruler");
-
-        int rownum = 0;
-        RulerService rulerService = context.getBean(RulerService.class);
-
-        Long newRulerId = 1L;
-
-        for (RulerData rulerData : rulerService.getAllRulers()) {
-            rulerIdMap.put(rulerData.getId(), newRulerId);
-
-            Row row = sheet.createRow(rownum++);
-            Cell cell;
-            RulerData locale;
-            int columnnum=0;
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(newRulerId++);
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(rulerData.getName());
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(rulerData.getAlias());
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(rulerData.getTitle());
-
-            locale = rulerData.getLocale("DE");
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(locale!=null ? locale.getName() : "");
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(locale!=null ? locale.getAlias() : "");
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(locale!=null ? locale.getTitle() : "");
-
-            locale = rulerData.getLocale("HU");
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(locale!=null ? locale.getName() : "");
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(locale!=null ? locale.getAlias() : "");
-
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(locale!=null ? locale.getTitle() : "");
-
-            for (RulerData.RulesData rules : rulerData.getRules()) {
-                cell = row.createCell(columnnum++);
-                cell.setCellValue(GwtDateFormat.convert(rules.getFrom()));
-
-                cell = row.createCell(columnnum++);
-                cell.setCellValue(GwtDateFormat.convert(rules.getTo()));
-
-                cell = row.createCell(columnnum++);
-                cell.setCellValue(countryIdMap.get(rules.getCountry().getId()));
-            }
-        }
+//        XSSFSheet sheet = workbook.createSheet("Ruler");
+//
+//        int rownum = 0;
+//        RulerService rulerService = context.getBean(RulerService.class);
+//
+//        Long newRulerId = 1L;
+//
+//        for (RulerData rulerData : rulerService.getAllRulers()) {
+//            rulerIdMap.put(rulerData.getId(), newRulerId);
+//
+//            Row row = sheet.createRow(rownum++);
+//            Cell cell;
+//            RulerData locale;
+//            int columnnum=0;
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(newRulerId++);
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(rulerData.getName());
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(rulerData.getAlias());
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(rulerData.getTitle());
+//
+//            locale = rulerData.getLocale("DE");
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(locale!=null ? locale.getName() : "");
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(locale!=null ? locale.getAlias() : "");
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(locale!=null ? locale.getTitle() : "");
+//
+//            locale = rulerData.getLocale("HU");
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(locale!=null ? locale.getName() : "");
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(locale!=null ? locale.getAlias() : "");
+//
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(locale!=null ? locale.getTitle() : "");
+//
+//            for (RulerData.RulesData rules : rulerData.getRules()) {
+//                cell = row.createCell(columnnum++);
+//                cell.setCellValue(GwtDateFormat.convert(rules.getFrom()));
+//
+//                cell = row.createCell(columnnum++);
+//                cell.setCellValue(GwtDateFormat.convert(rules.getTo()));
+//
+//                cell = row.createCell(columnnum++);
+//                cell.setCellValue(countryIdMap.get(rules.getCountry().getId()));
+//            }
+//        }
     }
 
     private void saveExcel() {

@@ -7,7 +7,6 @@ import org.ib.history.commons.data.RulerData;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
-import org.ib.history.db.neo4j.services.RulerService;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 import org.springframework.context.ApplicationContext;
@@ -80,11 +79,11 @@ public class ImpExpTool {
 
         out = new BufferedWriter(new FileWriter(BACKUP_FOLDER + BACKUP_RULER));
         sb = new StringBuilder();
-        RulerService rulerService = context.getBean(RulerService.class);
-        for (RulerData ruler : rulerService.getAllRulers()) {
-            sb.append(gson.toJson(ruler));
-            sb.append("\r\n");
-        }
+//        RulerService rulerService = context.getBean(RulerService.class);
+//        for (RulerData ruler : rulerService.getAllRulers()) {
+//            sb.append(gson.toJson(ruler));
+//            sb.append("\r\n");
+//        }
         out.write(sb.toString());
         out.close();
     }
@@ -200,7 +199,7 @@ public class ImpExpTool {
     }
 
     private void importRulers(Gson gson, ApplicationContext context) throws IOException {
-        RulerService rulerService = context.getBean(RulerService.class);
+//        RulerService rulerService = context.getBean(RulerService.class);
 
         BufferedReader in = new BufferedReader(new FileReader(BACKUP_FOLDER + BACKUP_RULER));
 
@@ -224,8 +223,8 @@ public class ImpExpTool {
             rulerData.setPerson(personMap.get(oldPersonId));
 
 //            System.out.println(rulerData);
-            RulerData rulerDataCreated = rulerService.addRuler(rulerData);
-            personMap.put(oldPersonId, rulerDataCreated.getPerson());
+//            RulerData rulerDataCreated = rulerService.addRuler(rulerData);
+//            personMap.put(oldPersonId, rulerDataCreated.getPerson());
         }
         in.close();
     }

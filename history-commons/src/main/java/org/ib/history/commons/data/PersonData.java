@@ -1,5 +1,7 @@
 package org.ib.history.commons.data;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,20 +9,30 @@ import java.util.Set;
 
 public class PersonData extends AbstractData<PersonData> {
 
-//    private String name;
+    private String gender;
+    private String alias;
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
-    private List<PersonData> parents;
-    private HouseData house;
-    private Set<RulerData> rulers;
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    private List<PersonData> parents = new ArrayList<>();
+    private Set<HouseData> houses = new HashSet<>();
+    private Set<SpouseData> spouses = new HashSet<>();
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
     public FlexibleDate getDateOfBirth() {
         return dateOfBirth;
@@ -38,10 +50,8 @@ public class PersonData extends AbstractData<PersonData> {
         this.dateOfDeath = dateOfDeath;
     }
 
+
     public List<PersonData> getParents() {
-        if (parents==null) {
-            parents = new ArrayList<PersonData>();
-        }
         return parents;
     }
 
@@ -49,32 +59,34 @@ public class PersonData extends AbstractData<PersonData> {
         this.parents = parents;
     }
 
-    public HouseData getHouse() {
-        return house;
+    public Set<HouseData> getHouses() {
+        return houses;
     }
 
-    public void setHouse(HouseData house) {
-        this.house = house;
+    public void setHouses(Set<HouseData> houses) {
+        this.houses = houses;
     }
 
-    public Set<RulerData> getRulers() {
-        if (rulers==null) {
-            rulers = new HashSet<RulerData>();
-        }
-        return rulers;
+    public Set<SpouseData> getSpouses() {
+        return spouses;
     }
+
+    public void setSpouses(Set<SpouseData> spouses) {
+        this.spouses = spouses;
+    }
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("PersonData{ id=" + getId() + " name=" + getName());
+        sb.append(" gender=" + getGender());
+        sb.append(" alias=" + getAlias());
         if (getDateOfBirth()!=null)
             sb.append(" birth=" + getDateOfBirth().toString());
         if (getDateOfDeath()!=null)
             sb.append(" death=" + getDateOfDeath().toString());
-        if (getHouse()!=null)
-            sb.append(" house=" + getHouse().getName());
         sb.append(" }");
 
         for (String locale : getLocales().keySet()) {
@@ -85,7 +97,32 @@ public class PersonData extends AbstractData<PersonData> {
             sb.append("\n\tparent id=" + parent.getId() + " name=" + parent.getName());
         }
 
+        for (HouseData house : getHouses()) {
+            sb.append("\n\thouse id=" + house.getId() + " name=" + house.getName());
+        }
+
+        for (SpouseData spouse : getSpouses()) {
+            PersonData other= (spouse.getPerson1().equals(this) ? spouse.getPerson2() : spouse.getPerson1());
+            sb.append("\r\nspouse id=" + other.getId() + " name=" + other.getName());
+        }
+
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==null) return false;
+
+        if (!(obj instanceof PersonData)) return false;
+
+        PersonData that = (PersonData)obj;
+
+        if (this==that) return true;
+
+        if (this.getId() == that.getId()) return true;
+        if (this.getName().equals(that.getName())) return true;
+
+        return false;
     }
 
     public static class Builder{
@@ -98,6 +135,16 @@ public class PersonData extends AbstractData<PersonData> {
 
         public Builder name(String name) {
             personData.setName(name);
+            return this;
+        }
+
+        public Builder gender(String gender) {
+            personData.setGender(gender);
+            return this;
+        }
+
+        public Builder alias(String alias) {
+            personData.setAlias(alias);
             return this;
         }
 
@@ -122,12 +169,7 @@ public class PersonData extends AbstractData<PersonData> {
         }
 
         public Builder house(HouseData house) {
-            personData.setHouse(house);
-            return this;
-        }
-
-        public Builder ruler(RulerData ruler) {
-            personData.getRulers().add(ruler);
+            personData.getHouses().add(house);
             return this;
         }
 

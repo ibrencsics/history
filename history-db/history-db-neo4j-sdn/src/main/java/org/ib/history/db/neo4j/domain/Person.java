@@ -8,30 +8,36 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @NodeEntity
-public class Person extends AbstractEntity<Person> {
+public class Person extends BaseEntityWithTranslation<Person> {
 
     private String name;
+    private String gender;
+    private String alias;
     private String dateOfBirth;
     private String dateOfDeath;
 
-    @RelatedTo(type = "CHILD_OF")
+    @RelatedTo(type = "CHILD_OF", direction = Direction.OUTGOING)
     private Set<Person> parents = new HashSet<Person>();
 
-    @Fetch
-    @RelatedTo(type = "IN_HOUSE")
-    private House house;
+    @RelatedToVia(type = "SPOUSE", direction = Direction.BOTH)
+    private Set<Spouse> spouses = new HashSet<>();
 
-    @RelatedTo(type = "AS", direction = Direction.OUTGOING)
-    private Set<Ruler> jobs = new HashSet<>();
+    @RelatedTo(type = "IN_HOUSE", direction = Direction.OUTGOING)
+    private Set<House> houses = new HashSet<>();
+
+    @RelatedToVia(type = "RULES")
+    private Set<Rules> rules = new HashSet<>();
+
+    @RelatedTo(type = "IS_POPE", direction = Direction.OUTGOING)
+    private Pope pope;
 
     @Fetch
     @RelatedToVia
-    private Set<Translation<Person>> locales;
+    private Set<Translation<Person>> locales = new HashSet<>();
 
 
     public Person() {
@@ -42,29 +48,56 @@ public class Person extends AbstractEntity<Person> {
         this.name = name;
     }
 
-    public Person(Long id, String name, String dateOfBirth, String dateOfDeath, House house) {
+    public Person(Long id, String name, String gender, String alias, String dateOfBirth, String dateOfDeath) {
         this.setId(id);
         this.name = name;
+        this.gender = gender;
+        this.alias = alias;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
-        this.house = house;
     }
 
-    public void saveJob(Neo4jOperations template, Ruler ruler) {
-        addJob(ruler);
-        template.save(this);
-    }
+//    public void saveJob(Neo4jOperations template, Ruler ruler) {
+//        addJob(ruler);
+//        template.save(this);
+//    }
 
-    public void addJob(Ruler ruler) {
-        this.jobs.add(ruler);
-    }
+
+//    public void addJob(Ruler ruler) {
+//        this.jobs.add(ruler);
+//    }
 
     public void addParent(Person person) {
         this.parents.add(person);
     }
 
+    public void addSpouse(Spouse spouse) {
+        this.spouses.add(spouse);
+    }
+
+    public void addHouse(House house) {
+        this.houses.add(house);
+    }
+
+    public void addRule(Rules rule) {
+        this.rules.add(rule);
+    }
+
+    public void setPope(Pope pope) {
+        this.pope = pope;
+    }
+
+
     public String getName() {
         return name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getAlias() {
+        return alias;
     }
 
     public String getDateOfBirth() {
@@ -75,22 +108,29 @@ public class Person extends AbstractEntity<Person> {
         return dateOfDeath;
     }
 
-    public House getHouse() {
-        return house;
-    }
-
-    public Set<Ruler> getJobs() {
-        return Collections.unmodifiableSet(this.jobs);
-    }
 
     public Set<Person> getParents() {
         return Collections.unmodifiableSet(this.parents);
     }
 
+    public Set<Spouse> getSpouses() {
+        return Collections.unmodifiableSet(this.spouses);
+    }
+
+    public Set<House> getHouses() {
+        return Collections.unmodifiableSet(this.houses);
+    }
+
+    public Set<Rules> getRules() {
+        return Collections.unmodifiableSet(this.rules);
+    }
+
+    public Pope getPope() {
+        return pope;
+    }
+
+
     public Set<Translation<Person>> getLocales() {
-        if (locales==null) {
-            locales = new HashSet<>();
-        }
         return locales;
     }
 

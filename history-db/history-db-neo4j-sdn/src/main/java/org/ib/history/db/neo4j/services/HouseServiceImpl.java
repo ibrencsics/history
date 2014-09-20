@@ -22,7 +22,7 @@ public class HouseServiceImpl implements HouseService {
     public List<HouseData> getHouses() {
         List<HouseData> houseDataList = new ArrayList<>();
 
-        List<House> houseList = houseRepo.getAllHouses();
+        List<House> houseList = houseRepo.getHouses();
         for (House house : houseList) {
             houseDataList.add(DataTransformer.transform(house));
         }

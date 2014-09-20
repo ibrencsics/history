@@ -8,13 +8,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NodeEntity
-public class House extends AbstractEntity<House> {
+public class House extends BaseEntityWithTranslation<House> {
 
     private String name;
 
     @Fetch
     @RelatedToVia
-    private Set<Translation<House>> locales;
+    private Set<Translation<House>> locales = new HashSet<>();
 
     public House() {
     }
@@ -28,9 +28,6 @@ public class House extends AbstractEntity<House> {
     }
 
     public Set<Translation<House>> getLocales() {
-        if (locales==null) {
-            locales = new HashSet<>();
-        }
         return locales;
     }
 
