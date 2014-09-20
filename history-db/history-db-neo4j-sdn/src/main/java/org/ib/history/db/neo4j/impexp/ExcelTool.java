@@ -168,8 +168,8 @@ public class ExcelTool {
             cell = row.createCell(columnnum++);
             cell.setCellValue(GwtDateFormat.convert(person.getDateOfDeath()));
 
-            cell = row.createCell(columnnum++);
-            cell.setCellValue(person.getHouse()!=null ? houseIdMap.get(person.getHouse().getId()) + "" : "");
+//            cell = row.createCell(columnnum++);
+//            cell.setCellValue(person.getHouse()!=null ? houseIdMap.get(person.getHouse().getId()) + "" : "");
 
             cell = row.createCell(columnnum++);
             locale = person.getLocale("DE");

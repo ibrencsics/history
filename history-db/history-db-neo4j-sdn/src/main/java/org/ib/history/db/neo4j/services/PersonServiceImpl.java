@@ -1,7 +1,6 @@
 package org.ib.history.db.neo4j.services;
 
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.data.RulerData;
 import org.ib.history.db.neo4j.domain.DataTransformer;
 import org.ib.history.db.neo4j.domain.Person;
 import org.ib.history.db.neo4j.repositories.PersonRepository;
@@ -53,10 +52,6 @@ public class PersonServiceImpl implements PersonService {
         return personDataList;
     }
 
-    @Override
-    public PersonData getPersonByRuler(RulerData rulerData) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     @Override
     public List<PersonData> getPersonsById(List<PersonData> personsOnlyIds) {

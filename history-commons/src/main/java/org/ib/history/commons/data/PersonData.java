@@ -1,7 +1,5 @@
 package org.ib.history.commons.data;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +15,10 @@ public class PersonData extends AbstractData<PersonData> {
     private List<PersonData> parents = new ArrayList<>();
     private Set<HouseData> houses = new HashSet<>();
     private Set<SpouseData> spouses = new HashSet<>();
+    private Set<RulesData> rules = new HashSet<>();
+
+    private PopeData pope;
+
 
     public String getGender() {
         return gender;
@@ -75,6 +77,23 @@ public class PersonData extends AbstractData<PersonData> {
         this.spouses = spouses;
     }
 
+    public Set<RulesData> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<RulesData> rules) {
+        this.rules = rules;
+    }
+
+
+    public PopeData getPope() {
+        return pope;
+    }
+
+    public void setPope(PopeData pope) {
+        this.pope = pope;
+    }
+
 
     @Override
     public String toString() {
@@ -104,6 +123,14 @@ public class PersonData extends AbstractData<PersonData> {
         for (SpouseData spouse : getSpouses()) {
             PersonData other= (spouse.getPerson1().equals(this) ? spouse.getPerson2() : spouse.getPerson1());
             sb.append("\r\nspouse id=" + other.getId() + " name=" + other.getName());
+        }
+
+        for (RulesData rules : getRules()) {
+            sb.append("\r\nrules id=" + rules.getId() + " country=" + rules.getCountry().getName());
+        }
+
+        if (pope!=null) {
+            sb.append("\r\npope id=" + pope.getId() + " name=" + pope.getName() + " number=" + pope.getNumber());
         }
 
         return sb.toString();
@@ -170,6 +197,16 @@ public class PersonData extends AbstractData<PersonData> {
 
         public Builder house(HouseData house) {
             personData.getHouses().add(house);
+            return this;
+        }
+
+        public Builder rules(RulesData rules) {
+            personData.getRules().add(rules);
+            return this;
+        }
+
+        public Builder pope(PopeData pope) {
+            personData.setPope(pope);
             return this;
         }
 

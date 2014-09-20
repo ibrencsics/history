@@ -3,7 +3,6 @@ package org.ib.history.db.neo4j.impexp;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.data.RulerData;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
@@ -102,7 +101,6 @@ public class ImpExpTool {
             importCountries(gson, context);
             importHouses(gson, context);
             importPersons(gson, context);
-            importRulers(gson, context);
 
             tx.success();
 //            tx.failure();
@@ -170,7 +168,7 @@ public class ImpExpTool {
             Long oldId = personData.getId();
 
             personData.setId(null);
-            personData.setHouse(new HouseData.Builder().id( houseIdMap.get(personData.getHouse().getId()) ).build());
+//            personData.setHouse(new HouseData.Builder().id( houseIdMap.get(personData.getHouse().getId()) ).build());
             for (PersonData locale : personData.getLocales().values()) {
                 locale.setId(null);
             }
@@ -178,7 +176,7 @@ public class ImpExpTool {
             List<PersonData> parents = personData.getParents();
 //            personData.getParents().clear();
             personData.setParents(null);
-            personData.getRulers().clear();
+//            personData.getRulers().clear();
 
             PersonData personDataCreated = personService.addPerson(personData);
             personIdMap.put(oldId, personDataCreated.getId());
@@ -195,37 +193,6 @@ public class ImpExpTool {
             personService.addPerson(personData);
         }
 
-        in.close();
-    }
-
-    private void importRulers(Gson gson, ApplicationContext context) throws IOException {
-//        RulerService rulerService = context.getBean(RulerService.class);
-
-        BufferedReader in = new BufferedReader(new FileReader(BACKUP_FOLDER + BACKUP_RULER));
-
-        while (in.ready()) {
-            String s = in.readLine();
-
-            RulerData rulerData = gson.fromJson(s, RulerData.class);
-//            System.out.println(rulerData);
-
-            rulerData.setId(null);
-            for (RulerData locale : rulerData.getLocales().values()) {
-                locale.setId(null);
-            }
-
-            for (RulerData.RulesData rulesData : rulerData.getRules()) {
-                rulesData.setId(null);
-                rulesData.getCountry().setId( countryIdMap.get(rulesData.getCountry().getId()) );
-            }
-
-            Long oldPersonId = rulerData.getPerson().getId();
-            rulerData.setPerson(personMap.get(oldPersonId));
-
-//            System.out.println(rulerData);
-//            RulerData rulerDataCreated = rulerService.addRuler(rulerData);
-//            personMap.put(oldPersonId, rulerDataCreated.getPerson());
-        }
         in.close();
     }
 
