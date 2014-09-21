@@ -10,7 +10,7 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 
 import java.util.List;
 
-public interface PersonRepository extends GraphRepository<Person> {
+public interface PersonRepository extends GraphRepository<Person>, PersonRepositoryCustom {
 
     @Query("match (n:Person{defaultLocale:true}) return n")
     List<Person> getPersons();
@@ -20,6 +20,7 @@ public interface PersonRepository extends GraphRepository<Person> {
 
     @Query("match (n:Person{defaultLocale:true}) where n.name=~{0}  return n")
     List<Person> getPersonsByPattern(String pattern);
+
 
 //    Person findOne(Long id);
 

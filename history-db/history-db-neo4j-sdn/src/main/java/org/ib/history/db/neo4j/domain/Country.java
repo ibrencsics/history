@@ -17,6 +17,10 @@ public class Country extends BaseEntityWithTranslation<Country> {
     public Country() {
     }
 
+    public Country(Long id) {
+        this.setId(id);
+    }
+
     public String getName() {
         return name;
     }

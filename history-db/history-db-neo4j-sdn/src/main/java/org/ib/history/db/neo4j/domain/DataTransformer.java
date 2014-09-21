@@ -1,9 +1,6 @@
 package org.ib.history.db.neo4j.domain;
 
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.HouseData;
-import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.data.RulerData;
+import org.ib.history.commons.data.*;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 
 public class DataTransformer {
@@ -79,76 +76,100 @@ public class DataTransformer {
     }
 
     public static PersonData transform(Person person) {
-//        PersonData.Builder personDataBuilder = new PersonData.Builder()
-//                .id(person.getId()).name(person.getName());
-//
-//        if (person.getDateOfBirth() != null)
-//            personDataBuilder.dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth()));
-//        if (person.getDateOfDeath() != null)
-//            personDataBuilder.dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
-//
-//        for (Person parent : person.getParents()) {
-//            personDataBuilder.parent(transform(parent));
-//        }
-//
-//        for (BaseEntityWithTranslation.Translation<Person> locale : person.getLocales()) {
-//            personDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
-//        }
-//
-//        if (person.getHouse() != null) {
-//            personDataBuilder.house(transform(person.getHouse()));
-//        }
-//
-//        Only the Ruler ID considered (lazy loading)
-//        if (person.getJobs() != null) {
-//            for (Ruler ruler : person.getJobs()) {
-//                personDataBuilder.ruler(new RulerData.Builder().id(ruler.getId()).build());
-//            }
-//        }
+        PersonData.Builder personDataBuilder = new PersonData.Builder()
+                .id(person.getId())
+                .name(person.getName())
+                .gender(person.getGender())
+                .alias(person.getAlias())
+                .dateOfBirth(Neo4jDateFormat.parse(person.getDateOfBirth()))
+                .dateOfDeath(Neo4jDateFormat.parse(person.getDateOfDeath()));
 
-//        return personDataBuilder.build();
-        return null;
+        for (Person parent : person.getParents()) {
+//            personDataBuilder.parent(transform(parent));
+            personDataBuilder.parent(new PersonData.Builder().id(parent.getId()).build());
+        }
+
+        for (Spouse spouse : person.getSpouses()) {
+            SpouseData spouseData = new SpouseData.Builder()
+                    .id(spouse.getId())
+                    .from(Neo4jDateFormat.parse(spouse.getFromDate()))
+                    .to(Neo4jDateFormat.parse(spouse.getToDate()))
+                    .person1(new PersonData.Builder().id(spouse.getPerson1().getId()).build())
+                    .person2(new PersonData.Builder().id(spouse.getPerson2().getId()).build())
+                    .build();
+            personDataBuilder.spouse(spouseData);
+        }
+
+        for (House house : person.getHouses()) {
+            personDataBuilder.house(new HouseData.Builder().id(house.getId()).build());
+        }
+
+        for (Rules rules : person.getRules()) {
+            RulesData.Builder rulesDataBuilder = new RulesData.Builder()
+                    .id(rules.getId())
+                    .title(rules.getTitle())
+                    .number(rules.getNumber())
+                    .from(Neo4jDateFormat.parse(rules.getFromDate()))
+                    .to(Neo4jDateFormat.parse(rules.getFromDate()));
+
+            rulesDataBuilder.person(new PersonData.Builder().id(person.getId()).build());
+            rulesDataBuilder.country(new CountryData.Builder().id(rules.getCountry().getId()).build());
+
+            personDataBuilder.rules(rulesDataBuilder.build());
+        }
+
+        for (BaseEntityWithTranslation.Translation<Person> locale : person.getLocales()) {
+            personDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
+        }
+
+        return personDataBuilder.build();
     }
 
     public static Person transform(PersonData personData) {
-//        if (personData==null)
-//            return null;
-//
-//        House house=null;
-//        if (personData.getHouse()!=null) {
-//            house = new House();
-//            house.setId(personData.getHouse().getId());
-//        }
-//
-//        Person person = new Person(
-//                personData.getId(), personData.getName(),
-//                Neo4jDateFormat.serialize(personData.getDateOfBirth()),
-//                Neo4jDateFormat.serialize(personData.getDateOfDeath()),
-//                house);
-//        person.setDefaultLocale(true);
-//
-//        for (PersonData parent : personData.getParents()) {
-//            person.addParent(transform(parent));
-//        }
-//
-//        only the Ruler Id considered (lazy loading)
-//        if (personData.getRulers() !=  null) {
-//            for(RulerData rulerData : personData.getRulers()) {
-//                Ruler ruler = new Ruler();
-//                ruler.setId(rulerData.getId());
-//                person.addJob(ruler);
-//            }
-//        }
-//
-//        for (String locale : personData.getLocales().keySet()) {
-//            PersonData localePersonData = personData.getLocales().get(locale);
-//            Person localePerson = new Person(localePersonData.getId(), localePersonData.getName());
-//
-//            Person.Translation<Person> translation = new Person.Translation<Person>(person, localePerson, locale);
-//            person.getLocales().add(translation);
-//        }
-//
-//        return person;
-        return null;
+        if (personData==null)
+            return null;
+
+        Person person = new Person(
+                personData.getId(),
+                personData.getName(),
+                personData.getGender(),
+                personData.getAlias(),
+                Neo4jDateFormat.serialize(personData.getDateOfBirth()),
+                Neo4jDateFormat.serialize(personData.getDateOfDeath()));
+        person.setDefaultLocale(true);
+
+        for (PersonData parent : personData.getParents()) {
+            person.addParent(new Person(parent.getId()));
+        }
+
+        for (SpouseData spouseData : personData.getSpouses()) {
+            Person person1 = new Person(spouseData.getPerson1().getId());
+            Person person2 = new Person(spouseData.getPerson2().getId());
+            Spouse spouse = new Spouse(spouseData.getId(), person1, person2,
+                    Neo4jDateFormat.serialize(spouseData.getFrom()), Neo4jDateFormat.serialize(spouseData.getTo()));
+            person.addSpouse(spouse);
+        }
+
+        for (HouseData houseData : personData.getHouses()) {
+            person.addHouse(new House(houseData.getId()));
+        }
+
+        for (RulesData rulesData : personData.getRules()) {
+            Person ruler = new Person(rulesData.getPerson().getId());
+            Country country = new Country(rulesData.getCountry().getId());
+            Rules rules = new Rules(rulesData.getId(), ruler, country, rulesData.getTitle(), rulesData.getNumber(),
+                    Neo4jDateFormat.serialize(rulesData.getFrom()), Neo4jDateFormat.serialize(rulesData.getTo()));
+            person.addRule(rules);
+        }
+
+        for (String locale : personData.getLocales().keySet()) {
+            PersonData localePersonData = personData.getLocales().get(locale);
+            Person localePerson = new Person(localePersonData.getId(), localePersonData.getName(), localePersonData.getAlias());
+
+            Person.Translation<Person> translation = new Person.Translation<Person>(person, localePerson, locale);
+            person.getLocales().add(translation);
+        }
+
+        return person;
     }
 }

@@ -43,9 +43,14 @@ public class Person extends BaseEntityWithTranslation<Person> {
     public Person() {
     }
 
-    public Person(Long id, String name) {
+    public Person(Long id) {
+        this.setId(id);
+    }
+
+    public Person(Long id, String name, String alias) {
         this.setId(id);
         this.name = name;
+        this.alias = alias;
     }
 
     public Person(Long id, String name, String gender, String alias, String dateOfBirth, String dateOfDeath) {
@@ -109,6 +114,11 @@ public class Person extends BaseEntityWithTranslation<Person> {
     }
 
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
     public Set<Person> getParents() {
         return Collections.unmodifiableSet(this.parents);
     }
@@ -127,6 +137,11 @@ public class Person extends BaseEntityWithTranslation<Person> {
 
     public Pope getPope() {
         return pope;
+    }
+
+
+    public void cleanHouses() {
+        houses.clear();
     }
 
 

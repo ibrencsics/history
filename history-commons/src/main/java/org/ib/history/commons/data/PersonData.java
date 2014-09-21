@@ -190,6 +190,11 @@ public class PersonData extends AbstractData<PersonData> {
             return this;
         }
 
+        public Builder spouse(SpouseData spouse) {
+            personData.getSpouses().add(spouse);
+            return this;
+        }
+
         public Builder locale(String locale, PersonData localePersonData) {
             personData.addLocale(locale, localePersonData);
             return this;

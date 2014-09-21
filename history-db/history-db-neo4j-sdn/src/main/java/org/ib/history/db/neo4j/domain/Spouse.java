@@ -20,7 +20,8 @@ public class Spouse extends BaseEntity {
 
     public Spouse() {}
 
-    public Spouse(Person person1, Person person2, String fromDate, String toDate) {
+    public Spouse(Long id, Person person1, Person person2, String fromDate, String toDate) {
+        this.setId(id);
         this.person1 = person1;
         this.person2 = person2;
         this.fromDate = fromDate;

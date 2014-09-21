@@ -19,6 +19,10 @@ public class House extends BaseEntityWithTranslation<House> {
     public House() {
     }
 
+    public House(Long id) {
+        this.setId(id);
+    }
+
     public String getName() {
         return name;
     }
