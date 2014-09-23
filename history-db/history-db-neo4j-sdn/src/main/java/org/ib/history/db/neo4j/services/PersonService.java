@@ -12,4 +12,6 @@ public interface PersonService {
     List<PersonData> getPersonsById(List<PersonData> personsOnlyIds);
     PersonData addPerson(PersonData personData);
     void deletePerson(PersonData personData);
+
+    void changeName(Long id, String name);
 }

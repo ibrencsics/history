@@ -89,4 +89,9 @@ public class PersonServiceImpl implements PersonService {
     public void deletePerson(PersonData personData) {
         personRepo.delete(personData.getId());
     }
+
+    @Override
+    public void changeName(Long id, String name) {
+        personRepo.changeName(id, name);
+    }
 }

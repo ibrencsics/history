@@ -151,7 +151,8 @@ public class DataTransformer {
         }
 
         for (HouseData houseData : personData.getHouses()) {
-            person.addHouse(new House(houseData.getId()));
+            if (houseData.getId() != null)
+                person.addHouse(new House(houseData.getId()));
         }
 
         for (RulesData rulesData : personData.getRules()) {

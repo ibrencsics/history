@@ -3,7 +3,9 @@ package org.ib.history.db.neo4j.services;
 import org.ib.history.commons.data.HouseData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,15 @@ public class HouseServiceImplTest {
         houseService.addHouse(houseData);
 
         List<HouseData> houses = houseService.getHousesByPattern("A");
-        System.out.println(houses);
+        assertEquals(1, houses.size());
+    }
+
+    @Test
+    public void test_duplicate() {
+        HouseData house = new HouseData.Builder().name("Normandy").build();
+        houseService.addHouse(house);
+        houseService.addHouse(house);
+
+        assertEquals(2, houseService.getHouses().size());
     }
 }
