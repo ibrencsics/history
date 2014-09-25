@@ -50,9 +50,4 @@ public class WelcomePresenterImpl implements WelcomePresenter {
     public void onShowPersonsClicked() {
         eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.PERSON));
     }
-
-    @Override
-    public void onShowRulersClicked() {
-        eventBus.fireEvent(new ScreenChangeEvent(ScreenChangeEvent.Screen.RULER));
-    }
 }

@@ -22,6 +22,4 @@ public interface FamilyTreeAppGinjector extends Ginjector {
     HousePresenter getHousePresenter();
     PersonView getPersonView();
     PersonPresenter getPersonPresenter();
-    RulerView getRulerView();
-    RulerPresenter getRulerPresenter();
 }

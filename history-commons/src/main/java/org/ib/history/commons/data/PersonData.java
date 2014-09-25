@@ -12,10 +12,10 @@ public class PersonData extends AbstractData<PersonData> {
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
 
-    private List<PersonData> parents = new ArrayList<>();
-    private Set<HouseData> houses = new HashSet<>();
-    private Set<SpouseData> spouses = new HashSet<>();
-    private Set<RulesData> rules = new HashSet<>();
+    private List<PersonData> parents = new ArrayList<PersonData>();
+    private Set<HouseData> houses = new HashSet<HouseData>();
+    private Set<SpouseData> spouses = new HashSet<SpouseData>();
+    private Set<RulesData> rules = new HashSet<RulesData>();
 
     private PopeData pope;
 

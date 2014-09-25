@@ -78,8 +78,9 @@ public class ParentEditor extends CustomItemEditor<PersonData> {
         if (personData==null || personData.getName()==null  )
             return "";
         return personData.getName() +
-                " (" + GwtDateFormat.convert(personData.getDateOfBirth()) + "-" + GwtDateFormat.convert(personData.getDateOfDeath()) + "), " +
-                personData.getHouse().getName();
+                " (" + GwtDateFormat.convert(personData.getDateOfBirth()) + "-" + GwtDateFormat.convert(personData.getDateOfDeath()) + ")";
+//                ", " +
+//                personData.getHouse().getName();
     }
 
     @Override

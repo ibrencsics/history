@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.commons.data.AbstractData;
-import org.ib.history.commons.data.RulerData;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -53,13 +53,6 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
         }
     }
 
-    @UiHandler("ruler")
-    public void showRulers(ClickEvent event) {
-        if (presenter != null) {
-            presenter.onShowRulersClicked();
-        }
-    }
-
     @Override
     public void setPresenter(WelcomePresenter presenter) {
         this.presenter = presenter;

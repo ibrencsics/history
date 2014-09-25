@@ -1,8 +1,10 @@
 package org.ib.history.client.views.impl;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
+import org.apache.poi.ss.usermodel.Textbox;
 import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
@@ -17,10 +19,13 @@ import org.ib.history.commons.utils.GwtDateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements PersonView {
 
+    final String COLUMN_GENDER = "Gender";
+    final String COLUMN_ALIAS = "Alias";
     final String COLUMN_DATE_OF_BIRTH = "Date of birth";
     final String COLUMN_DATE_OF_DEATH = "Date of death";
     final String COLUMN_HOUSE = "House";
@@ -33,9 +38,33 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
     @Override
     protected void buildListColumns() {
+        ctList.addColumn(buildColumnGender(), buildHeader(COLUMN_GENDER));
+        ctList.addColumn(buildColumnAlias(), buildHeader(COLUMN_ALIAS));
         ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH));
         ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH));
-        ctList.addColumn(buildColumnHouse(), buildHeader(COLUMN_HOUSE));
+//        ctList.addColumn(buildColumnHouse(), buildHeader(COLUMN_HOUSE));
+    }
+
+    private Column<PersonData, String> buildColumnGender() {
+        TextColumn<PersonData> columnGender = new TextColumn<PersonData>() {
+            @Override
+            public String getValue(PersonData personData) {
+                return personData.getGender();
+            }
+        };
+        columnGender.setDataStoreName(COLUMN_GENDER);
+        return columnGender;
+    }
+
+    private Column<PersonData, String> buildColumnAlias() {
+        TextColumn<PersonData> columnAlias = new TextColumn<PersonData>() {
+            @Override
+            public String getValue(PersonData personData) {
+                return personData.getAlias();
+            }
+        };
+        columnAlias.setDataStoreName(COLUMN_ALIAS);
+        return columnAlias;
     }
 
     private TextColumn<PersonData> buildColumnDateOfBirth() {
@@ -64,7 +93,9 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         TextColumn<PersonData> columnHouse = new TextColumn<PersonData>() {
             @Override
             public String getValue(PersonData personData) {
-                return (personData.getHouse()!=null) ? personData.getHouse().getName() : "";
+                for (Iterator<HouseData> iter = personData.getHouses().iterator() ; iter.hasNext();) {
+                }
+                return "";
             }
         };
         columnHouse.setDataStoreName(COLUMN_HOUSE);
@@ -76,19 +107,27 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
         @Override
         protected PersonData getEmptyItem() {
-            return new PersonData.Builder().name("").dateOfBirth(null).dateOfDeath(null)
+            return new PersonData.Builder().name("").alias("").gender("M").dateOfBirth(null).dateOfDeath(null)
                     .house(new HouseData.Builder().name("").build())
                     .build();
         }
 
         @Override
         protected List<String> getHeaders() {
-            return Arrays.asList(COLUMN_DATE_OF_BIRTH, COLUMN_DATE_OF_DEATH, COLUMN_HOUSE);
+            return Arrays.asList(COLUMN_ALIAS, COLUMN_GENDER, COLUMN_DATE_OF_BIRTH, COLUMN_DATE_OF_DEATH);
         }
 
         @Override
         protected List<Widget> getDefaultLocaleWidgets() {
             List<Widget> widgets = new ArrayList<Widget>();
+
+            TextBox tbAlias = new TextBox();
+            tbAlias.setText(selectedItem.getAlias());
+            widgets.add(tbAlias);
+
+            TextBox tbGender = new TextBox();
+            tbGender.setText(selectedItem.getGender());
+            widgets.add(tbGender);
 
             TextBox tbDateOfBirth = new TextBox();
             tbDateOfBirth.setText( GwtDateFormat.convert(selectedItem.getDateOfBirth()) );
@@ -98,26 +137,26 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
             tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
             widgets.add(tbDateOfDeath);
 
-            RpcSuggestOracle suggestOracle = new RpcSuggestOracle<HouseData>() {
-                @Override
-                public void setSuggestions(String pattern, AsyncCallback<List<HouseData>> callback) {
-                    ((PersonPresenter)presenter).setHouseSuggestions(pattern, callback);
-                }
-
-                @Override
-                public String displayString(HouseData selected) {
-                    return selected.getName();
-                }
-
-                @Override
-                public String replacementString(HouseData selected) {
-                    return selected.getName();
-                }
-            };
-            SuggestBox sbHouse = new SuggestBox(suggestOracle);
-            suggestOracle.setSuggestBox(sbHouse);
-            suggestOracle.setSelected(selectedItem.getHouse());
-            widgets.add(sbHouse);
+//            RpcSuggestOracle suggestOracle = new RpcSuggestOracle<HouseData>() {
+//                @Override
+//                public void setSuggestions(String pattern, AsyncCallback<List<HouseData>> callback) {
+//                    ((PersonPresenter)presenter).setHouseSuggestions(pattern, callback);
+//                }
+//
+//                @Override
+//                public String displayString(HouseData selected) {
+//                    return selected.getName();
+//                }
+//
+//                @Override
+//                public String replacementString(HouseData selected) {
+//                    return selected.getName();
+//                }
+//            };
+//            SuggestBox sbHouse = new SuggestBox(suggestOracle);
+//            suggestOracle.setSuggestBox(sbHouse);
+//            suggestOracle.setSelected(selectedItem.getHouse());
+//            widgets.add(sbHouse);
 
             return widgets;
         }
@@ -126,8 +165,12 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
         protected List<Widget> getLocaleWidgets(SupportedLocale locale) {
             List<Widget> widgets = new ArrayList<Widget>();
 
-//            PersonData selectedItemLocale = selectedItem.getLocale(locale.name());
-//
+            PersonData selectedItemLocale = selectedItem.getLocale(locale.name());
+
+            TextBox tbAlias = new TextBox();
+            tbAlias.setText(selectedItemLocale!=null ? selectedItemLocale.getAlias() : "");
+            widgets.add(tbAlias);
+
 //            TextBox tbDateOfBirth = new TextBox();
 //            tbDateOfBirth.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfBirth()) : "" );
 //            widgets.add(tbDateOfBirth);
@@ -156,7 +199,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
 
             SuggestBox sbHouse = (SuggestBox) widgets.get(2);
             GWT.log("house selected: " + ((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected().toString());
-            selectedItem.setHouse(((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected());
+//            selectedItem.setHouse(((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected());
         }
 
         @Override

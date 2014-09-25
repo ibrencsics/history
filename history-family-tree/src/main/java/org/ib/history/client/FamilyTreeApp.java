@@ -43,10 +43,6 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
         injector.getWelcomePresenter().show(injector.getPersonPresenter());
     }
 
-    private void doShowRuler() {
-        injector.getWelcomePresenter().show(injector.getRulerPresenter());
-    }
-
     private void bind() {
         History.addValueChangeHandler(this);
 
@@ -62,10 +58,6 @@ public class FamilyTreeApp implements ValueChangeHandler<String> {
             @Override
             public void showPerson(ScreenChangeEvent event) {
                 doShowPersons();
-            }
-            @Override
-            public void showRuler(ScreenChangeEvent event) {
-                doShowRuler();
             }
         });
     }
