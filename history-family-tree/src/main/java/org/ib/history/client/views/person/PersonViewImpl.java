@@ -13,7 +13,7 @@ public class PersonViewImpl extends BaseCrudViewImpl<PersonData> implements Pers
     }
 
     @Override
-    protected BaseList<PersonData> getItemList() {
+    protected BaseList<PersonData> getItemLister() {
         return new PersonList();
     }
 }

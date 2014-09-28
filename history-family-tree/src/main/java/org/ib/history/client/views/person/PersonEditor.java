@@ -1,10 +1,7 @@
 package org.ib.history.client.views.person;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
 import org.ib.history.client.views.base.Editor;
@@ -92,14 +89,6 @@ public class PersonEditor extends BaseEditor<PersonData> {
         tbAlias.setText(selectedItemLocale!=null ? selectedItemLocale.getAlias() : "");
         widgets.add(tbAlias);
 
-//            TextBox tbDateOfBirth = new TextBox();
-//            tbDateOfBirth.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfBirth()) : "" );
-//            widgets.add(tbDateOfBirth);
-//
-//            TextBox tbDateOfDeath = new TextBox();
-//            tbDateOfDeath.setText( selectedItemLocale!=null ? GwtDateFormat.convert(selectedItemLocale.getDateOfDeath()) : "" );
-//            widgets.add(tbDateOfDeath);
-
         return widgets;
     }
 
@@ -112,23 +101,26 @@ public class PersonEditor extends BaseEditor<PersonData> {
 
     @Override
     protected void updateDefaultLocale(List<Widget> widgets) {
-        TextBox tbDateOfBirth = (TextBox) widgets.get(0);
+        TextBox tbAlias = (TextBox) widgets.get(0);
+        selectedItem.setAlias(tbAlias.getText());
+
+        TextBox tbGender = (TextBox) widgets.get(1);
+        selectedItem.setGender(tbGender.getText());
+
+        TextBox tbDateOfBirth = (TextBox) widgets.get(2);
         selectedItem.setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
 
-        TextBox tbDateOfDeath = (TextBox) widgets.get(1);
+        TextBox tbDateOfDeath = (TextBox) widgets.get(3);
         selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
 
-        SuggestBox sbHouse = (SuggestBox) widgets.get(2);
-        GWT.log("house selected: " + ((RpcSuggestOracle<HouseData>) sbHouse.getSuggestOracle()).getSelected().toString());
+//        SuggestBox sbHouse = (SuggestBox) widgets.get(4);
+//        GWT.log("house selected: " + ((RpcSuggestOracle<HouseData>) sbHouse.getSuggestOracle()).getSelected().toString());
 //            selectedItem.setHouse(((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected());
     }
 
     @Override
     protected void updateLocale(SupportedLocale locale, List<Widget> widgets) {
-//            TextBox tbDateOfBirth = (TextBox) widgets.get(0);
-//            selectedItem.getLocale(locale.name()).setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
-//
-//            TextBox tbDateOfDeath = (TextBox) widgets.get(1);
-//            selectedItem.getLocale(locale.name()).setDateOfDeath( GwtDateFormat.convert(tbDateOfDeath.getText()) );
+        TextBox tbAlias = (TextBox) widgets.get(0);
+        selectedItem.getLocale(locale.name()).setAlias(tbAlias.getText());
     }
 }

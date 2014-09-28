@@ -95,6 +95,6 @@ public class HousePresenterImpl extends AsyncDataProvider<HouseData> implements 
 
     @Override
     public void setSelectedItem(HouseData item) {
-
+        view.setSelectedItem(item);
     }
 }

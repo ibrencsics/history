@@ -31,7 +31,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
 
     public BaseCrudViewImpl() {
-        itemLister = getItemList();
+        itemLister = getItemLister();
         itemList = itemLister.getCtList();
 
         pager = new SimplePager();
@@ -44,7 +44,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
         Window.enableScrolling(false);
     }
 
-    protected abstract BaseList<T> getItemList();
+    protected abstract BaseList<T> getItemLister();
     protected abstract BaseEditor<T> getItemEditor();
 
     /**

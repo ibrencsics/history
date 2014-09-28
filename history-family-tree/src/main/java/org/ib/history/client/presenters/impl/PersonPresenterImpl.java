@@ -97,7 +97,7 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
 
     @Override
     public void setSelectedItem(PersonData item) {
-
+        view.setSelectedItem(item);
     }
 
     @Override

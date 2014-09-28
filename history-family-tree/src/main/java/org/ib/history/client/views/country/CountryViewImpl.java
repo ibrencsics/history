@@ -20,7 +20,7 @@ public class CountryViewImpl extends BaseCrudViewImpl<CountryData> implements Co
     }
 
     @Override
-    protected BaseList<CountryData> getItemList() {
+    protected BaseList<CountryData> getItemLister() {
         return new BaseList<CountryData>() {
             @Override
             protected void buildListColumns() {

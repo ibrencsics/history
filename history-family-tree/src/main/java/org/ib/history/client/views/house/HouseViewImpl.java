@@ -19,7 +19,7 @@ public class HouseViewImpl extends BaseCrudViewImpl<HouseData> implements HouseV
     }
 
     @Override
-    protected BaseList<HouseData> getItemList() {
+    protected BaseList<HouseData> getItemLister() {
         return new BaseList<HouseData>() {
             @Override
             protected void buildListColumns() {
