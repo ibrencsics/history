@@ -1,14 +1,12 @@
-package org.ib.history.client.views.impl;
+package org.ib.history.client.views.welcome;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.WelcomePresenter;
-import org.ib.history.client.views.WelcomeView;
 
 public class WelcomeViewImpl extends Composite implements WelcomeView {
 

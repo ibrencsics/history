@@ -1,4 +1,4 @@
-package org.ib.history.client.widget;
+package org.ib.history.client.views.base;
 
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.IsWidget;

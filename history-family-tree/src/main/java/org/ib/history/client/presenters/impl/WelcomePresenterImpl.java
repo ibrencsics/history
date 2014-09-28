@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import org.ib.history.client.event.ScreenChangeEvent;
 import org.ib.history.client.presenters.Presenter;
 import org.ib.history.client.presenters.WelcomePresenter;
-import org.ib.history.client.views.WelcomeView;
+import org.ib.history.client.views.welcome.WelcomeView;
 
 public class WelcomePresenterImpl implements WelcomePresenter {
 

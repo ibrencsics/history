@@ -10,8 +10,7 @@ import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.CountryPresenter;
-import org.ib.history.client.views.CountryView;
-import org.ib.history.client.views.CrudView;
+import org.ib.history.client.views.country.CountryView;
 import org.ib.history.commons.data.CountryData;
 
 import java.util.List;
@@ -92,5 +91,10 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
                 view.refreshGrid();
             }
         });
+    }
+
+    @Override
+    public void setSelectedItem(CountryData item) {
+        view.setSelectedItem(item);
     }
 }

@@ -6,9 +6,14 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 import org.ib.history.client.presenters.*;
 import org.ib.history.client.presenters.impl.*;
-import org.ib.history.client.views.*;
-import org.ib.history.client.views.impl.*;
-import org.ib.history.commons.data.CountryData;
+import org.ib.history.client.views.country.CountryView;
+import org.ib.history.client.views.country.CountryViewImpl;
+import org.ib.history.client.views.house.HouseView;
+import org.ib.history.client.views.house.HouseViewImpl;
+import org.ib.history.client.views.person.PersonView;
+import org.ib.history.client.views.person.PersonViewImpl;
+import org.ib.history.client.views.welcome.WelcomeView;
+import org.ib.history.client.views.welcome.WelcomeViewImpl;
 
 public class FamilyTreeGinModule extends AbstractGinModule {
 

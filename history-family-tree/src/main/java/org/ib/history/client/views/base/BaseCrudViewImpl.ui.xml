@@ -1,7 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c="urn:import:com.google.gwt.user.cellview.client"
-             xmlns:w="urn:import:org.ib.history.client.widget">
+             xmlns:w="urn:import:org.ib.history.client.views.base">
 
     <ui:style>
         .panel {
@@ -21,11 +21,11 @@
     <g:VerticalPanel addStyleNames="{style.panel}">
 
         <g:VerticalPanel ui:field="addItemPanel" addStyleNames="{style.bgc}">
-            <w:ItemEditor text="Edit Item" ui:field="itemEditor"/>
+            <w:BaseEditor text="Edit Item" ui:field="itemEditor"/>
         </g:VerticalPanel>
 
         <g:AbsolutePanel addStyleNames="{style.list}">
-            <c:CellTable ui:field="ctList"/>
+            <c:CellTable ui:field="itemList"/>
         </g:AbsolutePanel>
 
         <c:SimplePager ui:field="pager" />

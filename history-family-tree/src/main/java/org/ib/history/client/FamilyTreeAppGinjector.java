@@ -4,9 +4,10 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import org.ib.history.client.presenters.*;
-import org.ib.history.client.views.*;
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.PersonData;
+import org.ib.history.client.views.country.CountryView;
+import org.ib.history.client.views.house.HouseView;
+import org.ib.history.client.views.person.PersonView;
+import org.ib.history.client.views.welcome.WelcomeView;
 
 @GinModules(FamilyTreeGinModule.class)
 public interface FamilyTreeAppGinjector extends Ginjector {

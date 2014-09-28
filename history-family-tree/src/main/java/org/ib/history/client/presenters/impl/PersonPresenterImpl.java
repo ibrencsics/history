@@ -10,7 +10,7 @@ import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.PersonPresenter;
-import org.ib.history.client.views.PersonView;
+import org.ib.history.client.views.person.PersonView;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 
@@ -93,6 +93,11 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
                 view.refreshGrid();
             }
         });
+    }
+
+    @Override
+    public void setSelectedItem(PersonData item) {
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.ib.history.client.widget;
+package org.ib.history.client.views.base;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,16 +8,17 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.client.utils.SupportedLocale;
+import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.AbstractData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ItemEditor<T extends AbstractData<T>> extends Composite implements Editor<T> {
+public abstract class BaseEditor<T extends AbstractData<T>> extends Composite implements Editor<T> {
 
     private static ItemEditorUiBinder uiBinder = GWT.create(ItemEditorUiBinder.class);
 
-    interface ItemEditorUiBinder extends UiBinder<Widget, ItemEditor> {
+    interface ItemEditorUiBinder extends UiBinder<Widget, BaseEditor> {
     }
 
     @UiField
@@ -40,7 +41,7 @@ public abstract class ItemEditor<T extends AbstractData<T>> extends Composite im
     protected FlexTableWrapper flexTableWrapper;
     protected Editor<T> customEditor;
 
-    public ItemEditor() {
+    public BaseEditor() {
         customEditor = getCustomEditor();
         initWidget(uiBinder.createAndBindUi(this));
     }

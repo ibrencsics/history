@@ -7,6 +7,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.CrudPresenter;
+import org.ib.history.client.views.base.Editor;
 import org.ib.history.commons.data.AbstractData;
 
 public abstract class CustomItemEditor<T extends AbstractData<T>> extends Composite implements Editor<T> {

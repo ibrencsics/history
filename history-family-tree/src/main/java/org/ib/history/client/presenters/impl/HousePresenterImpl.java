@@ -10,8 +10,7 @@ import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.HousePresenter;
-import org.ib.history.client.views.HouseView;
-import org.ib.history.commons.data.CountryData;
+import org.ib.history.client.views.house.HouseView;
 import org.ib.history.commons.data.HouseData;
 
 import java.util.List;
@@ -92,5 +91,10 @@ public class HousePresenterImpl extends AsyncDataProvider<HouseData> implements 
                 view.refreshGrid();
             }
         });
+    }
+
+    @Override
+    public void setSelectedItem(HouseData item) {
+
     }
 }

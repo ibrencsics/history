@@ -27,7 +27,7 @@ public class FlexTableWrapper {
         flexTable.setWidget(x, y, widget);
     }
 
-    protected synchronized void addStringRow(List<String> items) {
+    public synchronized void addStringRow(List<String> items) {
         List<Label> labels = new ArrayList<Label>();
         for (String item : items) {
             labels.add(new Label(item));
@@ -36,7 +36,7 @@ public class FlexTableWrapper {
         refresh();
     }
 
-    protected synchronized void addWidgetRow(List<? extends Widget> widgets) {
+    public synchronized void addWidgetRow(List<? extends Widget> widgets) {
         rows.add(widgets);
         refresh();
     }
@@ -55,7 +55,7 @@ public class FlexTableWrapper {
         refresh();
     }
 
-    protected synchronized List<Widget> getRow(int row) {
+    public synchronized List<Widget> getRow(int row) {
         List<Widget> widgets = new ArrayList<Widget>();
 
         for (int column=0; column<flexTable.getCellCount(row); column++) {
