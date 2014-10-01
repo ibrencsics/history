@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
+import org.ib.history.client.views.base.CustomEditor;
 import org.ib.history.client.views.base.Editor;
 import org.ib.history.client.widget.ParentEditor;
 import org.ib.history.commons.data.HouseData;
@@ -93,10 +94,18 @@ public class PersonEditor extends BaseEditor<PersonData> {
     }
 
     @Override
-    protected Editor<PersonData> getCustomEditor() {
-        ParentEditor parentEditor = new ParentEditor();
-        parentEditor.setText("Edit parents");
-        return parentEditor;
+    protected List<? extends Editor<PersonData>> getCustomEditors() {
+//        ParentEditor parentEditor = new ParentEditor();
+//        parentEditor.setText("Edit parents");
+//        return parentEditor;
+
+        CustomEditor<PersonData> customEditor1 = new CustomEditor<PersonData>();
+        customEditor1.setText("Parents");
+
+        CustomEditor<PersonData> customEditor2 = new CustomEditor<PersonData>();
+        customEditor2.setText("Spouse");
+
+        return Arrays.asList(customEditor1, customEditor2);
     }
 
     @Override

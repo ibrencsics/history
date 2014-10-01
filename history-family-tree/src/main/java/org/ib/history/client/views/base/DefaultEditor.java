@@ -28,8 +28,8 @@ public abstract class DefaultEditor<T extends AbstractData<T>> extends BaseEdito
         }
 
         @Override
-        protected Editor<T> getCustomEditor() {
-            return null;
+        protected List<? extends Editor<T>> getCustomEditors() {
+            return new ArrayList<Editor<T>>();
         }
 
         @Override

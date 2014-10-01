@@ -28,7 +28,7 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
     protected FlexTable flexTable;
 
     @UiField
-    protected AbsolutePanel customPanel;
+    protected VerticalPanel customPanel;
 
     @UiField
     Button btnNew;
@@ -39,11 +39,17 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
     protected T selectedItem;
     protected CrudPresenter<T> presenter;
     protected FlexTableWrapper flexTableWrapper;
-    protected Editor<T> customEditor;
+    protected List<Editor<T>> customEditors = new ArrayList<Editor<T>>();
+//    protected Editor<T> customEditor;
 
     public BaseEditor() {
-        customEditor = getCustomEditor();
         initWidget(uiBinder.createAndBindUi(this));
+
+        customEditors.addAll(getCustomEditors());
+        for (Editor<T> customEditor : customEditors) {
+            customPanel.add(customEditor);
+        }
+        hide();
     }
 
     /**
@@ -54,25 +60,28 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
     public void hide() {
         flexTable.removeAllRows();
         selectedItem = null;
-        if (customEditor!=null) {
-            customEditor.hide();
-        }
+        customPanel.setVisible(false);
+//        if (customEditor!=null) {
+//            customEditor.hide();
+//        }
     }
 
     @Override
     public void setSelected(T selectedItem) {
         this.selectedItem = selectedItem;
-        if (customEditor!=null)
-            customEditor.setSelected(selectedItem);
+        customPanel.setVisible(true);
+//        if (customEditor!=null)
+//            customEditor.setSelected(selectedItem);
         GWT.log(selectedItem.toString());
         visualize();
     }
 
     public void createNewItem(T emptyNewItem) {
         this.selectedItem = emptyNewItem;
-        customEditor = getCustomEditor();
-        if (customEditor!=null)
-            customEditor.setPresenter(presenter);
+        customPanel.setVisible(true);
+//        customEditor = getCustomEditor();
+//        if (customEditor!=null)
+//            customEditor.setPresenter(presenter);
         visualize();
     }
 
@@ -117,17 +126,17 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
 
         // custom
 
-        if (customEditor != null) {
-            customPanel.clear();
-            customPanel.add(customEditor);
-        }
+//        if (customEditor != null) {
+//            customPanel.clear();
+//            customPanel.add(customEditor);
+//        }
     }
 
     protected abstract T getEmptyItem();
     protected abstract List<String> getHeaders();
     protected abstract List<Widget> getDefaultLocaleWidgets();
     protected abstract List<Widget> getLocaleWidgets(SupportedLocale locale);
-    protected abstract Editor<T> getCustomEditor();
+    protected abstract List<? extends Editor<T>> getCustomEditors();
 
     /**
      * Save
@@ -155,8 +164,8 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
             }
         }
 
-        if (customEditor!=null)
-            customEditor.save(selectedItem);
+//        if (customEditor!=null)
+//            customEditor.save(selectedItem);
 
         GWT.log("item to save" + selectedItem.toString());
         presenter.addItem(selectedItem);
@@ -174,8 +183,9 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
     @Override
     public void setPresenter(CrudPresenter<T> presenter) {
         this.presenter = presenter;
-        if (customEditor!=null)
+        for (Editor<T> customEditor : customEditors) {
             customEditor.setPresenter(presenter);
+        }
     }
 
     @Override
