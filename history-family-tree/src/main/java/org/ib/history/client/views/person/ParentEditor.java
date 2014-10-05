@@ -1,4 +1,4 @@
-package org.ib.history.client.widget;
+package org.ib.history.client.views.person;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -6,6 +6,9 @@ import com.google.gwt.user.client.ui.Widget;
 import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
+import org.ib.history.client.views.base.CustomEditor;
+import org.ib.history.client.widget.CustomItemEditor;
+import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
 
@@ -13,10 +16,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ParentEditor extends CustomItemEditor<PersonData> {
+public class ParentEditor extends CustomEditor<PersonData> {
+
+    protected FlexTableWrapper flexTableWrapper;
 
     @Override
-    protected void visualize() {
+    protected void show() {
         flexTableWrapper = new FlexTableWrapper(flexTable);
 
         // headers
@@ -24,8 +29,8 @@ public class ParentEditor extends CustomItemEditor<PersonData> {
         headers.add("Parent");
         flexTableWrapper.addStringRow(headers);
 
-        if (getSelectedItem()!=null) {
-            ((PersonPresenter)getPresenter()).getPersonsByIds(getSelectedItem().getParents(), new AsyncCallback<List<PersonData>>() {
+        if (getSelected()!=null) {
+            ((PersonPresenter)getPresenter()).getPersonsByIds(getSelected().getParents(), new AsyncCallback<List<PersonData>>() {
                 @Override
                 public void onFailure(Throwable t) {
                     GWT.log(t.getMessage());
@@ -41,7 +46,6 @@ public class ParentEditor extends CustomItemEditor<PersonData> {
         }
     }
 
-    @Override
     protected void addRow() {
         addRow(new PersonData.Builder().build());
     }

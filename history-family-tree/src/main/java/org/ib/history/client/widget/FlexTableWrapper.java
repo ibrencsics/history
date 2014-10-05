@@ -41,7 +41,7 @@ public class FlexTableWrapper {
         refresh();
     }
 
-    protected synchronized void addWidgetRowWithDelete(final List<? extends Widget> widgets) {
+    public synchronized void addWidgetRowWithDelete(final List<? extends Widget> widgets) {
         Button btnDelete = new Button("Delete");
         btnDelete.addClickHandler(new ClickHandler() {
             @Override

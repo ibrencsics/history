@@ -6,7 +6,6 @@ import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
 import org.ib.history.client.views.base.CustomEditor;
 import org.ib.history.client.views.base.Editor;
-import org.ib.history.client.widget.ParentEditor;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
@@ -99,13 +98,10 @@ public class PersonEditor extends BaseEditor<PersonData> {
 //        parentEditor.setText("Edit parents");
 //        return parentEditor;
 
-        CustomEditor<PersonData> customEditor1 = new CustomEditor<PersonData>();
-        customEditor1.setText("Parents");
+        CustomEditor<PersonData> parentEditor = new ParentEditor();
+        parentEditor.setText("Edit parents");
 
-        CustomEditor<PersonData> customEditor2 = new CustomEditor<PersonData>();
-        customEditor2.setText("Spouse");
-
-        return Arrays.asList(customEditor1, customEditor2);
+        return Arrays.asList(parentEditor);
     }
 
     @Override

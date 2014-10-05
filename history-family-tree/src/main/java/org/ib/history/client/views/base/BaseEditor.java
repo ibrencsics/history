@@ -40,7 +40,6 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
     protected CrudPresenter<T> presenter;
     protected FlexTableWrapper flexTableWrapper;
     protected List<Editor<T>> customEditors = new ArrayList<Editor<T>>();
-//    protected Editor<T> customEditor;
 
     public BaseEditor() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -57,35 +56,26 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
      */
 
     @Override
-    public void hide() {
-        flexTable.removeAllRows();
-        selectedItem = null;
-        customPanel.setVisible(false);
-//        if (customEditor!=null) {
-//            customEditor.hide();
-//        }
-    }
-
-    @Override
     public void setSelected(T selectedItem) {
         this.selectedItem = selectedItem;
-        customPanel.setVisible(true);
-//        if (customEditor!=null)
-//            customEditor.setSelected(selectedItem);
-        GWT.log(selectedItem.toString());
-        visualize();
+        showCustomEditors(selectedItem);
+        show();
     }
 
     public void createNewItem(T emptyNewItem) {
         this.selectedItem = emptyNewItem;
-        customPanel.setVisible(true);
-//        customEditor = getCustomEditor();
-//        if (customEditor!=null)
-//            customEditor.setPresenter(presenter);
-        visualize();
+        showCustomEditors(emptyNewItem);
+        show();
     }
 
-    private void visualize() {
+    private void showCustomEditors(T selectedItem) {
+        for (Editor<T> customEditor : customEditors) {
+            customEditor.setSelected(selectedItem);
+        }
+        customPanel.setVisible(true);
+    }
+
+    private void show() {
         flexTableWrapper = new FlexTableWrapper(flexTable);
 
         // headers
@@ -123,14 +113,16 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
 
             flexTableWrapper.addWidgetRow(localeRow);
         }
-
-        // custom
-
-//        if (customEditor != null) {
-//            customPanel.clear();
-//            customPanel.add(customEditor);
-//        }
     }
+
+    @Override
+    public void hide() {
+        flexTable.removeAllRows();
+        selectedItem = null;
+        customPanel.setVisible(false);
+    }
+
+
 
     protected abstract T getEmptyItem();
     protected abstract List<String> getHeaders();
