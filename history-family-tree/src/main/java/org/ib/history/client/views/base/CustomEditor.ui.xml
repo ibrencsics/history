@@ -3,6 +3,11 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
     <ui:style>
+        .wrapper {
+        background-color:  #46D7DC;
+        margin: 10px;
+        }
+
         .title {
         background-color: #2E9AFE;
         font-weight: bold;
@@ -19,7 +24,6 @@
         border-left: thin solid #444444;
         border-right: thin solid #111111;
         border-bottom: thin solid #111111;
-        background-color:  #FFFFFF;
         }
 
         .flexTable tr:first-child td {
@@ -36,7 +40,7 @@
 
     </ui:style>
 
-    <g:FlowPanel>
+    <g:FlowPanel styleName="{style.wrapper}">
 
         <g:FlowPanel styleName="{style.title}">
             <g:Label ui:field="title" />
@@ -48,6 +52,7 @@
 
         <g:HorizontalPanel>
             <g:Button text="Add" ui:field="btnAdd"/>
+            <g:Button text="Save" ui:field="btnSave"/>
         </g:HorizontalPanel>
 
     </g:FlowPanel>

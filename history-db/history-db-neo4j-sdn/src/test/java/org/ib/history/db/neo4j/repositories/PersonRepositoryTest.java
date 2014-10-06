@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,6 +84,58 @@ public class PersonRepositoryTest {
         Person personChanged = persons.get(0);
         assertEquals("Willy", personChanged.getName());
         assertEquals(1, personChanged.getHouses().size());
+    }
+
+    @Test
+    public void test_delete_parents() {
+        Person person = basicPerson();
+
+        Person parent1 = new Person(null, "Parent1", "Parent1");
+        parent1 = personRepo.save(parent1);
+
+        person.addParent(parent1);
+        Person personCreated = personRepo.save(person);
+        assertEquals(1, personCreated.getParents().size());
+
+        // delete
+        person.cleanParents();
+        person = personRepo.save(person);
+        assertEquals(0, person.getParents().size());
+    }
+
+    @Test
+    public void test_delete_parents_direct() {
+        Person person = basicPerson();
+
+        Person parent1 = new Person(null, "Parent1", "Parent1");
+        parent1 = personRepo.save(parent1);
+
+        person.addParent(parent1);
+        Person personCreated = personRepo.save(person);
+        assertEquals(1, personCreated.getParents().size());
+
+        // delete
+        personRepo.deleteParents(person.getId());
+        person = personRepo.findOne(person.getId());
+        assertEquals(0, person.getParents().size());
+    }
+
+    @Test
+//    @Rollback(false)
+    public void test_delete_add_parents_direct() {
+        Person person = basicPerson();
+        person = personRepo.save(person);
+
+        Person parent1 = new Person(null, "Parent1", "Parent1");
+        parent1 = personRepo.save(parent1);
+        Person parent2 = new Person(null, "Parent2", "Parent2");
+        parent2 = personRepo.save(parent2);
+
+        personRepo.addParent(person.getId(), parent1.getId());
+        personRepo.addParent(person.getId(), parent2.getId());
+
+        person = personRepo.findOne(person.getId());
+        assertEquals(2, person.getParents().size());
     }
 
 

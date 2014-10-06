@@ -46,6 +46,7 @@ public class ParentEditor extends CustomEditor<PersonData> {
         }
     }
 
+    @Override
     protected void addRow() {
         addRow(new PersonData.Builder().build());
     }

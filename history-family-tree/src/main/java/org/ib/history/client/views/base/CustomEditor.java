@@ -1,8 +1,10 @@
 package org.ib.history.client.views.base;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.commons.data.AbstractData;
@@ -74,4 +76,15 @@ public abstract class CustomEditor<T extends AbstractData<T>> extends Composite 
 
 
     protected abstract void show();
+    protected abstract void addRow();
+
+    @UiHandler("btnAdd")
+    public void addItem(ClickEvent clickEvent) {
+        addRow();
+    }
+
+    @UiHandler("btnSave")
+    public void save(ClickEvent clickEvent) {
+
+    }
 }

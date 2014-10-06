@@ -10,7 +10,10 @@ public interface PersonService {
     PersonData getPersonById(Long id);
     List<PersonData> getPersonsByPattern(String pattern);
     List<PersonData> getPersonsById(List<PersonData> personsOnlyIds);
+
     PersonData addPerson(PersonData personData);
+    PersonData setParents(PersonData personData, List<PersonData> parents);
+
     void deletePerson(PersonData personData);
 
     void changeName(Long id, String name);

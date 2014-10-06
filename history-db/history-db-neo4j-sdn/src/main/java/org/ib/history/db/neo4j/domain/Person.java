@@ -120,7 +120,8 @@ public class Person extends BaseEntityWithTranslation<Person> {
 
 
     public Set<Person> getParents() {
-        return Collections.unmodifiableSet(this.parents);
+        return parents;
+//        return Collections.unmodifiableSet(this.parents);
     }
 
     public Set<Spouse> getSpouses() {
@@ -139,6 +140,10 @@ public class Person extends BaseEntityWithTranslation<Person> {
         return pope;
     }
 
+
+    public void cleanParents() {
+        parents.clear();
+    }
 
     public void cleanHouses() {
         houses.clear();

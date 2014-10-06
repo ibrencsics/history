@@ -3,6 +3,10 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
     <ui:style>
+        .parent {
+        margin: 10px;
+        }
+
         .title {
         background-color: #2E9AFE;
         font-weight: bold;
@@ -35,11 +39,10 @@
         }
         .custom {
         border: thin solid #444444;
-        width: 100%;
         }
     </ui:style>
 
-    <g:FlowPanel>
+    <g:FlowPanel styleName="{style.parent}">
 
         <g:FlowPanel styleName="{style.title}">
             <g:Label ui:field="title" />
@@ -49,12 +52,12 @@
             <g:FlexTable ui:field="flexTable" styleName="{style.flexTable}"/>
         </g:FlowPanel>
 
-        <g:VerticalPanel ui:field="customPanel" addStyleNames="{style.custom}"/>
-
         <g:HorizontalPanel>
             <g:Button text="New" ui:field="btnNew"/>
             <g:Button text="Save" ui:field="btnSave"/>
         </g:HorizontalPanel>
+
+        <g:VerticalPanel ui:field="customPanel" addStyleNames="{style.custom}"/>
 
     </g:FlowPanel>
 

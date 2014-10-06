@@ -75,6 +75,15 @@ public class PersonServiceImpl implements PersonService {
         return DataTransformer.transform(personCreated);
     }
 
+    @Override
+    public PersonData setParents(PersonData personData, List<PersonData> parents) {
+        personRepo.deleteParents(personData.getId());
+        for (PersonData parent : parents) {
+            personRepo.addParent(personData.getId(), parent.getId());
+        }
+        return DataTransformer.transform(personRepo.findOne(personData.getId()));
+    }
+
     private List<PersonData> convertPersonList(List<Person> personList) {
         List<PersonData> personDataList = new ArrayList<>();
 
