@@ -30,5 +30,5 @@ public interface BackendService extends RemoteService {
     void addPerson(PersonData person);
     void deletePerson(PersonData person);
 
-//    SuggestOracle.Response getSuggestions(SuggestOracle.Request request);
+    void setParents(PersonData person, List<PersonData> parents);
 }

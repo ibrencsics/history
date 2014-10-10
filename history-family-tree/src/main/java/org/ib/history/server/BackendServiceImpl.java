@@ -98,4 +98,12 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     public void deletePerson(PersonData person) {
         personService.deletePerson(person);
     }
+
+    @Override
+    public void setParents(PersonData person, List<PersonData> parents) {
+        personService.deleteParents(person.getId());
+        for (PersonData parent : parents) {
+            personService.addParent(person.getId(), parent.getId());
+        }
+    }
 }

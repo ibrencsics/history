@@ -17,4 +17,7 @@ public interface PersonService {
     void deletePerson(PersonData personData);
 
     void changeName(Long id, String name);
+    void addParent(Long id, Long parentId);
+    void deleteParent(Long id, Long parentId);
+    void deleteParents(Long id);
 }

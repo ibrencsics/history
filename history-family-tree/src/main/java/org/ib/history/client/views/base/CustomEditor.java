@@ -85,6 +85,6 @@ public abstract class CustomEditor<T extends AbstractData<T>> extends Composite 
 
     @UiHandler("btnSave")
     public void save(ClickEvent clickEvent) {
-
+        save();
     }
 }

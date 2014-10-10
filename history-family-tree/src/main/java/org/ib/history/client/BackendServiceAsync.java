@@ -25,4 +25,6 @@ public interface BackendServiceAsync {
     void getPersonsByIds(List<PersonData> personsOnlyIds, AsyncCallback<List<PersonData>> callback);
     void addPerson(PersonData person, AsyncCallback<Void> callback);
     void deletePerson(PersonData person, AsyncCallback<Void> callback);
+
+    void setParents(PersonData person, List<PersonData> parents, AsyncCallback<Void> callback);
 }

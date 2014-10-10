@@ -84,13 +84,22 @@ public class ParentEditor extends CustomEditor<PersonData> {
             return "";
         return personData.getName() +
                 " (" + GwtDateFormat.convert(personData.getDateOfBirth()) + "-" + GwtDateFormat.convert(personData.getDateOfDeath()) + ")";
-//                ", " +
-//                personData.getHouse().getName();
     }
 
     @Override
     public void save() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        List<PersonData> parents = new ArrayList<PersonData>();
+
+        Iterator<List<? extends Widget>> iter = flexTableWrapper.iterator();
+        while (iter.hasNext()) {
+            List<? extends Widget> row = iter.next();
+
+            SuggestBox sbParent = ((SuggestBox)row.get(0));
+            PersonData parent = ((RpcSuggestOracle<PersonData>) sbParent.getSuggestOracle()).getSelected();
+            parents.add(parent);
+        }
+
+        ((PersonPresenter)getPresenter()).setParents(getSelected(), parents);
     }
 
     @Override

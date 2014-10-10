@@ -18,7 +18,6 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
     private SuggestOracle.Request m_request;
     private SuggestOracle.Callback m_callback;
     private Timer m_timer;
-    private BackendServiceAsync backendService;
 
     private SuggestBox suggestBox;
     private T selected;
@@ -53,10 +52,6 @@ public abstract class RpcSuggestOracle<T extends AbstractData<T>> extends Sugges
                 }
             }
         };
-    }
-
-    public void setBackendService(BackendServiceAsync backendService) {
-        this.backendService = backendService;
     }
 
     public void setSuggestBox(SuggestBox suggestBox) {

@@ -7,6 +7,7 @@ import java.util.List;
 public interface PersonRepositoryCustom {
     void changeName(Long id, String name);
 
-    void deleteParents(Long id);
     void addParent(Long id, Long parentId);
+    void deleteParent(Long id, Long parentId);
+    void deleteParents(Long id);
 }

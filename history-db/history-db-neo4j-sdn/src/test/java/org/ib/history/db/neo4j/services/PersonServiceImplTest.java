@@ -54,6 +54,48 @@ public class PersonServiceImplTest {
     }
 
     @Test
+    public void test_with_parents() {
+        PersonData.Builder personDataBuilder = testPerson();
+
+        PersonData parent1 = new PersonData.Builder().name("Parent1").build();
+        PersonData parent1Created = personService.addPerson(parent1);
+        PersonData parent2 = new PersonData.Builder().name("Parent2").build();
+        PersonData parent2Created = personService.addPerson(parent2);
+
+        PersonData personCreated = personService.addPerson(personDataBuilder.parent(parent1Created).parent(parent2Created).build());
+        assertNotNull(personCreated.getParents());
+        assertEquals(2, personCreated.getParents().size());
+    }
+
+    @Test
+    public void test_custom_add_delete_parents() {
+        PersonData personData = testPerson().build();
+        personData = personService.addPerson(personData);
+
+        PersonData parent1 = new PersonData.Builder().name("Parent1").build();
+        PersonData parent2 = new PersonData.Builder().name("Parent2").build();
+        PersonData parent3 = new PersonData.Builder().name("Parent3").build();
+        parent1 = personService.addPerson(parent1);
+        parent2 = personService.addPerson(parent2);
+        parent3 = personService.addPerson(parent3);
+        assertEquals(0, personData.getParents().size());
+
+        personService.addParent(personData.getId(), parent1.getId());
+        personService.addParent(personData.getId(), parent2.getId());
+        personService.addParent(personData.getId(), parent3.getId());
+        personData = personService.getPersonById(personData.getId());
+        assertEquals(3, personData.getParents().size());
+
+        personService.deleteParent(personData.getId(), parent2.getId());
+        personData = personService.getPersonById(personData.getId());
+        assertEquals(2, personData.getParents().size());
+
+        personService.deleteParents(personData.getId());
+        personData = personService.getPersonById(personData.getId());
+        assertEquals(0, personData.getParents().size());
+    }
+
+    @Test
     public void test_with_house() {
         HouseData house = testHouse();
         HouseData houseCreated = houseService.addHouse(house);
@@ -70,19 +112,7 @@ public class PersonServiceImplTest {
         assertEquals(houseCreated.getId(), personCreated.getHouses().iterator().next().getId());
     }
 
-    @Test
-    public void test_with_parents() {
-        PersonData.Builder personDataBuilder = testPerson();
 
-        PersonData parent1 = new PersonData.Builder().name("Parent1").build();
-        PersonData parent1Created = personService.addPerson(parent1);
-        PersonData parent2 = new PersonData.Builder().name("Parent2").build();
-        PersonData parent2Created = personService.addPerson(parent2);
-
-        PersonData personCreated = personService.addPerson(personDataBuilder.parent(parent1Created).parent(parent2Created).build());
-        assertNotNull(personCreated.getParents());
-        assertEquals(2, personCreated.getParents().size());
-    }
 
     @Test
     public void test_with_spouse() {
