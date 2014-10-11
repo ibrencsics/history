@@ -43,6 +43,17 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<HouseData> getHousesById(List<HouseData> houseOnlyIds) {
+        List<HouseData> housesFull = new ArrayList<>();
+
+        for (HouseData houseIdOnly : houseOnlyIds) {
+            housesFull.add( DataTransformer.transform( houseRepo.findOne(houseIdOnly.getId()) ) );
+        }
+
+        return housesFull;
+    }
+
+    @Override
     public HouseData addHouse(HouseData houseData) {
         House house = DataTransformer.transform(houseData);
         for (House.Translation<House> translation : house.getLocales()) {

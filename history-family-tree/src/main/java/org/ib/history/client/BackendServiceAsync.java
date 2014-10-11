@@ -17,6 +17,7 @@ public interface BackendServiceAsync {
 
     void getHouses(AsyncCallback<List<HouseData>> callback);
     void getHousesByPattern(String pattern, AsyncCallback<List<HouseData>> callback);
+    void getHousesByIds(List<HouseData> housesOnlyIds, AsyncCallback<List<HouseData>> callback);
     void addHouse(HouseData house, AsyncCallback<Void> callback);
     void deleteHouse(HouseData house, AsyncCallback<Void> callback);
 

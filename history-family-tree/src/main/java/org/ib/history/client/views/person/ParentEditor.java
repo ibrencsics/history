@@ -8,7 +8,6 @@ import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.views.base.CustomEditor;
-import org.ib.history.client.widget.CustomItemEditor;
 import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.utils.GwtDateFormat;
@@ -26,7 +25,7 @@ public class ParentEditor extends CustomEditor<PersonData> {
         flexTableWrapper = new FlexTableWrapper(flexTable);
 
         // headers
-        List<String> headers = new ArrayList<String>(3);
+        List<String> headers = new ArrayList<String>(1);
         headers.add("Parent");
         flexTableWrapper.addStringRow(headers);
 
@@ -40,7 +39,6 @@ public class ParentEditor extends CustomEditor<PersonData> {
                 @Override
                 public void onSuccess(List<PersonData> items) {
                     for (PersonData parent : items) {
-                        GWT.log("new parent: " + parent.getName());
                         addRow(parent);
                     }
                 }
@@ -118,6 +116,7 @@ public class ParentEditor extends CustomEditor<PersonData> {
         return parents;
     }
 
+    // not used
     @Override
     public void save(PersonData created) {
         List<PersonData> parents = new ArrayList<PersonData>();

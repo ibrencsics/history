@@ -101,21 +101,6 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     }
 
     @Override
-    public void setHouseSuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<HouseData>> callback) {
-        backendService.getHousesByPattern(pattern, new AsyncCallback<List<HouseData>>() {
-            @Override
-            public void onFailure(Throwable throwable) {
-                callback.onFailure(throwable);
-            }
-
-            @Override
-            public void onSuccess(List<HouseData> houseDatas) {
-                callback.onSuccess(houseDatas);
-            }
-        });
-    }
-
-    @Override
     public void setPersonSuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<PersonData>> callback) {
         backendService.getPersonsByPattern(pattern, new AsyncCallback<List<PersonData>>() {
             @Override
@@ -158,5 +143,25 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
                 callback.onSuccess(null);
             }
         });
+    }
+
+    @Override
+    public void setHouseSuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<HouseData>> callback) {
+        backendService.getHousesByPattern(pattern, new AsyncCallback<List<HouseData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<HouseData> houseDatas) {
+                callback.onSuccess(houseDatas);
+            }
+        });
+    }
+
+    @Override
+    public void getHousesByIds(List<HouseData> housesIdOnly, org.ib.history.client.utils.AsyncCallback<List<HouseData>> callback) {
+
     }
 }

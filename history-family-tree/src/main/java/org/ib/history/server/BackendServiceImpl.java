@@ -61,6 +61,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public List<HouseData> getHousesByIds(List<HouseData> housesOnlyIds) {
+        return houseService.getHousesById(housesOnlyIds);
+    }
+
+    @Override
     public void addHouse(HouseData house) {
         houseService.addHouse(house);
     }
