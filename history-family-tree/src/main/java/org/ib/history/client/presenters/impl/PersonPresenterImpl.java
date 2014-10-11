@@ -146,16 +146,16 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     }
 
     @Override
-    public void setParents(PersonData person, List<PersonData> parents) {
+    public void setParents(PersonData person, List<PersonData> parents, final org.ib.history.client.utils.AsyncCallback<Void> callback) {
         backendService.setParents(person, parents, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
-
+                callback.onFailure(throwable);
             }
 
             @Override
             public void onSuccess(Void aVoid) {
-
+                callback.onSuccess(null);
             }
         });
     }

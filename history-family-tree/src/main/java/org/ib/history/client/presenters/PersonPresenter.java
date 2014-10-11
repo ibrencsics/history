@@ -11,5 +11,5 @@ public interface PersonPresenter extends CrudPresenter<PersonData> {
     void setPersonSuggestions(String pattern, AsyncCallback<List<PersonData>> callback);
     void getPersonsByIds(List<PersonData> personsIdOnly, AsyncCallback<List<PersonData>> callback);
 
-    void setParents(PersonData person, List<PersonData> parents);
+    void setParents(PersonData person, List<PersonData> parents, AsyncCallback<Void> callback);
 }

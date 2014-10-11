@@ -1,6 +1,7 @@
 package org.ib.history.client.views.person;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.Widget;
 import org.ib.history.client.presenters.PersonPresenter;
@@ -39,6 +40,7 @@ public class ParentEditor extends CustomEditor<PersonData> {
                 @Override
                 public void onSuccess(List<PersonData> items) {
                     for (PersonData parent : items) {
+                        GWT.log("new parent: " + parent.getName());
                         addRow(parent);
                     }
                 }
@@ -88,6 +90,20 @@ public class ParentEditor extends CustomEditor<PersonData> {
 
     @Override
     public void save() {
+        ((PersonPresenter)getPresenter()).setParents(getSelected(), getParentsFromGUI(), new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable t) {
+                Window.alert("Error when saving parents");
+            }
+
+            @Override
+            public void onSuccess(Void items) {
+                getSelected().setParents(getParentsFromGUI());
+            }
+        });
+    }
+
+    private List<PersonData> getParentsFromGUI() {
         List<PersonData> parents = new ArrayList<PersonData>();
 
         Iterator<List<? extends Widget>> iter = flexTableWrapper.iterator();
@@ -99,7 +115,7 @@ public class ParentEditor extends CustomEditor<PersonData> {
             parents.add(parent);
         }
 
-        ((PersonPresenter)getPresenter()).setParents(getSelected(), parents);
+        return parents;
     }
 
     @Override
