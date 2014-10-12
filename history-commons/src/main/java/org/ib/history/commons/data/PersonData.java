@@ -13,7 +13,7 @@ public class PersonData extends AbstractData<PersonData> {
     private FlexibleDate dateOfDeath;
 
     private List<PersonData> parents = new ArrayList<PersonData>();
-    private Set<HouseData> houses = new HashSet<HouseData>();
+    private List<HouseData> houses = new ArrayList<HouseData>();
     private Set<SpouseData> spouses = new HashSet<SpouseData>();
     private Set<RulesData> rules = new HashSet<RulesData>();
 
@@ -61,11 +61,11 @@ public class PersonData extends AbstractData<PersonData> {
         this.parents = parents;
     }
 
-    public Set<HouseData> getHouses() {
+    public List<HouseData> getHouses() {
         return houses;
     }
 
-    public void setHouses(Set<HouseData> houses) {
+    public void setHouses(List<HouseData> houses) {
         this.houses = houses;
     }
 

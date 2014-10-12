@@ -32,4 +32,5 @@ public interface BackendService extends RemoteService {
     void deletePerson(PersonData person);
 
     void setParents(PersonData person, List<PersonData> parents);
+    void setHouses(PersonData person, List<HouseData> houses);
 }

@@ -111,4 +111,9 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
             personService.addParent(person.getId(), parent.getId());
         }
     }
+
+    @Override
+    public void setHouses(PersonData person, List<HouseData> houses) {
+
+    }
 }
