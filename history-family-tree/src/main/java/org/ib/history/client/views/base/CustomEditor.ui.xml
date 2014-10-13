@@ -6,6 +6,8 @@
         .wrapper {
         background-color:  #46D7DC;
         margin: 10px;
+        float: left;
+        border: 1px solid black;
         }
 
         .title {
@@ -16,14 +18,6 @@
         }
 
         .bodyPanel {
-        border: 1px solid black;
-        }
-
-        .flexTable {
-        border-top: thin solid #444444;
-        border-left: thin solid #444444;
-        border-right: thin solid #111111;
-        border-bottom: thin solid #111111;
         }
 
         .flexTable tr:first-child td {
@@ -37,7 +31,6 @@
         .flexTable td {
         border: 1px solid #BBBBBB;
         }
-
     </ui:style>
 
     <g:FlowPanel styleName="{style.wrapper}">

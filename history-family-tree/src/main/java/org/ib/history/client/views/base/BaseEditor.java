@@ -28,7 +28,7 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
     protected FlexTable flexTable;
 
     @UiField
-    protected VerticalPanel customPanel;
+    protected FlowPanel customPanel;
 
     @UiField
     Button btnNew;

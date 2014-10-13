@@ -5,6 +5,7 @@
     <ui:style>
         .parent {
         margin: 10px;
+        border: 1px solid black;
         }
 
         .title {
@@ -15,15 +16,12 @@
         }
 
         .bodyPanel {
-        border: 1px solid black;
+        float:left;
         }
 
         .flexTable {
-        border-top: thin solid #444444;
-        border-left: thin solid #444444;
-        border-right: thin solid #111111;
-        border-bottom: thin solid #111111;
         background-color:  #FFFFFF;
+        border: 1px solid black;
         }
 
         .flexTable tr:first-child td {
@@ -38,11 +36,10 @@
         border: 1px solid #BBBBBB;
         }
         .custom {
-        border: thin solid #444444;
         }
     </ui:style>
 
-    <g:FlowPanel styleName="{style.parent}">
+    <g:VerticalPanel styleName="{style.parent}">
 
         <g:FlowPanel styleName="{style.title}">
             <g:Label ui:field="title" />
@@ -57,8 +54,8 @@
             <g:Button text="Save" ui:field="btnSave"/>
         </g:HorizontalPanel>
 
-        <g:VerticalPanel ui:field="customPanel" addStyleNames="{style.custom}"/>
+        <g:FlowPanel ui:field="customPanel" addStyleNames="{style.custom}"/>
 
-    </g:FlowPanel>
+    </g:VerticalPanel>
 
 </ui:UiBinder>
