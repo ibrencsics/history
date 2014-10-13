@@ -94,14 +94,14 @@ public class PersonEditor extends BaseEditor<PersonData> {
 
     @Override
     protected List<? extends Editor<PersonData>> getCustomEditors() {
-//        ParentEditor parentEditor = new ParentEditor();
-//        parentEditor.setText("Edit parents");
-//        return parentEditor;
 
         CustomEditor<PersonData> parentEditor = new ParentEditor();
         parentEditor.setText("Edit parents");
 
-        return Arrays.asList(parentEditor);
+        CustomEditor<PersonData> houseEditor = new HouseEditor();
+        houseEditor.setText("Edit houses");
+
+        return Arrays.asList(parentEditor, houseEditor);
     }
 
     @Override

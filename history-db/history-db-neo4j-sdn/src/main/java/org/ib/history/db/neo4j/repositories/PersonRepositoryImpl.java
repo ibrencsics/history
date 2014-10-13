@@ -44,4 +44,19 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
         params.put("nodeId", id);
         template.query("match (n)-[c:CHILD_OF]-() where id(n)={nodeId} delete c", params);
     }
+
+    @Override
+    public void addHouse(Long id, Long houseId) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("nodeId", id);
+        params.put("houseNodeId", houseId);
+        template.query("match (n),(m) where id(n)={nodeId} and id(m)={houseNodeId} create (n)-[c:IN_HOUSE]->(m)", params);
+    }
+
+    @Override
+    public void deleteHouses(Long id) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("nodeId", id);
+        template.query("match (n)-[c:IN_HOUSE]-() where id(n)={nodeId} delete c", params);
+    }
 }

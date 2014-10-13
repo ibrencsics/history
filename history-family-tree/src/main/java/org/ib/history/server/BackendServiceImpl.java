@@ -114,6 +114,9 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
 
     @Override
     public void setHouses(PersonData person, List<HouseData> houses) {
-
+        personService.deleteHouses(person.getId());
+        for (HouseData house : houses) {
+            personService.addHouse(person.getId(), house.getId());
+        }
     }
 }

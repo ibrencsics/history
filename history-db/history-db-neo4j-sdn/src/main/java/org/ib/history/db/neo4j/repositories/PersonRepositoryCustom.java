@@ -10,4 +10,7 @@ public interface PersonRepositoryCustom {
     void addParent(Long id, Long parentId);
     void deleteParent(Long id, Long parentId);
     void deleteParents(Long id);
+
+    void addHouse(Long id, Long houseId);
+    void deleteHouses(Long id);
 }

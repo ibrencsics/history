@@ -176,7 +176,17 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     }
 
     @Override
-    public void setHouses(PersonData person, List<HouseData> houses, org.ib.history.client.utils.AsyncCallback<Void> callback) {
+    public void setHouses(PersonData person, List<HouseData> houses, final org.ib.history.client.utils.AsyncCallback<Void> callback) {
+        backendService.setHouses(person, houses, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
 
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onSuccess(aVoid);
+            }
+        });
     }
 }

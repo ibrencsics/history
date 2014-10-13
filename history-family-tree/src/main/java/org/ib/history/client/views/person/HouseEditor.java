@@ -11,7 +11,6 @@ import org.ib.history.client.views.base.CustomEditor;
 import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.utils.GwtDateFormat;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -88,7 +87,7 @@ public class HouseEditor extends CustomEditor<PersonData> {
 
     @Override
     public void save() {
-        ((PersonPresenter)getPresenter()).setParents(getSelected(), getParentsFromGUI(), new AsyncCallback<Void>() {
+        ((PersonPresenter)getPresenter()).setHouses(getSelected(), getHousesFromGUI(), new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable t) {
                 Window.alert("Error when saving parents");
@@ -96,23 +95,23 @@ public class HouseEditor extends CustomEditor<PersonData> {
 
             @Override
             public void onSuccess(Void items) {
-                getSelected().setParents(getParentsFromGUI());
+                getSelected().setHouses(getHousesFromGUI());
             }
         });
     }
 
-    private List<PersonData> getParentsFromGUI() {
-        List<PersonData> parents = new ArrayList<PersonData>();
+    private List<HouseData> getHousesFromGUI() {
+        List<HouseData> houses = new ArrayList<HouseData>();
 
         Iterator<List<? extends Widget>> iter = flexTableWrapper.iterator();
         while (iter.hasNext()) {
             List<? extends Widget> row = iter.next();
 
-            SuggestBox sbParent = ((SuggestBox)row.get(0));
-            PersonData parent = ((RpcSuggestOracle<PersonData>) sbParent.getSuggestOracle()).getSelected();
-            parents.add(parent);
+            SuggestBox sbHouse = ((SuggestBox)row.get(0));
+            HouseData house = ((RpcSuggestOracle<HouseData>) sbHouse.getSuggestOracle()).getSelected();
+            houses.add(house);
         }
 
-        return parents;
+        return houses;
     }
 }

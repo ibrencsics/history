@@ -120,4 +120,14 @@ public class PersonServiceImpl implements PersonService {
     public void deleteParents(Long id) {
         personRepo.deleteParents(id);
     }
+
+    @Override
+    public void addHouse(Long id, Long houseId) {
+        personRepo.addHouse(id, houseId);
+    }
+
+    @Override
+    public void deleteHouses(Long id) {
+        personRepo.deleteHouses(id);
+    }
 }
