@@ -1,6 +1,8 @@
 package org.ib.history.db.neo4j.repositories;
 
 import org.ib.history.db.neo4j.domain.Person;
+import org.ib.history.db.neo4j.domain.Rules;
+import org.ib.history.db.neo4j.domain.Spouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,5 +60,27 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
         Map<String,Object> params = new HashMap<>();
         params.put("nodeId", id);
         template.query("match (n)-[c:IN_HOUSE]-() where id(n)={nodeId} delete c", params);
+    }
+
+    @Override
+    public void addSpouse(Spouse spouse) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("person1Id", spouse.getPerson1().getId());
+        params.put("person2Id", spouse.getPerson2().getId());
+        params.put("fromDate", spouse.getFromDate());
+        params.put("toDate", spouse.getToDate());
+        template.query("match (p1:Person), (p2:Person) where id(p1)={person1Id} and id(p2)={person2Id} " +
+                "create (p1)-[:SPOUSE{ fromDate:{fromDate}, toDate:{toDate}, __type__:'org.ib.history.db.neo4j.domain.Spouse' }]->(p2)", params);
+    }
+
+    @Override
+    public void addRules(Rules rules) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("personId", rules.getRuler().getId());
+        params.put("countryId", rules.getCountry().getId());
+        params.put("fromDate", rules.getFromDate());
+        params.put("toDate", rules.getToDate());
+        template.query("match (p:Person), (c:Country) where id(p)={personId} and id(c)={countryId} " +
+                "create (p)-[:RULES{ fromDate:{fromDate}, toDate:{toDate}, __type__:'org.ib.history.db.neo4j.domain.Rules' }]->(c)", params);
     }
 }

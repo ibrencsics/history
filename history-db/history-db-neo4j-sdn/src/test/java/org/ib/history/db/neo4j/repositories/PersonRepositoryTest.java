@@ -1,8 +1,6 @@
 package org.ib.history.db.neo4j.repositories;
 
-import org.ib.history.db.neo4j.domain.Country;
-import org.ib.history.db.neo4j.domain.House;
-import org.ib.history.db.neo4j.domain.Person;
+import org.ib.history.db.neo4j.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -129,6 +127,54 @@ public class PersonRepositoryTest {
         personCreated = personRepo.save(personCreated);
         assertEquals(0, personCreated.getHouses().size());
     }
+
+    @Test
+//    @Rollback(false)
+    public void test_spouse() {
+        Person person1 = new Person(null, "person1", "alias1");
+        person1.setDefaultLocale(true);
+
+        Person person2 = new Person(null, "person2", "alias2");
+        person2.setDefaultLocale(true);
+
+        person1 = personRepo.save(person1);
+        person2 = personRepo.save(person2);
+
+        Spouse spouse = new Spouse(null, person1, person2, "1111", "2222");
+        personRepo.addSpouse(spouse);
+
+        // verify
+        List<Person> persons = personRepo.getPersonsByName("person1");
+        assertNotNull(persons);
+        assertEquals(1, persons.size());
+        Person person = persons.get(0);
+        assertNotNull(person.getSpouses());
+        assertEquals(1, person.getSpouses().size());
+    }
+
+    @Test
+//    @Rollback(false)
+    public void test_rules() {
+        Person person = new Person(null, "person", "alias");
+        person.setDefaultLocale(true);
+        person = personRepo.save(person);
+
+        Country country = new Country(null);
+        country.setName("country");
+        country.setDefaultLocale(true);
+        country = countryRepo.save(country);
+
+        Rules rules = new Rules(null, person, country, "king", 1, "1111", "2222");
+        personRepo.addRules(rules);
+
+        // verify
+        List<Person> persons = personRepo.getPersons();
+        assertEquals(1, persons.size());
+        person = persons.get(0);
+        assertNotNull(person.getRules());
+        assertEquals(1, person.getRules().size());
+    }
+
 
     private Country createCountry() {
         Country country = new Country();

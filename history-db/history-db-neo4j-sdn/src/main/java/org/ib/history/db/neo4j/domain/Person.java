@@ -29,7 +29,7 @@ public class Person extends BaseEntityWithTranslation<Person> {
     @RelatedTo(type = "IN_HOUSE", direction = Direction.OUTGOING)
     private Set<House> houses = new HashSet<>();
 
-    @RelatedToVia(type = "RULES")
+    @RelatedToVia(type = "RULES", direction = Direction.OUTGOING)
     private Set<Rules> rules = new HashSet<>();
 
     @RelatedTo(type = "IS_POPE", direction = Direction.OUTGOING)
