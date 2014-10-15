@@ -74,13 +74,30 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
     }
 
     @Override
+    public void deleteSpouses(Long id) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("nodeId", id);
+        template.query("match (n)-[c:SPOUSE]-() where id(n)={nodeId} delete c", params);
+    }
+
+    @Override
     public void addRules(Rules rules) {
         Map<String,Object> params = new HashMap<>();
         params.put("personId", rules.getRuler().getId());
         params.put("countryId", rules.getCountry().getId());
         params.put("fromDate", rules.getFromDate());
         params.put("toDate", rules.getToDate());
+        params.put("title", rules.getTitle());
+        params.put("number", rules.getNumber());
         template.query("match (p:Person), (c:Country) where id(p)={personId} and id(c)={countryId} " +
-                "create (p)-[:RULES{ fromDate:{fromDate}, toDate:{toDate}, __type__:'org.ib.history.db.neo4j.domain.Rules' }]->(c)", params);
+                "create (p)-[:RULES{ fromDate:{fromDate}, toDate:{toDate}, title:{title}, number:{number}, " +
+                "__type__:'org.ib.history.db.neo4j.domain.Rules' }]->(c)", params);
+    }
+
+    @Override
+    public void deleteRules(Long id) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("nodeId", id);
+        template.query("match (n)-[c:RULES]-() where id(n)={nodeId} delete c", params);
     }
 }

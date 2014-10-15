@@ -173,4 +173,54 @@ public class DataTransformer {
 
         return person;
     }
+
+    public static SpouseData transform(Spouse spouse) {
+        SpouseData.Builder spouseDataBuilder = new SpouseData.Builder()
+                .id(spouse.getId())
+                .person1(new PersonData.Builder().id(spouse.getPerson1().getId()).build())
+                .person2(new PersonData.Builder().id(spouse.getPerson2().getId()).build())
+                .from(Neo4jDateFormat.parse(spouse.getFromDate()))
+                .to(Neo4jDateFormat.parse(spouse.getToDate()));
+
+        return spouseDataBuilder.build();
+    }
+
+    public static Spouse transform(SpouseData spouseData) {
+        Spouse spouse = new Spouse(
+                spouseData.getId(),
+                new Person(spouseData.getPerson1().getId()),
+                new Person(spouseData.getPerson2().getId()),
+                Neo4jDateFormat.serialize(spouseData.getFrom()),
+                Neo4jDateFormat.serialize(spouseData.getTo())
+        );
+
+        return spouse;
+    }
+
+    public static RulesData transform(Rules rules) {
+        RulesData.Builder rulesDataBuilder = new RulesData.Builder()
+                .id(rules.getId())
+                .person(new PersonData.Builder().id(rules.getRuler().getId()).build())
+                .country(new CountryData.Builder().id(rules.getCountry().getId()).build())
+                .title(rules.getTitle())
+                .number(rules.getNumber())
+                .from(Neo4jDateFormat.parse(rules.getFromDate()))
+                .to(Neo4jDateFormat.parse(rules.getToDate()));
+
+        return rulesDataBuilder.build();
+    }
+
+    public static Rules transform(RulesData rulesData) {
+        Rules rules = new Rules(
+                rulesData.getId(),
+                new Person(rulesData.getPerson().getId()),
+                new Country(rulesData.getCountry().getId()),
+                rulesData.getTitle(),
+                rulesData.getNumber(),
+                Neo4jDateFormat.serialize(rulesData.getFrom()),
+                Neo4jDateFormat.serialize(rulesData.getTo())
+        );
+
+        return rules;
+    }
 }

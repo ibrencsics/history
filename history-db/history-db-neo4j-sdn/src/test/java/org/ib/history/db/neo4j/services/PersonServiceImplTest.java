@@ -1,6 +1,7 @@
 package org.ib.history.db.neo4j.services;
 
 import org.ib.history.commons.data.*;
+import org.ib.history.db.neo4j.domain.Rules;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,9 @@ public class PersonServiceImplTest {
 
     @Autowired
     HouseService houseService;
+
+    @Autowired
+    CountryService countryService;
 
     @Autowired
     PersonService personService;
@@ -126,8 +130,50 @@ public class PersonServiceImplTest {
     }
 
     @Test
-    public void test_with_rules() {
+    public void test_custom_with_spouse() {
+        PersonData personData1 = new PersonData.Builder().name("person1").build();
+        PersonData personData2 = new PersonData.Builder().name("person2").build();
 
+        personData1 = personService.addPerson(personData1);
+        personData2 = personService.addPerson(personData2);
+
+        SpouseData spouseData = new SpouseData.Builder()
+                .person1(personData1).person2(personData2)
+                .from(new FlexibleDate.Builder().year(1111).noMonth().noDay().build())
+                .to(new FlexibleDate.Builder().year(2222).noMonth().noDay().build())
+                .build();
+
+        personService.addSpouse(spouseData);
+
+        // verify
+        PersonData personData = personService.getPersonById(personData1.getId());
+        assertEquals(1, personData.getSpouses().size());
+        assertEquals(1111, personData.getSpouses().iterator().next().getFrom().getYear());
+    }
+
+    @Test
+    public void test_custom_with_rules() {
+        PersonData personData = new PersonData.Builder().name("person").build();
+        CountryData countryData = new CountryData.Builder().name("country").build();
+
+        personData = personService.addPerson(personData);
+        countryData = countryService.addCountry(countryData);
+
+        RulesData rulesData = new RulesData.Builder()
+                .person(personData)
+                .country(countryData)
+                .title("king")
+                .number(1)
+                .from(new FlexibleDate.Builder().year(1111).noMonth().noDay().build())
+                .to(new FlexibleDate.Builder().year(2222).noMonth().noDay().build())
+                .build();
+
+        personService.addRules(rulesData);
+
+        // verify
+        personData = personService.getPersonById(personData.getId());
+        assertEquals(1, personData.getRules().size());
+        assertEquals(1111, personData.getRules().iterator().next().getFrom().getYear());
     }
 
 

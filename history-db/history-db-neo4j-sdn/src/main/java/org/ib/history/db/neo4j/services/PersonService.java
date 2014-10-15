@@ -1,6 +1,8 @@
 package org.ib.history.db.neo4j.services;
 
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.RulesData;
+import org.ib.history.commons.data.SpouseData;
 
 import java.util.List;
 
@@ -22,4 +24,8 @@ public interface PersonService {
     void deleteParents(Long id);
     void addHouse(Long id, Long houseId);
     void deleteHouses(Long id);
+    void addSpouse(SpouseData spouseData);
+    void deleteSpouses(Long id);
+    void addRules(RulesData rulesData);
+    void deleteRules(Long id);
 }

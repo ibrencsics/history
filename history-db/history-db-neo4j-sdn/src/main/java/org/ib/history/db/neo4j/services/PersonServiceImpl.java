@@ -1,6 +1,8 @@
 package org.ib.history.db.neo4j.services;
 
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.RulesData;
+import org.ib.history.commons.data.SpouseData;
 import org.ib.history.db.neo4j.domain.DataTransformer;
 import org.ib.history.db.neo4j.domain.Person;
 import org.ib.history.db.neo4j.repositories.PersonRepository;
@@ -129,5 +131,25 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deleteHouses(Long id) {
         personRepo.deleteHouses(id);
+    }
+
+    @Override
+    public void addSpouse(SpouseData spouseData) {
+        personRepo.addSpouse(DataTransformer.transform(spouseData));
+    }
+
+    @Override
+    public void deleteSpouses(Long id) {
+        personRepo.deleteSpouses(id);
+    }
+
+    @Override
+    public void addRules(RulesData rulesData) {
+        personRepo.addRules(DataTransformer.transform(rulesData));
+    }
+
+    @Override
+    public void deleteRules(Long id) {
+        personRepo.deleteRules(id);
     }
 }

@@ -150,6 +150,15 @@ public class PersonRepositoryTest {
         Person person = persons.get(0);
         assertNotNull(person.getSpouses());
         assertEquals(1, person.getSpouses().size());
+
+        // delete
+        personRepo.deleteSpouses(person.getId());
+        persons = personRepo.getPersonsByName("person1");
+        assertNotNull(persons);
+        assertEquals(1, persons.size());
+        person = persons.get(0);
+        assertNotNull(person.getSpouses());
+        assertEquals(0, person.getSpouses().size());
     }
 
     @Test
@@ -173,6 +182,14 @@ public class PersonRepositoryTest {
         person = persons.get(0);
         assertNotNull(person.getRules());
         assertEquals(1, person.getRules().size());
+
+        // delete
+        personRepo.deleteRules(person.getId());
+        persons = personRepo.getPersons();
+        assertEquals(1, persons.size());
+        person = persons.get(0);
+        assertNotNull(person.getRules());
+        assertEquals(0, person.getRules().size());
     }
 
 

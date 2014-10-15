@@ -17,6 +17,8 @@ public interface PersonRepositoryCustom {
     void deleteHouses(Long id);
 
     void addSpouse(Spouse spouse);
+    void deleteSpouses(Long id);
 
     void addRules(Rules rules);
+    void deleteRules(Long id);
 }
