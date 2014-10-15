@@ -2,9 +2,7 @@ package org.ib.history.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.ib.history.client.BackendService;
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.HouseData;
-import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.*;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
@@ -117,6 +115,22 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
         personService.deleteHouses(person.getId());
         for (HouseData house : houses) {
             personService.addHouse(person.getId(), house.getId());
+        }
+    }
+
+    @Override
+    public void setSpouses(PersonData person, List<SpouseData> spouses) {
+        personService.deleteSpouses(person.getId());
+        for (SpouseData spouse : spouses) {
+            personService.addSpouse(spouse);
+        }
+    }
+
+    @Override
+    public void setRules(PersonData person, List<RulesData> rules) {
+        personService.deleteRules(person.getId());
+        for (RulesData rule : rules) {
+            personService.addRules(rule);
         }
     }
 }

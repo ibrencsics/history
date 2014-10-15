@@ -101,7 +101,10 @@ public class PersonEditor extends BaseEditor<PersonData> {
         CustomEditor<PersonData> houseEditor = new HouseEditor();
         houseEditor.setText("Edit houses");
 
-        return Arrays.asList(parentEditor, houseEditor);
+        CustomEditor<PersonData> spouseEditor = new SpouseEditor();
+        spouseEditor.setText("Edit spouses");
+
+        return Arrays.asList(parentEditor, houseEditor, spouseEditor);
     }
 
     @Override

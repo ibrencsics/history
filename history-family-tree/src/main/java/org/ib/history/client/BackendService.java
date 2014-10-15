@@ -3,9 +3,7 @@ package org.ib.history.client;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.ui.SuggestOracle;
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.HouseData;
-import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.*;
 
 import java.util.List;
 import java.util.Set;
@@ -33,4 +31,6 @@ public interface BackendService extends RemoteService {
 
     void setParents(PersonData person, List<PersonData> parents);
     void setHouses(PersonData person, List<HouseData> houses);
+    void setSpouses(PersonData person, List<SpouseData> spouses);
+    void setRules(PersonData person, List<RulesData> rules);
 }

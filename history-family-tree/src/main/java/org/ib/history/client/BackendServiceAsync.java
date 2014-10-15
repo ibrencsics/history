@@ -1,9 +1,7 @@
 package org.ib.history.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.HouseData;
-import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.*;
 
 import java.util.List;
 import java.util.Set;
@@ -29,4 +27,6 @@ public interface BackendServiceAsync {
 
     void setParents(PersonData person, List<PersonData> parents, AsyncCallback<Void> callback);
     void setHouses(PersonData person, List<HouseData> houses, AsyncCallback<Void> callback);
+    void setSpouses(PersonData person, List<SpouseData> spouses, AsyncCallback<Void> callback);
+    void setRules(PersonData person, List<RulesData> rules, AsyncCallback<Void> callback);
 }
