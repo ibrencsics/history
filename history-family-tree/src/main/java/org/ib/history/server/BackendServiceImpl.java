@@ -77,7 +77,7 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     @Override
     public List<PersonData> getPersons() {
         List<PersonData> persons = personService.getPersons();
-        log.debug(persons.toString());
+//        log.debug(persons.toString());
         return persons;
     }
 

@@ -13,6 +13,7 @@ import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.views.person.PersonView;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.SpouseData;
 
 import java.util.List;
 
@@ -178,6 +179,21 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     @Override
     public void setHouses(PersonData person, List<HouseData> houses, final org.ib.history.client.utils.AsyncCallback<Void> callback) {
         backendService.setHouses(person, houses, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onSuccess(aVoid);
+            }
+        });
+    }
+
+    @Override
+    public void setSpouses(PersonData person, List<SpouseData> spouses, final org.ib.history.client.utils.AsyncCallback<Void> callback) {
+        backendService.setSpouses(person, spouses, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
                 callback.onFailure(throwable);

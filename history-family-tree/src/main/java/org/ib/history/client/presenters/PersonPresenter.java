@@ -3,6 +3,7 @@ package org.ib.history.client.presenters;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
+import org.ib.history.commons.data.SpouseData;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface PersonPresenter extends CrudPresenter<PersonData> {
     void setHouseSuggestions(String pattern, AsyncCallback<List<HouseData>> callback);
     void getHousesByIds(List<HouseData> housesIdOnly, AsyncCallback<List<HouseData>> callback);
     void setHouses(PersonData person, List<HouseData> houses, AsyncCallback<Void> callback);
+
+    void setSpouses(PersonData person, List<SpouseData> spouses, AsyncCallback<Void> callback);
 }

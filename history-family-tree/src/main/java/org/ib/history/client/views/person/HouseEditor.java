@@ -71,7 +71,7 @@ public class HouseEditor extends CustomEditor<PersonData> {
             }
         };
         SuggestBox sbHouse = new SuggestBox(suggestOracle);
-        sbHouse.setWidth("300px");
+        sbHouse.setWidth("200px");
         suggestOracle.setSuggestBox(sbHouse);
         suggestOracle.setSelected(parent);
         ruleRow.add(sbHouse);
