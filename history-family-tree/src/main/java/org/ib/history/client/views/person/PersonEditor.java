@@ -25,9 +25,7 @@ public class PersonEditor extends BaseEditor<PersonData> {
 
     @Override
     protected PersonData getEmptyItem() {
-        return new PersonData.Builder().name("").alias("").gender("M").dateOfBirth(null).dateOfDeath(null)
-                .house(new HouseData.Builder().name("").build())
-                .build();
+        return new PersonData.Builder().name("").alias("").gender("M").dateOfBirth(null).dateOfDeath(null).build();
     }
 
     @Override

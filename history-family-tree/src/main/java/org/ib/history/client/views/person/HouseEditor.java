@@ -29,7 +29,7 @@ public class HouseEditor extends CustomEditor<PersonData> {
         headers.add("House");
         flexTableWrapper.addStringRow(headers);
 
-        if (getSelected()!=null) {
+        if (getSelected()!=null && getSelected().getHouses().size()!=0) {
             ((PersonPresenter)getPresenter()).getHousesByIds(getSelected().getHouses(), new AsyncCallback<List<HouseData>>() {
                 @Override
                 public void onFailure(Throwable t) {

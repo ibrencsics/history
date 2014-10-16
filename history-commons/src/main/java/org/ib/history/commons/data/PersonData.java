@@ -147,7 +147,6 @@ public class PersonData extends AbstractData<PersonData> {
         if (this==that) return true;
 
         if (this.getId() == that.getId()) return true;
-        if (this.getName().equals(that.getName())) return true;
 
         return false;
     }
