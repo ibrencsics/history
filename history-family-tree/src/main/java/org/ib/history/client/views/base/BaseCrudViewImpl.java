@@ -66,7 +66,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
     @Override
     public void refreshGrid() {
-//        itemList.setVisibleRangeAndClearData(new Range(0, 25), true);
+        itemList.setVisibleRangeAndClearData(new Range(0, 25), true);
         itemList.redraw();
         itemEditor.hide();
     }

@@ -128,7 +128,7 @@ public class SpouseEditor extends CustomEditor<PersonData> {
         if (personData==null || personData.getName()==null  )
             return "";
         return personData.getName() +
-                " (" + GwtDateFormat.convert(personData.getDateOfBirth()) + "-" + GwtDateFormat.convert(personData.getDateOfDeath()) + ")";
+                " (" + GwtDateFormat.convert(personData.getDateOfBirth()) + " - " + GwtDateFormat.convert(personData.getDateOfDeath()) + ")";
     }
 
     @Override
