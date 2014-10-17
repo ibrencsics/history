@@ -38,6 +38,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     }
 
     @Override
+    public List<CountryData> getCountriesByIds(List<CountryData> countriesOnlyIds) {
+        return countryService.getCountriesById(countriesOnlyIds);
+    }
+
+    @Override
     public void addCountry(CountryData country) {
         countryService.addCountry(country);
     }

@@ -11,9 +11,7 @@ import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.views.person.PersonView;
-import org.ib.history.commons.data.HouseData;
-import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.data.SpouseData;
+import org.ib.history.commons.data.*;
 
 import java.util.List;
 
@@ -202,6 +200,51 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
             @Override
             public void onSuccess(Void aVoid) {
                 callback.onSuccess(aVoid);
+            }
+        });
+    }
+
+    @Override
+    public void setRules(PersonData person, List<RulesData> rules, final org.ib.history.client.utils.AsyncCallback<Void> callback) {
+        backendService.setRules(person, rules, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onSuccess(aVoid);
+            }
+        });
+    }
+
+    @Override
+    public void setCountrySuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<CountryData>> callback) {
+        backendService.getCountriesByPattern(pattern, new AsyncCallback<List<CountryData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<CountryData> countryDatas) {
+                callback.onSuccess(countryDatas);
+            }
+        });
+    }
+
+    @Override
+    public void getCountriesByIds(List<CountryData> countryIdOnly, final org.ib.history.client.utils.AsyncCallback<List<CountryData>> callback) {
+        backendService.getCountriesByIds(countryIdOnly, new AsyncCallback<List<CountryData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<CountryData> countryDatas) {
+                callback.onSuccess(countryDatas);
             }
         });
     }

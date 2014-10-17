@@ -7,6 +7,7 @@ import java.util.List;
 public interface CountryService {
     List<CountryData> getCountries();
     List<CountryData> getCountriesByPattern(String pattern);
+    List<CountryData> getCountriesById(List<CountryData> countryOnlyIds);
     CountryData addCountry(CountryData countryData);
     void deleteCountry(CountryData countryData);
 }

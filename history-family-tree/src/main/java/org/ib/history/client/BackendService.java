@@ -14,6 +14,7 @@ public interface BackendService extends RemoteService {
 
     List<CountryData> getCountries(String locale);
     List<CountryData> getCountriesByPattern(String pattern);
+    List<CountryData> getCountriesByIds(List<CountryData> countriesOnlyIds);
     void addCountry(CountryData country);
     void deleteCountry(CountryData country);
 

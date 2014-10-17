@@ -142,7 +142,7 @@ public class SpouseEditor extends CustomEditor<PersonData> {
             @Override
             public void onSuccess(Void items) {
                 getSelected().setSpouses(new HashSet<SpouseData>(getSpousesFromGUI()));
-                GWT.log("Saved");
+                GWT.log("Spouses saved");
             }
         });
     }

@@ -10,6 +10,7 @@ public interface BackendServiceAsync {
 
     void getCountries(String locale, AsyncCallback<List<CountryData>> countries);
     void getCountriesByPattern(String pattern, AsyncCallback<List<CountryData>> callback);
+    void getCountriesByIds(List<CountryData> countriesOnlyIds, AsyncCallback<List<CountryData>> callback);
     void addCountry(CountryData country, AsyncCallback<Void> callback);
     void deleteCountry(CountryData country, AsyncCallback<Void> callback);
 

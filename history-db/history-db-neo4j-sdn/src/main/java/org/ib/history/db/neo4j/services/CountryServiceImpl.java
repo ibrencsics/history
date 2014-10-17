@@ -46,6 +46,17 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    public List<CountryData> getCountriesById(List<CountryData> countryOnlyIds) {
+        List<CountryData> countriesFull = new ArrayList<>();
+
+        for (CountryData countryIdOnly : countryOnlyIds) {
+            countriesFull.add( DataTransformer.transform( countryRepo.findOne(countryIdOnly.getId()) ) );
+        }
+
+        return countriesFull;
+    }
+
+    @Override
     public CountryData addCountry(CountryData countryData) {
         Country country = DataTransformer.transform(countryData);
         for (Country.Translation<Country> translation : country.getLocales()) {
