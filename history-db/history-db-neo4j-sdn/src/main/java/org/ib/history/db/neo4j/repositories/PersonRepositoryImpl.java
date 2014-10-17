@@ -1,6 +1,7 @@
 package org.ib.history.db.neo4j.repositories;
 
 import org.ib.history.db.neo4j.domain.Person;
+import org.ib.history.db.neo4j.domain.Pope;
 import org.ib.history.db.neo4j.domain.Rules;
 import org.ib.history.db.neo4j.domain.Spouse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +100,20 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
         Map<String,Object> params = new HashMap<>();
         params.put("nodeId", id);
         template.query("match (n)-[c:RULES]-() where id(n)={nodeId} delete c", params);
+    }
+
+    @Override
+    public void setPope(Long id, Long popeId) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("personId", id);
+        params.put("popeId", popeId);
+        template.query("match (n:Person), (m:Pope) where id(n)={personId} and id(m)={popeId} create (n)-[c:IS_POPE]->(m)", params);
+    }
+
+    @Override
+    public void deletePope(Long id) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("nodeId", id);
+        template.query("match (n)-[c:IS_POPE]-() where id(n)={nodeId} delete c", params);
     }
 }

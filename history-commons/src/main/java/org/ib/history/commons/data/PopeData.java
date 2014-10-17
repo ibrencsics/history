@@ -95,6 +95,11 @@ public class PopeData extends AbstractData<PopeData> {
             return this;
         }
 
+        public Builder locale(String locale, PopeData localePopeData) {
+            pope.addLocale(locale, localePopeData);
+            return this;
+        }
+
         public PopeData build() {
             return pope;
         }

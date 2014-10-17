@@ -30,4 +30,11 @@ public interface BackendServiceAsync {
     void setHouses(PersonData person, List<HouseData> houses, AsyncCallback<Void> callback);
     void setSpouses(PersonData person, List<SpouseData> spouses, AsyncCallback<Void> callback);
     void setRules(PersonData person, List<RulesData> rules, AsyncCallback<Void> callback);
+    void setPope(PersonData person, PopeData pope, AsyncCallback<Void> callback);
+
+    void getPopes(AsyncCallback<List<PopeData>> callback);
+    void getPopesByPattern(String pattern, AsyncCallback<List<PopeData>> callback);
+    void getPopeById(PopeData popeOnlyId, AsyncCallback<PopeData> callback);
+    void addPope(PopeData popeData, AsyncCallback<Void> callback);
+    void deletePope(PopeData popeData, AsyncCallback<Void> callback);
 }

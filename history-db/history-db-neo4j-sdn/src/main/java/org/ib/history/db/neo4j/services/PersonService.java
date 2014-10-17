@@ -28,4 +28,6 @@ public interface PersonService {
     void deleteSpouses(Long id);
     void addRules(RulesData rulesData);
     void deleteRules(Long id);
+    void setPope(Long id, Long popeId);
+    void deletePope(Long id);
 }

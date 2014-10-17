@@ -10,11 +10,9 @@ import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.views.base.CustomEditor;
 import org.ib.history.client.widget.FlexTableWrapper;
-import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.SpouseData;
-import org.ib.history.commons.utils.GwtDateFormat;
-import org.ib.history.db.neo4j.domain.Spouse;
+import org.ib.history.commons.data.GwtDateFormat;
 
 import java.util.*;
 

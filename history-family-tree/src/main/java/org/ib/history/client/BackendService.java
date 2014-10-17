@@ -34,4 +34,11 @@ public interface BackendService extends RemoteService {
     void setHouses(PersonData person, List<HouseData> houses);
     void setSpouses(PersonData person, List<SpouseData> spouses);
     void setRules(PersonData person, List<RulesData> rules);
+    void setPope(PersonData person, PopeData pope);
+
+    List<PopeData> getPopes();
+    List<PopeData> getPopesByPattern(String pattern);
+    PopeData getPopeById(PopeData popeOnlyId);
+    void addPope(PopeData popeData);
+    void deletePope(PopeData popeData);
 }

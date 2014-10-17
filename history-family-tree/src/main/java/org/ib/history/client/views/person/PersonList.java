@@ -4,7 +4,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import org.ib.history.client.views.base.BaseList;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.utils.GwtDateFormat;
+import org.ib.history.commons.data.GwtDateFormat;
 
 public class PersonList extends BaseList<PersonData> {
 

@@ -152,4 +152,14 @@ public class PersonServiceImpl implements PersonService {
     public void deleteRules(Long id) {
         personRepo.deleteRules(id);
     }
+
+    @Override
+    public void setPope(Long id, Long popeId) {
+        personRepo.setPope(id, popeId);
+    }
+
+    @Override
+    public void deletePope(Long id) {
+        personRepo.deletePope(id);
+    }
 }

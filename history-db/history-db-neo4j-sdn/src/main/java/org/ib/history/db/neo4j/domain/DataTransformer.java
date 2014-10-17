@@ -110,7 +110,7 @@ public class DataTransformer {
                     .title(rules.getTitle())
                     .number(rules.getNumber())
                     .from(Neo4jDateFormat.parse(rules.getFromDate()))
-                    .to(Neo4jDateFormat.parse(rules.getFromDate()));
+                    .to(Neo4jDateFormat.parse(rules.getToDate()));
 
             rulesDataBuilder.person(new PersonData.Builder().id(person.getId()).build());
             rulesDataBuilder.country(new CountryData.Builder().id(rules.getCountry().getId()).build());
@@ -222,5 +222,46 @@ public class DataTransformer {
         );
 
         return rules;
+    }
+
+    public static PopeData transform(Pope pope) {
+        PopeData.Builder popeDataBuilder = new PopeData.Builder()
+                .id(pope.getId())
+                .name(pope.getName())
+                .number(pope.getNumber())
+                .from(Neo4jDateFormat.parse(pope.getFromDate()))
+                .to(Neo4jDateFormat.parse(pope.getToDate()));
+
+        for (Pope.Translation<Pope> translation : pope.getLocales()) {
+            popeDataBuilder.locale(
+                    translation.getLang(),
+                    new PopeData.Builder()
+                            .id(translation.getTranslation().getId())
+                            .name(translation.getTranslation().getName())
+                            .build()
+            );
+        }
+
+        return popeDataBuilder.build();
+    }
+
+    public static Pope transform(PopeData popeData) {
+        Pope pope = new Pope(
+                popeData.getId(),
+                popeData.getName(),
+                popeData.getNumber(),
+                Neo4jDateFormat.serialize(popeData.getFrom()),
+                Neo4jDateFormat.serialize(popeData.getTo())
+        );
+        pope.setDefaultLocale(true);
+
+        for (String locale : popeData.getLocales().keySet()) {
+            PopeData localePopeData = popeData.getLocales().get(locale);
+            Pope localePope = new Pope(localePopeData.getId(), localePopeData.getName());
+
+            Pope.Translation translation = new Pope.Translation(pope, localePope, locale);
+            pope.getLocales().add(translation);
+        }
+        return pope;
     }
 }

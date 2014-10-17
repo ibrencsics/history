@@ -1,10 +1,7 @@
 package org.ib.history.db.neo4j.repositories;
 
-import org.ib.history.db.neo4j.domain.Person;
 import org.ib.history.db.neo4j.domain.Rules;
 import org.ib.history.db.neo4j.domain.Spouse;
-
-import java.util.List;
 
 public interface PersonRepositoryCustom {
     void changeName(Long id, String name);
@@ -21,4 +18,7 @@ public interface PersonRepositoryCustom {
 
     void addRules(Rules rules);
     void deleteRules(Long id);
+
+    void setPope(Long id, Long popeId);
+    void deletePope(Long id);
 }

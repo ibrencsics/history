@@ -122,16 +122,20 @@ public class PersonData extends AbstractData<PersonData> {
 
         for (SpouseData spouse : getSpouses()) {
             PersonData other= (spouse.getPerson1().equals(this) ? spouse.getPerson2() : spouse.getPerson1());
-            sb.append("\r\nspouse id=" + other.getId() + " name=" + other.getName());
+            sb.append("\n\tspouse id=" + other.getId() + " name=" + other.getName());
         }
 
         for (RulesData rules : getRules()) {
-            sb.append("\r\nrules id=" + rules.getId() + " country=" + rules.getCountry().getName());
+            sb.append("\n\trules id=" + rules.getId() + " country=" + rules.getCountry().getName() +
+            " title=" + rules.getTitle() + " number=" + rules.getNumber() +
+            " from=" + GwtDateFormat.convert(rules.getFrom()) + " to=" + GwtDateFormat.convert(rules.getTo()));
         }
 
         if (pope!=null) {
-            sb.append("\r\npope id=" + pope.getId() + " name=" + pope.getName() + " number=" + pope.getNumber());
+            sb.append("\n\tpope id=" + pope.getId() + " name=" + pope.getName() + " number=" + pope.getNumber());
         }
+
+        sb.append("\r\n");
 
         return sb.toString();
     }

@@ -6,6 +6,7 @@ import org.ib.history.commons.data.*;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
+import org.ib.history.db.neo4j.services.PopeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     PersonService personService;
     @Autowired
     HouseService houseService;
+    @Autowired
+    PopeService popeService;
 
 
     @Override
@@ -82,7 +85,7 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     @Override
     public List<PersonData> getPersons() {
         List<PersonData> persons = personService.getPersons();
-//        log.debug(persons.toString());
+        log.debug(persons.toString());
         return persons;
     }
 
@@ -137,5 +140,37 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
         for (RulesData rule : rules) {
             personService.addRules(rule);
         }
+    }
+
+    @Override
+    public void setPope(PersonData person, PopeData pope) {
+        personService.deletePope(person.getId());
+        personService.setPope(person.getId(), pope.getId());
+    }
+
+
+    @Override
+    public List<PopeData> getPopes() {
+        return popeService.getPopes();
+    }
+
+    @Override
+    public List<PopeData> getPopesByPattern(String pattern) {
+        return popeService.getPopesByPattern(pattern);
+    }
+
+    @Override
+    public PopeData getPopeById(PopeData popeOnlyId) {
+        return popeService.getPopeById(popeOnlyId);
+    }
+
+    @Override
+    public void addPope(PopeData popeData) {
+        popeService.addPope(popeData);
+    }
+
+    @Override
+    public void deletePope(PopeData popeData) {
+        popeService.deletePope(popeData);
     }
 }

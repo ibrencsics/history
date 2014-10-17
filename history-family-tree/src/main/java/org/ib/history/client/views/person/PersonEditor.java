@@ -6,9 +6,8 @@ import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
 import org.ib.history.client.views.base.CustomEditor;
 import org.ib.history.client.views.base.Editor;
-import org.ib.history.commons.data.HouseData;
 import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.utils.GwtDateFormat;
+import org.ib.history.commons.data.GwtDateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,7 +1,6 @@
 package org.ib.history.commons.data;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import org.ib.history.commons.utils.GwtDateFormat;
 
 public class FlexibleDate implements IsSerializable {
 

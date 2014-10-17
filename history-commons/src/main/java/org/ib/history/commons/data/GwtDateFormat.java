@@ -1,4 +1,4 @@
-package org.ib.history.commons.utils;
+package org.ib.history.commons.data;
 
 import org.ib.history.commons.data.FlexibleDate;
 

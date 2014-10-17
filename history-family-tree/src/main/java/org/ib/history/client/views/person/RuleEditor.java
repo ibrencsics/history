@@ -13,8 +13,7 @@ import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulesData;
-import org.ib.history.commons.data.SpouseData;
-import org.ib.history.commons.utils.GwtDateFormat;
+import org.ib.history.commons.data.GwtDateFormat;
 
 import java.util.ArrayList;
 import java.util.HashSet;
