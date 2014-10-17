@@ -6,7 +6,7 @@ public class ScreenChangeEvent extends GwtEvent<ScreenChangeEventHandler> {
 
     public static Type<ScreenChangeEventHandler> TYPE = new Type<ScreenChangeEventHandler>();
 
-    public enum Screen {COUNTRY, HOUSE, PERSON}
+    public enum Screen {COUNTRY, HOUSE, PERSON, POPE}
 
     private final Screen screen;
 
@@ -30,6 +30,9 @@ public class ScreenChangeEvent extends GwtEvent<ScreenChangeEventHandler> {
                 break;
             case PERSON:
                 screenChangeEventHandler.showPerson(this);
+                break;
+            case POPE:
+                screenChangeEventHandler.showPope(this);
                 break;
         }
     }

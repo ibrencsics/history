@@ -22,7 +22,7 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     @UiField
     Button person;
     @UiField
-    Button ruler;
+    Button pope;
     @UiField
     FlowPanel workspace;
 
@@ -48,6 +48,13 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     public void showPersons(ClickEvent event) {
         if (presenter != null) {
             presenter.onShowPersonsClicked();
+        }
+    }
+
+    @UiHandler("pope")
+    public void showPope(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onShowPopesClicked();
         }
     }
 

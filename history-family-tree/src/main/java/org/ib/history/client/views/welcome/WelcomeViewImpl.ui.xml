@@ -30,7 +30,7 @@
                 <g:Button text="Country" ui:field="country"/>
                 <g:Button text="House" ui:field="house"/>
                 <g:Button text="Person" ui:field="person"/>
-                <g:Button text="Ruler" ui:field="ruler"/>
+                <g:Button text="Pope" ui:field="pope"/>
             </g:VerticalPanel>
         </g:west>
         <g:center>

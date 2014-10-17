@@ -7,6 +7,7 @@ import org.ib.history.client.presenters.*;
 import org.ib.history.client.views.country.CountryView;
 import org.ib.history.client.views.house.HouseView;
 import org.ib.history.client.views.person.PersonView;
+import org.ib.history.client.views.pope.PopeView;
 import org.ib.history.client.views.welcome.WelcomeView;
 
 @GinModules(FamilyTreeGinModule.class)
@@ -23,4 +24,6 @@ public interface FamilyTreeAppGinjector extends Ginjector {
     HousePresenter getHousePresenter();
     PersonView getPersonView();
     PersonPresenter getPersonPresenter();
+    PopeView getPopeView();
+    PopePresenter getPopePresenter();
 }
