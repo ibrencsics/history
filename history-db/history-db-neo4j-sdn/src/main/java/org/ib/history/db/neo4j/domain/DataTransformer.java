@@ -118,6 +118,10 @@ public class DataTransformer {
             personDataBuilder.rules(rulesDataBuilder.build());
         }
 
+        if (person.getPope()!=null) {
+            personDataBuilder.pope(new PopeData.Builder().id(person.getPope().getId()).build());
+        }
+
         for (BaseEntityWithTranslation.Translation<Person> locale : person.getLocales()) {
             personDataBuilder.locale(locale.getLang(), transform(locale.getTranslation()));
         }
@@ -161,6 +165,10 @@ public class DataTransformer {
             Rules rules = new Rules(rulesData.getId(), ruler, country, rulesData.getTitle(), rulesData.getNumber(),
                     Neo4jDateFormat.serialize(rulesData.getFrom()), Neo4jDateFormat.serialize(rulesData.getTo()));
             person.addRule(rules);
+        }
+
+        if (personData.getPope()!=null) {
+            person.setPope(new Pope(personData.getPope().getId()));
         }
 
         for (String locale : personData.getLocales().keySet()) {

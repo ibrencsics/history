@@ -20,4 +20,8 @@ public interface PersonPresenter extends CrudPresenter<PersonData> {
 
     void setCountrySuggestions(String pattern, AsyncCallback<List<CountryData>> callback);
     void getCountriesByIds(List<CountryData> countryIdOnly, AsyncCallback<List<CountryData>> callback);
+
+    void setPopeSuggestions(String pattern, AsyncCallback<List<PopeData>> callback);
+    void getPopeByIds(PopeData popeIdOnly, AsyncCallback<PopeData> callback);
+    void setPope(PersonData person, PopeData pope, AsyncCallback<Void> callback);
 }

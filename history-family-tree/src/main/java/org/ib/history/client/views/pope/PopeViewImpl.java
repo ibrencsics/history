@@ -15,11 +15,6 @@ public class PopeViewImpl extends BaseCrudViewImpl<PopeData> implements PopeView
 
     @Override
     protected BaseEditor<PopeData> getItemEditor() {
-        return new DefaultEditor<PopeData>() {
-            @Override
-            protected PopeData getEmptyItem() {
-                return new PopeData.Builder().name("").build();
-            }
-        };
+        return new PopeEditor();
     }
 }

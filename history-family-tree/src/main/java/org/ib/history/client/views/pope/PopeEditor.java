@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Widget;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
 import org.ib.history.client.views.base.Editor;
+import org.ib.history.commons.data.GwtDateFormat;
 import org.ib.history.commons.data.PopeData;
 
 import java.util.ArrayList;
@@ -36,6 +37,14 @@ public class PopeEditor extends BaseEditor<PopeData> {
             tbNumber.setText(selectedItem.getNumber() + "");
         widgets.add(tbNumber);
 
+        TextBox tbFrom = new TextBox();
+        tbFrom.setText(GwtDateFormat.convert(selectedItem.getFrom()));
+        widgets.add(tbFrom);
+
+        TextBox tbTo = new TextBox();
+        tbTo.setText(GwtDateFormat.convert(selectedItem.getTo()));
+        widgets.add(tbTo);
+
         return widgets;
     }
 
@@ -53,7 +62,15 @@ public class PopeEditor extends BaseEditor<PopeData> {
 
     @Override
     protected void updateDefaultLocale(List<Widget> widgets) {
+        TextBox tbNumber = (TextBox) widgets.get(0);
+        if (tbNumber.getText() != null && !tbNumber.getText().equals(""))
+            selectedItem.setNumber(Integer.parseInt(tbNumber.getText()));
 
+        TextBox tbFrom = (TextBox) widgets.get(1);
+        selectedItem.setFrom(GwtDateFormat.convert(tbFrom.getText()));
+
+        TextBox tbTo = (TextBox) widgets.get(2);
+        selectedItem.setTo(GwtDateFormat.convert(tbTo.getText()));
     }
 
     @Override

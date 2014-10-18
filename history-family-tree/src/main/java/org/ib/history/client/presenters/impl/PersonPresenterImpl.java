@@ -248,4 +248,49 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
             }
         });
     }
+
+    @Override
+    public void setPopeSuggestions(String pattern, final org.ib.history.client.utils.AsyncCallback<List<PopeData>> callback) {
+        backendService.getPopesByPattern(pattern, new AsyncCallback<List<PopeData>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(List<PopeData> popeDatas) {
+                callback.onSuccess(popeDatas);
+            }
+        });
+    }
+
+    @Override
+    public void getPopeByIds(PopeData popeIdOnly, final org.ib.history.client.utils.AsyncCallback<PopeData> callback) {
+        backendService.getPopeById(popeIdOnly, new AsyncCallback<PopeData>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(PopeData popeData) {
+                callback.onSuccess(popeData);
+            }
+        });
+    }
+
+    @Override
+    public void setPope(PersonData person, PopeData pope, final org.ib.history.client.utils.AsyncCallback<Void> callback) {
+        backendService.setPope(person, pope, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                callback.onFailure(throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onSuccess(aVoid);
+            }
+        });
+    }
 }

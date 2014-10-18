@@ -22,6 +22,10 @@ public class Pope extends BaseEntityWithTranslation<Pope> {
     public Pope() {
     }
 
+    public Pope(Long id) {
+        setId(id);
+    }
+
     public Pope(Long id, String name) {
         setId(id);
         this.name = name;
