@@ -6,6 +6,8 @@ import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
 import org.ib.history.client.views.base.CustomEditor;
 import org.ib.history.client.views.base.Editor;
+import org.ib.history.client.widget.FlexDateComponent;
+import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.GwtDateFormat;
 
@@ -44,13 +46,17 @@ public class PersonEditor extends BaseEditor<PersonData> {
         tbGender.setText(selectedItem.getGender());
         widgets.add(tbGender);
 
-        TextBox tbDateOfBirth = new TextBox();
-        tbDateOfBirth.setText( GwtDateFormat.convert(selectedItem.getDateOfBirth()) );
-        widgets.add(tbDateOfBirth);
+        FlexDateComponent fdDateOfBirth = new FlexDateComponent(selectedItem.getDateOfBirth());
+        widgets.add(fdDateOfBirth);
+//        TextBox tbDateOfBirth = new TextBox();
+//        tbDateOfBirth.setText( GwtDateFormat.convert(selectedItem.getDateOfBirth()) );
+//        widgets.add(tbDateOfBirth);
 
-        TextBox tbDateOfDeath = new TextBox();
-        tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
-        widgets.add(tbDateOfDeath);
+        FlexDateComponent fdDateOfDeath = new FlexDateComponent(selectedItem.getDateOfDeath());
+        widgets.add(fdDateOfDeath);
+//        TextBox tbDateOfDeath = new TextBox();
+//        tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
+//        widgets.add(tbDateOfDeath);
 
 //            RpcSuggestOracle suggestOracle = new RpcSuggestOracle<HouseData>() {
 //                @Override
@@ -118,11 +124,17 @@ public class PersonEditor extends BaseEditor<PersonData> {
         TextBox tbGender = (TextBox) widgets.get(1);
         selectedItem.setGender(tbGender.getText());
 
-        TextBox tbDateOfBirth = (TextBox) widgets.get(2);
-        selectedItem.setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
+        FlexDateComponent fdDateOfBirth = (FlexDateComponent) widgets.get(2);
+        selectedItem.setDateOfBirth(fdDateOfBirth.getValue());
 
-        TextBox tbDateOfDeath = (TextBox) widgets.get(3);
-        selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
+//        TextBox tbDateOfBirth = (TextBox) widgets.get(2);
+//        selectedItem.setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
+
+        FlexDateComponent fdDateOfDeath = (FlexDateComponent) widgets.get(3);
+        selectedItem.setDateOfDeath(fdDateOfDeath.getValue());
+
+//        TextBox tbDateOfDeath = (TextBox) widgets.get(3);
+//        selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
 
 //        SuggestBox sbHouse = (SuggestBox) widgets.get(4);
 //        GWT.log("house selected: " + ((RpcSuggestOracle<HouseData>) sbHouse.getSuggestOracle()).getSelected().toString());

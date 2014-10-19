@@ -1,7 +1,5 @@
 package org.ib.history.commons.data;
 
-import org.ib.history.commons.data.FlexibleDate;
-
 public class GwtDateFormat {
 
     public static String convert(FlexibleDate flexDate) {
@@ -12,6 +10,7 @@ public class GwtDateFormat {
         sb.append(flexDate.getYear());
         if (flexDate.isThereMonth()) sb.append("-" + flexDate.getMonth());
         if (flexDate.isThereDay()) sb.append("-" + flexDate.getDay());
+        if (flexDate.isCirca()) sb.append(" ca");
         return sb.toString();
     }
 
@@ -19,6 +18,11 @@ public class GwtDateFormat {
         FlexibleDate.Builder flexDateBuilder = new FlexibleDate.Builder();
 
         if (strDate==null || strDate.equals("")) return null;
+
+        if (strDate.startsWith("ca")) {
+            flexDateBuilder.circa();
+            strDate = strDate.substring(3);
+        }
 
         String[] tokens = strDate.split("-");
         flexDateBuilder.year(Integer.valueOf(tokens[0]));

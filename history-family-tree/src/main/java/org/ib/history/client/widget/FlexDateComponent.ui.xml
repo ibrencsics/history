@@ -1,0 +1,30 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+    <ui:style>
+        .component {
+        spacing: 10px;
+        }
+
+        .four {
+        width: 40px;
+        }
+        .two {
+        width: 20px;
+        }
+
+    </ui:style>
+
+    <g:HorizontalPanel styleName="{style.component}">
+
+        <g:CheckBox text="Ca" ui:field="cbCirca"/>
+        <g:CheckBox text="Ad" ui:field="cbAd"/>
+
+        <g:TextBox ui:field="tbYear" styleName="{style.four}"/>
+        <g:TextBox ui:field="tbMonth" styleName="{style.two}"/>
+        <g:TextBox ui:field="tbDay" styleName="{style.two}"/>
+
+    </g:HorizontalPanel>
+
+</ui:UiBinder>

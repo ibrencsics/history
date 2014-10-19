@@ -46,6 +46,10 @@ public class Neo4jDateFormat {
                 flexDate.setDay(day);
             }
 
+            if (stringFormat.endsWith("ca")) {
+                flexDate.setCirca(true);
+            }
+
             flexDate.setValue(dateWrapperToString(flexDate));
         } else {
             throw new IllegalArgumentException("date format unknown");
@@ -65,6 +69,11 @@ public class Neo4jDateFormat {
         sb.append(String.format("%04d", flexDate.getYear()));
         sb.append(flexDate.isThereMonth() ? String.format("%02d", flexDate.getMonth()) : "00");
         sb.append(flexDate.isThereDay() ? String.format("%02d", flexDate.getDay()) : "00");
+
+        if (flexDate.isCirca()) {
+            sb.append(" ca");
+        }
+
         return sb.toString();
     }
 
@@ -74,6 +83,9 @@ public class Neo4jDateFormat {
         sb.append(flexDate.getYear());
         if (flexDate.isThereMonth()) sb.append("-" + String.format("%02d", flexDate.getMonth()));
         if (flexDate.isThereDay()) sb.append("-" + String.format("%02d", flexDate.getDay()));
+        if (flexDate.isCirca()) {
+            sb.append(" ca");
+        }
         return sb.toString();
     }
 }

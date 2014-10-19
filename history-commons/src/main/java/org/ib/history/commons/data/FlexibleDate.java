@@ -7,6 +7,7 @@ public class FlexibleDate implements IsSerializable {
     private boolean isThereDay = true;
     private boolean isThereMonth = true;
     private boolean isAD = true;
+    private boolean isCirca = false;
     private int day, month, year;
     private String value;
 
@@ -34,6 +35,9 @@ public class FlexibleDate implements IsSerializable {
         return isAD;
     }
 
+    public boolean isCirca() {
+        return isCirca;
+    }
 
     public void setThereDay(boolean thereDay) {
         isThereDay = thereDay;
@@ -58,6 +62,11 @@ public class FlexibleDate implements IsSerializable {
     public void setAD(boolean AD) {
         isAD = AD;
     }
+
+    public void setCirca(boolean isCirca) {
+        this.isCirca = isCirca;
+    }
+
 
     public String getValue() {
         return value;
@@ -94,6 +103,11 @@ public class FlexibleDate implements IsSerializable {
 
         public FlexibleDate.Builder noDay() {
             flexDate.setThereDay(false);
+            return this;
+        }
+
+        public Builder circa() {
+            flexDate.setCirca(true);
             return this;
         }
 
