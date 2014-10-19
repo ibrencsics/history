@@ -22,7 +22,7 @@ public class Neo4jDateFormat {
         Integer month = Integer.parseInt(stringFormat.substring(4,6));
         Integer day = Integer.parseInt(stringFormat.substring(6,8));
 
-        if (stringFormat.length()==8) {
+        if (stringFormat.length()==8 || stringFormat.length()==11) {
             if (year==0 && month==0 && day==0) {
                 flexDate.setYear(1);
                 flexDate.setMonth(0);

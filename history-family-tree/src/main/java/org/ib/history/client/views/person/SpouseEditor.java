@@ -9,6 +9,7 @@ import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.views.base.CustomEditor;
+import org.ib.history.client.widget.FlexDateComponent;
 import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.SpouseData;
@@ -109,15 +110,11 @@ public class SpouseEditor extends CustomEditor<PersonData> {
         suggestOracle.setSelected(spouse.getPerson2());
         row.add(sbSpouse);
 
-        TextBox tbFrom = new TextBox();
-        tbFrom.setWidth("100px");
-        tbFrom.setText(GwtDateFormat.convert(spouse.getFrom()));
-        row.add(tbFrom);
+        FlexDateComponent fdFrom = new FlexDateComponent(spouse.getFrom());
+        row.add(fdFrom);
 
-        TextBox tbTo = new TextBox();
-        tbTo.setWidth("100px");
-        tbTo.setText(GwtDateFormat.convert(spouse.getTo()));
-        row.add(tbTo);
+        FlexDateComponent fdTo = new FlexDateComponent(spouse.getTo());
+        row.add(fdTo);
 
         flexTableWrapper.addWidgetRowWithDelete(row);
     }
@@ -158,11 +155,11 @@ public class SpouseEditor extends CustomEditor<PersonData> {
             PersonData otherPerson = ((RpcSuggestOracle<PersonData>) sbSpouse.getSuggestOracle()).getSelected();
             spouseDataBuilder.person2(otherPerson);
 
-            TextBox tbFrom = (TextBox) row.get(1);
-            spouseDataBuilder.from(GwtDateFormat.convert(tbFrom.getText()));
+            FlexDateComponent fdFrom = (FlexDateComponent) row.get(1);
+            spouseDataBuilder.from(fdFrom.getValue());
 
-            TextBox tbTo = (TextBox) row.get(2);
-            spouseDataBuilder.to(GwtDateFormat.convert(tbTo.getText()));
+            FlexDateComponent fdTo = (FlexDateComponent) row.get(2);
+            spouseDataBuilder.to(fdTo.getValue());
 
             spouses.add(spouseDataBuilder.build());
         }

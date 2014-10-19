@@ -9,6 +9,7 @@ import org.ib.history.client.presenters.PersonPresenter;
 import org.ib.history.client.utils.AsyncCallback;
 import org.ib.history.client.utils.RpcSuggestOracle;
 import org.ib.history.client.views.base.CustomEditor;
+import org.ib.history.client.widget.FlexDateComponent;
 import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
@@ -105,15 +106,11 @@ public class RuleEditor extends CustomEditor<PersonData> {
             tbNumber.setText(rules.getNumber() + "");
         row.add(tbNumber);
 
-        TextBox tbFrom = new TextBox();
-        tbFrom.setWidth("100px");
-        tbFrom.setText(GwtDateFormat.convert(rules.getFrom()));
-        row.add(tbFrom);
+        FlexDateComponent fdFrom = new FlexDateComponent(rules.getFrom());
+        row.add(fdFrom);
 
-        TextBox tbTo = new TextBox();
-        tbTo.setWidth("100px");
-        tbTo.setText(GwtDateFormat.convert(rules.getTo()));
-        row.add(tbTo);
+        FlexDateComponent fdTo = new FlexDateComponent(rules.getTo());
+        row.add(fdTo);
 
         flexTableWrapper.addWidgetRowWithDelete(row);
     }
@@ -154,11 +151,11 @@ public class RuleEditor extends CustomEditor<PersonData> {
             if (tbNumber.getText() != null && !tbNumber.getText().equals(""))
                 rulesDataBuilder.number(Integer.valueOf(tbNumber.getText()));
 
-            TextBox tbFrom = (TextBox) row.get(3);
-            rulesDataBuilder.from(GwtDateFormat.convert(tbFrom.getText()));
+            FlexDateComponent fdFrom = (FlexDateComponent) row.get(3);
+            rulesDataBuilder.from(fdFrom.getValue());
 
-            TextBox tbTo = (TextBox) row.get(4);
-            rulesDataBuilder.to(GwtDateFormat.convert(tbTo.getText()));
+            FlexDateComponent fdTo = (FlexDateComponent) row.get(4);
+            rulesDataBuilder.to(fdTo.getValue());
 
             rules.add(rulesDataBuilder.build());
         }

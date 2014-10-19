@@ -39,45 +39,20 @@ public class PersonEditor extends BaseEditor<PersonData> {
         List<Widget> widgets = new ArrayList<Widget>();
 
         TextBox tbAlias = new TextBox();
+        tbAlias.setWidth("300px");
         tbAlias.setText(selectedItem.getAlias());
         widgets.add(tbAlias);
 
         TextBox tbGender = new TextBox();
+        tbGender.setWidth("50px");
         tbGender.setText(selectedItem.getGender());
         widgets.add(tbGender);
 
         FlexDateComponent fdDateOfBirth = new FlexDateComponent(selectedItem.getDateOfBirth());
         widgets.add(fdDateOfBirth);
-//        TextBox tbDateOfBirth = new TextBox();
-//        tbDateOfBirth.setText( GwtDateFormat.convert(selectedItem.getDateOfBirth()) );
-//        widgets.add(tbDateOfBirth);
 
         FlexDateComponent fdDateOfDeath = new FlexDateComponent(selectedItem.getDateOfDeath());
         widgets.add(fdDateOfDeath);
-//        TextBox tbDateOfDeath = new TextBox();
-//        tbDateOfDeath.setText( GwtDateFormat.convert(selectedItem.getDateOfDeath()) );
-//        widgets.add(tbDateOfDeath);
-
-//            RpcSuggestOracle suggestOracle = new RpcSuggestOracle<HouseData>() {
-//                @Override
-//                public void setSuggestions(String pattern, AsyncCallback<List<HouseData>> callback) {
-//                    ((PersonPresenter)presenter).setHouseSuggestions(pattern, callback);
-//                }
-//
-//                @Override
-//                public String displayString(HouseData selected) {
-//                    return selected.getName();
-//                }
-//
-//                @Override
-//                public String replacementString(HouseData selected) {
-//                    return selected.getName();
-//                }
-//            };
-//            SuggestBox sbHouse = new SuggestBox(suggestOracle);
-//            suggestOracle.setSuggestBox(sbHouse);
-//            suggestOracle.setSelected(selectedItem.getHouse());
-//            widgets.add(sbHouse);
 
         return widgets;
     }
@@ -89,6 +64,7 @@ public class PersonEditor extends BaseEditor<PersonData> {
         PersonData selectedItemLocale = selectedItem.getLocale(locale.name());
 
         TextBox tbAlias = new TextBox();
+        tbAlias.setWidth("300px");
         tbAlias.setText(selectedItemLocale!=null ? selectedItemLocale.getAlias() : "");
         widgets.add(tbAlias);
 
@@ -127,18 +103,8 @@ public class PersonEditor extends BaseEditor<PersonData> {
         FlexDateComponent fdDateOfBirth = (FlexDateComponent) widgets.get(2);
         selectedItem.setDateOfBirth(fdDateOfBirth.getValue());
 
-//        TextBox tbDateOfBirth = (TextBox) widgets.get(2);
-//        selectedItem.setDateOfBirth( GwtDateFormat.convert(tbDateOfBirth.getText()) );
-
         FlexDateComponent fdDateOfDeath = (FlexDateComponent) widgets.get(3);
         selectedItem.setDateOfDeath(fdDateOfDeath.getValue());
-
-//        TextBox tbDateOfDeath = (TextBox) widgets.get(3);
-//        selectedItem.setDateOfDeath(GwtDateFormat.convert(tbDateOfDeath.getText()));
-
-//        SuggestBox sbHouse = (SuggestBox) widgets.get(4);
-//        GWT.log("house selected: " + ((RpcSuggestOracle<HouseData>) sbHouse.getSuggestOracle()).getSelected().toString());
-//            selectedItem.setHouse(((RpcSuggestOracle<HouseData>)sbHouse.getSuggestOracle()).getSelected());
     }
 
     @Override

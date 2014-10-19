@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Widget;
 import org.ib.history.client.utils.SupportedLocale;
 import org.ib.history.client.views.base.BaseEditor;
 import org.ib.history.client.views.base.Editor;
+import org.ib.history.client.widget.FlexDateComponent;
 import org.ib.history.commons.data.GwtDateFormat;
 import org.ib.history.commons.data.PopeData;
 
@@ -37,13 +38,11 @@ public class PopeEditor extends BaseEditor<PopeData> {
             tbNumber.setText(selectedItem.getNumber() + "");
         widgets.add(tbNumber);
 
-        TextBox tbFrom = new TextBox();
-        tbFrom.setText(GwtDateFormat.convert(selectedItem.getFrom()));
-        widgets.add(tbFrom);
+        FlexDateComponent fdFrom = new FlexDateComponent(selectedItem.getFrom());
+        widgets.add(fdFrom);
 
-        TextBox tbTo = new TextBox();
-        tbTo.setText(GwtDateFormat.convert(selectedItem.getTo()));
-        widgets.add(tbTo);
+        FlexDateComponent fdTo = new FlexDateComponent(selectedItem.getTo());
+        widgets.add(fdTo);
 
         return widgets;
     }
@@ -66,11 +65,11 @@ public class PopeEditor extends BaseEditor<PopeData> {
         if (tbNumber.getText() != null && !tbNumber.getText().equals(""))
             selectedItem.setNumber(Integer.parseInt(tbNumber.getText()));
 
-        TextBox tbFrom = (TextBox) widgets.get(1);
-        selectedItem.setFrom(GwtDateFormat.convert(tbFrom.getText()));
+        FlexDateComponent fdFrom = (FlexDateComponent) widgets.get(1);
+        selectedItem.setFrom(fdFrom.getValue());
 
-        TextBox tbTo = (TextBox) widgets.get(2);
-        selectedItem.setTo(GwtDateFormat.convert(tbTo.getText()));
+        FlexDateComponent fdTo = (FlexDateComponent) widgets.get(2);
+        selectedItem.setTo(fdTo.getValue());
     }
 
     @Override
