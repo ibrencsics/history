@@ -13,8 +13,9 @@
         }
         .list {
             background-color: #F00;
-            height: 500px;
+            height: 300px;
             width: 100%;
+            border: 1px solid black;
         }
     </ui:style>
 
@@ -24,9 +25,9 @@
             <w:BaseEditor text="Edit Item" ui:field="itemEditor"/>
         </g:VerticalPanel>
 
-        <g:AbsolutePanel addStyleNames="{style.list}">
+        <g:ScrollPanel addStyleNames="{style.list}">
             <c:CellTable ui:field="itemList"/>
-        </g:AbsolutePanel>
+        </g:ScrollPanel>
 
         <c:SimplePager ui:field="pager" />
 

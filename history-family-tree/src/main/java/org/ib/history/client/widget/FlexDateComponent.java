@@ -29,21 +29,19 @@ public class FlexDateComponent extends Composite {
     @UiField
     TextBox tbDay;
 
-    private final FlexibleDate flexDate;
 
     public FlexDateComponent(FlexibleDate flexDate) {
-        this.flexDate = flexDate;
-
         initWidget(uiBinder.createAndBindUi(this));
 
         tbYear.setMaxLength(4);
         tbMonth.setMaxLength(2);
         tbDay.setMaxLength(2);
 
-        initValues();
+        if (flexDate!=null)
+            initValues(flexDate);
     }
 
-    private void initValues() {
+    private void initValues(FlexibleDate flexDate) {
         if (flexDate.isCirca()) cbCirca.setValue(true);
         if (flexDate.isAD()) cbAd.setValue(true);
 
