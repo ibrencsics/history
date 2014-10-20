@@ -120,6 +120,7 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
         flexTable.removeAllRows();
         selectedItem = null;
         customPanel.setVisible(false);
+        this.setVisible(false);
     }
 
 

@@ -63,6 +63,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     @Override
     public void setSelectedItem(T selectedItem) {
         itemEditor.setSelected(selectedItem);
+        itemEditor.setVisible(true);
     }
 
     @Override

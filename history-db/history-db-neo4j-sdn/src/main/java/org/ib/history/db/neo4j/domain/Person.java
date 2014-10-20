@@ -29,6 +29,7 @@ public class Person extends BaseEntityWithTranslation<Person> {
     @RelatedTo(type = "IN_HOUSE", direction = Direction.OUTGOING)
     private Set<House> houses = new HashSet<>();
 
+    @Fetch
     @RelatedToVia(type = "RULES", direction = Direction.OUTGOING)
     private Set<Rules> rules = new HashSet<>();
 

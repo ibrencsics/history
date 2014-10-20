@@ -113,7 +113,7 @@ public class DataTransformer {
                     .to(Neo4jDateFormat.parse(rules.getToDate()));
 
             rulesDataBuilder.person(new PersonData.Builder().id(person.getId()).build());
-            rulesDataBuilder.country(new CountryData.Builder().id(rules.getCountry().getId()).build());
+            rulesDataBuilder.country(new CountryData.Builder().id(rules.getCountry().getId()).name(rules.getCountry().getName()).build());
 
             personDataBuilder.rules(rulesDataBuilder.build());
         }

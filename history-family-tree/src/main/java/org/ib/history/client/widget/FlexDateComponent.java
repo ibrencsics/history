@@ -57,6 +57,10 @@ public class FlexDateComponent extends Composite {
     }
 
     public FlexibleDate getValue() {
+        if (tbYear.getText().equals("")) {
+            return null;
+        }
+
         FlexibleDate flexDate = new FlexibleDate();
 
         flexDate.setCirca(cbCirca.getValue() ? true : false);
