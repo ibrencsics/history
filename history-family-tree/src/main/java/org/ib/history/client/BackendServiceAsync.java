@@ -21,6 +21,7 @@ public interface BackendServiceAsync {
     void deleteHouse(HouseData house, AsyncCallback<Void> callback);
 
     void getPersons(AsyncCallback<List<PersonData>> persons);
+    void getPersons(int start, int length, AsyncCallback<List<PersonData>> persons);
     void getPersonsByPattern(String pattern, AsyncCallback<List<PersonData>> callback);
     void getPersonsByIds(List<PersonData> personsOnlyIds, AsyncCallback<List<PersonData>> callback);
     void addPerson(PersonData person, AsyncCallback<Void> callback);

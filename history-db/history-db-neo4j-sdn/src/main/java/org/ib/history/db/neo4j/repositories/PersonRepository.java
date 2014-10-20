@@ -12,8 +12,11 @@ import java.util.List;
 
 public interface PersonRepository extends GraphRepository<Person>, PersonRepositoryCustom {
 
-    @Query("match (n:Person{defaultLocale:true}) return n")
+    @Query("match (n:Person{defaultLocale:true}) return n order by n.name")
     List<Person> getPersons();
+
+    @Query("match (n:Person{defaultLocale:true}) return n order by n.name skip {0} limit {1}")
+    List<Person> getPersons(int start, int length);
 
     @Query("match (p:Person{defaultLocale:true, name:{0}}) return p")
     List<Person> getPersonsByName(String name);

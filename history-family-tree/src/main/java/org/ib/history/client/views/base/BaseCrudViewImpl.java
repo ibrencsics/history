@@ -36,6 +36,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
         pager = new SimplePager();
         pager.setDisplay(itemList);
+        pager.setPageSize(10);
 
         itemEditor = getItemEditor();
 
@@ -66,7 +67,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
     @Override
     public void refreshGrid() {
-        itemList.setVisibleRangeAndClearData(new Range(0, 25), true);
+        itemList.setVisibleRangeAndClearData(new Range(0, 10), true);
         itemList.redraw();
         itemEditor.hide();
     }

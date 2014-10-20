@@ -22,9 +22,17 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonData> getPersons() {
+        return getPersons(personRepo.getPersons());
+    }
+
+    @Override
+    public List<PersonData> getPersons(int start, int length) {
+        return getPersons(personRepo.getPersons(start, length));
+    }
+
+    private List<PersonData> getPersons(List<Person> personList) {
         List<PersonData> personDataList = new ArrayList<>();
 
-        List<Person> personList = personRepo.getPersons();
         for (Person person : personList) {
             personDataList.add(DataTransformer.transform(person));
         }

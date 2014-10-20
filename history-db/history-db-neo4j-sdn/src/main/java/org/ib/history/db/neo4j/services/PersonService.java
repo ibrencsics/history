@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface PersonService {
     List<PersonData> getPersons();
+    List<PersonData> getPersons(int start, int length);
     List<PersonData> getPersonsByName(String name);
     PersonData getPersonById(Long id);
     List<PersonData> getPersonsByPattern(String pattern);

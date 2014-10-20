@@ -46,8 +46,9 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
     @Override
     protected void onRangeChanged(HasData<PersonData> display) {
         final Range range = display.getVisibleRange();
+        GWT.log("range: " + range.getStart() + " : " + range.getLength());
 
-        backendService.getPersons(/*range.getStart(), range.getLength(), */new AsyncCallback<List<PersonData>>() {
+        backendService.getPersons(range.getStart(), range.getLength(), new AsyncCallback<List<PersonData>>() {
             @Override
             public void onFailure(Throwable throwable) {
                 Window.alert("Error " + throwable.getMessage());
@@ -55,9 +56,9 @@ public class PersonPresenterImpl extends AsyncDataProvider<PersonData> implement
 
             @Override
             public void onSuccess(List<PersonData> personDataList) {
-                for (PersonData personData : personDataList) {
-                    GWT.log(personData.toString());
-                }
+//                for (PersonData personData : personDataList) {
+//                    GWT.log(personData.toString());
+//                }
                 updateRowData(range.getStart(), personDataList);
             }
         });
