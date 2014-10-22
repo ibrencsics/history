@@ -5,6 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import org.ib.history.client.BackendServiceAsync;
 import org.ib.history.client.presenters.PopePresenter;
@@ -43,8 +44,10 @@ public class PopePresenterImpl extends AsyncDataProvider<PopeData> implements Po
     }
 
     @Override
-    protected void onRangeChanged(HasData<PopeData> popeDataHasData) {
-        backendService.getPopes(new AsyncCallback<List<PopeData>>() {
+    protected void onRangeChanged(HasData<PopeData> display) {
+        final Range range = display.getVisibleRange();
+
+        backendService.getPopes(range.getStart(), range.getLength(), new AsyncCallback<List<PopeData>>() {
             @Override
             public void onFailure(Throwable throwable) {
                 Window.alert("Error " + throwable.getMessage());
@@ -52,7 +55,7 @@ public class PopePresenterImpl extends AsyncDataProvider<PopeData> implements Po
 
             @Override
             public void onSuccess(List<PopeData> popeDatas) {
-                updateRowData(0, popeDatas);
+                updateRowData(range.getStart(), popeDatas);
             }
         });
     }

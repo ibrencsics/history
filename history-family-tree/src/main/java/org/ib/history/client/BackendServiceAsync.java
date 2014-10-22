@@ -8,13 +8,15 @@ import java.util.Set;
 
 public interface BackendServiceAsync {
 
-    void getCountries(String locale, AsyncCallback<List<CountryData>> countries);
+    void getCountries(AsyncCallback<List<CountryData>> countries);
+    void getCountries(int start, int length, AsyncCallback<List<CountryData>> countries);
     void getCountriesByPattern(String pattern, AsyncCallback<List<CountryData>> callback);
     void getCountriesByIds(List<CountryData> countriesOnlyIds, AsyncCallback<List<CountryData>> callback);
     void addCountry(CountryData country, AsyncCallback<Void> callback);
     void deleteCountry(CountryData country, AsyncCallback<Void> callback);
 
     void getHouses(AsyncCallback<List<HouseData>> callback);
+    void getHouses(int start, int length, AsyncCallback<List<HouseData>> callback);
     void getHousesByPattern(String pattern, AsyncCallback<List<HouseData>> callback);
     void getHousesByIds(List<HouseData> housesOnlyIds, AsyncCallback<List<HouseData>> callback);
     void addHouse(HouseData house, AsyncCallback<Void> callback);
@@ -34,6 +36,7 @@ public interface BackendServiceAsync {
     void setPope(PersonData person, PopeData pope, AsyncCallback<Void> callback);
 
     void getPopes(AsyncCallback<List<PopeData>> callback);
+    void getPopes(int start, int length, AsyncCallback<List<PopeData>> callback);
     void getPopesByPattern(String pattern, AsyncCallback<List<PopeData>> callback);
     void getPopeById(PopeData popeOnlyId, AsyncCallback<PopeData> callback);
     void addPope(PopeData popeData, AsyncCallback<Void> callback);

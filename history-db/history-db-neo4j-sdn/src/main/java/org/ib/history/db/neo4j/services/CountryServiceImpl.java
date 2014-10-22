@@ -23,9 +23,17 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<CountryData> getCountries() {
+        return getCountries(countryRepo.getCountries());
+    }
+
+    @Override
+    public List<CountryData> getCountries(int start, int length) {
+        return getCountries(countryRepo.getCountries(start, length));
+    }
+
+    private List<CountryData> getCountries(List<Country> countryList) {
         List<CountryData> countryDataList = new ArrayList<>();
 
-        List<Country> countryList = countryRepo.getCountries();
         for (Country country : countryList) {
             countryDataList.add(DataTransformer.transform(country));
         }

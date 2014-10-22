@@ -28,6 +28,9 @@ public interface CountryRepository extends GraphRepository<Country> {
     @Query("match (n:Country{defaultLocale:true}) return n")
     List<Country> getCountries();
 
+    @Query("match (n:Country{defaultLocale:true}) return n order by n.name skip {0} limit {1}")
+    List<Country> getCountries(int start, int length);
+
     @Query("match (n:Country{defaultLocale:true}) where n.name=~{0}  return n")
     List<Country> getCountriesByPattern(String pattern);
 }

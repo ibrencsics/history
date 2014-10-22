@@ -31,8 +31,13 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
 
 
     @Override
-    public List<CountryData> getCountries(String locale) {
+    public List<CountryData> getCountries() {
         return countryService.getCountries();
+    }
+
+    @Override
+    public List<CountryData> getCountries(int start, int length) {
+        return countryService.getCountries(start, length);
     }
 
     @Override
@@ -59,6 +64,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     @Override
     public List<HouseData> getHouses() {
         return houseService.getHouses();
+    }
+
+    @Override
+    public List<HouseData> getHouses(int start, int length) {
+        return houseService.getHouses(start, length);
     }
 
     @Override
@@ -156,6 +166,11 @@ public class BackendServiceImpl extends RemoteServiceServlet implements BackendS
     @Override
     public List<PopeData> getPopes() {
         return popeService.getPopes();
+    }
+
+    @Override
+    public List<PopeData> getPopes(int start, int length) {
+        return popeService.getPopes(start, length);
     }
 
     @Override

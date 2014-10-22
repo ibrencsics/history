@@ -12,13 +12,15 @@ import java.util.Set;
 @RemoteServiceRelativePath("springGwtServices/backendService")
 public interface BackendService extends RemoteService {
 
-    List<CountryData> getCountries(String locale);
+    List<CountryData> getCountries();
+    List<CountryData> getCountries(int start, int length);
     List<CountryData> getCountriesByPattern(String pattern);
     List<CountryData> getCountriesByIds(List<CountryData> countriesOnlyIds);
     void addCountry(CountryData country);
     void deleteCountry(CountryData country);
 
     List<HouseData> getHouses();
+    List<HouseData> getHouses(int start, int length);
     List<HouseData> getHousesByPattern(String pattern);
     List<HouseData> getHousesByIds(List<HouseData> housesOnlyIds);
     void addHouse(HouseData house);
@@ -38,6 +40,7 @@ public interface BackendService extends RemoteService {
     void setPope(PersonData person, PopeData pope);
 
     List<PopeData> getPopes();
+    List<PopeData> getPopes(int start, int length);
     List<PopeData> getPopesByPattern(String pattern);
     PopeData getPopeById(PopeData popeOnlyId);
     void addPope(PopeData popeData);

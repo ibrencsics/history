@@ -47,7 +47,7 @@ public class HousePresenterImpl extends AsyncDataProvider<HouseData> implements 
     protected void onRangeChanged(HasData<HouseData> display) {
         final Range range = display.getVisibleRange();
 
-        backendService.getHouses(new AsyncCallback<List<HouseData>>() {
+        backendService.getHouses(range.getStart(), range.getLength(), new AsyncCallback<List<HouseData>>() {
             @Override
             public void onFailure(Throwable throwable) {
                 Window.alert("Error " + throwable.getMessage());
@@ -55,9 +55,6 @@ public class HousePresenterImpl extends AsyncDataProvider<HouseData> implements 
 
             @Override
             public void onSuccess(List<HouseData> houseDataList) {
-                for (HouseData houseData : houseDataList) {
-                    GWT.log(houseData.toString());
-                }
                 updateRowData(range.getStart(), houseDataList);
             }
         });

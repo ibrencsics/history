@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface PopeService {
     List<PopeData> getPopes();
+    List<PopeData> getPopes(int start, int length);
     List<PopeData> getPopesByPattern(String pattern);
     PopeData getPopeById(PopeData popeOnlyId);
     PopeData addPope(PopeData popeData);

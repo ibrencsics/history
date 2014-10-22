@@ -20,9 +20,17 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public List<HouseData> getHouses() {
+        return getHouses(houseRepo.getHouses());
+    }
+
+    @Override
+    public List<HouseData> getHouses(int start, int length) {
+        return getHouses(houseRepo.getHouses(start, length));
+    }
+
+    private List<HouseData> getHouses(List<House> houseList) {
         List<HouseData> houseDataList = new ArrayList<>();
 
-        List<House> houseList = houseRepo.getHouses();
         for (House house : houseList) {
             houseDataList.add(DataTransformer.transform(house));
         }

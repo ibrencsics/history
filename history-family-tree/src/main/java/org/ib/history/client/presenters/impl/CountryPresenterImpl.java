@@ -47,7 +47,7 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
     protected void onRangeChanged(HasData<CountryData> display) {
         final Range range = display.getVisibleRange();
 
-        backendService.getCountries("EN", /*range.getStart(), range.getLength(), */new AsyncCallback<List<CountryData>>() {
+        backendService.getCountries(range.getStart(), range.getLength(), new AsyncCallback<List<CountryData>>() {
             @Override
             public void onFailure(Throwable throwable) {
                 Window.alert("Error " + throwable.getMessage());
@@ -55,9 +55,6 @@ public class CountryPresenterImpl extends AsyncDataProvider<CountryData> impleme
 
             @Override
             public void onSuccess(List<CountryData> countryDataList) {
-                for (CountryData countryData : countryDataList) {
-                    GWT.log(countryData.toString());
-                }
                 updateRowData(range.getStart(), countryDataList);
             }
         });

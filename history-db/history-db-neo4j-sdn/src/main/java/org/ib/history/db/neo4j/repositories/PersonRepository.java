@@ -23,25 +23,4 @@ public interface PersonRepository extends GraphRepository<Person>, PersonReposit
 
     @Query("match (n:Person{defaultLocale:true}) where n.name=~{0}  return n")
     List<Person> getPersonsByPattern(String pattern);
-
-
-//    Person findOne(Long id);
-
-//    <P extends Person> P save(Person P);
-
-//    Person findByName(String name);
-
-
-//    @Query(" MATCH person-[rules:RULES]->country " +
-//           " RETURN person, rules, country")
-//    List<Ruler> getRulers();
-
-//    @MapResult
-//    interface Ruler {
-//        @ResultColumn("person") Person getPerson();
-//        @ResultColumn("rules")
-//        Rules getRule();
-//        @ResultColumn("country")
-//        Country getCountry();
-//    }
 }

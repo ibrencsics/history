@@ -20,9 +20,17 @@ public class PopeServiceImpl implements PopeService {
 
     @Override
     public List<PopeData> getPopes() {
+        return getPopes(popeRepo.getPopes());
+    }
+
+    @Override
+    public List<PopeData> getPopes(int start, int length) {
+        return getPopes(popeRepo.getPopes(start, length));
+    }
+
+    private List<PopeData> getPopes(List<Pope> popeList) {
         List<PopeData> popeDataList = new ArrayList<>();
 
-        List<Pope> popeList = popeRepo.getPopes();
         for (Pope pope : popeList) {
             popeDataList.add(DataTransformer.transform(pope));
         }

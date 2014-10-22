@@ -11,6 +11,9 @@ public interface PopeRepository extends GraphRepository<Pope> {
     @Query("match (n:Pope{defaultLocale:true}) return n")
     List<Pope> getPopes();
 
+    @Query("match (n:Pope{defaultLocale:true}) return n order by n.name skip {0} limit {1}")
+    List<Pope> getPopes(int start, int length);
+
     @Query("match (n:Pope{defaultLocale:true}) where n.name=~{0}  return n")
     List<Pope> getPopesByPattern(String pattern);
 }

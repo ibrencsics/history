@@ -2,13 +2,11 @@ package org.ib.history.db.neo4j.impexp;
 
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
-import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.HouseData;
-import org.ib.history.commons.data.PersonData;
-import org.ib.history.commons.data.GwtDateFormat;
+import org.ib.history.commons.data.*;
 import org.ib.history.db.neo4j.services.CountryService;
 import org.ib.history.db.neo4j.services.HouseService;
 import org.ib.history.db.neo4j.services.PersonService;
+import org.ib.history.db.neo4j.services.PopeService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -29,15 +27,15 @@ public class ExcelTool {
     Map<Long,Long> countryIdMap = new HashMap<>();
     Map<Long,Long> houseIdMap = new HashMap<>();
     Map<Long,Long> personIdMap = new HashMap<>();
-    Map<Long,Long> rulerIdMap = new HashMap<>();
+    Map<Long,Long> popeIdMap = new HashMap<>();
 
     public static void main(String[] args) {
         ExcelTool excelTool = new ExcelTool();
 //        excelTool.export();
         excelTool.createCountrySheet();
         excelTool.createHouseSheet();
+        excelTool.createPopeSheet();
         excelTool.createPersonSheet();
-        excelTool.createRulerSheet();
         excelTool.saveExcel();
     }
 
@@ -138,6 +136,46 @@ public class ExcelTool {
         }
     }
 
+    private void createPopeSheet() {
+        XSSFSheet sheet = workbook.createSheet("Pope");
+
+        int rownum = 0;
+        PopeService popeService = context.getBean(PopeService.class);
+
+        Long newPopeId = 1L;
+        for (PopeData pope : popeService.getPopes()) {
+            popeIdMap.put(pope.getId(), newPopeId);
+
+            Row row = sheet.createRow(rownum++);
+            Cell cell;
+            PopeData locale;
+            int columnnum = 0;
+
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(newPopeId++);
+
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(pope.getName());
+
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(pope.getNumber());
+
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(GwtDateFormat.convert(pope.getFrom()));
+
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(GwtDateFormat.convert(pope.getTo()));
+
+            cell = row.createCell(columnnum++);
+            locale = pope.getLocale("DE");
+            cell.setCellValue(locale != null ? locale.getName() : "");
+
+            cell = row.createCell(columnnum++);
+            locale = pope.getLocale("HU");
+            cell.setCellValue(locale!=null ? locale.getName() : "");
+        }
+    }
+
     private void createPersonSheet() {
         XSSFSheet sheet = workbook.createSheet("Person");
 
@@ -162,98 +200,124 @@ public class ExcelTool {
             cell.setCellValue(person.getName());
 
             cell = row.createCell(columnnum++);
+            cell.setCellValue(person.getAlias());
+
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(person.getGender());
+
+            cell = row.createCell(columnnum++);
             cell.setCellValue(GwtDateFormat.convert(person.getDateOfBirth()));
 
             cell = row.createCell(columnnum++);
             cell.setCellValue(GwtDateFormat.convert(person.getDateOfDeath()));
-
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(person.getHouse()!=null ? houseIdMap.get(person.getHouse().getId()) + "" : "");
 
             cell = row.createCell(columnnum++);
             locale = person.getLocale("DE");
             cell.setCellValue(locale!=null ? locale.getName() : "");
 
             cell = row.createCell(columnnum++);
+            cell.setCellValue(locale!=null ? locale.getAlias() : "");
+
+            cell = row.createCell(columnnum++);
             locale = person.getLocale("HU");
             cell.setCellValue(locale!=null ? locale.getName() : "");
 
+            cell = row.createCell(columnnum++);
+            cell.setCellValue(locale!=null ? locale.getAlias() : "");
+
+
+            StringBuilder sb;
+
             if (person.getParents()!=null) {
+                sb = new StringBuilder();
+
                 for (PersonData parent : person.getParents()) {
-                    cell = row.createCell(columnnum++);
-                    cell.setCellValue(personIdMap.get(parent.getId()));
+                    sb.append(personIdMap.get(parent.getId()));
+                    sb.append(" ");
                 }
+
+                cell = row.createCell(columnnum++);
+                cell.setCellValue(sb.toString());
+            }
+
+            if (person.getHouses()!=null) {
+                sb = new StringBuilder();
+
+                for (HouseData house : person.getHouses()) {
+                    sb.append(houseIdMap.get(house.getId()));
+                    sb.append(" ");
+                }
+
+                cell = row.createCell(columnnum++);
+                cell.setCellValue(sb.toString());
+            }
+
+            if (person.getRules()!=null) {
+                sb = new StringBuilder();
+
+                for (RulesData rules : person.getRules()) {
+                    sb.append("(");
+                    if (rules.getFrom()!=null && rules.getFrom().getYear()!=0) {
+                        sb.append("from=");
+                        sb.append(GwtDateFormat.convert(rules.getFrom()));
+                    }
+                    if (rules.getTo()!=null && rules.getTo().getYear()!=0) {
+                        sb.append(" to=");
+                        sb.append(GwtDateFormat.convert(rules.getTo()));
+                    }
+                    if (rules.getNumber()!=null) {
+                        sb.append(" number=");
+                        sb.append(rules.getNumber());
+                    }
+                    sb.append(" title=");
+                    sb.append(rules.getTitle());
+                    sb.append(" country=" + countryIdMap.get(rules.getCountry().getId()));
+                    sb.append(")");
+                }
+
+                cell = row.createCell(columnnum++);
+                cell.setCellValue(sb.toString());
+            }
+
+            if (person.getSpouses()!=null) {
+                sb = new StringBuilder();
+
+                for (SpouseData spouse : person.getSpouses()) {
+                    sb.append("(");
+
+                    if (spouse.getFrom()!=null && spouse.getFrom().getYear()!=0) {
+                        sb.append("from=");
+                        sb.append(GwtDateFormat.convert(spouse.getFrom()));
+                    }
+
+                    if (spouse.getTo()!=null && spouse.getTo().getYear()!=0) {
+                        sb.append(" to=");
+                        sb.append(GwtDateFormat.convert(spouse.getTo()));
+                    }
+
+                    sb.append(" p1=");
+                    sb.append(personIdMap.get(spouse.getPerson1().getId()));
+                    sb.append(" p2=");
+                    sb.append(personIdMap.get(spouse.getPerson2().getId()));
+
+                    sb.append(")");
+                }
+
+                cell = row.createCell(columnnum++);
+                cell.setCellValue(sb.toString());
+            }
+
+            if (person.getPope()!=null) {
+                cell = row.createCell(columnnum++);
+                cell.setCellValue(popeIdMap.get(person.getPope().getId()));
             }
         }
-    }
-
-    private void createRulerSheet() {
-//        XSSFSheet sheet = workbook.createSheet("Ruler");
-//
-//        int rownum = 0;
-//        RulerService rulerService = context.getBean(RulerService.class);
-//
-//        Long newRulerId = 1L;
-//
-//        for (RulerData rulerData : rulerService.getAllRulers()) {
-//            rulerIdMap.put(rulerData.getId(), newRulerId);
-//
-//            Row row = sheet.createRow(rownum++);
-//            Cell cell;
-//            RulerData locale;
-//            int columnnum=0;
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(newRulerId++);
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(rulerData.getName());
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(rulerData.getAlias());
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(rulerData.getTitle());
-//
-//            locale = rulerData.getLocale("DE");
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(locale!=null ? locale.getName() : "");
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(locale!=null ? locale.getAlias() : "");
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(locale!=null ? locale.getTitle() : "");
-//
-//            locale = rulerData.getLocale("HU");
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(locale!=null ? locale.getName() : "");
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(locale!=null ? locale.getAlias() : "");
-//
-//            cell = row.createCell(columnnum++);
-//            cell.setCellValue(locale!=null ? locale.getTitle() : "");
-//
-//            for (RulerData.RulesData rules : rulerData.getRules()) {
-//                cell = row.createCell(columnnum++);
-//                cell.setCellValue(GwtDateFormat.convert(rules.getFrom()));
-//
-//                cell = row.createCell(columnnum++);
-//                cell.setCellValue(GwtDateFormat.convert(rules.getTo()));
-//
-//                cell = row.createCell(columnnum++);
-//                cell.setCellValue(countryIdMap.get(rules.getCountry().getId()));
-//            }
-//        }
     }
 
     private void saveExcel() {
         try {
             //Write the workbook in file system
-            FileOutputStream out = new FileOutputStream(new File("history.xlsx"));
+            FileOutputStream out = new FileOutputStream(new File("history-0.3.0.xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("history.xlsx written successfully on disk.");
