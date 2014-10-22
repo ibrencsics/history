@@ -10,8 +10,9 @@ public class Neo4jDateFormat {
     public static FlexibleDate parse(String stringFormat) {
         FlexibleDate flexDate = new FlexibleDate();
 
-        if (stringFormat==null)
-            return flexDate;
+        if (stringFormat==null) {
+            return null;
+        }
 
         if (stringFormat.startsWith("-")) {
             flexDate.setAD(false);

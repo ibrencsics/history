@@ -42,6 +42,8 @@ public class FlexDateComponent extends Composite {
     }
 
     private void initValues(FlexibleDate flexDate) {
+        if (flexDate==null) return;;
+
         if (flexDate.isCirca()) cbCirca.setValue(true);
         if (flexDate.isAD()) cbAd.setValue(true);
 

@@ -1,7 +1,6 @@
 package org.ib.history.db.neo4j.services;
 
 import org.ib.history.commons.data.CountryData;
-import org.ib.history.commons.data.CountryDto;
 import org.ib.history.db.neo4j.domain.Country;
 import org.ib.history.db.neo4j.domain.DataTransformer;
 import org.ib.history.db.neo4j.repositories.CountryRepository;
