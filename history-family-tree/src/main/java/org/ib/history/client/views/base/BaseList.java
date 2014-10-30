@@ -8,6 +8,7 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import org.ib.history.client.presenters.CrudPresenter;
 import org.ib.history.commons.data.AbstractData;
 
@@ -104,7 +105,8 @@ public abstract class BaseList<T extends AbstractData<T>> {
             @Override
             public void update(int index, T object, String value) {
                 GWT.log(object.getName() + " pressed");
-                presenter.deleteItem(object);
+                boolean confirm = Window.confirm("Are you sure?");
+                if (confirm) presenter.deleteItem(object);
             }
         });
         return columnDelete;

@@ -14,6 +14,8 @@ import org.ib.history.commons.data.AbstractData;
 
 public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Composite implements CrudView<T> {
 
+    public static final int NUM_OF_ROWS = 20;
+
     interface BaseCrudUiBinder extends UiBinder<Widget, BaseCrudViewImpl> {}
     private static BaseCrudUiBinder uiBinder = GWT.create(BaseCrudUiBinder.class);
 
@@ -36,7 +38,7 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
 
         pager = new SimplePager();
         pager.setDisplay(itemList);
-        pager.setPageSize(10);
+        pager.setPageSize(NUM_OF_ROWS);
 
         itemEditor = getItemEditor();
 
@@ -64,12 +66,14 @@ public abstract class BaseCrudViewImpl<T extends AbstractData<T>> extends Compos
     public void setSelectedItem(T selectedItem) {
         itemEditor.setSelected(selectedItem);
         itemEditor.setVisible(true);
+        itemList.setVisible(false);
     }
 
     @Override
     public void refreshGrid() {
-        itemList.setVisibleRangeAndClearData(new Range(0, 10), true);
+        itemList.setVisibleRangeAndClearData(new Range(0, NUM_OF_ROWS), true);
         itemList.redraw();
+        itemList.setVisible(true);
         itemEditor.hide();
     }
 }

@@ -21,7 +21,7 @@ public class PersonList extends BaseList<PersonData> {
     protected void buildListColumns() {
         ctList.addColumn(buildColumnGender(), buildHeader(COLUMN_GENDER));
         ctList.addColumn(buildColumnAlias(), buildHeader(COLUMN_ALIAS));
-        ctList.addColumn(buildCOlumnTitle(), buildHeader(COLUMN_TITLE));
+        ctList.addColumn(buildColumnTitle(), buildHeader(COLUMN_TITLE));
         ctList.addColumn(buildColumnDateOfBirth(), buildHeader(COLUMN_DATE_OF_BIRTH));
         ctList.addColumn(buildColumnDateOfDeath(), buildHeader(COLUMN_DATE_OF_DEATH));
     }
@@ -48,7 +48,8 @@ public class PersonList extends BaseList<PersonData> {
         return columnAlias;
     }
 
-    private Column<PersonData, String> buildCOlumnTitle() {
+
+    private Column<PersonData, String> buildColumnTitle() {
         TextColumn<PersonData> columnTitle = new TextColumn<PersonData>() {
             @Override
             public String getValue(PersonData personData) {
@@ -56,6 +57,9 @@ public class PersonList extends BaseList<PersonData> {
 
                 for (RulesData rules : personData.getRules()) {
                     if (rules.getNumber()!=null) {
+                        if (sb.length() > 0) {
+                            sb.append(", ");
+                        }
                         sb.append(Roman.getRoman(rules.getNumber()));
                         sb.append(". ");
                         sb.append(personData.getName());
