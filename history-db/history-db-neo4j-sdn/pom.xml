@@ -12,13 +12,15 @@
 
     <dependencies>
 
+        <!-- Project -->
+
         <dependency>
             <groupId>org.ib</groupId>
             <artifactId>history-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Spring -->
+        <!-- Spring Data Neo4j -->
 
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -40,19 +42,16 @@
             <artifactId>junit-dep</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
@@ -71,12 +70,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-
-
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j</groupId>-->
-            <!--<artifactId>neo4j-kernel</artifactId>-->
-        <!--</dependency>-->
 
     </dependencies>
 

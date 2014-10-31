@@ -20,62 +20,62 @@
         <!-- Convenience property to set the GWT version -->
         <gwtVersion>2.6.1</gwtVersion>
         <!-- GWT needs at least java 1.6 -->
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
     <dependencies>
+
+        <!-- Project -->
+
+        <dependency>
+            <groupId>org.ib</groupId>
+            <artifactId>history-db-neo4j-sdn</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.ib</groupId>
+            <artifactId>history-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- GWT -->
 
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>${gwtVersion}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>${gwtVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-codeserver</artifactId>
-            <version>${gwtVersion}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <version>${gwtVersion}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
-            <version>2.1.2</version>
         </dependency>
+
+        <!-- GWT Spring -->
+
         <dependency>
             <groupId>com.google.code</groupId>
             <artifactId>spring4gwt</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <classifier>sources</classifier>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.validation</groupId>-->
+            <!--<artifactId>validation-api</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>javax.validation</groupId>-->
+            <!--<artifactId>validation-api</artifactId>-->
+            <!--<classifier>sources</classifier>-->
+        <!--</dependency>-->
 
         <!-- Spring -->
 
@@ -99,70 +99,43 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
         </dependency>
+
+        <!-- Log -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+
+        <!-- Test -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- SLF4J -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.6</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.6</version>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <scope>test</scope>
         </dependency>
-
-        <!-- Apache log4j -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-
-        <!-- Apache commons-logging -->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.ib</groupId>
-            <artifactId>history-db-neo4j-sdn</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.ib</groupId>
-            <artifactId>history-commons</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Neo4j -->
-
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j</groupId>-->
-            <!--<artifactId>neo4j</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j</groupId>-->
-            <!--<type>test-jar</type>-->
-            <!--<artifactId>neo4j-kernel</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j</groupId>-->
-            <!--<artifactId>neo4j-rest-graphdb</artifactId>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.data</groupId>-->
-            <!--<artifactId>spring-data-neo4j</artifactId>-->
-        <!--</dependency>-->
 
     </dependencies>
 
