@@ -33,6 +33,7 @@
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <commons.logging.version>1.1.1</commons.logging.version>
+        <cxf.version>3.0.2</cxf.version>
         <asd>/home/ivan/Projects/Experiments/github/history/history-family-tree/src/main/webapp/WEB-INF/lib/spring4gwt-0.0.1.jar</asd>
     </properties>
 
@@ -168,6 +169,42 @@
                 <version>0.0.1</version>
                 <scope>system</scope>
                 <systemPath>${asd}</systemPath>
+            </dependency>
+
+            <!-- CXF -->
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-core</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-local</artifactId>
+                <version>${cxf.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${cxf.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <!-- Log -->
