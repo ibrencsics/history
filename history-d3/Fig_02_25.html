@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>D3 in Action Chapter 2 - Example 12</title>
+  <meta charset="utf-8" />
+<script src="d3.v3.min.js" type="text/JavaScript"></script>
+</head>
+<style>
+  svg {
+    height: 500px;
+    width: 1500px;
+    border: 1px solid gray;
+  }
+</style>
+<body>
+
+<div>
+  <svg>
+  </svg>
+</div>
+</body>
+  <footer>
+    
+    <script>
+    d3.json("http://localhost:8080/history/person/json",function(error,data) {dataViz(data)});
+
+    function dataViz(incomingData) {
+
+        var maxYear = d3.max(incomingData, function(el) {return el.yearOfDeath - el.yearOfBirth});
+        var startEnd = d3.extent(incomingData, function(el) {return el.yearOfBirth});
+        var timeRamp = d3.time.scale().domain(startEnd).range([20, 1480]);
+        var yScale = d3.scale.linear().domain([0,maxYear]).range([0,460]);
+        var radiusScale = d3.scale.linear().domain([0,maxYear]).range([1,20]);
+        var colorScale = d3.scale.linear().domain([0,maxYear]).range(["white","#990000"]);
+
+        var tweetG = d3.select("svg")
+        .selectAll("g")
+        .data(incomingData)
+        .enter()
+        .append("g")
+        .attr("transform", function(d) {
+        return "translate(" +
+        timeRamp(d.yearOfBirth) + "," + (480 - yScale(d.yearOfDeath - d.yearOfBirth))
+        + ")"
+        })
+
+        tweetG.append("circle")
+        .attr("r", function(d) {return radiusScale(d.yearOfDeath - d.yearOfBirth)})
+        .style("fill", function(d) {return colorScale(d.yearOfDeath - d.yearOfBirth)})
+        //.style("fill", "#990000")
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+
+        tweetG.append("text")
+        .text(function(d) {return d.name + "-" + (d.yearOfDeath - d.yearOfBirth)});
+
+    }
+
+    </script>
+</footer>
+
+</html>

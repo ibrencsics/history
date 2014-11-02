@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>D3 in Action Chapter 2 - Example 10</title>
+  <meta charset="utf-8" />
+<script src="d3.v3.min.js" type="text/JavaScript"></script>
+</head>
+<style>
+  svg {
+    height: 500px;
+    width: 1500px;
+    border: 1px solid gray;
+  }
+</style>
+<body>
+
+<div>
+  <svg>
+  </svg>
+</div>
+</body>
+  <footer>
+    
+<script>
+d3.json("http://localhost:8080/history/person/json",function(error,data) {dataViz(data)});
+
+function dataViz(incomingData) {
+
+    var maxYear = d3.max(incomingData, function(el) {return el.yearOfBirth});
+    var yScale = d3.scale.linear().domain([1000,maxYear]).range([0,500]);
+
+    d3.select("svg")
+    .selectAll("rect")
+    .data(incomingData)
+    .enter()
+    .append("rect")
+    .attr("width", 40)
+    .attr("height", function(d) {return yScale(d.yearOfBirth)})
+    .attr("x", function(d,i) {return i * 50})
+    .attr("y", function(d) {return 500 - yScale(d.yearOfBirth)})
+    .style("fill", "blue")
+    .style("stroke", "red")
+    .style("stroke-width", "1px").style("opacity", .25)
+}
+
+
+</script>
+  </footer>
+
+</html>
