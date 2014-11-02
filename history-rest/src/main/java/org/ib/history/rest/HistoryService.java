@@ -6,7 +6,6 @@ import org.ib.history.db.neo4j.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -74,18 +73,35 @@ public class HistoryService {
     @Path("/person/json")
     @Produces(MediaType.APPLICATION_JSON)
     public List<PersonJson> getPersonJsons() {
-        return personService.getPersons().stream().map(person -> new PersonJson(person.getName())).collect(Collectors.toList());
+        return personService.getPersons().stream()
+                .map(person -> new PersonJson(
+                        person.getName(),
+                        person.getDateOfBirth() != null ? person.getDateOfBirth().getYear() : 0,
+                        person.getDateOfDeath() != null ? person.getDateOfDeath().getYear() : 0))
+                .collect(Collectors.toList());
     }
 
     public static class PersonJson {
         private final String name;
+        private final int yearOfBirth;
+        private final int yearOfDeath;
 
-        public PersonJson(String name) {
+        public PersonJson(String name, int yearOfBirth, int yearOfDeath) {
             this.name = name;
+            this.yearOfBirth = yearOfBirth;
+            this.yearOfDeath = yearOfDeath;
         }
 
         public String getName() {
             return name;
+        }
+
+        public int getYearOfBirth() {
+            return yearOfBirth;
+        }
+
+        public int getYearOfDeath() {
+            return yearOfDeath;
         }
     }
 

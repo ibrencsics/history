@@ -18,13 +18,14 @@ d3.json("http://localhost:8080/history/person/json",function(error,data) {dataVi
 
 function dataViz(incomingData) {
 
-d3.select("body").selectAll("div.cities")
-.data(incomingData)
-.enter()
-.append("div")
-.attr("class","cities")
-.html(function(d,i) {return d.name})
-	}
+    d3.select("body")
+    .selectAll("div.cities")
+    .data(incomingData)
+    .enter()
+    .append("div")
+    .attr("class","cities")
+    .html(function(d,i) {return d.name})
+}
 
 
 </script>
