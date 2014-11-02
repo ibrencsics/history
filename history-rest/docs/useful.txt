@@ -1,0 +1,3 @@
+* VIM format JSON
+:%!python -m json.tool
+

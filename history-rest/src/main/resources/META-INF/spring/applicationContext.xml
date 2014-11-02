@@ -23,7 +23,16 @@
             <bean class="org.ib.history.rest.HistoryService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
+            <ref bean="cors-filter" />
             <bean class="org.ib.history.rest.GsonMessageBodyHandler"/>
         </jaxrs:providers>
     </jaxrs:server>
+
+    <!-- http://cxf.apache.org/docs/jax-rs-cors.html -->
+    <bean id="cors-filter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
+
+
+    <import resource="classpath:sdn-ApplicationContext.xml"/>
+    <context:component-scan base-package="org.ib.history" />
+
 </beans>

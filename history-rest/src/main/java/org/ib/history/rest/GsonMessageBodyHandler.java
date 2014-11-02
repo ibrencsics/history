@@ -33,7 +33,10 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>, 
     private final Gson gson;
 
     public GsonMessageBodyHandler() {
-        gson = new GsonBuilder().create();
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+//        gsonBuilder.disableHtmlEscaping();
+//        gsonBuilder.setPrettyPrinting();
+        gson = gsonBuilder.create();
     }
 
     public GsonMessageBodyHandler(
