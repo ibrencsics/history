@@ -1,0 +1,64 @@
+<html>
+<head>
+  <title>D3 in Action Chapter 4 - Example 5</title>
+  <meta charset="utf-8" />
+<script src="d3.v3.min.js" type="text/JavaScript"></script>
+<script src="colorbrewer.js" type="text/JavaScript"></script>
+</head>
+<style>
+  svg {
+    height: 550px;
+    width: 550px;
+    border: 1px solid gray;
+  }
+line {
+  shape-rendering: crispEdges;
+  stroke: #000000;
+  }
+
+line.minor  {
+  stroke: #777777;
+  stroke-dasharray: 2,2;
+}
+
+path.domain {
+  fill: none;
+  stroke: black;
+}
+
+</style>
+<body>
+
+<div id="viz">
+  <svg>
+  </svg>
+</div>
+<div id="controls" />
+</body>
+  <footer>
+    
+<script>
+d3.json("http://localhost:8080/history/person/json",function(error,data) {dataViz(data)});
+
+function dataViz(incomingD
+
+    xScale = d3.scale.linear().domain([1000,1500]).range([50,500]);
+    yScale = d3.scale.linear().domain([1000,1500]).range([500,50]);
+
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(450).ticks(4);
+    d3.select("svg").append("g").attr("id", "xAxisG").call(xAxis);
+    d3.selectAll("#xAxisG").attr("transform","translate(0,50)");
+
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(450).ticks(4);
+    d3.select("svg").append("g").attr("id", "yAxisG").call(yAxis);
+    d3.selectAll("#yAxisG").attr("transform","translate(500,0)");
+
+    d3.select("svg").selectAll("circle").data(incomingData).enter().append("circle").attr("r", 5)
+    .attr("cx", function(d) {return xScale(d.yearOfBirth)}).attr("cy", function(d) {return yScale(d.yearOfDeath)})
+
+}
+
+</script>
+  </footer>
+
+</html>
