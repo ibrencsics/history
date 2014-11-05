@@ -14,7 +14,6 @@ import org.ib.history.client.widget.FlexTableWrapper;
 import org.ib.history.commons.data.CountryData;
 import org.ib.history.commons.data.PersonData;
 import org.ib.history.commons.data.RulesData;
-import org.ib.history.commons.data.GwtDateFormat;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -57,6 +56,7 @@ public class RuleEditor extends CustomEditor<PersonData> {
                             if (rules.getCountry().getId().equals(country.getId())) {
                                 rules.setCountry(country);
                                 addRow(rules);
+                                break;
                             }
                         }
                     }
