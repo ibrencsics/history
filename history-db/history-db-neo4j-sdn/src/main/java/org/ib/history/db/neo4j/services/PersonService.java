@@ -31,4 +31,6 @@ public interface PersonService {
     void deleteRules(Long id);
     void setPope(Long id, Long popeId);
     void deletePope(Long id);
+
+    List<RulesData> getRulers(String countryName);
 }

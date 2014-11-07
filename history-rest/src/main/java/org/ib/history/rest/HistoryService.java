@@ -91,20 +91,41 @@ public class HistoryService {
             this.yearOfBirth = yearOfBirth;
             this.yearOfDeath = yearOfDeath;
         }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getYearOfBirth() {
-            return yearOfBirth;
-        }
-
-        public int getYearOfDeath() {
-            return yearOfDeath;
-        }
     }
 
+    @GET
+    @Path("/ruler/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RulerJson> getRulerJsons() {
+        return personService.getRulers("England").stream()
+                .map(r -> new RulerJson(
+                        r.getPerson().getName(),
+                        r.getNumber(),
+                        r.getTitle(),
+                        r.getFrom().getYear(),
+                        r.getTo().getYear(),
+                        r.getCountry().getName()))
+                .collect(Collectors.toList());
+    }
+
+
+    public static class RulerJson {
+        private final String name;
+        private final int number;
+        private final String title;
+        private final int startYear;
+        private final int endYear;
+        private final String countryName;
+
+        public RulerJson(String name, int number, String title, int startYear, int endYear, String countryName) {
+            this.name = name;
+            this.number = number;
+            this.title = title;
+            this.startYear = startYear;
+            this.endYear = endYear;
+            this.countryName = countryName;
+        }
+    }
 
     private CountryData getEngland() {
         return new CountryData.Builder()

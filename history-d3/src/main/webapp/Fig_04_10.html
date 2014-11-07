@@ -26,6 +26,29 @@ path.domain {
   stroke: black;
 }
 
+
+    #modal {
+    position:fixed;
+    left:20px;
+    top:20px;
+    z-index:1;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+    }
+
+    tr {
+    border: 1px gray solid;
+    }
+
+    td {
+    font-size: 10px;
+    }
+    td.data {
+    font-weight: 900;
+    }
+
+
 </style>
 <body>
 
@@ -40,10 +63,10 @@ path.domain {
 <script>
 d3.json("http://localhost:8080/history/person/json",function(error,data) {dataViz(data)});
 
-function dataViz(incomingD
+function dataViz(incomingData) {
 
     xScale = d3.scale.linear().domain([1000,1500]).range([50,500]);
-    yScale = d3.scale.linear().domain([1000,1500]).range([500,50]);
+    yScale = d3.scale.linear().domain([0,100]).range([500,50]);
 
     xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(450).ticks(4);
     d3.select("svg").append("g").attr("id", "xAxisG").call(xAxis);
@@ -54,9 +77,18 @@ function dataViz(incomingD
     d3.selectAll("#yAxisG").attr("transform","translate(500,0)");
 
     d3.select("svg").selectAll("circle").data(incomingData).enter().append("circle").attr("r", 5)
-    .attr("cx", function(d) {return xScale(d.yearOfBirth)}).attr("cy", function(d) {return yScale(d.yearOfDeath)})
+    .attr("cx", function(d) {return xScale(d.yearOfBirth)}).attr("cy", function(d) {return yScale(d.yearOfDeath-d.yearOfBirth)})
+
+
+    d3.selectAll("circle").on("mouseover", showDetails);
+
+    d3.text("modal.html", function(data) {d3.select("body").append("div").attr("id", "modal").html(data)});
+    function showDetails(d) {
+        d3.selectAll("td.data").data(d3.values(d)).html(function(p) {return p})
+    }
 
 }
+
 
 </script>
   </footer>

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -169,5 +170,24 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deletePope(Long id) {
         personRepo.deletePope(id);
+    }
+
+    // advanced
+
+    @Override
+    public List<RulesData> getRulers(String countryName) {
+        List<RulesData> rulerDatas = new ArrayList<>();
+
+        List<PersonRepository.Ruler> rulers = personRepo.getRulers(countryName);
+//        rulerDatas = rulers.stream().map(r -> DataTransformer.transform(r.rules())).collect(Collectors.toList());
+
+        for (PersonRepository.Ruler ruler : rulers) {
+            RulesData rulesData = DataTransformer.transform(ruler.rules());
+            rulesData.getPerson().setName(ruler.person().getName());
+            rulesData.getCountry().setName(ruler.country().getName());
+            rulerDatas.add(rulesData);
+        }
+
+        return rulerDatas;
     }
 }

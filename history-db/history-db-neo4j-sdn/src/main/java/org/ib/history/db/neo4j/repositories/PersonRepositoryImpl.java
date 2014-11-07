@@ -5,6 +5,7 @@ import org.ib.history.db.neo4j.domain.Pope;
 import org.ib.history.db.neo4j.domain.Rules;
 import org.ib.history.db.neo4j.domain.Spouse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,5 +116,14 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
         Map<String,Object> params = new HashMap<>();
         params.put("nodeId", id);
         template.query("match (n)-[c:IS_POPE]-() where id(n)={nodeId} delete c", params);
+    }
+
+
+    @Override
+    public void getRules(String countryName) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("countryName", countryName);
+        Result<Map<String,Object>> result = template.query("match (p:Person{defaultLocale:true})-[r:RULES]->(c:Country) where c.name={countryName} return p", params);
+        result.single();
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -190,6 +191,45 @@ public class PersonRepositoryTest {
         person = persons.get(0);
         assertNotNull(person.getRules());
         assertEquals(0, person.getRules().size());
+    }
+
+    @Test
+//    @Rollback(false)
+    public void test_get_rulers() {
+        Person person = new Person(null, "person1", "alias1");
+        person.setDefaultLocale(true);
+        person = personRepo.save(person);
+
+        Country country = new Country(null);
+        country.setName("country");
+        country.setDefaultLocale(true);
+        country = countryRepo.save(country);
+
+        Rules rules = new Rules(null, person, country, "king", 1, "1111", "2222");
+        personRepo.addRules(rules);
+
+        person = new Person(null, "person2", "alias2");
+        person.setDefaultLocale(true);
+        person = personRepo.save(person);
+
+        rules = new Rules(null, person, country, "king", 2, "3333", "4444");
+        personRepo.addRules(rules);
+
+        // verify
+        List<Person> rulers = personRepo.getPersons("country");
+        assertEquals(2, rulers.size());
+
+        List<PersonRepository.Ruler> rulers2 = personRepo.getRulers("country");
+        assertEquals(2, rulers2.size());
+
+        Iterator<PersonRepository.Ruler> iterator = rulers2.iterator();
+        while (iterator.hasNext()) {
+            PersonRepository.Ruler ruler = iterator.next();
+            System.out.println(ruler.person().getName());
+            System.out.println(ruler.rules().getNumber());
+            System.out.println(ruler.country().getName());
+        }
+        System.out.println(rulers2.iterator().next().person().getName());
     }
 
 

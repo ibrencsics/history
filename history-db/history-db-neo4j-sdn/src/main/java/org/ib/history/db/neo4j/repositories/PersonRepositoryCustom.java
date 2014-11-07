@@ -21,4 +21,6 @@ public interface PersonRepositoryCustom {
 
     void setPope(Long id, Long popeId);
     void deletePope(Long id);
+
+    void getRules(String countryName);
 }
