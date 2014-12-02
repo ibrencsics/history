@@ -1,0 +1,40 @@
+svg {
+    height: 550px;
+    width: 550px;
+    border: 1px solid gray;
+}
+line {
+    shape-rendering: crispEdges;
+    stroke: #000000;
+}
+
+line.minor  {
+    stroke: #777777;
+    stroke-dasharray: 2,2;
+}
+
+path.domain {
+    fill: none;
+    stroke: black;
+}
+
+#modal {
+    position:fixed;
+    left:600px;
+    top:150px;
+    z-index:1;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+tr {
+    border: 1px gray solid;
+}
+
+td {
+    font-size: 10px;
+}
+td.data {
+    font-weight: 900;
+}

@@ -16,7 +16,7 @@ public interface PersonRepository extends GraphRepository<Person>, PersonReposit
     @Query("match (n:Person{defaultLocale:true}) return n order by n.name")
     List<Person> getPersons();
 
-    @Query("match (n:Person{defaultLocale:true}) return n order by n.name skip {0} limit {1}")
+    @Query("match (n:Person{defaultLocale:true}) return n order by n.dateOfBirth desc skip {0} limit {1}")
     List<Person> getPersons(int start, int length);
 
     @Query("match (p:Person{defaultLocale:true, name:{0}}) return p")
@@ -28,7 +28,7 @@ public interface PersonRepository extends GraphRepository<Person>, PersonReposit
     @Query("match (p:Person{defaultLocale:true})-[r:RULES]->(c:Country) where c.name={0} return p")
     List<Person> getPersons(String countryName);
 
-    @Query("match (p:Person{defaultLocale:true})-[r:RULES]->(c:Country) where c.name={0} return p,r,c")
+    @Query("match (p:Person{defaultLocale:true})-[r:RULES]->(c:Country) where c.name={0} return p,r,c order by r.fromDate")
     List<Ruler> getRulers(String countryName);
 
     @QueryResult
