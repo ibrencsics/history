@@ -25,3 +25,9 @@ nav,header,footer,article { display:block; }
         background:#000; }
 
 }
+
+svg {
+    height: 550px;
+    width: 1550px;
+    border: 1px solid gray;
+}

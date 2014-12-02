@@ -1,19 +1,20 @@
-function show() {
-    d3.json("http://localhost:8080/history/person/json",function(error,data) {dataViz(data)});
+function show_04_10() {
+    d3.select("svg").selectAll("*").remove();
+    d3.json("http://localhost:8080/history/person/json",function(error,data) {dataViz_04_10(data)});
 }
 
-function dataViz(incomingData) {
+function dataViz_04_10(incomingData) {
 
-    xScale = d3.scale.linear().domain([1000,1700]).range([50,500]);
+    xScale = d3.scale.linear().domain([1000,1700]).range([50,1500]);
     yScale = d3.scale.linear().domain([0,100]).range([500,50]);
 
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(450).ticks(4);
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(450).ticks(10);
     d3.select("svg").append("g").attr("id", "xAxisG").call(xAxis);
     d3.selectAll("#xAxisG").attr("transform","translate(0,50)");
 
-    yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(450).ticks(4);
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(1450).ticks(4);
     d3.select("svg").append("g").attr("id", "yAxisG").call(yAxis);
-    d3.selectAll("#yAxisG").attr("transform","translate(500,0)");
+    d3.selectAll("#yAxisG").attr("transform","translate(1500,0)");
 
     d3.select("svg").selectAll("circle").data(incomingData).enter().append("circle").attr("r", 5)
     .attr("cx", function(d) {return xScale(d.yearOfBirth)}).attr("cy", function(d) {return yScale(d.yearOfDeath-d.yearOfBirth)})
