@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<graph id="G" edgedefault="directed">
+<key id="defaultLocale" for="node" attr.name="defaultLocale" attr.type="boolean"/>
+<key id="fromDate" for="node" attr.name="fromDate" attr.type="string"/>
+<key id="number" for="node" attr.name="number" attr.type="int"/>
+<key id="gender" for="node" attr.name="gender" attr.type="string"/>
+<key id="dateOfDeath" for="node" attr.name="dateOfDeath" attr.type="string"/>
+<key id="toDate" for="node" attr.name="toDate" attr.type="string"/>
+<key id="name" for="node" attr.name="name" attr.type="string"/>
+<key id="alias" for="node" attr.name="alias" attr.type="string"/>
+<key id="dateOfBirth" for="node" attr.name="dateOfBirth" attr.type="string"/>
+<key id="fromDate" for="edge" attr.name="fromDate" attr.type="string"/>
+<key id="number" for="edge" attr.name="number" attr.type="int"/>
+<key id="__type__" for="edge" attr.name="__type__" attr.type="string"/>
+<key id="toDate" for="edge" attr.name="toDate" attr.type="string"/>
+<key id="lang" for="edge" attr.name="lang" attr.type="string"/>
+<key id="title" for="edge" attr.name="title" attr.type="string"/>
+<node id="n0" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">England</data></node>
+<node id="n1" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Anglia</data></node>
+<node id="n2" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">England</data></node>
+<node id="n3" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">false</data><data key="name">Normannische Dynastie</data></node>
+<node id="n4" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">false</data><data key="name">Normandiai ház</data></node>
+<node id="n5" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Normandy</data></node>
+<node id="n6" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Wilhelm</data><data key="alias">Eroberer</data></node>
+<node id="n7" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Vilmos</data><data key="alias">Hódító</data></node>
+<node id="n8" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">William</data><data key="dateOfDeath">10870909</data><data key="gender">M</data><data key="dateOfBirth">10280000 ca</data><data key="alias">Conquerer, Bastard</data></node>
+<node id="n27962" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">William</data><data key="dateOfDeath">11000802</data><data key="gender">M</data><data key="dateOfBirth">10560000 ca</data><data key="alias">Rufus</data></node>
+<node id="n27963" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Matilda of Flanders</data><data key="dateOfDeath">10831102</data><data key="gender">F</data><data key="dateOfBirth">10310000</data><data key="alias"></data></node>
+<node id="n27964" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Robert Curthose</data><data key="dateOfDeath">11340203</data><data key="gender">M</data><data key="dateOfBirth">10500000 ca</data><data key="alias"></data></node>
+<node id="n27965" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Flanders</data></node>
+<node id="n27966" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Normandy</data></node>
+<node id="n27967" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">true</data><data key="name">Gregory</data><data key="fromDate">10730422</data><data key="toDate">10850525</data><data key="number">7</data></node>
+<node id="n27968" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Gregor</data></node>
+<node id="n27969" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Gergely</data></node>
+<node id="n27970" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Hildebrand (von Sovana)</data><data key="alias"></data></node>
+<node id="n27971" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Hildebrand</data><data key="alias"></data></node>
+<node id="n27972" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Wilhelm</data><data key="alias">Rufus</data></node>
+<node id="n27973" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Vilmos</data><data key="alias">Rúfusz</data></node>
+<node id="n27974" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Hildebrand of Sovana</data><data key="dateOfDeath">10850525</data><data key="gender">M</data><data key="dateOfBirth">10200000</data><data key="alias"></data></node>
+<node id="n27975" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Blois</data></node>
+<node id="n27976" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Anjou</data></node>
+<node id="n27977" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Maine</data></node>
+<node id="n27978" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Aquitaine</data></node>
+<node id="n27979" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Nantes</data></node>
+<node id="n27980" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Ireland</data></node>
+<node id="n27981" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Frankreich</data></node>
+<node id="n27982" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Franciaország</data></node>
+<node id="n27983" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">France</data></node>
+<node id="n27984" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Gascony</data></node>
+<node id="n27985" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Cyprus</data></node>
+<node id="n27986" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Poitiers</data></node>
+<node id="n27987" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Blois</data></node>
+<node id="n27988" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Dunkeld</data></node>
+<node id="n27989" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Plantagenet</data></node>
+<node id="n27990" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Poitiers</data></node>
+<node id="n27991" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Capet</data></node>
+<node id="n41943" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Heinrich</data><data key="alias"></data></node>
+<node id="n41944" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Henrik</data><data key="alias"></data></node>
+<node id="n41945" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">11351201</data><data key="gender">M</data><data key="dateOfBirth">10680000 ca</data><data key="alias">Henry Beauclerc</data></node>
+<node id="n41946" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Adela of Normandy</data><data key="dateOfDeath">11370308</data><data key="gender">F</data><data key="dateOfBirth">10670000</data><data key="alias"></data></node>
+<node id="n41947" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Stephen</data><data key="dateOfDeath">11020519</data><data key="gender">M</data><data key="dateOfBirth">10450000</data><data key="alias"></data></node>
+<node id="n41948" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Stephen</data><data key="dateOfDeath">11541025</data><data key="gender">M</data><data key="dateOfBirth">10920000 ca</data><data key="alias">Stephen of Blois</data></node>
+<node id="n41949" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Matilda of Scotland</data><data key="dateOfDeath">11180501</data><data key="gender">F</data><data key="dateOfBirth">10800000</data><data key="alias"></data></node>
+<node id="n41950" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Empress Matilda</data><data key="dateOfDeath">11670910</data><data key="gender">F</data><data key="dateOfBirth">11020207</data><data key="alias"></data></node>
+<node id="n41951" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Geoffrey</data><data key="dateOfDeath">11510907</data><data key="gender">M</data><data key="dateOfBirth">11130824</data><data key="alias">Plantagenet, Handsome</data></node>
+<node id="n41952" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">11890706</data><data key="gender">M</data><data key="dateOfBirth">11330305</data><data key="alias">Curtmantle, FitzEmpress, Plantagenet</data></node>
+<node id="n41954" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Lajos</data><data key="alias"></data></node>
+<node id="n41955" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Louis</data><data key="dateOfDeath">11800918</data><data key="gender">M</data><data key="dateOfBirth">11200000</data><data key="alias">Young, Younger</data></node>
+<node id="n41956" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Richard</data><data key="alias">Löwenherz</data></node>
+<node id="n41957" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Richárd</data><data key="alias">Oroszlánszívű</data></node>
+<node id="n41958" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Richard</data><data key="dateOfDeath">11990406</data><data key="gender">M</data><data key="dateOfBirth">11570908</data><data key="alias">Lionheart</data></node>
+<node id="n41959" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">János</data><data key="alias">Földnélküli</data></node>
+<node id="n41960" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">John</data><data key="dateOfDeath">12161019</data><data key="gender">M</data><data key="dateOfBirth">11661224</data><data key="alias">Lackland</data></node>
+<node id="n41961" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Eleanor of Aquitaine</data><data key="dateOfDeath">12040401</data><data key="gender">F</data><data key="dateOfBirth">11220000 ca</data><data key="alias"></data></node>
+<node id="n49212" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Fülöp</data><data key="alias">Fülöp Ágost</data></node>
+<node id="n49213" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Philip</data><data key="dateOfDeath">12230714</data><data key="gender">M</data><data key="dateOfBirth">11650821</data><data key="alias">Philip Augustus</data></node>
+<node id="n49214" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Lotario dei Conti di Segni</data><data key="dateOfDeath">12160716</data><data key="gender">M</data><data key="dateOfBirth">11600000 ca</data><data key="alias"></data></node>
+<node id="n49215" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Ince</data></node>
+<node id="n49216" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">true</data><data key="name">Innocent</data><data key="fromDate">11980108</data><data key="toDate">12160716</data><data key="number">3</data></node>
+<node id="n49217" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Innozenz</data></node>
+<node id="n49218" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Philipp</data><data key="alias">Philpp August</data></node>
+<node id="n49219" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Johann</data><data key="alias">Ohneland</data></node>
+<node id="n49220" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Henrik</data><data key="alias"></data></node>
+<node id="n49221" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">12721116</data><data key="gender">M</data><data key="dateOfBirth">12071001</data><data key="alias">Henry of Winchester</data></node>
+<node id="n49222" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Ludwig</data><data key="alias">Der Löwe</data></node>
+<node id="n49223" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Lajos</data><data key="alias"></data></node>
+<node id="n49224" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Louis</data><data key="dateOfDeath">12261108</data><data key="gender">M</data><data key="dateOfBirth">11870905</data><data key="alias">The Lion</data></node>
+<node id="n49225" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Ludwig</data><data key="alias">Der Jüngere</data></node>
+<node id="n49226" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Gregor</data></node>
+<node id="n49227" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Gergely</data></node>
+<node id="n49228" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">true</data><data key="name">Gregory</data><data key="fromDate">12271119</data><data key="toDate">12410822</data><data key="number">9</data></node>
+<node id="n49229" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Ugolino di Conti</data><data key="dateOfDeath">12410822</data><data key="gender">M</data><data key="dateOfBirth">11450000 ca</data><data key="alias"></data></node>
+<node id="n49230" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Heiliges Römisches Reich</data></node>
+<node id="n49231" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Német-római Birodalom</data></node>
+<node id="n49232" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Holy Roman Empire</data></node>
+<node id="n49233" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">false</data><data key="name">Staufer</data></node>
+<node id="n49234" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">false</data><data key="name">Stauf-ház</data></node>
+<node id="n49235" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Hohenstaufen</data></node>
+<node id="n49236" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Friedrich</data><data key="alias"></data></node>
+<node id="n49237" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Frigyes</data><data key="alias"></data></node>
+<node id="n49238" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Frederick</data><data key="dateOfDeath">12501213</data><data key="gender">M</data><data key="dateOfBirth">11941226</data><data key="alias"></data></node>
+<node id="n49239" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Eduard</data><data key="alias">Eduard Langbein, Hammer der Schotten</data></node>
+<node id="n49240" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Eduárd</data><data key="alias">Nyakigláb</data></node>
+<node id="n49241" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward</data><data key="dateOfDeath">13070707</data><data key="gender">M</data><data key="dateOfBirth">12390617</data><data key="alias">Edward Longshanks, Hammer of the Scots</data></node>
+<node id="n49242" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Philip</data><data key="dateOfDeath">13141129</data><data key="gender">M</data><data key="dateOfBirth">12680400 ca</data><data key="alias">the Fair, the Iron King</data></node>
+<node id="n49243" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Isabella of France</data><data key="dateOfDeath">13580822</data><data key="gender">F</data><data key="dateOfBirth">12950000</data><data key="alias">She-wolf of France</data></node>
+<node id="n49244" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward</data><data key="dateOfDeath">13270921</data><data key="gender">M</data><data key="dateOfBirth">12840425</data><data key="alias">Edward of Caernarfon</data></node>
+<node id="n49245" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward</data><data key="dateOfDeath">13770721</data><data key="gender">M</data><data key="dateOfBirth">13121113</data><data key="alias"></data></node>
+<node id="n49246" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Fülöp</data><data key="alias"></data></node>
+<node id="n49247" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Philip</data><data key="dateOfDeath">13500822</data><data key="gender">M</data><data key="dateOfBirth">12930000</data><data key="alias">the Fortunate, of Valois</data></node>
+<node id="n49248" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Valois</data></node>
+<node id="n49249" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Philipp</data><data key="alias">der Schöne</data></node>
+<node id="n49250" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Fülöp</data><data key="alias">Szép</data></node>
+<node id="n49251" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Edward of Woodstock</data><data key="alias">Der Schwarze Prinz</data></node>
+<node id="n49252" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Eduárd</data><data key="alias">Fekete Herceg</data></node>
+<node id="n49253" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward of Woodstock</data><data key="dateOfDeath">13760608</data><data key="gender">M</data><data key="dateOfBirth">13300615</data><data key="alias">Black Prince</data></node>
+<node id="n49254" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Wales</data></node>
+<node id="n49255" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Richard</data><data key="dateOfDeath">14000214</data><data key="gender">M</data><data key="dateOfBirth">13670606</data><data key="alias">Richard of Bordeaux</data></node>
+<node id="n49256" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Lancaster</data></node>
+<node id="n49257" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">John of Gaunt</data><data key="dateOfDeath">13990203</data><data key="gender">M</data><data key="dateOfBirth">13400306</data><data key="alias"></data></node>
+<node id="n49258" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Lancaster</data></node>
+<node id="n55925" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">14130320</data><data key="gender">M</data><data key="dateOfBirth">13660415</data><data key="alias">Henry (of) Bolingbroke</data></node>
+<node id="n55926" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">14220831</data><data key="gender">M</data><data key="dateOfBirth">13680916 ca</data><data key="alias"></data></node>
+<node id="n55927" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">14710521</data><data key="gender">M</data><data key="dateOfBirth">14211206</data><data key="alias"></data></node>
+<node id="n55928" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Károly</data><data key="alias"></data></node>
+<node id="n55929" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Charles</data><data key="dateOfDeath">14221021</data><data key="gender">M</data><data key="dateOfBirth">13681203</data><data key="alias">the Beloved, the Mad</data></node>
+<node id="n55930" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Charles</data><data key="dateOfDeath">14610722</data><data key="gender">M</data><data key="dateOfBirth">14030222</data><data key="alias">the Victorious, the Well-Served</data></node>
+<node id="n55931" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">York</data></node>
+<node id="n55932" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of York</data></node>
+<node id="n55933" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edmund</data><data key="dateOfDeath">14020801</data><data key="gender">M</data><data key="dateOfBirth">13410605</data><data key="alias">Edmund of Langley</data></node>
+<node id="n55934" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Cambridge</data></node>
+<node id="n55935" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Richard</data><data key="dateOfDeath">14150805</data><data key="gender">M</data><data key="dateOfBirth">13750720 ca</data><data key="alias">Richard of Conisburgh</data></node>
+<node id="n55936" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Richard</data><data key="dateOfDeath">14601230</data><data key="gender">M</data><data key="dateOfBirth">14110921</data><data key="alias">Richard of York</data></node>
+<node id="n55937" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward</data><data key="dateOfDeath">14830409</data><data key="gender">M</data><data key="dateOfBirth">14420428</data><data key="alias"></data></node>
+<node id="n55938" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward</data><data key="dateOfDeath">14830000 ca</data><data key="gender">M</data><data key="dateOfBirth">14701102</data><data key="alias"></data></node>
+<node id="n55939" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Richard</data><data key="dateOfDeath">14850822</data><data key="gender">M</data><data key="dateOfBirth">14521002</data><data key="alias"></data></node>
+<node id="n55940" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Gloucester</data></node>
+<node id="n55941" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Somerset</data></node>
+<node id="n55942" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Richmond</data></node>
+<node id="n55943" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Derby</data></node>
+<node id="n55944" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">John Beaufort</data><data key="dateOfDeath">14100316</data><data key="gender">M</data><data key="dateOfBirth">13730000</data><data key="alias"></data></node>
+<node id="n55945" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Beaufort</data></node>
+<node id="n55946" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">John Beaufort</data><data key="dateOfDeath">14440527</data><data key="gender">M</data><data key="dateOfBirth">14040000 ca</data><data key="alias"></data></node>
+<node id="n55947" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Margaret Beaufort</data><data key="dateOfDeath">15090629</data><data key="gender">F</data><data key="dateOfBirth">14430531</data><data key="alias"></data></node>
+<node id="n55948" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edmund Tudor</data><data key="dateOfDeath">14561103</data><data key="gender">M</data><data key="dateOfBirth">14310611</data><data key="alias">Edmund of Hadham</data></node>
+<node id="n55949" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">false</data><data key="name">Tudor ház</data></node>
+<node id="n55950" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Tudor</data></node>
+<node id="n55951" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">15090421</data><data key="gender">M</data><data key="dateOfBirth">14570128</data><data key="alias"></data></node>
+<node id="n55952" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Elizabeth of York</data><data key="dateOfDeath">15030211</data><data key="gender">F</data><data key="dateOfBirth">14660211</data><data key="alias"></data></node>
+<node id="n55953" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Anjou Margit</data><data key="alias"></data></node>
+<node id="n55954" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Margaret of Anjou</data><data key="dateOfDeath">14820825</data><data key="gender">M</data><data key="dateOfBirth">14300323</data><data key="alias"></data></node>
+<node id="n55955" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Valois-Anjou</data></node>
+<node id="n55956" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Trastámara</data></node>
+<node id="n55957" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Castile</data></node>
+<node id="n55958" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">León</data></node>
+<node id="n55959" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Aragon</data></node>
+<node id="n55960" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Ferdinánd</data><data key="alias">Aragóniai Ferdinánd</data></node>
+<node id="n55961" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Ferdinand</data><data key="dateOfDeath">15160123</data><data key="gender">M</data><data key="dateOfBirth">14520310</data><data key="alias">Ferdinand of Aragon</data></node>
+<node id="n55962" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Izabella</data><data key="alias">Kasztíliai Izabella</data></node>
+<node id="n55963" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Isabella</data><data key="dateOfDeath">15041126</data><data key="gender">F</data><data key="dateOfBirth">14510422</data><data key="alias">Isabella of Castile, Isabella the Catholic</data></node>
+<node id="n55964" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Katalin</data><data key="alias">Aragóniai Katalin</data></node>
+<node id="n55965" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Catherine</data><data key="dateOfDeath">15360107</data><data key="gender">F</data><data key="dateOfBirth">14851216</data><data key="alias">Catherine of Aragon</data></node>
+<node id="n55966" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Henrik</data><data key="alias"></data></node>
+<node id="n55967" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Henry</data><data key="dateOfDeath">15470128</data><data key="gender">M</data><data key="dateOfBirth">14910628</data><data key="alias"></data></node>
+<node id="n55968" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Giuliano della Rovere</data><data key="dateOfDeath">15130221</data><data key="gender">M</data><data key="dateOfBirth">14431205</data><data key="alias"></data></node>
+<node id="n55969" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Julius</data></node>
+<node id="n55970" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Gyula</data></node>
+<node id="n55971" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">true</data><data key="name">Julius</data><data key="fromDate">15031101</data><data key="toDate">15130221</data><data key="number">2</data></node>
+<node id="n55972" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Boleyn Anna</data><data key="alias"></data></node>
+<node id="n55973" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Anne Boleyn</data><data key="dateOfDeath">15360519</data><data key="gender">F</data><data key="dateOfBirth">15010000 ca</data><data key="alias"></data></node>
+<node id="n55974" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Arthur</data><data key="dateOfDeath">15020402</data><data key="gender">M</data><data key="dateOfBirth">14860920</data><data key="alias">Arthur Tudor</data></node>
+<node id="n55975" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Clemens</data></node>
+<node id="n55976" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">false</data><data key="name">Kelemen</data></node>
+<node id="n55977" labels=":Pope:_Pope"><data key="labels">:Pope:_Pope</data><data key="defaultLocale">true</data><data key="name">Clement</data><data key="fromDate">15231119</data><data key="toDate">15340925</data><data key="number">7</data></node>
+<node id="n55978" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Giulio di Giuliano de' Medici</data><data key="dateOfDeath">15340925</data><data key="gender">M</data><data key="dateOfBirth">14780526</data><data key="alias"></data></node>
+<node id="n55979" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">Habsburg</data></node>
+<node id="n55980" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Karl</data><data key="alias"></data></node>
+<node id="n55981" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Károly</data><data key="alias"></data></node>
+<node id="n55982" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Charles</data><data key="dateOfDeath">15580921</data><data key="gender">M</data><data key="dateOfBirth">15000224</data><data key="alias"></data></node>
+<node id="n55983" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Mária</data><data key="alias">Véres Mária</data></node>
+<node id="n55984" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Mary</data><data key="dateOfDeath">15581117</data><data key="gender">F</data><data key="dateOfBirth">15160218</data><data key="alias">Mary of England, Bloody Mary</data></node>
+<node id="n55985" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Erzsébet</data><data key="alias"></data></node>
+<node id="n55986" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Elizabeth</data><data key="dateOfDeath">16030324</data><data key="gender">F</data><data key="dateOfBirth">15330907</data><data key="alias">Elizabeth of England</data></node>
+<node id="n55987" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Jane Seymour</data><data key="dateOfDeath">15371024</data><data key="gender">F</data><data key="dateOfBirth">15080000 ca</data><data key="alias"></data></node>
+<node id="n55988" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Edward</data><data key="dateOfDeath">15530706</data><data key="gender">M</data><data key="dateOfBirth">15371012</data><data key="alias"></data></node>
+<node id="n55989" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Fülöp</data><data key="alias"></data></node>
+<node id="n55990" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Philip</data><data key="dateOfDeath">15980913</data><data key="gender">M</data><data key="dateOfBirth">15270521</data><data key="alias"></data></node>
+<node id="n55991" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Spanyolország</data></node>
+<node id="n55992" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Spain</data></node>
+<node id="n55993" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Erzsébet</data><data key="alias"></data></node>
+<node id="n55994" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Jakab</data><data key="alias"></data></node>
+<node id="n55995" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Mária</data><data key="alias">Stuart Mária</data></node>
+<node id="n55996" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Mary</data><data key="dateOfDeath">15870208</data><data key="gender">F</data><data key="dateOfBirth">15421207</data><data key="alias">Mary Stuart</data></node>
+<node id="n55997" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">false</data><data key="name">Skócia</data></node>
+<node id="n55998" labels=":Country:_Country"><data key="labels">:Country:_Country</data><data key="defaultLocale">true</data><data key="name">Scotland</data></node>
+<node id="n55999" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Stuart</data></node>
+<node id="n56000" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">James</data><data key="dateOfDeath">15421214</data><data key="gender">M</data><data key="dateOfBirth">15120410</data><data key="alias"></data></node>
+<node id="n56001" labels=":House:_House"><data key="labels">:House:_House</data><data key="defaultLocale">true</data><data key="name">House of Stewart</data></node>
+<node id="n56002" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Margaret Tudor</data><data key="dateOfDeath">15411018</data><data key="gender">F</data><data key="dateOfBirth">14891128</data><data key="alias"></data></node>
+<node id="n56003" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Jakab</data><data key="alias"></data></node>
+<node id="n56004" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">James</data><data key="dateOfDeath">15130909</data><data key="gender">M</data><data key="dateOfBirth">14730317</data><data key="alias"></data></node>
+<node id="n56005" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Jakab</data><data key="alias"></data></node>
+<node id="n56006" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">James</data><data key="dateOfDeath">16250327</data><data key="gender">M</data><data key="dateOfBirth">15660619</data><data key="alias"></data></node>
+<node id="n56007" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">false</data><data key="name">Károly</data><data key="alias"></data></node>
+<node id="n56008" labels=":Person:_Person"><data key="labels">:Person:_Person</data><data key="defaultLocale">true</data><data key="name">Charles</data><data key="dateOfDeath">16490130</data><data key="gender">M</data><data key="dateOfBirth">16001119</data><data key="alias"></data></node>
+<edge id="e0" source="n2" target="n0" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e1" source="n2" target="n1" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e2" source="n5" target="n3" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e3" source="n5" target="n4" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e4" source="n8" target="n6" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e5" source="n8" target="n7" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e27326" source="n8" target="n5" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e54652" source="n27962" target="n5" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e54653" source="n27967" target="n27969" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e54656" source="n27967" target="n27968" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e54657" source="n27964" target="n8" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e54658" source="n27964" target="n27963" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e54659" source="n27963" target="n27965" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e54660" source="n27964" target="n5" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e54662" source="n27962" target="n27972" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e54663" source="n27962" target="n27973" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e54664" source="n27974" target="n27970" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e54665" source="n27974" target="n27971" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e54667" source="n27974" target="n27967" label="IS_POPE"><data key="label">IS_POPE</data></edge>
+<edge id="e54670" source="n8" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">10661225</data><data key="toDate">10870909</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e54671" source="n8" target="n27966" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">10350703</data><data key="toDate">10870909</data><data key="title">duke</data></edge>
+<edge id="e54672" source="n8" target="n27963" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data><data key="fromDate">00000000</data><data key="toDate">00000000</data></edge>
+<edge id="e54673" source="n27983" target="n27981" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e54674" source="n27983" target="n27982" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e81972" source="n41945" target="n41943" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e81973" source="n41945" target="n41944" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e81974" source="n41945" target="n8" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81975" source="n41945" target="n27963" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81976" source="n41946" target="n8" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81977" source="n41946" target="n27963" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81978" source="n41946" target="n5" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81979" source="n41945" target="n5" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81980" source="n41947" target="n27987" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81981" source="n41948" target="n27987" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81982" source="n41948" target="n41947" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81983" source="n41948" target="n41946" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81984" source="n41949" target="n27988" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81985" source="n41950" target="n5" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81986" source="n41950" target="n41945" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81987" source="n41950" target="n41949" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81988" source="n41951" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81989" source="n41952" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81990" source="n41952" target="n41950" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81991" source="n41952" target="n41951" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e81992" source="n41948" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11411100</data><data key="toDate">11541025</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e81993" source="n41955" target="n41954" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e81994" source="n41955" target="n27991" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81995" source="n41958" target="n41956" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e81996" source="n41958" target="n41957" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e81997" source="n41958" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e81998" source="n41945" target="n41949" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data><data key="fromDate">-00010000</data><data key="toDate">-00010000</data></edge>
+<edge id="e81999" source="n27964" target="n27966" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">10870909</data><data key="toDate">11060000</data><data key="title">duke</data></edge>
+<edge id="e82000" source="n41960" target="n41959" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e82001" source="n41960" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e82002" source="n41945" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11000802</data><data key="toDate">11351201</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e82003" source="n27962" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">10870909</data><data key="toDate">11000802</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e82004" source="n41961" target="n27990" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e82005" source="n41960" target="n41961" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e82006" source="n41960" target="n41952" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e82007" source="n55933" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e82008" source="n55933" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e82009" source="n41945" target="n27966" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11060000</data><data key="toDate">11351201</data><data key="title">duke</data></edge>
+<edge id="e82010" source="n41961" target="n27978" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11370801</data><data key="toDate">12040401</data><data key="title">duchess</data></edge>
+<edge id="e82011" source="n49224" target="n49223" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e82012" source="n41947" target="n27975" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">-00010000</data><data key="toDate">-00010000</data><data key="number">2</data><data key="title">count</data></edge>
+<edge id="e82013" source="n41946" target="n41947" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e82014" source="n41951" target="n27976" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11290000</data><data key="toDate">11510907</data><data key="number">5</data><data key="title">count</data></edge>
+<edge id="e82015" source="n41950" target="n41951" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e82017" source="n41958" target="n27978" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">duke</data></edge>
+<edge id="e82018" source="n41958" target="n27976" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e82020" source="n41952" target="n27978" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">duke</data></edge>
+<edge id="e82021" source="n41952" target="n27966" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">duke</data></edge>
+<edge id="e82022" source="n41952" target="n27977" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e82023" source="n41952" target="n27976" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e82024" source="n41952" target="n27979" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e82025" source="n41952" target="n27980" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">lord</data></edge>
+<edge id="e82026" source="n41952" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11541025</data><data key="toDate">11890706</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e82027" source="n41958" target="n27985" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">lord</data></edge>
+<edge id="e82028" source="n41958" target="n27979" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e82029" source="n41958" target="n27984" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">duke</data></edge>
+<edge id="e82030" source="n41958" target="n27977" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e82031" source="n41958" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11890706</data><data key="toDate">11990406</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e82032" source="n41958" target="n27966" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">4</data><data key="title">duke</data></edge>
+<edge id="e82033" source="n41960" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11990406</data><data key="toDate">12161019</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e82034" source="n41961" target="n41952" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data><data key="fromDate">11520000</data><data key="toDate">11890000</data></edge>
+<edge id="e82035" source="n41961" target="n41955" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data><data key="fromDate">11370000</data><data key="toDate">11520000</data></edge>
+<edge id="e82036" source="n41955" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">-11370801</data><data key="toDate">11800918</data><data key="number">7</data><data key="title">king</data></edge>
+<edge id="e96096" source="n49213" target="n49212" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96097" source="n49213" target="n41955" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96098" source="n49213" target="n27991" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96099" source="n49213" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">11800918</data><data key="toDate">12230714</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e96100" source="n49216" target="n49215" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96101" source="n49214" target="n49216" label="IS_POPE"><data key="label">IS_POPE</data></edge>
+<edge id="e96102" source="n49216" target="n49217" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96103" source="n49213" target="n49218" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96104" source="n41960" target="n49219" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96105" source="n49221" target="n49220" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96106" source="n55933" target="n49245" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96107" source="n49221" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96108" source="n49221" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">12161019</data><data key="toDate">12721116</data><data key="number">3</data><data key="title">king</data></edge>
+<edge id="e96109" source="n49224" target="n49222" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96110" source="n41958" target="n27986" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">count</data></edge>
+<edge id="e96111" source="n49235" target="n49233" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96112" source="n49235" target="n49234" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96113" source="n49238" target="n49236" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96114" source="n49238" target="n49237" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96115" source="n49238" target="n49232" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">12200000</data><data key="toDate">12500000</data><data key="number">2</data><data key="title">Holy Roman Emperor</data></edge>
+<edge id="e96116" source="n49241" target="n49239" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96117" source="n49241" target="n49240" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96118" source="n49241" target="n49221" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96119" source="n49241" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96120" source="n49241" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">12721116</data><data key="toDate">13070707</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e96121" source="n49242" target="n27991" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96122" source="n49242" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">12851005</data><data key="toDate">13141129</data><data key="number">4</data><data key="title">king</data></edge>
+<edge id="e96123" source="n49243" target="n49242" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96124" source="n49243" target="n27991" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96125" source="n49244" target="n49241" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96126" source="n49244" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96127" source="n49244" target="n49243" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e96128" source="n49244" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">13070707</data><data key="toDate">13270125</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e96129" source="n49245" target="n49244" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96130" source="n49245" target="n49243" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96131" source="n49245" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96132" source="n49245" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">13270125</data><data key="toDate">13770721</data><data key="number">3</data><data key="title">king</data></edge>
+<edge id="e96133" source="n49247" target="n49246" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96134" source="n49247" target="n49248" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96135" source="n49247" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">13280401</data><data key="toDate">13500822</data><data key="number">6</data><data key="title">king</data></edge>
+<edge id="e96136" source="n49242" target="n49249" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96137" source="n49224" target="n49213" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96138" source="n49224" target="n27991" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96139" source="n49224" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">12230714</data><data key="toDate">12261108</data><data key="number">8</data><data key="title">king</data></edge>
+<edge id="e96140" source="n41955" target="n49225" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96141" source="n49228" target="n49226" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96142" source="n49228" target="n49227" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96143" source="n49229" target="n49228" label="IS_POPE"><data key="label">IS_POPE</data></edge>
+<edge id="e96144" source="n49232" target="n49230" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96145" source="n49232" target="n49231" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96146" source="n49242" target="n49250" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96147" source="n49253" target="n49251" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e96148" source="n49253" target="n49252" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e96149" source="n49253" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96150" source="n49253" target="n49245" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96151" source="n49253" target="n49254" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">prince</data></edge>
+<edge id="e96152" source="n49255" target="n49253" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96153" source="n49255" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96154" source="n49255" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">13770621</data><data key="toDate">13990930</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e96155" source="n49257" target="n49245" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e96156" source="n49257" target="n27989" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96157" source="n49257" target="n49256" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e96159" source="n49257" target="n27978" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">duke</data></edge>
+<edge id="e96160" source="n49257" target="n49258" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">1</data><data key="title">duke</data></edge>
+<edge id="e109296" source="n27962" target="n8" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109297" source="n27962" target="n27963" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109298" source="n55925" target="n49257" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109299" source="n55925" target="n49256" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109300" source="n55925" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">13990930</data><data key="toDate">14130320</data><data key="number">4</data><data key="title">king</data></edge>
+<edge id="e109301" source="n55926" target="n55925" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109302" source="n55926" target="n49256" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109303" source="n55926" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14130320</data><data key="toDate">14220831</data><data key="number">5</data><data key="title">king</data></edge>
+<edge id="e109304" source="n55927" target="n55926" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109305" source="n55927" target="n49256" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109306" source="n41958" target="n41961" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109307" source="n41958" target="n41952" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109308" source="n55954" target="n55953" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109309" source="n55927" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14701003</data><data key="toDate">14710411</data><data key="number">6</data><data key="title">king</data></edge>
+<edge id="e109310" source="n55927" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14220831</data><data key="toDate">14610304</data><data key="number">6</data><data key="title">king</data></edge>
+<edge id="e109311" source="n55927" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14221021</data><data key="toDate">14531019</data><data key="title">king</data></edge>
+<edge id="e109312" source="n55929" target="n55928" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109313" source="n55929" target="n49248" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109314" source="n55929" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">13800916</data><data key="toDate">14221024</data><data key="number">6</data><data key="title">king</data></edge>
+<edge id="e109315" source="n55930" target="n55929" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109316" source="n55930" target="n49248" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109317" source="n55930" target="n27983" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14221021</data><data key="toDate">14610722</data><data key="number">7</data><data key="title">king</data></edge>
+<edge id="e109318" source="n55954" target="n55955" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109319" source="n55961" target="n55960" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109320" source="n55933" target="n55931" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">2</data><data key="title">duke</data></edge>
+<edge id="e109321" source="n55933" target="n55934" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">1</data><data key="title">earl</data></edge>
+<edge id="e109322" source="n55935" target="n55933" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109323" source="n55935" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109324" source="n55935" target="n55934" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">3</data><data key="title">earl</data></edge>
+<edge id="e109325" source="n55936" target="n55935" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109326" source="n55936" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109327" source="n55936" target="n55931" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">3</data><data key="title">duke</data></edge>
+<edge id="e109328" source="n55937" target="n55936" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109329" source="n55937" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109330" source="n55937" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14610304</data><data key="toDate">14701003</data><data key="number">4</data><data key="title">king</data></edge>
+<edge id="e109331" source="n55937" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14710411</data><data key="toDate">14830409</data><data key="number">4</data><data key="title">king</data></edge>
+<edge id="e109332" source="n55938" target="n55937" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109333" source="n55938" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109334" source="n55938" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14830409</data><data key="toDate">14830626</data><data key="number">5</data><data key="title">king</data></edge>
+<edge id="e109335" source="n55939" target="n55936" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109336" source="n55939" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109337" source="n55954" target="n55927" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109338" source="n55939" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14830626</data><data key="toDate">14850822</data><data key="number">3</data><data key="title">king</data></edge>
+<edge id="e109339" source="n55939" target="n55940" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">duke</data></edge>
+<edge id="e109340" source="n55944" target="n49257" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109341" source="n55944" target="n55945" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109342" source="n55944" target="n55941" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">1</data><data key="title">earl</data></edge>
+<edge id="e109343" source="n55946" target="n55944" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109344" source="n55946" target="n55945" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109345" source="n55946" target="n55941" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">1</data><data key="title">duke</data></edge>
+<edge id="e109346" source="n55947" target="n55946" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109347" source="n55947" target="n55945" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109348" source="n55947" target="n55942" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">countess</data></edge>
+<edge id="e109349" source="n55947" target="n55943" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="title">countess</data></edge>
+<edge id="e109350" source="n55948" target="n55947" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109351" source="n55948" target="n55942" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="number">1</data><data key="title">earl</data></edge>
+<edge id="e109352" source="n55950" target="n55949" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109353" source="n55951" target="n55948" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109354" source="n55951" target="n55947" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109355" source="n55951" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109356" source="n55951" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14850822</data><data key="toDate">15090421</data><data key="number">7</data><data key="title">king</data></edge>
+<edge id="e109357" source="n55952" target="n55937" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109358" source="n55952" target="n55932" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109359" source="n55952" target="n55951" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109360" source="n55961" target="n55956" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109361" source="n55961" target="n55959" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14790120</data><data key="toDate">15160123</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e109362" source="n55963" target="n55962" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109363" source="n55963" target="n55956" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109364" source="n55963" target="n55961" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109365" source="n55963" target="n55957" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14741211</data><data key="toDate">15041126</data><data key="number">1</data><data key="title">queen</data></edge>
+<edge id="e109366" source="n55965" target="n55964" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109367" source="n55965" target="n55956" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109368" source="n55965" target="n55961" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109369" source="n55965" target="n55963" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109370" source="n55967" target="n55966" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109371" source="n55967" target="n55951" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109372" source="n55967" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109373" source="n55967" target="n55965" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109374" source="n55967" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15090421</data><data key="toDate">15470128</data><data key="number">8</data><data key="title">king</data></edge>
+<edge id="e109375" source="n55971" target="n55969" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e109376" source="n55971" target="n55970" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109377" source="n55968" target="n55971" label="IS_POPE"><data key="label">IS_POPE</data></edge>
+<edge id="e109378" source="n55973" target="n55972" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109379" source="n55973" target="n55967" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109380" source="n55974" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109381" source="n55974" target="n55965" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109382" source="n55974" target="n55951" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109383" source="n55977" target="n55975" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e109384" source="n55977" target="n55976" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109385" source="n55978" target="n55977" label="IS_POPE"><data key="label">IS_POPE</data></edge>
+<edge id="e109386" source="n55982" target="n55980" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">DE</data></edge>
+<edge id="e109387" source="n55982" target="n55981" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109388" source="n55982" target="n55979" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109389" source="n55982" target="n49232" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15190628</data><data key="toDate">15560827</data><data key="number">5</data><data key="title">Holy Roman Empiror</data></edge>
+<edge id="e109390" source="n55984" target="n55983" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109391" source="n55984" target="n55967" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109392" source="n55984" target="n55965" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109393" source="n55984" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109394" source="n55984" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15530700</data><data key="toDate">15581117</data><data key="number">1</data><data key="title">queen</data></edge>
+<edge id="e109395" source="n55986" target="n55985" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109396" source="n55986" target="n55967" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109397" source="n55986" target="n55973" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109398" source="n55986" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109399" source="n55986" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15581117</data><data key="toDate">16030324</data><data key="number">1</data><data key="title">queen</data></edge>
+<edge id="e109400" source="n55987" target="n55967" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109401" source="n55988" target="n55967" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109402" source="n55988" target="n55987" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109403" source="n55988" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109404" source="n55988" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15470128</data><data key="toDate">15530706</data><data key="number">6</data><data key="title">king</data></edge>
+<edge id="e109405" source="n55990" target="n55989" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109406" source="n55990" target="n55982" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109407" source="n55990" target="n55979" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109408" source="n55990" target="n55984" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109409" source="n55992" target="n55991" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109410" source="n55990" target="n55992" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15560116</data><data key="toDate">15980913</data><data key="number">2</data><data key="title">king</data></edge>
+<edge id="e109411" source="n56000" target="n55994" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109412" source="n55996" target="n55995" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109413" source="n55998" target="n55997" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109414" source="n55996" target="n55999" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109415" source="n55996" target="n55998" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15421214</data><data key="toDate">15670724</data><data key="number">1</data><data key="title">queen</data></edge>
+<edge id="e109416" source="n56000" target="n56001" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109417" source="n56000" target="n55998" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15130909</data><data key="toDate">15421214</data><data key="number">5</data><data key="title">king</data></edge>
+<edge id="e109420" source="n56002" target="n55950" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109421" source="n56002" target="n55951" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109422" source="n56004" target="n56003" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109423" source="n56004" target="n56001" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109424" source="n56004" target="n56002" label="SPOUSE"><data key="label">SPOUSE</data><data key="__type__">org.ib.history.db.neo4j.domain.Spouse</data></edge>
+<edge id="e109425" source="n56004" target="n55998" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">14880611</data><data key="toDate">15130909</data><data key="number">4</data><data key="title">king</data></edge>
+<edge id="e109427" source="n56000" target="n56000" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109428" source="n56000" target="n56002" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109429" source="n56006" target="n56005" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109430" source="n56006" target="n55996" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109431" source="n56006" target="n55999" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109432" source="n56006" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">16030324</data><data key="toDate">16250327</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e109433" source="n56006" target="n55998" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">15670724</data><data key="toDate">16250327</data><data key="number">6</data><data key="title">king</data></edge>
+<edge id="e109434" source="n56008" target="n56007" label="TRANSLATION"><data key="label">TRANSLATION</data><data key="__type__">Translation</data><data key="lang">HU</data></edge>
+<edge id="e109435" source="n56008" target="n56006" label="CHILD_OF"><data key="label">CHILD_OF</data></edge>
+<edge id="e109436" source="n56008" target="n55999" label="IN_HOUSE"><data key="label">IN_HOUSE</data></edge>
+<edge id="e109437" source="n56008" target="n2" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">16250327</data><data key="toDate">16490130</data><data key="number">1</data><data key="title">king</data></edge>
+<edge id="e109438" source="n56008" target="n55998" label="RULES"><data key="label">RULES</data><data key="__type__">org.ib.history.db.neo4j.domain.Rules</data><data key="fromDate">16250327</data><data key="toDate">16490130</data><data key="number">1</data><data key="title">king</data></edge>
+</graph>
+</graphml>

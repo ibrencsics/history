@@ -48,3 +48,7 @@ create (stephenEmp)-[:RULES{from: "22-12-1135", to: "1154"}]->(england)
 mvn gwt:run-codeserver
 
 mvn release:perform -Darguments="-Dmaven.deploy.skip=true"
+
+
+export-graphml -t -o history2.graphml 
+import-graphml -t -i /home/ivan/history2.graphml

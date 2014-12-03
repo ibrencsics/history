@@ -14,9 +14,10 @@ path.domain {
 }
 
 #modal {
-    position:fixed;
+/*    position:fixed;
     left:600px;
-    top:150px;
+    top:150px;*/
+    width: 400px;
     z-index:1;
     background: white;
     border: 1px black solid;
@@ -28,8 +29,8 @@ tr {
 }
 
 td {
-    font-size: 10px;
+    font-size: 15px;
 }
 td.data {
-    font-weight: 900;
+    font-weight: 1000;
 }
