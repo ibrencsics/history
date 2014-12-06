@@ -33,6 +33,8 @@ public class FlexDateComponent extends Composite {
     public FlexDateComponent(FlexibleDate flexDate) {
         initWidget(uiBinder.createAndBindUi(this));
 
+        cbAd.setValue(true);
+
         tbYear.setMaxLength(4);
         tbMonth.setMaxLength(2);
         tbDay.setMaxLength(2);

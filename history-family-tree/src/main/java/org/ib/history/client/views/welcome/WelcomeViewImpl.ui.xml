@@ -19,7 +19,7 @@
         }
     </ui:style>
     <g:DockLayoutPanel unit='EM'>
-        <g:north size='5'>
+        <g:north size='3'>
             <g:FlowPanel styleName="{style.northPanel}">
                 <g:Label>This is the NORTH panel</g:Label>
             </g:FlowPanel>
@@ -43,7 +43,7 @@
                 <g:Label>This is the EAST panel</g:Label>
             </g:FlowPanel>
         </g:east>
-        <g:south size="5">
+        <g:south size="3">
             <g:FlowPanel styleName="{style.southPanel}">
                 <g:Label>This is the SOUTH panel</g:Label>
             </g:FlowPanel>

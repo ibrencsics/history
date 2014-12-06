@@ -6,7 +6,7 @@
     <ui:style>
         .scroll {
             width: 100%;
-            height: 800px;
+            height: 850px;
         }
         .panel {
             width: 100%;
@@ -36,6 +36,10 @@
             </g:AbsolutePanel>
 
             <c:SimplePager ui:field="pager" />
+
+            <g:HorizontalPanel>
+                <g:Button text="New Item" ui:field="btnNewItem"/>
+            </g:HorizontalPanel>
 
         </g:VerticalPanel>
 

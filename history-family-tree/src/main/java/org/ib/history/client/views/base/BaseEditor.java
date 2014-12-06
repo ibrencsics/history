@@ -62,9 +62,9 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
         show();
     }
 
-    public void createNewItem(T emptyNewItem) {
-        this.selectedItem = emptyNewItem;
-        showCustomEditors(emptyNewItem);
+    public void createNewItem() {
+        this.selectedItem = getEmptyItem();
+        showCustomEditors(this.selectedItem);
         show();
     }
 
@@ -193,7 +193,7 @@ public abstract class BaseEditor<T extends AbstractData<T>> extends Composite im
 
     @UiHandler("btnNew")
     public void newItem(ClickEvent clickEvent) {
-        createNewItem(getEmptyItem());
+        createNewItem();
     }
 
     @UiHandler("btnSave")
