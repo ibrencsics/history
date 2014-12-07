@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
-    <ui:style>
+    <ui:style type="org.ib.history.client.views.base.CustomEditor.Style">
         .wrapper {
         background-color:  #46D7DC;
         margin: 10px;
@@ -15,6 +15,14 @@
         font-weight: bold;
         font-stretch: wider;
         border: 1px solid black;
+        }
+
+        .clean {
+        background-color: #2E9AFE;
+        }
+
+        .dirty {
+        background-color: #FF0000;
         }
 
         .bodyPanel {

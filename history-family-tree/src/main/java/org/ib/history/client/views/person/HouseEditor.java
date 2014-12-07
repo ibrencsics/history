@@ -1,6 +1,12 @@
 package org.ib.history.client.views.person;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -75,6 +81,13 @@ public class HouseEditor extends CustomEditor<PersonData> {
         suggestOracle.setSuggestBox(sbHouse);
         suggestOracle.setSelected(parent);
         ruleRow.add(sbHouse);
+
+        sbHouse.addKeyUpHandler(new KeyUpHandler() {
+            @Override
+            public void onKeyUp(KeyUpEvent keyUpEvent) {
+                setDirty();
+            }
+        });
 
         flexTableWrapper.addWidgetRowWithDelete(ruleRow);
     }
