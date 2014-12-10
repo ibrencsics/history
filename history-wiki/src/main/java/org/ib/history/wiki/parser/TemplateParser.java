@@ -4,6 +4,8 @@ import org.ib.history.commons.tuples.Tuple2;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TemplateParser {
 
@@ -14,8 +16,40 @@ public class TemplateParser {
     private static final char DATA_SEPARATOR = '|';
     private static final char KEY_VALUE_SEPARATOR = '=';
 
-    Optional<String> getTemplate(String wikiText, String requestedTemplateName) throws IOException {
+//    Optional<String> getTemplate(String wikiText, String requestedTemplateName) throws IOException {
+//
+//        Stack<Tuple2<String,Integer>> templateStack = new Stack<>();
+//
+//        wikiText = wikiText.replaceAll("[\\r\\n]+", "");
+//
+//        for (int i=1; i<wikiText.length(); i++) {
+//            char c1 = wikiText.charAt(i-1);
+//            char c2 = wikiText.charAt(i);
+//            char[] cc = {c1,c2};
+//
+//            if (Arrays.equals(TEMPLATE_START, cc)) {
+//                int j = wikiText.indexOf(DATA_SEPARATOR, i+1);
+//                String templateName = wikiText.substring(i+1, j);
+//                templateStack.push(new Tuple2<String, Integer>(templateName, i-1));
+//                i = j;
+//            }
+//
+//            if (Arrays.equals(TEMPLATE_END, cc)) {
+//                Tuple2<String,Integer> templateData = templateStack.pop();
+//
+//                if (templateData.element1().equals(requestedTemplateName)) {
+//                    String template = wikiText.substring(templateData.element2(), i+1);
+//                    return Optional.of(template);
+//                }
+//
+//                i++;
+//            }
+//        }
+//
+//        return Optional.empty();
+//    }
 
+    Optional<String> getTemplate(String wikiText, String... requestedTemplateNames) {
         Stack<Tuple2<String,Integer>> templateStack = new Stack<>();
 
         wikiText = wikiText.replaceAll("[\\r\\n]+", "");
@@ -27,7 +61,7 @@ public class TemplateParser {
 
             if (Arrays.equals(TEMPLATE_START, cc)) {
                 int j = wikiText.indexOf(DATA_SEPARATOR, i+1);
-                String templateName = wikiText.substring(i+1, j);
+                String templateName = wikiText.substring(i+1, j).toLowerCase();
                 templateStack.push(new Tuple2<String, Integer>(templateName, i-1));
                 i = j;
             }
@@ -35,7 +69,9 @@ public class TemplateParser {
             if (Arrays.equals(TEMPLATE_END, cc)) {
                 Tuple2<String,Integer> templateData = templateStack.pop();
 
-                if (templateData.element1().equals(requestedTemplateName)) {
+                List<String> requestedTemplateNamesLowercase = Stream.of(requestedTemplateNames).map(s -> s.toLowerCase()).collect(Collectors.toList());
+                if (requestedTemplateNamesLowercase.contains(templateData.element1())) {
+//                if (templateData.element1().equals(requestedTemplateName)) {
                     String template = wikiText.substring(templateData.element2(), i+1);
                     return Optional.of(template);
                 }
@@ -85,5 +121,10 @@ public class TemplateParser {
         }
 
         return data;
+    }
+
+    Royalty getRoyalty(Map<String,String> data) {
+        RoyaltyParser royaltyParser = new RoyaltyParser();
+        return royaltyParser.parse(data);
     }
 }

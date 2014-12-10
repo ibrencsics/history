@@ -56,6 +56,7 @@ public class TemplateParserTest {
         Optional<String> template = parser.getTemplate(testPage("William_III_of_England"), "Infobox royalty");
 //        Optional<String> template = parser.getTemplate(testPage("Charles_V,_Holy_Roman_Emperor"), "Infobox royalty");
 //        Optional<String> template = parser.getTemplate(testPage("George_II_of_Great_Britain"), "Infobox royalty");
+//        Optional<String> template = parser.getTemplate(testPage("Winston_Churchill"), "Infobox prime minister");
         System.out.println(template.get());
 
         System.out.println();
@@ -64,6 +65,11 @@ public class TemplateParserTest {
         for (Map.Entry<String,String> entry : data.entrySet()) {
             System.out.println("  " + entry.getKey() + " : " + entry.getValue());
         }
+
+        System.out.println();
+
+        Royalty royalty = parser.getRoyalty(data);
+        System.out.println(royalty);
     }
 
 
