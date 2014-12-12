@@ -2,6 +2,8 @@ package org.ib.history.commons.data;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+import java.util.List;
+
 public class FlexibleDate implements IsSerializable {
 
     private boolean isThereDay = true;
@@ -108,6 +110,13 @@ public class FlexibleDate implements IsSerializable {
 
         public Builder circa() {
             flexDate.setCirca(true);
+            return this;
+        }
+
+        public Builder fromList(List<String> yearMonthDay) {
+            flexDate.setYear(Integer.parseInt(yearMonthDay.get(0)));
+            flexDate.setMonth(Integer.parseInt(yearMonthDay.get(1)));
+            flexDate.setDay(Integer.parseInt(yearMonthDay.get(2)));
             return this;
         }
 

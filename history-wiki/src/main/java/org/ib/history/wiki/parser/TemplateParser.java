@@ -60,7 +60,7 @@ public class TemplateParser {
                                 String key = datum.substring(0, keyValueSeparatorPos - 1).trim();
                                 String value = datum.substring(keyValueSeparatorPos + 1, datum.length()).trim();
                                 data.put(key, value);
-                                System.out.println("put: " + key + " : " + value);
+//                                System.out.println("put: " + key + " : " + value);
                             }
                         }
                 );
@@ -69,9 +69,6 @@ public class TemplateParser {
     }
 
     List<String> getTemplateData(String template) {
-        System.out.println(template);
-        System.out.printf("");
-
         List<String> data = new ArrayList<>();
 
         int level=0;
@@ -92,7 +89,7 @@ public class TemplateParser {
                 if (level==1) {
                     String datum = template.substring(prevSeparator, i-1).trim();
                     data.add(datum);
-                    System.out.println("datum: " + datum);
+//                    System.out.println("datum: " + datum);
                 }
 
                 level--;
@@ -103,7 +100,7 @@ public class TemplateParser {
                 if (prevSeparator >= 0) {
                     String datum = template.substring(prevSeparator, i-1).trim();
                     data.add(datum);
-                    System.out.println("datum: " + datum);
+//                    System.out.println("datum: " + datum);
                 }
                 prevSeparator = i;
             }
