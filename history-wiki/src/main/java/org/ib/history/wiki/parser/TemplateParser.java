@@ -1,5 +1,6 @@
 package org.ib.history.wiki.parser;
 
+import org.ib.history.commons.data.PageLink;
 import org.ib.history.commons.tuples.Tuple2;
 
 import java.io.IOException;
@@ -9,8 +10,10 @@ import java.util.stream.Stream;
 
 public class TemplateParser {
 
-    private static final char[] TEMPLATE_START = {'{', '{'};
-    private static final char[] TEMPLATE_END = {'}', '}'};
+    private static final char TEMPLATE_START_CHAR = '{';
+    private static final char TEMPLATE_END_CHAR = '}';
+    private static final char[] TEMPLATE_START = {TEMPLATE_START_CHAR, TEMPLATE_START_CHAR};
+    private static final char[] TEMPLATE_END = {TEMPLATE_END_CHAR, TEMPLATE_END_CHAR};
     private static final char[] LINK_START = {'[', '['};
     private static final char[] LINK_END = {']', ']'};
     private static final char DATA_SEPARATOR = '|';
@@ -22,15 +25,25 @@ public class TemplateParser {
         wikiText = wikiText.replaceAll("[\\r\\n]+", "");
 
         for (int i=1; i<wikiText.length(); i++) {
-            char c1 = wikiText.charAt(i-1);
-            char c2 = wikiText.charAt(i);
-            char[] cc = {c1,c2};
+            char cprev = wikiText.charAt(i-1);
+            char ci = wikiText.charAt(i);
+            char[] cc = {cprev,ci};
 
             if (Arrays.equals(TEMPLATE_START, cc)) {
-                int j = wikiText.indexOf(DATA_SEPARATOR, i+1);
-                String templateName = wikiText.substring(i+1, j).toLowerCase();
+                int next_separator = wikiText.indexOf(DATA_SEPARATOR, i+1);
+                int next_template_end = wikiText.indexOf(TEMPLATE_END_CHAR, i+1);
+                if (next_separator > next_template_end) {
+                    // not a template
+                    // e.g. {{Good article}}
+                    i = next_template_end + 1;
+                    continue;
+                }
+
+                String templateName = wikiText.substring(i+1, next_separator).toLowerCase();
                 templateStack.push(new Tuple2<String, Integer>(templateName, i-1));
-                i = j;
+                i = next_separator;
+
+                i = next_separator;
             }
 
             if (Arrays.equals(TEMPLATE_END, cc)) {
@@ -107,5 +120,15 @@ public class TemplateParser {
         }
 
         return data;
+    }
+
+    PageLink parseLink(String link) {
+        link = link.replace("[", "").replace("]", "");
+        String[] tokens = link.split("\\|");
+        if (tokens.length==1) {
+            return new PageLink(link);
+        }
+
+        return new PageLink(tokens[0], tokens[1]);
     }
 }

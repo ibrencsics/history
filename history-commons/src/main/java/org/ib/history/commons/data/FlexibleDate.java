@@ -6,6 +6,20 @@ import java.util.List;
 
 public class FlexibleDate implements IsSerializable {
 
+    enum MonthName {
+        JANUARY(1), FEBRUARY(2), MARCH(3), APRIL(4), MAY(5), JUNE(6), JULY(7), AUGUST(8), SEPTEMBER(9), OCTOBER(10), NOVEMBER(11), DECEMBER(12);
+
+        final int num;
+
+        MonthName(int num) {
+            this.num = num;
+        }
+
+        public int getNum() {
+            return num;
+        }
+    }
+
     private boolean isThereDay = true;
     private boolean isThereMonth = true;
     private boolean isAD = true;
@@ -82,15 +96,29 @@ public class FlexibleDate implements IsSerializable {
 
         private FlexibleDate flexDate = new FlexibleDate();
 
+        public Builder year(String year) {
+            return year(Integer.parseInt(year));
+        }
+
         public FlexibleDate.Builder year(int year) {
             flexDate.setYear(year < 0 ? -year : year);
             if (year < 0) flexDate.setAD(false);
             return this;
         }
 
+        public Builder monthByName(String monthName) {
+            MonthName monthNameEnum = MonthName.valueOf(monthName.toUpperCase());
+            month(monthNameEnum.getNum());
+            return this;
+        }
+
         public FlexibleDate.Builder month(int month) {
             flexDate.setMonth(month);
             return this;
+        }
+
+        public Builder day(String day) {
+            return day(Integer.parseInt(day));
         }
 
         public FlexibleDate.Builder day(int day) {
@@ -114,9 +142,9 @@ public class FlexibleDate implements IsSerializable {
         }
 
         public Builder fromList(List<String> yearMonthDay) {
-            flexDate.setYear(Integer.parseInt(yearMonthDay.get(0)));
-            flexDate.setMonth(Integer.parseInt(yearMonthDay.get(1)));
-            flexDate.setDay(Integer.parseInt(yearMonthDay.get(2)));
+            year(Integer.parseInt(yearMonthDay.get(0)));
+            month(Integer.parseInt(yearMonthDay.get(1)));
+            day(Integer.parseInt(yearMonthDay.get(2)));
             return this;
         }
 

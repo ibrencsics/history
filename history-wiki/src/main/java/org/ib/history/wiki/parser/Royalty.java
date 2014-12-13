@@ -1,6 +1,7 @@
 package org.ib.history.wiki.parser;
 
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.data.PageLink;
 
 public class Royalty {
 
@@ -8,6 +9,8 @@ public class Royalty {
     private String name;
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
+    private PageLink father;
+    private PageLink mother;
 
 
     public String getArticleName() {
@@ -42,6 +45,22 @@ public class Royalty {
         this.dateOfDeath = dateOfDeath;
     }
 
+    public PageLink getFather() {
+        return father;
+    }
+
+    public void setFather(PageLink father) {
+        this.father = father;
+    }
+
+    public PageLink getMother() {
+        return mother;
+    }
+
+    public void setMother(PageLink mother) {
+        this.mother = mother;
+    }
+
     @Override
     public String toString() {
         return "Royalty{" +
@@ -49,6 +68,8 @@ public class Royalty {
                 ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", dateOfDeath=" + dateOfDeath +
+                ", \n\tfather=" + father +
+                ", mother=" + mother +
                 '}';
     }
 }

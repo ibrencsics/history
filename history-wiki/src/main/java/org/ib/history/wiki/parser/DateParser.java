@@ -4,6 +4,8 @@ import org.ib.history.commons.data.FlexibleDate;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 // birth_date : {{birth date|df=yes|1650|11|4}}<br />{{small|[<nowiki />[[Old Style and New Style dates|N.S.]]: 14 November 1650<nowiki />]}}<ref name=OSNS>During William's lifetime, two calendars were in use in Europe: the Old Style [[Julian calendar]] in Britain and parts of Northern and Eastern Europe, and the New Style [[Gregorian calendar]] elsewhere, including William's birthplace in the Netherlands. At the time of William's birth, Gregorian dates were ten days ahead of Julian dates: thus William was born on 14 November 1650 by Gregorian reckoning, but on 4 November 1650 by Julian. At William's death, Gregorian dates were eleven days ahead of Julian dates. He died on 8 March 1702 by the standard Julian calendar, but on 19 March 1702 by the Gregorian calendar. (However, the English New Year fell on 25 March, so by English reckoning of the time, William died on 8 March 1701.) Unless otherwise noted, dates in this article follow the standard Julian calendar, in which the New Year falls on 1 January.</ref>
@@ -27,23 +29,28 @@ public class DateParser {
 
         Optional<String> template = templateParser.getTemplate(data, TEMPLATE_BIRTH_DATE, TEMPLATE_DEATH_DATE);
         if (template.isPresent()) {
-            System.out.println("date: " + template.get());
             List<String> tokens = templateParser.getTemplateData(template.get());
             List<String> tokensFiltered = tokens.stream().filter(this::isNumeric).collect(Collectors.toList());
-            System.out.println(tokensFiltered);
             builder.fromList(tokensFiltered);
+            return builder.build();
         }
 
         template = templateParser.getTemplate(data, TEMPLATE_BIRTH_DATE_AND_AGE, TEMPLATE_DEATH_DATE_AND_AGE);
         if (template.isPresent()) {
-            System.out.println("date: " + template.get());
             List<String> tokens = templateParser.getTemplateData(template.get());
             List<String> tokensFiltered = tokens.stream().filter(this::isNumeric).collect(Collectors.toList()).subList(0,3);
-            System.out.println(tokensFiltered);
             builder.fromList(tokensFiltered);
+            return builder.build();
         }
 
-        System.out.println(data);
+        Pattern pattern = Pattern.compile("([1-9]|[1-2]\\d|3[0-1])\\s(January|February|March|April|May|June|July|August|September|October|November|December)\\s(\\d{3,4})");
+        Matcher matcher = pattern.matcher(data);
+        if (matcher.find()) {
+            builder.day(matcher.group(1));
+            builder.monthByName(matcher.group(2));
+            builder.year(matcher.group(3));
+            return builder.build();
+        }
 
         return builder.build();
     }
