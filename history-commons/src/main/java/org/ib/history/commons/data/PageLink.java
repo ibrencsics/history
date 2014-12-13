@@ -26,8 +26,8 @@ public class PageLink {
     @Override
     public String toString() {
         return "PageLink{" +
-                "pageName='" + pageName + '\'' +
-                (pageName.equals(displayText) ? "" : ", displayText='" + displayText + '\'') +
+                "p='" + pageName + '\'' +
+                (pageName.equals(displayText) ? "" : ", t='" + displayText + '\'') +
                 '}';
     }
 }

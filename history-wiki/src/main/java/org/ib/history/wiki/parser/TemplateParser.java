@@ -5,6 +5,8 @@ import org.ib.history.commons.tuples.Tuple2;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -130,5 +132,22 @@ public class TemplateParser {
         }
 
         return new PageLink(tokens[0], tokens[1]);
+    }
+
+    List<PageLink> getLinks(String data) {
+        List<PageLink> links = new ArrayList<>(3);
+
+        // maybe
+        // [\p{Latin}\p{Punctuation}\p{Math_Symbol}]
+        // \p{M}
+        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-]+\\]\\]");
+        Matcher matcher = pattern.matcher(data);
+        while (matcher.find()) {
+            String link = matcher.group();
+            PageLink pageLink = parseLink(link);
+            links.add(pageLink);
+        }
+
+        return links;
     }
 }

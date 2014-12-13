@@ -1,7 +1,9 @@
 package org.ib.history.wiki.parser;
 
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.data.FlexibleDateComparator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -43,17 +45,81 @@ public class DateParser {
             return builder.build();
         }
 
-        Pattern pattern = Pattern.compile("([1-9]|[1-2]\\d|3[0-1])\\s(January|February|March|April|May|June|July|August|September|October|November|December)\\s(\\d{3,4})");
-        Matcher matcher = pattern.matcher(data);
-        if (matcher.find()) {
-            builder.day(matcher.group(1));
-            builder.monthByName(matcher.group(2));
-            builder.year(matcher.group(3));
-            return builder.build();
+//        Pattern pattern = Pattern.compile("(?i)([1-9]|[1-2]\\d|3[0-1])\\s(January|February|March|April|May|June|July|August|September|October|November|December)\\s(\\d{3,4})");
+//        Matcher matcher = pattern.matcher(data);
+//        if (matcher.find()) {
+//            builder.day(matcher.group(1));
+//            builder.monthByName(matcher.group(2));
+//            builder.year(matcher.group(3));
+//            return builder.build();
+//        }
+
+        List<FlexibleDate> flexDates = parseDateEnglishFormat(data);
+        if (flexDates.size() == 1) {
+            return flexDates.get(0);
         }
 
         return builder.build();
     }
+
+    public List<FlexibleDate> parseDateEnglishFormat(String data) {
+        String dayPattern = "[1-9]|[1-2]\\d|3[0-1]";
+        String monthPattern = "January|February|March|April|May|June|July|August|September|October|November|December";
+//        String yearPattern = "\\d{3,4}";
+        String yearPattern = "\\d{4}";
+
+        List<FlexibleDate> flexDates = new ArrayList<>(2);
+
+        String patternStr;
+        Pattern pattern;
+        Matcher matcher;
+
+        // 15 January 2014
+        patternStr = "(?i)(" + dayPattern + ")\\s(" + monthPattern + ")\\s(" + yearPattern + ")";
+        pattern = Pattern.compile(patternStr);
+        matcher = pattern.matcher(data);
+
+        while (matcher.find()) {
+            Integer day = Integer.parseInt(matcher.group(1));
+            String month = matcher.group(2);
+            Integer year = Integer.parseInt(matcher.group(3));
+
+            FlexibleDate flexDate = new FlexibleDate.Builder()
+                    .day(day).monthByName(month).year(year).build();
+            flexDates.add(flexDate);
+        }
+        data = data.replaceAll(patternStr, "");
+
+        // January 2014
+        patternStr = "(?i)(" + monthPattern + ")\\s(" + yearPattern + ")";
+        pattern = Pattern.compile(patternStr);
+        matcher = pattern.matcher(data);
+
+        while (matcher.find()) {
+            String month = matcher.group(1);
+            Integer year = Integer.parseInt(matcher.group(2));
+
+            FlexibleDate flexDate = new FlexibleDate.Builder()
+                    .noDay().monthByName(month).year(year).build();
+            flexDates.add(flexDate);
+        }
+        data = data.replaceAll(patternStr, "");
+
+        // 2014
+        patternStr = yearPattern;
+        pattern = Pattern.compile(patternStr);
+        matcher = pattern.matcher(data);
+
+        while (matcher.find()) {
+            Integer year = Integer.parseInt(matcher.group());
+            FlexibleDate flexDate = new FlexibleDate.Builder()
+                    .noDay().noMonth().year(year).build();
+            flexDates.add(flexDate);
+        }
+
+        return flexDates;
+    }
+
 
     private boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");

@@ -11,8 +11,8 @@ public class RoyaltyParserTest extends BaseParserTest {
     public void test1() throws Exception {
 //        Royalty royalty = parser.parse(testPage("William_III_of_England"));
 //        Royalty royalty = parser.parse(testPage("Charles_V,_Holy_Roman_Emperor"));
-        Royalty royalty = parser.parse(testPage("George_II_of_Great_Britain"));
-//        Royalty royalty = parser.parse(testPage("Matthias_Corvinus"));
+//        Royalty royalty = parser.parse(testPage("George_II_of_Great_Britain"));
+        Royalty royalty = parser.parse(testPage("Matthias_Corvinus"));
 //        Royalty royalty = parser.parse(testPage("Winston_Churchill"));
         System.out.println(royalty);
     }
