@@ -21,8 +21,8 @@ public class RoyaltyParser {
     private Map<String,BiConsumer<Royalty,Tuple2<String,Integer>>> parserMap = new HashMap<>(10);
 
     public RoyaltyParser() {
-        parserMap.put("name", ((royalty, data) -> { royalty.setName(data.element1()); }));
-        parserMap.put("birth_date", ((royalty, data) -> { royalty.setDateOfBirth(dateParser.parse(data.element1())); }));
+        parserMap.put("name", this::parseName);
+        parserMap.put("birth_date", this::parseBirthDate);
         parserMap.put("death_date", this::parseDeathDate);
         parserMap.put("father", this::parseFather);
         parserMap.put("mother", this::parseMother);
@@ -30,14 +30,15 @@ public class RoyaltyParser {
         parserMap.put("reign", this::parseReign);
     }
 
-    public Royalty parse(String wikiText) {
+    public Royalty parse(String page, String wikiText) {
         Optional<String> template = templateParser.getTemplate(wikiText, "Infobox royalty");
         Map<String,String> data = templateParser.getTemplateDataMap(template.get());
-        return parse(data);
+        return parse(page, data);
     }
 
-    public Royalty parse(Map<String,String> data) {
+    public Royalty parse(String page, Map<String,String> data) {
         Royalty royalty = new Royalty();
+        royalty.setArticleName(page);
 
         for (Map.Entry<String,String> entry : data.entrySet()) {
 
@@ -60,6 +61,10 @@ public class RoyaltyParser {
         }
 
         return royalty;
+    }
+
+    private void parseName(Royalty royalty, Tuple2<String,Integer> data) {
+        royalty.setName(data.element1());
     }
 
     private void parseBirthDate(Royalty royalty, Tuple2<String,Integer> data) {

@@ -14,6 +14,7 @@ import java.util.Set;
 @NodeEntity
 public class Person extends BaseEntityWithTranslation<Person> {
 
+    private String wikiPage;
     private String name;
     private String gender;
     private String alias;
