@@ -7,7 +7,10 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.wiki.domain.WikiPerson;
+import org.ib.history.wiki.domain.WikiResource;
 import org.ib.history.wiki.service.WikiService;
+
+import java.net.URISyntaxException;
 
 public class WikiServiceDbpedia implements WikiService {
 
@@ -28,12 +31,14 @@ public class WikiServiceDbpedia implements WikiService {
 
     @Override
     public WikiPerson getPerson(String wikiPage) {
+        WikiResource wikiResource = WikiResource.fromLocalPart(wikiPage);
+
         WikiPerson.Builder builder = new WikiPerson.Builder();
-        builder.wikiPage(wikiPage);
+        builder.wikiPage(WikiResource.fromLocalPart(wikiPage));
 
         ParameterizedSparqlString qs = new ParameterizedSparqlString(PERSON_QUERY);
 
-        Resource resource = ResourceFactory.createResource(wikiPage);
+        Resource resource = ResourceFactory.createResource(wikiResource.getFullDbpedia().toString());
         qs.setParam("resource", resource);
 
         QueryExecution exec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", qs.asQuery());
@@ -52,10 +57,10 @@ public class WikiServiceDbpedia implements WikiService {
             builder.dateOfDeath(toFlexDate(literalDateOfDeath));
 
             Resource resourceFather = querySolution.getResource("father");
-            builder.father(resourceFather.getURI());
+            builder.father(WikiResource.fromURIString(resourceFather.getURI()));
 
             Resource resourceMother = querySolution.getResource("mother");
-            builder.mother(resourceMother.getURI());
+            builder.mother(WikiResource.fromURIString(resourceMother.getURI()));
         }
 
         ResultSetFormatter.out( results );

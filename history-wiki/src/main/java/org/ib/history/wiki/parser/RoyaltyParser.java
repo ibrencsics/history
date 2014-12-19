@@ -1,5 +1,7 @@
 package org.ib.history.wiki.parser;
 
+import net.sourceforge.jwbf.core.contentRep.Article;
+import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.FlexibleDateComparator;
 import org.ib.history.commons.data.PageLink;
@@ -30,6 +32,12 @@ public class RoyaltyParser {
         parserMap.put("reign", this::parseReign);
     }
 
+    public Royalty parse(String page) {
+        MediaWikiBot mediaWikiBot = new MediaWikiBot( "http://en.wikipedia.org/w/" );
+        Article article = mediaWikiBot.getArticle(page);
+        return parse(page, article.getSimpleArticle().getText());
+    }
+
     public Royalty parse(String page, String wikiText) {
         Optional<String> template = templateParser.getTemplate(wikiText, "Infobox royalty");
         Map<String,String> data = templateParser.getTemplateDataMap(template.get());
@@ -56,7 +64,7 @@ public class RoyaltyParser {
             BiConsumer<Royalty, Tuple2<String,Integer>> parser = parserMap.get(parserKey);
             if (parser != null) {
                 System.out.println("to parse " + entry.getKey() + ": " + entry.getValue());
-                parser.accept(royalty, new Tuple2<>(entry.getValue(), seqNum));
+                parser.accept(royalty, new Tuple2<String,Integer>(entry.getValue(), seqNum));
             }
         }
 

@@ -8,19 +8,19 @@ import java.util.List;
 
 public class WikiPerson {
 
-    private String wikiPage;
+    private WikiResource wikiPage;
     private String name;
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
 
-    private String father;
-    private String mother;
+    private WikiResource father;
+    private WikiResource mother;
     private List<WikiPerson> spouses = new ArrayList<>(1);
 
     public static class Builder {
         private WikiPerson wikiPerson = new WikiPerson();
 
-        public Builder wikiPage(String wikiPage) {
+        public Builder wikiPage(WikiResource wikiPage) {
             wikiPerson.setWikiPage(wikiPage);
             return this;
         }
@@ -40,12 +40,12 @@ public class WikiPerson {
             return this;
         }
 
-        public Builder father(String father) {
+        public Builder father(WikiResource father) {
             wikiPerson.setFather(father);
             return this;
         }
 
-        public Builder mother(String mother) {
+        public Builder mother(WikiResource mother) {
             wikiPerson.setMother(mother);
             return this;
         }
@@ -61,11 +61,11 @@ public class WikiPerson {
     }
 
 
-    public String getWikiPage() {
+    public WikiResource getWikiPage() {
         return wikiPage;
     }
 
-    public void setWikiPage(String wikiPage) {
+    public void setWikiPage(WikiResource wikiPage) {
         this.wikiPage = wikiPage;
     }
 
@@ -93,19 +93,19 @@ public class WikiPerson {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public String getFather() {
+    public WikiResource getFather() {
         return father;
     }
 
-    public void setFather(String father) {
+    public void setFather(WikiResource father) {
         this.father = father;
     }
 
-    public String getMother() {
+    public WikiResource getMother() {
         return mother;
     }
 
-    public void setMother(String mother) {
+    public void setMother(WikiResource mother) {
         this.mother = mother;
     }
 
