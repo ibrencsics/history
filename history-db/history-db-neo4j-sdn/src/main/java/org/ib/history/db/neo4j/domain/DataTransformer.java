@@ -78,7 +78,6 @@ public class DataTransformer {
     public static PersonData transform(Person person) {
         PersonData.Builder personDataBuilder = new PersonData.Builder()
                 .id(person.getId())
-                .wikiPage(person.getWikiPage())
                 .name(person.getName())
                 .gender(person.getGender())
                 .alias(person.getAlias())
@@ -142,7 +141,6 @@ public class DataTransformer {
                 Neo4jDateFormat.serialize(personData.getDateOfBirth()),
                 Neo4jDateFormat.serialize(personData.getDateOfDeath()));
         person.setDefaultLocale(true);
-        person.setWikiPage(personData.getWikiPage());
 
         for (PersonData parent : personData.getParents()) {
             person.addParent(new Person(parent.getId()));
