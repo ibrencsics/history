@@ -1,6 +1,7 @@
-package org.ib.history.wiki.parser;
+package org.ib.history.wiki.parser.old;
 
 import org.ib.history.commons.tuples.Tuple2;
+import org.ib.history.wiki.parser.old.RoyaltyInfoboxParser;
 import org.junit.Test;
 
 import java.util.List;

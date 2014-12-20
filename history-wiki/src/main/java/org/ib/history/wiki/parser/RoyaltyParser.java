@@ -4,8 +4,9 @@ import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.FlexibleDateComparator;
-import org.ib.history.commons.data.PageLink;
+import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.commons.tuples.Tuple2;
+import org.ib.history.wiki.domain.Royalty;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ public class RoyaltyParser {
     private TemplateParser templateParser = new TemplateParser();
     private DateParser dateParser = new DateParser();
 
-    private Map<String,BiConsumer<Royalty,Tuple2<String,Integer>>> parserMap = new HashMap<>(10);
+    private Map<String,BiConsumer<Royalty,Tuple2<String,Integer>>> parserMap = new HashMap<>(15);
 
     public RoyaltyParser() {
         parserMap.put("name", this::parseName);
@@ -30,6 +31,10 @@ public class RoyaltyParser {
         parserMap.put("mother", this::parseMother);
         parserMap.put("succession", this::parseSuccession);
         parserMap.put("reign", this::parseReign);
+        parserMap.put("spouse", this::parseSpouse);
+        parserMap.put("spouses", this::parseSpouse);
+        parserMap.put("issue", this::parseIssue);
+        parserMap.put("house", this::parseHouse);
     }
 
     public Royalty parse(String page) {
@@ -87,7 +92,7 @@ public class RoyaltyParser {
 
     private void parseMother(Royalty royalty, Tuple2<String,Integer> data) { royalty.setMother(templateParser.parseLink(data.element1())); }
 
-    // [[King of Great Britain]] [[King of Ireland|and Ireland]]<br />[[Electorate of Brunswick-Lüneburg|Elector of Hanover]]
+    // [[King of Great Britain]] [[King of Ireland|and Iyreland]]<br />[[Electorate of Brunswick-Lüneburg|Elector of Hanover]]
     // [[Stadtholder|Stadtholder of Holland, Zeeland, Utrecht, Gelderland and Overijssel]]
     // [[List of English monarchs|King of England]], [[List of Scottish monarchs|Scotland]] and [[King of Ireland|Ireland]]
     // [[Principality of Orange|Prince of Orange]]
@@ -98,6 +103,9 @@ public class RoyaltyParser {
     // [[Duke of Austria]]<br/><small>contested by [[Frederick III, Holy Roman Emperor|Frederick V]]</small>
     // [[King of Hungary]] and [[King of Croatia|Croatia]]
     private void parseSuccession(Royalty royalty, Tuple2<String,Integer> data) {
+        if (data.element1().isEmpty())
+            return;
+
         Royalty.Succession succession = getCurrentSuccession(royalty, data.element2());
 
         String dataText = data.element1();
@@ -107,7 +115,7 @@ public class RoyaltyParser {
             dataText = dataText.substring(0, dataText.indexOf("small"));
         }
 
-        List<PageLink> links = templateParser.getLinks(dataText);
+        List<WikiNamedResource> links = templateParser.getLinks(dataText);
         succession.setCountries(links);
     }
 
@@ -120,6 +128,9 @@ public class RoyaltyParser {
     // 11/22{{ref|dates|O.S./N.S.}} June 1727&nbsp;–<br /> 25 October 1760
     // 1458–1490
     private void parseReign(Royalty royalty, Tuple2<String,Integer> data) {
+        if (data.element1().isEmpty())
+            return;
+
         Royalty.Succession succession = getCurrentSuccession(royalty, data.element2());
 
         // TODO: do some preprocessing
@@ -136,5 +147,20 @@ public class RoyaltyParser {
             royalty.getSuccessions().add(new Royalty.Succession());
         }
         return royalty.getSuccessions().get(num);
+    }
+
+    private void parseSpouse(Royalty royalty, Tuple2<String,Integer> data) {
+        List<WikiNamedResource> links = templateParser.getLinks(data.element1());
+        royalty.getSpouses().addAll(links);
+    }
+
+    private void parseIssue(Royalty royalty, Tuple2<String,Integer> data) {
+        List<WikiNamedResource> links = templateParser.getLinks(data.element1());
+        royalty.getIssues().addAll(links);
+    }
+
+    private void parseHouse(Royalty royalty, Tuple2<String,Integer> data) {
+        List<WikiNamedResource> links = templateParser.getLinks(data.element1());
+        royalty.getHouses().addAll(links);
     }
 }

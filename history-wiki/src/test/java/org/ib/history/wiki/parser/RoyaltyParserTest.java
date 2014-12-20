@@ -1,5 +1,6 @@
 package org.ib.history.wiki.parser;
 
+import org.ib.history.wiki.domain.Royalty;
 import org.junit.Test;
 
 

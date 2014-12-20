@@ -57,10 +57,10 @@ public class WikiServiceDbpedia implements WikiService {
             builder.dateOfDeath(toFlexDate(literalDateOfDeath));
 
             Resource resourceFather = querySolution.getResource("father");
-            builder.father(WikiResource.fromURIString(resourceFather.getURI()));
+//            builder.father(WikiResource.fromURIString(resourceFather.getURI()));
 
             Resource resourceMother = querySolution.getResource("mother");
-            builder.mother(WikiResource.fromURIString(resourceMother.getURI()));
+//            builder.mother(WikiResource.fromURIString(resourceMother.getURI()));
         }
 
         ResultSetFormatter.out( results );

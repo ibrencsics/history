@@ -13,9 +13,10 @@ public class WikiPerson {
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
 
-    private WikiResource father;
-    private WikiResource mother;
+    private WikiNamedResource father;
+    private WikiNamedResource mother;
     private List<WikiPerson> spouses = new ArrayList<>(1);
+    private List<WikiPerson> issues = new ArrayList<>(5);
 
     public static class Builder {
         private WikiPerson wikiPerson = new WikiPerson();
@@ -40,12 +41,12 @@ public class WikiPerson {
             return this;
         }
 
-        public Builder father(WikiResource father) {
+        public Builder father(WikiNamedResource father) {
             wikiPerson.setFather(father);
             return this;
         }
 
-        public Builder mother(WikiResource mother) {
+        public Builder mother(WikiNamedResource mother) {
             wikiPerson.setMother(mother);
             return this;
         }
@@ -93,19 +94,19 @@ public class WikiPerson {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public WikiResource getFather() {
+    public WikiNamedResource getFather() {
         return father;
     }
 
-    public void setFather(WikiResource father) {
+    public void setFather(WikiNamedResource father) {
         this.father = father;
     }
 
-    public WikiResource getMother() {
+    public WikiNamedResource getMother() {
         return mother;
     }
 
-    public void setMother(WikiResource mother) {
+    public void setMother(WikiNamedResource mother) {
         this.mother = mother;
     }
 
@@ -124,9 +125,9 @@ public class WikiPerson {
                 ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", dateOfDeath=" + dateOfDeath +
-                ", father=" + father +
-                ", mother=" + mother +
-                ", spouses=" + spouses +
+                ", \n\tfather=" + father.getLocalPart() +
+                ", mother=" + mother.getLocalPart() +
+                ", \n\tspouses=" + spouses +
                 '}';
     }
 }

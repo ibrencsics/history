@@ -1,0 +1,6 @@
+wiki:
+WikiPerson{wikiPage='WikiResource{localPart='Henry_VIII_of_England'}', name='Henry VIII', dateOfBirth=1491-6-28, dateOfDeath=1547-1-28,
+father=WikiResource{localPart='Henry_VII_of_England'}, mother=WikiResource{localPart='Elizabeth_of_York'}, spouses=[]}
+db:
+WikiPerson{wikiPage='WikiResource{localPart='Henry_VIII_of_England'}', name='Henry VIII of England', dateOfBirth=1491-6-27, dateOfDeath=1547-1-27,
+father=WikiResource{localPart='Henry_VII_of_England'}, mother=WikiResource{localPart='Elizabeth_of_York'}, spouses=[]}

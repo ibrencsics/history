@@ -2,7 +2,7 @@ package org.ib.history.wiki.wikipedia;
 
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
-import org.ib.history.wiki.parser.Royalty;
+import org.ib.history.wiki.domain.Royalty;
 import org.ib.history.wiki.parser.RoyaltyParser;
 import org.ib.history.wiki.service.WikiService;
 
@@ -20,8 +20,8 @@ public class WikiServiceWikipedia implements WikiService {
                 .name(royalty.getName())
                 .dateOfBirth(royalty.getDateOfBirth())
                 .dateOfDeath(royalty.getDateOfDeath())
-                .father(WikiResource.fromLocalPart(royalty.getFather().getPageName()))
-                .mother(WikiResource.fromLocalPart(royalty.getMother().getPageName()));
+                .father(royalty.getFather())
+                .mother(royalty.getMother());
 
 
         return builder.build();

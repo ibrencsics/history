@@ -1,4 +1,4 @@
-package org.ib.history.wiki.parser;
+package org.ib.history.wiki.parser.old;
 
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.tuples.Tuple2;

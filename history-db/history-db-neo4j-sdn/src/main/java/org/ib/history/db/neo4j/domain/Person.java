@@ -159,4 +159,13 @@ public class Person extends BaseEntityWithTranslation<Person> {
     public void setLocales(Set<Translation<Person>> locales) {
         this.locales = locales;
     }
+
+
+    public String getWikiPage() {
+        return wikiPage;
+    }
+
+    public void setWikiPage(String wikiPage) {
+        this.wikiPage = wikiPage;
+    }
 }

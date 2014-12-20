@@ -1,7 +1,6 @@
-package org.ib.history.wiki.parser;
+package org.ib.history.wiki.domain;
 
 import org.ib.history.commons.data.FlexibleDate;
-import org.ib.history.commons.data.PageLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +11,13 @@ public class Royalty {
     private String name;
     private FlexibleDate dateOfBirth;
     private FlexibleDate dateOfDeath;
-    private PageLink father;
-    private PageLink mother;
+    private WikiNamedResource father;
+    private WikiNamedResource mother;
+    private List<WikiNamedResource> spouses = new ArrayList<>(1);
+    private List<WikiNamedResource> issues = new ArrayList<>(5);
+    private List<WikiNamedResource> houses = new ArrayList<>(1);
     private List<Succession> successions = new ArrayList<>();
+
 
     public String getArticleName() {
         return articleName;
@@ -48,25 +51,36 @@ public class Royalty {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public PageLink getFather() {
+    public WikiNamedResource getFather() {
         return father;
     }
 
-    public void setFather(PageLink father) {
+    public void setFather(WikiNamedResource father) {
         this.father = father;
     }
 
-    public PageLink getMother() {
+    public WikiNamedResource getMother() {
         return mother;
     }
 
-    public void setMother(PageLink mother) {
+    public void setMother(WikiNamedResource mother) {
         this.mother = mother;
     }
 
     public List<Succession> getSuccessions() {
         return successions;
     }
+
+    public List<WikiNamedResource> getSpouses() {
+        return spouses;
+    }
+
+    public List<WikiNamedResource> getIssues() { return issues; }
+
+    public List<WikiNamedResource> getHouses() {
+        return houses;
+    }
+
 
     @Override
     public String toString() {
@@ -80,20 +94,23 @@ public class Royalty {
                 ", dateOfDeath=" + dateOfDeath +
                 ", \n\tfather=" + father +
                 ", mother=" + mother +
+                ", \n\tspouses=" + spouses +
+                ", \n\tissues=" + issues +
+                ", \n\thouses=" + houses +
                 ", " + sb.toString() +
                 '}';
     }
 
     public static class Succession {
-        private List<PageLink> countries = new ArrayList<>(3);
+        private List<WikiNamedResource> countries = new ArrayList<>(3);
         private FlexibleDate from;
         private FlexibleDate to;
 
-        public List<PageLink> getCountries() {
+        public List<WikiNamedResource> getCountries() {
             return countries;
         }
 
-        public void setCountries(List<PageLink> countries) {
+        public void setCountries(List<WikiNamedResource> countries) {
             this.countries = countries;
         }
 

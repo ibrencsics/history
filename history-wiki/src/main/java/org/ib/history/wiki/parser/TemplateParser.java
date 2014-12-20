@@ -1,9 +1,8 @@
 package org.ib.history.wiki.parser;
 
-import org.ib.history.commons.data.PageLink;
+import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.commons.tuples.Tuple2;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,27 +123,27 @@ public class TemplateParser {
         return data;
     }
 
-    PageLink parseLink(String link) {
+    WikiNamedResource parseLink(String link) {
         link = link.replace("[", "").replace("]", "");
         String[] tokens = link.split("\\|");
         if (tokens.length==1) {
-            return new PageLink(link);
+            return new WikiNamedResource(link);
         }
 
-        return new PageLink(tokens[0], tokens[1]);
+        return new WikiNamedResource(tokens[0], tokens[1]);
     }
 
-    List<PageLink> getLinks(String data) {
-        List<PageLink> links = new ArrayList<>(3);
+    List<WikiNamedResource> getLinks(String data) {
+        List<WikiNamedResource> links = new ArrayList<>(3);
 
         // maybe
         // [\p{Latin}\p{Punctuation}\p{Math_Symbol}]
         // \p{M}
-        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-]+\\]\\]");
+        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-|\\(|\\)|–]+\\]\\]");
         Matcher matcher = pattern.matcher(data);
         while (matcher.find()) {
             String link = matcher.group();
-            PageLink pageLink = parseLink(link);
+            WikiNamedResource pageLink = parseLink(link);
             links.add(pageLink);
         }
 

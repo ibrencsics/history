@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class PersonData extends AbstractData<PersonData> {
 
+    private String wikiPage;
     private String gender;
     private String alias;
     private FlexibleDate dateOfBirth;
@@ -95,11 +96,19 @@ public class PersonData extends AbstractData<PersonData> {
     }
 
 
+    public String getWikiPage() {
+        return wikiPage;
+    }
+
+    public void setWikiPage(String wikiPage) {
+        this.wikiPage = wikiPage;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("PersonData{ id=" + getId() + " name=" + getName());
+        sb.append("PersonData{ id=" + getId() + " name=" + getName() + " wikiPage=" + wikiPage);
         sb.append(" gender=" + getGender());
         sb.append(" alias=" + getAlias());
         if (getDateOfBirth()!=null)
@@ -160,6 +169,11 @@ public class PersonData extends AbstractData<PersonData> {
 
         public Builder id(Long id) {
             personData.setId(id);
+            return this;
+        }
+
+        public Builder wikiPage(String wikiPage) {
+            personData.setWikiPage(wikiPage);
             return this;
         }
 

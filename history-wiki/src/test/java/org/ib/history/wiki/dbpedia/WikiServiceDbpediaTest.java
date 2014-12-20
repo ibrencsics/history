@@ -11,7 +11,8 @@ public class WikiServiceDbpediaTest {
         WikiService service = new WikiServiceDbpedia();
 //        WikiPerson person = service.getPerson("William_the_Conqueror");
 //        WikiPerson person = service.getPerson("William_III_of_England");
-        WikiPerson person = service.getPerson("Henry_VIII_of_England");
+//        WikiPerson person = service.getPerson("Henry_VIII_of_England");
+        WikiPerson person = service.getPerson("Louis_I_of_Hungary");
         System.out.println(person);
     }
 }
