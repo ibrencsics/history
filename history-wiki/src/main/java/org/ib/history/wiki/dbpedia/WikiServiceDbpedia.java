@@ -65,6 +65,14 @@ public class WikiServiceDbpedia implements WikiService {
             "    \n" +
             "}";
 
+    private static final String PERSON_QUERY_HOUSE = "" +
+            "PREFIX : <http://dbpedia.org/resource/>\n" +
+            "PREFIX d: <http://dbpedia.org/property/>\n" +
+            "select ?house where {\n" +
+            "  OPTIONAL {?resource d:house ?house}\n" +
+            "    \n" +
+            "}";
+
     @Override
     public WikiPerson getPerson(String wikiPage) {
         WikiResource wikiResource = WikiResource.fromLocalPart(wikiPage);
@@ -77,6 +85,7 @@ public class WikiServiceDbpedia implements WikiService {
         queryDateOfDeath(builder, wikiResource);
         querySpouse(builder, wikiResource);
         queryIssue(builder, wikiResource);
+        queryHouse(builder, wikiResource);
 
 //        ResultSetFormatter.out( results );
 
@@ -137,15 +146,28 @@ public class WikiServiceDbpedia implements WikiService {
 
     private void queryIssue(WikiPerson.Builder builder, WikiResource wikiResource) {
         ResultSet results = query(wikiResource, PERSON_QUERY_ISSUE);
-        List<RDFNode> spouses = new ArrayList<>(3);
+        List<RDFNode> issues = new ArrayList<>(3);
 
         while ( results.hasNext() ) {
             QuerySolution querySolution = results.next();
-            spouses.add(querySolution.get("issue"));
+            issues.add(querySolution.get("issue"));
         }
 
-        builder.issue(toWikiNamedResource(spouses));
+        builder.issue(toWikiNamedResource(issues));
     }
+
+    private void queryHouse(WikiPerson.Builder builder, WikiResource wikiResource) {
+        ResultSet results = query(wikiResource, PERSON_QUERY_HOUSE);
+        List<RDFNode> houses = new ArrayList<>(1);
+
+        while ( results.hasNext() ) {
+            QuerySolution querySolution = results.next();
+            houses.add(querySolution.get("house"));
+        }
+
+        builder.house(toWikiNamedResource(houses));
+    }
+
 
     private ResultSet query(WikiResource wikiResource, String queryStr) {
         ParameterizedSparqlString qs = new ParameterizedSparqlString(queryStr);
