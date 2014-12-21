@@ -25,6 +25,10 @@ public class WikiNamedResource extends WikiResource {
                 '}';
     }
 
+    public static WikiNamedResource fromLocalPart(String localPart) {
+        return new WikiNamedResource(localPart.trim().replace(" ", "_"));
+    }
+
     public static WikiNamedResource fromURIString(String uriStr) {
         return new WikiNamedResource(getLastBitFromUrl(uriStr));
     }

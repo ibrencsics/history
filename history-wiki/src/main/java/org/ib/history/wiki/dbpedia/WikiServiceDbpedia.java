@@ -3,6 +3,7 @@ package org.ib.history.wiki.dbpedia;
 import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Literal;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import org.ib.history.commons.data.FlexibleDate;
@@ -11,7 +12,10 @@ import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
 import org.ib.history.wiki.service.WikiService;
 
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WikiServiceDbpedia implements WikiService {
 
@@ -45,11 +49,18 @@ public class WikiServiceDbpedia implements WikiService {
             "  FILTER ( datatype(?deathDate) = xsd:date )\n" +
             "}";
 
-    private static final String PERSON_QUERY_FAMILY = "" +
+    private static final String PERSON_QUERY_SPOUSE = "" +
             "PREFIX : <http://dbpedia.org/resource/>\n" +
             "PREFIX d: <http://dbpedia.org/property/>\n" +
-            "select ?spouse ?issue where {\n" +
+            "select ?spouse where {\n" +
             "  OPTIONAL {?resource (d:spouse | d:spouses) ?spouse . }\n" +
+            "    \n" +
+            "}";
+
+    private static final String PERSON_QUERY_ISSUE = "" +
+            "PREFIX : <http://dbpedia.org/resource/>\n" +
+            "PREFIX d: <http://dbpedia.org/property/>\n" +
+            "select ?issue where {\n" +
             "  OPTIONAL {?resource d:issue ?issue}\n" +
             "    \n" +
             "}";
@@ -64,6 +75,8 @@ public class WikiServiceDbpedia implements WikiService {
         queryBasicData(builder, wikiResource);
         queryDateOfBirth(builder, wikiResource);
         queryDateOfDeath(builder, wikiResource);
+        querySpouse(builder, wikiResource);
+        queryIssue(builder, wikiResource);
 
 //        ResultSetFormatter.out( results );
 
@@ -110,6 +123,30 @@ public class WikiServiceDbpedia implements WikiService {
         }
     }
 
+    private void querySpouse(WikiPerson.Builder builder, WikiResource wikiResource) {
+        ResultSet results = query(wikiResource, PERSON_QUERY_SPOUSE);
+        List<RDFNode> spouses = new ArrayList<>(3);
+
+        while ( results.hasNext() ) {
+            QuerySolution querySolution = results.next();
+            spouses.add(querySolution.get("spouse"));
+        }
+
+        builder.spouse(toWikiNamedResource(spouses));
+    }
+
+    private void queryIssue(WikiPerson.Builder builder, WikiResource wikiResource) {
+        ResultSet results = query(wikiResource, PERSON_QUERY_ISSUE);
+        List<RDFNode> spouses = new ArrayList<>(3);
+
+        while ( results.hasNext() ) {
+            QuerySolution querySolution = results.next();
+            spouses.add(querySolution.get("issue"));
+        }
+
+        builder.issue(toWikiNamedResource(spouses));
+    }
+
     private ResultSet query(WikiResource wikiResource, String queryStr) {
         ParameterizedSparqlString qs = new ParameterizedSparqlString(queryStr);
 
@@ -137,6 +174,29 @@ public class WikiServiceDbpedia implements WikiService {
         }
 
         return builder.build();
+    }
+
+    private List<WikiNamedResource> toWikiNamedResource(List<RDFNode> rdfNodes) {
+        List<WikiNamedResource> ret = new ArrayList<>(3);
+
+        for (RDFNode rdfNode : rdfNodes) {
+
+            if (rdfNode instanceof Resource) {
+                Resource resource = (Resource) rdfNode;
+                WikiNamedResource spouseWikiResource = WikiNamedResource.fromURIString(resource.getURI());
+                ret.add(spouseWikiResource);
+            } else if (rdfNode instanceof Literal) {
+                Literal literal = (Literal) rdfNode;
+                String[] tokens = literal.getString().split("\\*");
+                List<WikiNamedResource> namedResources = Arrays.asList(tokens).stream()
+                        .filter(s -> !s.isEmpty())
+                        .map(s -> WikiNamedResource.fromLocalPart(s))
+                        .collect(Collectors.toList());
+                ret.addAll(namedResources);
+            }
+        }
+
+        return ret;
     }
 
 //    PREFIX : <http://dbpedia.org/resource/>
