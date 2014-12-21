@@ -44,7 +44,7 @@ public class WikiResource {
         return new WikiResource(localPart.replace(" ", "_"));
     }
 
-    private static String getLastBitFromUrl(final String url){
+    protected static String getLastBitFromUrl(final String url){
         return url.replaceFirst(".*/([^/?]+).*", "$1");
     }
 

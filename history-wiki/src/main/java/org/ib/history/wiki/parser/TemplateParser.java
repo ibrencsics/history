@@ -139,7 +139,7 @@ public class TemplateParser {
         // maybe
         // [\p{Latin}\p{Punctuation}\p{Math_Symbol}]
         // \p{M}
-        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-|\\(|\\)|–]+\\]\\]");
+        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-|\\(|\\)|–|#]+\\]\\]");
         Matcher matcher = pattern.matcher(data);
         while (matcher.find()) {
             String link = matcher.group();

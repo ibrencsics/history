@@ -21,7 +21,10 @@ public class WikiServiceWikipedia implements WikiService {
                 .dateOfBirth(royalty.getDateOfBirth())
                 .dateOfDeath(royalty.getDateOfDeath())
                 .father(royalty.getFather())
-                .mother(royalty.getMother());
+                .mother(royalty.getMother())
+                .spouse(royalty.getSpouses())
+                .issue(royalty.getIssues())
+                .house(royalty.getHouses());
 
 
         return builder.build();

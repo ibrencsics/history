@@ -24,4 +24,8 @@ public class WikiNamedResource extends WikiResource {
                 (getLocalPart().equals(displayText) ? "" : ", t='" + displayText + '\'') +
                 '}';
     }
+
+    public static WikiNamedResource fromURIString(String uriStr) {
+        return new WikiNamedResource(getLastBitFromUrl(uriStr));
+    }
 }

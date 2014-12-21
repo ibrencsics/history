@@ -15,8 +15,9 @@ public class WikiPerson {
 
     private WikiNamedResource father;
     private WikiNamedResource mother;
-    private List<WikiPerson> spouses = new ArrayList<>(1);
-    private List<WikiPerson> issues = new ArrayList<>(5);
+    private List<WikiNamedResource> spouses = new ArrayList<>(1);
+    private List<WikiNamedResource> issues = new ArrayList<>(5);
+    private List<WikiNamedResource> houses = new ArrayList<>(1);
 
     public static class Builder {
         private WikiPerson wikiPerson = new WikiPerson();
@@ -51,8 +52,18 @@ public class WikiPerson {
             return this;
         }
 
-        public Builder spouse(WikiPerson spouse) {
-            wikiPerson.addSpouse(spouse);
+        public Builder spouse(List<WikiNamedResource> spouses) {
+            wikiPerson.addSpouses(spouses);
+            return this;
+        }
+
+        public Builder issue(List<WikiNamedResource> issues) {
+            wikiPerson.addIssues(issues);
+            return this;
+        }
+
+        public Builder house(List<WikiNamedResource> houses) {
+            wikiPerson.addHouses(houses);
             return this;
         }
 
@@ -110,13 +121,30 @@ public class WikiPerson {
         this.mother = mother;
     }
 
-    public void addSpouse(WikiPerson spouse) {
-        this.spouses.add(spouse);
+    public void addSpouses(List<WikiNamedResource> spouse) {
+        this.spouses.addAll(spouse);
     }
 
-    public List<WikiPerson> getSpouses() {
+    public List<WikiNamedResource> getSpouses() {
         return Collections.unmodifiableList(spouses);
     }
+
+    public void addIssues(List<WikiNamedResource> issues) {
+        this.issues.addAll(issues);
+    }
+
+    public List<WikiNamedResource> getIssues() {
+        return Collections.unmodifiableList(issues);
+    }
+
+    public void addHouses(List<WikiNamedResource> houses) {
+        this.houses.addAll(houses);
+    }
+
+    public List<WikiNamedResource> getHouses() {
+        return Collections.unmodifiableList(houses);
+    }
+
 
     @Override
     public String toString() {
@@ -128,6 +156,8 @@ public class WikiPerson {
                 ", \n\tfather=" + father.getLocalPart() +
                 ", mother=" + mother.getLocalPart() +
                 ", \n\tspouses=" + spouses +
+                ", \n\tissues=" + issues +
+                ", \n\thouses=" + houses +
                 '}';
     }
 }

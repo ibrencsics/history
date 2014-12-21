@@ -85,7 +85,7 @@ public class Royalty {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        getSuccessions().stream().forEach((s) -> sb.append("\n" + s));
+        getSuccessions().stream().forEach((s) -> sb.append("\n\t" + s));
 
         return "Royalty{" +
                 "articleName='" + articleName + '\'' +
@@ -133,8 +133,8 @@ public class Royalty {
         @Override
         public String toString() {
             return "Succession{" +
-                    ", \n\tcountries=" + countries +
-                    ", \n\tfrom=" + from +
+                    ", countries=" + countries +
+                    ", from=" + from +
                     ", to=" + to +
                     '}';
         }
