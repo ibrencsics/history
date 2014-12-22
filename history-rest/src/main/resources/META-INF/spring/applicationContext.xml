@@ -21,6 +21,7 @@
     <jaxrs:server id="historyService" address="/history">
         <jaxrs:serviceBeans>
             <bean class="org.ib.history.rest.HistoryService"/>
+            <ref bean="wikiHistoryService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="cors-filter" />
@@ -35,4 +36,7 @@
     <import resource="classpath:sdn-ApplicationContext.xml"/>
     <context:component-scan base-package="org.ib.history" />
 
+    <!-- Wiki -->
+    <bean class="org.ib.history.wiki.wikipedia.WikiServiceWikipedia"/>
+    <bean id="wikiHistoryService" class="org.ib.history.rest.WikiHistoryService"/>
 </beans>

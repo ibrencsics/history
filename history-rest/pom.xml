@@ -23,6 +23,17 @@
             <groupId>org.ib</groupId>
             <artifactId>history-db-neo4j-sdn</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.poi</groupId>
+                    <artifactId>poi-ooxml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.ib</groupId>
+            <artifactId>history-wiki</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- CXF -->
