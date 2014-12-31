@@ -19,6 +19,8 @@ public class WikiPerson {
     private List<WikiNamedResource> issues = new ArrayList<>(5);
     private List<WikiNamedResource> houses = new ArrayList<>(1);
 
+    private List<WikiSuccession> successions = new ArrayList<>(3);
+
     public static class Builder {
         private WikiPerson wikiPerson = new WikiPerson();
 
@@ -64,6 +66,11 @@ public class WikiPerson {
 
         public Builder house(List<WikiNamedResource> houses) {
             wikiPerson.addHouses(houses);
+            return this;
+        }
+
+        public Builder succession(WikiSuccession succession) {
+            wikiPerson.successions.add(succession);
             return this;
         }
 
@@ -145,6 +152,9 @@ public class WikiPerson {
         return Collections.unmodifiableList(houses);
     }
 
+    public List<WikiSuccession> getSuccessions() {
+        return Collections.unmodifiableList(successions);
+    }
 
     @Override
     public String toString() {
@@ -158,6 +168,7 @@ public class WikiPerson {
                 ", \n\tspouses=" + spouses +
                 ", \n\tissues=" + issues +
                 ", \n\thouses=" + houses +
+                ", \n\tsuccession=" + successions +
                 '}';
     }
 }

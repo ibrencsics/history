@@ -8,10 +8,7 @@ import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.wiki.domain.Royalty;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +32,8 @@ public class RoyaltyParser {
         parserMap.put("spouses", this::parseSpouse);
         parserMap.put("issue", this::parseIssue);
         parserMap.put("house", this::parseHouse);
+        parserMap.put("predecessor", this::parsePredecessor);
+        parserMap.put("successor", this::parseSuccessor);
     }
 
     public Royalty parse(String page) {
@@ -70,6 +69,9 @@ public class RoyaltyParser {
             if (parser != null) {
                 System.out.println("to parse " + entry.getKey() + ": " + entry.getValue());
                 parser.accept(royalty, new Tuple2<String,Integer>(entry.getValue(), seqNum));
+            }
+            else {
+                System.out.println("no parsing " + entry.getKey());
             }
         }
 
@@ -142,9 +144,30 @@ public class RoyaltyParser {
 
     }
 
+    private void parsePredecessor(Royalty royalty, Tuple2<String,Integer> data) {
+        Royalty.Succession succession = getCurrentSuccession(royalty, data.element2());
+
+        // TODO: only the first link processed
+        List<WikiNamedResource> links = templateParser.getLinks(data.element1());
+        if (links.size()>0) {
+            succession.setPredecessor(links.get(0));
+        }
+    }
+
+    private void parseSuccessor(Royalty royalty, Tuple2<String,Integer> data) {
+        Royalty.Succession succession = getCurrentSuccession(royalty, data.element2());
+
+        List<WikiNamedResource> links = templateParser.getLinks(data.element1());
+        if (links.size()>0) {
+            succession.setSuccessor(links.get(0));
+        }
+    }
+
     private Royalty.Succession getCurrentSuccession(Royalty royalty, Integer num) {
         if (royalty.getSuccessions().size() <= num) {
-            royalty.getSuccessions().add(new Royalty.Succession());
+            for (int i=0; i <= (num - royalty.getSuccessions().size() + 1); i++) {
+                royalty.getSuccessions().add(new Royalty.Succession());
+            }
         }
         return royalty.getSuccessions().get(num);
     }

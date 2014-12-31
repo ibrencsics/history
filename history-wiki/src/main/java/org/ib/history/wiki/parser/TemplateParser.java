@@ -64,14 +64,16 @@ public class TemplateParser {
     }
 
     Map<String,String> getTemplateDataMap(String template) {
-        Map<String,String> data = new HashMap<>();
+        Map<String,String> data = new LinkedHashMap<>();
 
         getTemplateData(template)
                 .stream()
                 .forEach( datum -> {
+//                            System.out.println(datum);
                             int keyValueSeparatorPos = datum.indexOf(KEY_VALUE_SEPARATOR);
                             if (keyValueSeparatorPos != -1) {
-                                String key = datum.substring(0, keyValueSeparatorPos - 1).trim();
+                                String key = datum.substring(0, keyValueSeparatorPos /*- 1*/).trim();
+//                                System.out.println(key);
                                 String value = datum.substring(keyValueSeparatorPos + 1, datum.length()).trim();
                                 data.put(key, value);
 //                                System.out.println("put: " + key + " : " + value);

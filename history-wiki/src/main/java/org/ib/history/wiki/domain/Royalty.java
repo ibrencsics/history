@@ -105,6 +105,8 @@ public class Royalty {
         private List<WikiNamedResource> countries = new ArrayList<>(3);
         private FlexibleDate from;
         private FlexibleDate to;
+        private WikiNamedResource predecessor;
+        private WikiNamedResource successor;
 
         public List<WikiNamedResource> getCountries() {
             return countries;
@@ -130,12 +132,30 @@ public class Royalty {
             this.to = to;
         }
 
+        public WikiNamedResource getPredecessor() {
+            return predecessor;
+        }
+
+        public void setPredecessor(WikiNamedResource predecessor) {
+            this.predecessor = predecessor;
+        }
+
+        public WikiNamedResource getSuccessor() {
+            return successor;
+        }
+
+        public void setSuccessor(WikiNamedResource successor) {
+            this.successor = successor;
+        }
+
         @Override
         public String toString() {
             return "Succession{" +
-                    ", countries=" + countries +
+                    "countries=" + countries +
                     ", from=" + from +
                     ", to=" + to +
+                    ", predecessor=" + predecessor +
+                    ", successor=" + successor +
                     '}';
         }
     }

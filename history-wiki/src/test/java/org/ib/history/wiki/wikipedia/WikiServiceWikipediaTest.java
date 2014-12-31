@@ -12,9 +12,10 @@ public class WikiServiceWikipediaTest {
 //        WikiPerson person = service.getPerson("William_the_Conqueror");
 //        WikiPerson person = service.getPerson("William_III_of_England");
 //        WikiPerson person = service.getPerson("Henry_VIII_of_England");
-        WikiPerson person = service.getPerson("Louis_I_of_Hungary");
+//        WikiPerson person = service.getPerson("Louis_I_of_Hungary");
 //        WikiPerson person = service.getPerson("Louis_XIV_of_France");
-//        WikiPerson person = service.getPerson("Anne_of_Austria");
+        WikiPerson person = service.getPerson("Anne_of_Austria");
+//        WikiPerson person = service.getPerson("Empress Matilda");
         System.out.println(person);
 
     }
