@@ -1,9 +1,6 @@
 package org.ib.history.wiki.wikipedia;
 
-import org.ib.history.wiki.domain.WikiPerson;
-import org.ib.history.wiki.domain.WikiResource;
-import org.ib.history.wiki.domain.Royalty;
-import org.ib.history.wiki.domain.WikiSuccession;
+import org.ib.history.wiki.domain.*;
 import org.ib.history.wiki.parser.RoyaltyParser;
 import org.ib.history.wiki.service.WikiService;
 
@@ -30,7 +27,7 @@ public class WikiServiceWikipedia implements WikiService {
                 .issue(royalty.getIssues())
                 .house(royalty.getHouses());
 
-        parseSuccession(builder, royalty);
+        parseSuccession2(builder, royalty);
 
         return builder.build();
     }
@@ -79,7 +76,19 @@ public class WikiServiceWikipedia implements WikiService {
                 }
             }
         }
+    }
 
-
+    private void parseSuccession2(WikiPerson.Builder builder, Royalty royalty) {
+        for (Royalty.Succession succession : royalty.getSuccessions()) {
+            for (WikiNamedResource country : succession.getCountries()) {
+                WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
+                        .title(country.getDisplayText().trim())
+                        .from(succession.getFrom())
+                        .to(succession.getTo())
+                        .predecessor(succession.getPredecessor())
+                        .successor(succession.getSuccessor());
+                builder.succession(successionBuilder.build());
+            }
+        }
     }
 }

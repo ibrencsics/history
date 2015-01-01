@@ -14,8 +14,14 @@ public class WikiServiceWikipediaTest {
 //        WikiPerson person = service.getPerson("Henry_VIII_of_England");
 //        WikiPerson person = service.getPerson("Louis_I_of_Hungary");
 //        WikiPerson person = service.getPerson("Louis_XIV_of_France");
-        WikiPerson person = service.getPerson("Anne_of_Austria");
+//        WikiPerson person = service.getPerson("Anne_of_Austria");
 //        WikiPerson person = service.getPerson("Empress Matilda");
+//        WikiPerson person = service.getPerson("Stephen,_King_of_England");
+//        WikiPerson person = service.getPerson("Charles II of England");
+//        WikiPerson person = service.getPerson("James II & VII");
+//        WikiPerson person = service.getPerson("Henry_V_of_England");
+//        WikiPerson person = service.getPerson("Edward_VII");
+        WikiPerson person = service.getPerson("Elizabeth_II");
         System.out.println(person);
 
     }

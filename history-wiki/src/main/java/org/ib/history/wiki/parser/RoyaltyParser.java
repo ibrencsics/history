@@ -39,7 +39,15 @@ public class RoyaltyParser {
     public Royalty parse(String page) {
         MediaWikiBot mediaWikiBot = new MediaWikiBot( "http://en.wikipedia.org/w/" );
         Article article = mediaWikiBot.getArticle(page);
-        return parse(page, article.getSimpleArticle().getText());
+        String wikiText = article.getSimpleArticle().getText();
+
+        if (wikiText.startsWith("#REDIRECT")) {
+            List<WikiNamedResource> links = templateParser.getLinks(wikiText);
+            article = mediaWikiBot.getArticle(links.get(0).getLocalPart());
+            wikiText = article.getSimpleArticle().getText();
+        }
+
+        return parse(page, wikiText);
     }
 
     public Royalty parse(String page, String wikiText) {
@@ -67,11 +75,11 @@ public class RoyaltyParser {
 
             BiConsumer<Royalty, Tuple2<String,Integer>> parser = parserMap.get(parserKey);
             if (parser != null) {
-                System.out.println("to parse " + entry.getKey() + ": " + entry.getValue());
+//                System.out.println("to parse " + entry.getKey() + ": " + entry.getValue());
                 parser.accept(royalty, new Tuple2<String,Integer>(entry.getValue(), seqNum));
             }
             else {
-                System.out.println("no parsing " + entry.getKey());
+//                System.out.println("no parsing " + entry.getKey());
             }
         }
 
@@ -119,6 +127,7 @@ public class RoyaltyParser {
 
         List<WikiNamedResource> links = templateParser.getLinks(dataText);
         succession.setCountries(links);
+        succession.setCountriesRaw(dataText);
     }
 
     // 28 June 1519 – 27 August 1556<ref>Date of Charles's abdication; on 24 February 1558, the college of electors assembled at Frankfort accepted the instrument of Charles V's imperial resignation and declared the election of Ferdinand as emperor [http://books.google.es/books?id=DUwLAAAAIAAJ&lpg=PA716&dq=&pg=PA716#v=onepage&q=&f=false] [http://books.google.es/books?id=nPwQAAAAIAAJ&dq=&lr&as_brr=3&pg=PA182#v=onepage&q=&f=false]</ref>
@@ -139,8 +148,12 @@ public class RoyaltyParser {
 
         List<FlexibleDate> dates = dateParser.parseDateEnglishFormat(data.element1());
         dates.sort(new FlexibleDateComparator());
-        succession.setFrom(dates.get(0));
-        succession.setTo(dates.get(1));
+
+        if (dates.size()>0)
+            succession.setFrom(dates.get(0));
+
+        if (dates.size()>1)
+            succession.setTo(dates.get(1));
 
     }
 

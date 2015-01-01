@@ -103,6 +103,7 @@ public class Royalty {
 
     public static class Succession {
         private List<WikiNamedResource> countries = new ArrayList<>(3);
+        private String countriesRaw;
         private FlexibleDate from;
         private FlexibleDate to;
         private WikiNamedResource predecessor;
@@ -114,6 +115,14 @@ public class Royalty {
 
         public void setCountries(List<WikiNamedResource> countries) {
             this.countries = countries;
+        }
+
+        public String getCountriesRaw() {
+            return countriesRaw;
+        }
+
+        public void setCountriesRaw(String countriesRaw) {
+            this.countriesRaw = countriesRaw;
         }
 
         public FlexibleDate getFrom() {
