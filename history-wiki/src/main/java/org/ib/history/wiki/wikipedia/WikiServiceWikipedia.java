@@ -80,9 +80,20 @@ public class WikiServiceWikipedia implements WikiService {
 
     private void parseSuccession2(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
-            for (WikiNamedResource country : succession.getCountries()) {
+            if (!succession.getCountries().isEmpty()) {
+                for (WikiNamedResource country : succession.getCountries()) {
+                    WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
+                            .title(country.getDisplayText().trim())
+                            .from(succession.getFrom())
+                            .to(succession.getTo())
+                            .predecessor(succession.getPredecessor())
+                            .successor(succession.getSuccessor());
+                    builder.succession(successionBuilder.build());
+                }
+            }
+            else {
                 WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
-                        .title(country.getDisplayText().trim())
+                        .title(succession.getCountriesRaw())
                         .from(succession.getFrom())
                         .to(succession.getTo())
                         .predecessor(succession.getPredecessor())
