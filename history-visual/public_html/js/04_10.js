@@ -3,6 +3,7 @@ var case0410 = {
     show : function() {
         d3.select("svg").selectAll("*").remove();
         d3.select("#details").selectAll("*").remove();
+        d3.select("#controls").selectAll("*").remove();
         d3.json("http://localhost:8080/history/person/json",function(error,data) {case0410.dataViz(data)});
     },
 

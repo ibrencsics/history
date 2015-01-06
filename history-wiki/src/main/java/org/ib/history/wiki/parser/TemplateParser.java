@@ -33,7 +33,7 @@ public class TemplateParser {
             if (Arrays.equals(TEMPLATE_START, cc)) {
                 int next_separator = wikiText.indexOf(DATA_SEPARATOR, i+1);
                 int next_template_end = wikiText.indexOf(TEMPLATE_END_CHAR, i+1);
-                if (next_separator > next_template_end) {
+                if ((next_separator > next_template_end) || (next_separator == -1)) {
                     // not a template
                     // e.g. {{Good article}}
                     i = next_template_end + 1;

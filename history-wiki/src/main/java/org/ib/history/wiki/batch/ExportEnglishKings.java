@@ -18,10 +18,10 @@ public class ExportEnglishKings {
     static WikiService service = new WikiServiceWikipedia();
     static PrintWriter writer;
 
-    static List<KingCache> kingCache = new LinkedList<>();
     static List<String> kingNameCache = new LinkedList<>();
 
-    static final String[] STARTING_POINTS = {"William_the_Conqueror", /*"Henry_II_of_England", "Edward_V_of_England",*/ "George_V", "Edward_VIII"};
+//    static final String[] STARTING_POINTS = {"William_the_Conqueror", /*"Henry_II_of_England", "Edward_V_of_England",*/ "George_V", "Edward_VIII"};
+    static final String[] STARTING_POINTS = {"Stephen_I_of_Hungary"};
 
     public static void main(String[] args) throws IOException {
         File file = new File("/tmp/english-kings.txt");
@@ -48,17 +48,19 @@ public class ExportEnglishKings {
         kingNameCache.add(personName);
 
         WikiPerson person = service.getPerson(personName);
+        System.out.println(person);
 
 
 //        writer.append(person.toString());
 //        writer.append("\n\n");
 
         List<WikiSuccession> sucs = person.getSuccessions().stream()
-                .filter(s -> s.getTitle()!=null)
-                .filter(s -> (s.getTitle().toLowerCase().contains("england") ||
-                        s.getTitle().toLowerCase().contains("great britain") ||
-                        s.getTitle().toLowerCase().contains("united kingdom")
-                ))
+                .filter(s -> s.getTitle() != null)
+//                .filter(s -> (s.getTitle().toLowerCase().contains("england") ||
+//                        s.getTitle().toLowerCase().contains("great britain") ||
+//                        s.getTitle().toLowerCase().contains("united kingdom")
+//                ))
+                .filter(s -> (s.getTitle().toLowerCase().contains("hungary")))
                 .collect(Collectors.toList());
 
         for (WikiSuccession suc : sucs) {
@@ -80,39 +82,6 @@ public class ExportEnglishKings {
 
             if (suc.getSuccessor()==null) continue;
             getKing(suc.getSuccessor().getLocalPart());
-        }
-    }
-
-    static class KingCache {
-        FlexibleDate from, to;
-        String pageName;
-
-        KingCache(FlexibleDate from, FlexibleDate to, String pageName) {
-            this.from = from;
-            this.to = to;
-            this.pageName = pageName;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            KingCache kingCache = (KingCache) o;
-
-            if (!from.equals(kingCache.from)) return false;
-            if (!pageName.equals(kingCache.pageName)) return false;
-            if (!to.equals(kingCache.to)) return false;
-
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = from.hashCode();
-            result = 31 * result + to.hashCode();
-            result = 31 * result + pageName.hashCode();
-            return result;
         }
     }
 }

@@ -12,4 +12,7 @@ var elem5 = document.getElementById("family-tree");
 elem5.addEventListener('click', familyTree.show, false)
 
 var elem6 = document.getElementById("E1");
-elem6.addEventListener('click', englishKings.show, false)
+elem6.addEventListener('click', englishKingsCh3.show, false)
+
+var elem7 = document.getElementById("E2");
+elem7.addEventListener('click', englishKingsCh4.show, false)
