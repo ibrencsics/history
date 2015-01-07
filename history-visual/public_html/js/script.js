@@ -16,3 +16,6 @@ elem6.addEventListener('click', englishKingsCh3.show, false)
 
 var elem7 = document.getElementById("E2");
 elem7.addEventListener('click', englishKingsCh4.show, false)
+
+var elem8 = document.getElementById("E3");
+elem8.addEventListener('click', englishKingsCh5.show, false)
