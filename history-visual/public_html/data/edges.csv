@@ -1,0 +1,12 @@
+source,target,weight
+William_the_Conqueror,Matilda_of_Flanders,5
+William_the_Conqueror,Robert_Curthose,1
+William_the_Conqueror,William_II_of_England,1
+William_the_Conqueror,Henry_I_of_England,1
+Matilda_of_Flanders,Robert_Curthose,1
+Matilda_of_Flanders,William_II_of_England,1
+Matilda_of_Flanders,Henry_I_of_England,1
+Henry_I_of_England,Matilda_of_Scotland,5
+Henry_I_of_England,Adeliza_of_Louvain,5
+Henry_I_of_England,Empress_Matilda,1
+Matilda_of_Scotland,Empress_Matilda,1
