@@ -8,7 +8,7 @@ public class WikiResource {
     private static final String DBPEDIA_BASE = "http://dbpedia.org/resource/";
     private static final String WIKIPEDIA_BASE = "http://en.wikipedia.org/wiki/";
 
-    private final String localPart;
+    protected final String localPart;
 
     WikiResource(String localPart) {
         this.localPart = localPart;

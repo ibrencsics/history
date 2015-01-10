@@ -13,7 +13,7 @@ public class WikiServiceWikipedia implements WikiService {
     public WikiPerson getPerson(String wikiPage) {
         RoyaltyParser parser = new RoyaltyParser();
         Royalty royalty = parser.parse(wikiPage);
-        System.out.println(royalty);
+//        System.out.println(royalty);
 
         WikiPerson.Builder builder = new WikiPerson.Builder();
 

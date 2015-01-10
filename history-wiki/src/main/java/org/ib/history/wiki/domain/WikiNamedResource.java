@@ -25,6 +25,25 @@ public class WikiNamedResource extends WikiResource {
                 '}';
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WikiNamedResource that = (WikiNamedResource) o;
+
+        if (displayText != null ? !displayText.equals(that.displayText) : that.displayText != null) return false;
+        if (localPart != null ? !localPart.equals(that.localPart) : that.localPart != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return displayText != null ? displayText.hashCode() : 0;
+    }
+
     public static WikiNamedResource fromLocalPart(String localPart) {
         return new WikiNamedResource(localPart.trim().replace(" ", "_"));
     }

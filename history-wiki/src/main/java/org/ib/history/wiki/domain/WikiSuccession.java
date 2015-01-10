@@ -84,4 +84,32 @@ public class WikiSuccession {
                 ", successor=" + successor +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WikiSuccession that = (WikiSuccession) o;
+
+//        if (country != null ? !country.equals(that.country) : that.country != null) return false;
+        if (from != null ? !from.equals(that.from) : that.from != null) return false;
+        if (predecessor != null ? !predecessor.equals(that.predecessor) : that.predecessor != null) return false;
+        if (successor != null ? !successor.equals(that.successor) : that.successor != null) return false;
+//        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (to != null ? !to.equals(that.to) : that.to != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = from != null ? from.hashCode() : 0;
+        result = 31 * result + (to != null ? to.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (predecessor != null ? predecessor.hashCode() : 0);
+        result = 31 * result + (successor != null ? successor.hashCode() : 0);
+        return result;
+    }
 }

@@ -1,5 +1,7 @@
 package org.ib.history.wiki.parser;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.FlexibleDateComparator;
 
@@ -63,6 +65,8 @@ public class DateParser {
     }
 
     public List<FlexibleDate> parseDateEnglishFormat(String data) {
+        data = StringEscapeUtils.unescapeHtml4(data);
+
         String dayPattern = "[1-9]|[1-2]\\d|3[0-1]";
         String monthPattern = "January|February|March|April|May|June|July|August|September|October|November|December";
 //        String yearPattern = "\\d{3,4}";
@@ -75,7 +79,7 @@ public class DateParser {
         Matcher matcher;
 
         // 15 January 2014
-        patternStr = "(?i)(" + dayPattern + ")\\s(" + monthPattern + ")\\s(" + yearPattern + ")";
+        patternStr = "(?i)(" + dayPattern + ")\\p{Z}(" + monthPattern + ")\\p{Z}(" + yearPattern + ")";
         pattern = Pattern.compile(patternStr);
         matcher = pattern.matcher(data);
 

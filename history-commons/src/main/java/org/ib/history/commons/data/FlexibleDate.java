@@ -157,4 +157,36 @@ public class FlexibleDate implements IsSerializable {
     public String toString() {
         return GwtDateFormat.convert(this);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FlexibleDate that = (FlexibleDate) o;
+
+        if (day != that.day) return false;
+        if (isAD != that.isAD) return false;
+        if (isCirca != that.isCirca) return false;
+        if (isThereDay != that.isThereDay) return false;
+        if (isThereMonth != that.isThereMonth) return false;
+        if (month != that.month) return false;
+        if (year != that.year) return false;
+        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (isThereDay ? 1 : 0);
+        result = 31 * result + (isThereMonth ? 1 : 0);
+        result = 31 * result + (isAD ? 1 : 0);
+        result = 31 * result + (isCirca ? 1 : 0);
+        result = 31 * result + day;
+        result = 31 * result + month;
+        result = 31 * result + year;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
+    }
 }
