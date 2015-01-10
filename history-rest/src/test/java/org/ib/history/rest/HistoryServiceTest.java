@@ -94,6 +94,6 @@ public class HistoryServiceTest {
 
         Response response = client.get();
 //        CountryData countryData = response.readEntity(CountryData.class);
-//        assertEquals("England", countryData.getName());
+//        assertEquals("England", countryData.name());
     }
 }

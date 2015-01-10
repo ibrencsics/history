@@ -47,17 +47,9 @@ public class DateParser {
             return builder.build();
         }
 
-//        Pattern pattern = Pattern.compile("(?i)([1-9]|[1-2]\\d|3[0-1])\\s(January|February|March|April|May|June|July|August|September|October|November|December)\\s(\\d{3,4})");
-//        Matcher matcher = pattern.matcher(data);
-//        if (matcher.find()) {
-//            builder.day(matcher.group(1));
-//            builder.monthByName(matcher.group(2));
-//            builder.year(matcher.group(3));
-//            return builder.build();
-//        }
-
         List<FlexibleDate> flexDates = parseDateEnglishFormat(data);
-        if (flexDates.size() == 1) {
+        // TODO: handle if there are more than one dates
+        if (flexDates.size() > 0) {
             return flexDates.get(0);
         }
 
@@ -69,8 +61,8 @@ public class DateParser {
 
         String dayPattern = "[1-9]|[1-2]\\d|3[0-1]";
         String monthPattern = "January|February|March|April|May|June|July|August|September|October|November|December";
-//        String yearPattern = "\\d{3,4}";
-        String yearPattern = "\\d{4}";
+        String yearPattern = "\\d{3,4}";
+//        String yearPattern = "\\d{4}";
 
         List<FlexibleDate> flexDates = new ArrayList<>(2);
 

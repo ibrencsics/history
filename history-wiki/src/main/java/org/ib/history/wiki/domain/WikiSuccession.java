@@ -78,8 +78,8 @@ public class WikiSuccession {
         return "WikiSuccession{" +
                 "from=" + from +
                 ", to=" + to +
-                ", country='" + country + '\'' +
-                ", title='" + title + '\'' +
+//                ", country='" + country + '\'' +
+//                ", title='" + title + '\'' +
                 ", predecessor=" + predecessor +
                 ", successor=" + successor +
                 '}';
