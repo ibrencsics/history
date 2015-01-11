@@ -102,27 +102,45 @@ public class Royalty {
     }
 
     public static class Succession {
-        private List<WikiNamedResource> countries = new ArrayList<>(3);
-        private String countriesRaw;
+        private List<WikiNamedResource> successionLinks = new ArrayList<>(3);
+        private String successionRaw;
+        private String successionNoLinks;
+        private String successionNoLinksNoSmall;
         private FlexibleDate from;
         private FlexibleDate to;
         private WikiNamedResource predecessor;
         private WikiNamedResource successor;
 
-        public List<WikiNamedResource> getCountries() {
-            return countries;
+        public List<WikiNamedResource> getSuccessionLinks() {
+            return successionLinks;
         }
 
-        public void setCountries(List<WikiNamedResource> countries) {
-            this.countries = countries;
+        public void setSuccessionLinks(List<WikiNamedResource> successionLinks) {
+            this.successionLinks = successionLinks;
         }
 
-        public String getCountriesRaw() {
-            return countriesRaw;
+        public String getSuccessionRaw() {
+            return successionRaw;
         }
 
-        public void setCountriesRaw(String countriesRaw) {
-            this.countriesRaw = countriesRaw;
+        public void setSuccessionRaw(String successionRaw) {
+            this.successionRaw = successionRaw;
+        }
+
+        public String getSuccessionNoLinks() {
+            return successionNoLinks;
+        }
+
+        public void setSuccessionNoLinks(String successionNoLinks) {
+            this.successionNoLinks = successionNoLinks;
+        }
+
+        public String getSuccessionNoLinksNoSmall() {
+            return successionNoLinksNoSmall;
+        }
+
+        public void setSuccessionNoLinksNoSmall(String successionNoLinksNoSmall) {
+            this.successionNoLinksNoSmall = successionNoLinksNoSmall;
         }
 
         public FlexibleDate getFrom() {
@@ -160,7 +178,7 @@ public class Royalty {
         @Override
         public String toString() {
             return "Succession{" +
-                    "countries=" + countries +
+                    "successionLinks=" + successionLinks +
                     ", from=" + from +
                     ", to=" + to +
                     ", predecessor=" + predecessor +

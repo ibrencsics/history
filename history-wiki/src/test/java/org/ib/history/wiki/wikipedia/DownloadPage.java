@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 public class DownloadPage {
 
     public static void main(String[] args) throws IOException {
-        String page = "Stephen,_King_of_England";
+        String page = "Matthias_Corvinus";
         String dir = "/home/ivan/Projects/Experiments/github/history/history-wiki/src/test/resources/testpages/";
 
         MediaWikiBot mediaWikiBot = new MediaWikiBot( "http://en.wikipedia.org/w/" );

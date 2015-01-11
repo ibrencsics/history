@@ -141,7 +141,7 @@ public class TemplateParser {
         // maybe
         // [\p{Latin}\p{Punctuation}\p{Math_Symbol}]
         // \p{M}
-        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-|\\(|\\)|–|#|\\&]+\\]\\]");
+        Pattern pattern = Pattern.compile("\\[\\[[\\p{L}|\\s|\\d|\\||,|\\-|\\(|\\)|–|#|\\&|/]+\\]\\]");
         Matcher matcher = pattern.matcher(data);
         while (matcher.find()) {
             String link = matcher.group();
@@ -150,5 +150,56 @@ public class TemplateParser {
         }
 
         return links;
+    }
+
+    public String removeLinks(String withLinks) {
+        List<WikiNamedResource> links = getLinks(withLinks);
+
+        StringBuilder sb = new StringBuilder();
+        boolean isLink = false;
+        int linkPos = 0;
+
+        for (int i=1; i<withLinks.length(); i++) {
+            char c1 = withLinks.charAt(i-1);
+            char c2 = withLinks.charAt(i);
+            char[] cc = {c1,c2};
+
+
+            if (Arrays.equals(TEMPLATE_START, cc) || Arrays.equals(LINK_START, cc)) {
+                isLink = true;
+                i++;
+                continue;
+            }
+
+            if (Arrays.equals(TEMPLATE_END, cc) || Arrays.equals(LINK_END, cc)) {
+                isLink = false;
+                sb.append(links.get(linkPos++).getDisplayText());
+                i++;
+                continue;
+            }
+
+            if (!isLink) {
+                sb.append(c1);
+
+                if (i == withLinks.length() - 1) {
+                    sb.append(c2);
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+    // TODO: improve, now it only removes one tag from the end of the text
+    public String removeTag(String text, String tagName) {
+        String startTag = "<" + tagName;
+
+        int startPos = text.indexOf(startTag);
+
+        if (startPos > 0) {
+            return text.substring(0, startPos);
+        }
+
+        return text;
     }
 }

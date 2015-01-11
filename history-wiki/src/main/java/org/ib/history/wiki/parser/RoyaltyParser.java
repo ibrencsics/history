@@ -102,16 +102,6 @@ public class RoyaltyParser {
 
     private void parseMother(Royalty royalty, Tuple2<String,Integer> data) { royalty.setMother(templateParser.parseLink(data.element1())); }
 
-    // [[King of Great Britain]] [[King of Ireland|and Iyreland]]<br />[[Electorate of Brunswick-Lüneburg|Elector of Hanover]]
-    // [[Stadtholder|Stadtholder of Holland, Zeeland, Utrecht, Gelderland and Overijssel]]
-    // [[List of English monarchs|King of England]], [[List of Scottish monarchs|Scotland]] and [[King of Ireland|Ireland]]
-    // [[Principality of Orange|Prince of Orange]]
-    // [[King of Spain]]<br>{{small|(alongside [[Joanna of Castile|Joanna]] until 1555)}}
-    // [[Seventeen Provinces|Lord of the Netherlands]]; <br>[[List of counts of Burgundy|Count Palatine of Burgundy]]
-    // [[Holy Roman Emperor]];<br>[[List of German monarchs|King of Germany]];<br>[[King of Italy]]
-    // [[King of Bohemia]]<br/><small>contested till 1471 by [[George of Poděbrady]], from 1471 by [[Vladislas II of Bohemia and Hungary|Vladislaus II]]</small>
-    // [[Duke of Austria]]<br/><small>contested by [[Frederick III, Holy Roman Emperor|Frederick V]]</small>
-    // [[King of Hungary]] and [[King of Croatia|Croatia]]
     private void parseSuccession(Royalty royalty, Tuple2<String,Integer> data) {
         if (data.element1().isEmpty())
             return;
@@ -120,24 +110,16 @@ public class RoyaltyParser {
 
         String dataText = data.element1();
 
-        // TODO: better preprocessing
-        if (dataText.contains("small")) {
-            dataText = dataText.substring(0, dataText.indexOf("small"));
-        }
-
         List<WikiNamedResource> links = templateParser.getLinks(dataText);
-        succession.setCountries(links);
-        succession.setCountriesRaw(dataText);
+        succession.setSuccessionLinks(links);
+        succession.setSuccessionRaw(dataText);
+        succession.setSuccessionNoLinks(templateParser.removeLinks(dataText));
+        succession.setSuccessionNoLinksNoSmall(
+                templateParser.removeTag(
+                        templateParser.removeTag(
+                            templateParser.removeLinks(dataText), "small"), "br"));
     }
 
-    // 28 June 1519 – 27 August 1556<ref>Date of Charles's abdication; on 24 February 1558, the college of electors assembled at Frankfort accepted the instrument of Charles V's imperial resignation and declared the election of Ferdinand as emperor [http://books.google.es/books?id=DUwLAAAAIAAJ&lpg=PA716&dq=&pg=PA716#v=onepage&q=&f=false] [http://books.google.es/books?id=nPwQAAAAIAAJ&dq=&lr&as_brr=3&pg=PA182#v=onepage&q=&f=false]</ref>
-    // 25 September 1506 –<br> 25 October 1555<ref>{{cite book|url=http://books.google.es/books?id=idjdQOYlK-4C&lpg=PA39&dq=&lr&as_brr=3&pg=PA39#v=onepage&q=&f=true |title=Abdication of Brussels |publisher=Books.google.es |accessdate=8 June 2012}}</ref>
-    // {{nowrap|23 January 1516 – 16 January 1556}}
-    // 4 November 1650<ref name=OSNS/>&nbsp;–<br > 8 March 1702
-    // 13 February 1689 –<br > 8 March 1702
-    // July 1672&nbsp;– 8 March 1702
-    // 11/22{{ref|dates|O.S./N.S.}} June 1727&nbsp;–<br /> 25 October 1760
-    // 1458–1490
     private void parseReign(Royalty royalty, Tuple2<String,Integer> data) {
         if (data.element1().isEmpty())
             return;

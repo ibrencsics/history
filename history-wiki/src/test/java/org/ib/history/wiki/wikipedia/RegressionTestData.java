@@ -97,21 +97,18 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("William II, Prince of Orange", "William II"))
                                         .successor(new WikiNamedResource("John William Friso, Prince of Orange", "John William Friso"))
-                                                // predecessor [[Harold Godwinson|Harold II]]
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1672).month(7).noDay().build())
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("William II, Prince of Orange", "William II"))
                                         .successor(new WikiNamedResource("William IV, Prince of Orange", "William IV"))
-                                                // predecessor [[Harold Godwinson|Harold II]]
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1689).month(2).day(13).build())
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("James II of England", "James II & VII"))
                                         .successor(new WikiNamedResource("Anne, Queen of Great Britain", "Anne"))
-                                                // predecessor [[Harold Godwinson|Harold II]]
                                         .build())
                 ));
 
@@ -228,8 +225,76 @@ public class RegressionTestData {
                         Arrays.asList()
                 ));
 
-        // James_II_of_England
-        // Henry_V_of_England
-        // Edward_VII
+        expectedData.put("James_II_of_England",
+                new TestVector(
+                        "James II & VII",
+                        new FlexibleDate.Builder().year(1633).month(10).day(14).build(),
+                        new FlexibleDate.Builder().year(1701).month(9).day(16).build(),
+                        new WikiNamedResource("Charles I of England", "Charles I"),
+                        new WikiNamedResource("Henrietta Maria of France"),
+                        Arrays.asList(
+                                new WikiNamedResource("Anne Hyde"),
+                                new WikiNamedResource("Mary of Modena")),
+                        Arrays.asList(
+                                new WikiNamedResource("Mary II of England"),
+                                new WikiNamedResource("Anne, Queen of Great Britain"),
+                                new WikiNamedResource("James Francis Edward Stuart"),
+                                new WikiNamedResource("Louisa Maria Teresa Stuart"),
+                                new WikiNamedResource("Henrietta FitzJames"),
+                                new WikiNamedResource("James FitzJames, 1st Duke of Berwick"),
+                                new WikiNamedResource("Henry FitzJames")
+                        ),
+                        Arrays.asList(new WikiNamedResource("House of Stuart")),
+                        Arrays.asList()
+                ));
+
+        expectedData.put("Henry_V_of_England",
+                new TestVector(
+                        "Henry V",
+                        new FlexibleDate.Builder().year(1386).month(9).day(16).build(),
+                        new FlexibleDate.Builder().year(1422).month(8).day(31).build(),
+                        new WikiNamedResource("Henry IV of England"),
+                        new WikiNamedResource("Mary de Bohun"),
+                        Arrays.asList(new WikiNamedResource("Catherine of Valois")),
+                        Arrays.asList(new WikiNamedResource("Henry VI of England")),
+                        Arrays.asList(new WikiNamedResource("House of Lancaster")),
+                        Arrays.asList()
+                ));
+
+        expectedData.put("Edward_VII",
+                new TestVector(
+                        "Edward VII",
+                        new FlexibleDate.Builder().year(1841).month(11).day(9).build(),
+                        new FlexibleDate.Builder().year(1910).month(5).day(6).build(),
+                        new WikiNamedResource("Albert, Prince Consort"),
+                        new WikiNamedResource("Queen Victoria"),
+                        Arrays.asList(new WikiNamedResource("Alexandra of Denmark")),
+                        Arrays.asList(
+                                new WikiNamedResource("Prince Albert Victor, Duke of Clarence and Avondale"),
+                                new WikiNamedResource("George V"),
+                                new WikiNamedResource("Louise, Princess Royal"),
+                                new WikiNamedResource("Princess Victoria of the United Kingdom"),
+                                new WikiNamedResource("Maud of Wales", "Maud, Queen of Norway")
+                                // Prince Alexander John of Wales
+                        ),
+                        Arrays.asList(new WikiNamedResource("House of Saxe-Coburg and Gotha", "Saxe-Coburg and Gotha")),
+                        Arrays.asList()
+                ));
+
+        expectedData.put("Matthias_Corvinus",
+                new TestVector(
+                        "Matthias Corvinus",
+                        new FlexibleDate.Builder().year(1443).month(2).day(23).build(),
+                        new FlexibleDate.Builder().year(1490).month(4).day(6).build(),
+                        new WikiNamedResource("John Hunyadi"),
+                        new WikiNamedResource("Erzsébet Szilágyi", "Elisabeth Szilágyi"),
+                        Arrays.asList(
+                                new WikiNamedResource("Elizabeth of Celje"),
+                                new WikiNamedResource("Catherine of Poděbrady"),
+                                new WikiNamedResource("Beatrice of Naples")),
+                        Arrays.asList(new WikiNamedResource("John Corvinus")),
+                        Arrays.asList(new WikiNamedResource("House of Hunyadi")),
+                        Arrays.asList()
+                ));
     }
 }

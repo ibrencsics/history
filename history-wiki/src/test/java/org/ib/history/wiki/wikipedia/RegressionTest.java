@@ -1,16 +1,13 @@
 package org.ib.history.wiki.wikipedia;
 
-import net.sourceforge.jwbf.core.contentRep.Article;
-import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
+import org.ib.history.wiki.domain.Royalty;
 import org.ib.history.wiki.domain.WikiPerson;
+import org.ib.history.wiki.parser.RoyaltyParser;
 import org.ib.history.wiki.service.WikiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -30,7 +27,7 @@ public class RegressionTest {
     public void testParser() {
         WikiService service = new WikiServiceWikipedia();
         WikiPerson person = service.getPerson(page);
-        System.out.println(person);
+//        System.out.println(person);
 
         assertEquals(expected.name, person.getName());
         assertEquals(expected.dateOfBirth, person.getDateOfBirth());
@@ -43,7 +40,19 @@ public class RegressionTest {
         assertEquals(expected.issues, person.getIssues());
         assertEquals(expected.houses, person.getHouses());
 
-//        assertEquals(expected.successions(), person.getSuccessions());
+//        assertEquals(expected.successions(), person.getSuccessionLinks());
+    }
+
+//    @Test
+    public void testRemoveLinks() {
+        RoyaltyParser parser = new RoyaltyParser();
+        Royalty royalty = parser.parse(page);
+
+        royalty.getSuccessions().stream().forEach(s -> {
+            System.out.println(s.getSuccessionRaw());
+            System.out.println("\t" + s.getSuccessionNoLinks());
+            System.out.println("\t" + s.getSuccessionNoLinksNoSmall());
+        });
     }
 
 //    @Test
@@ -61,6 +70,10 @@ public class RegressionTest {
                 { "Empress_Matilda" },
                 { "Stephen,_King_of_England" },
                 { "Charles_II_of_England" },
+                { "James_II_of_England" },
+                { "Henry_V_of_England" },
+                { "Edward_VII" },
+                { "Matthias_Corvinus" },
         });
     }
 }

@@ -40,11 +40,11 @@ public class WikiServiceWikipedia implements WikiService {
     private void parseSuccession(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
             String concatenated = "";
-            if (succession.getCountries().size()==1) {
-                concatenated = succession.getCountries().get(0).getDisplayText();
+            if (succession.getSuccessionLinks().size()==1) {
+                concatenated = succession.getSuccessionLinks().get(0).getDisplayText();
             }
-            else if (succession.getCountries().size()>1) {
-                concatenated = succession.getCountries().stream().map(s -> s.getDisplayText()).collect(Collectors.joining(", "));
+            else if (succession.getSuccessionLinks().size()>1) {
+                concatenated = succession.getSuccessionLinks().stream().map(s -> s.getDisplayText()).collect(Collectors.joining(", "));
             }
 
             String[] tokens = concatenated.replace(",", "").split("\\s");
@@ -80,8 +80,8 @@ public class WikiServiceWikipedia implements WikiService {
 
     private void parseSuccession2(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
-            if (!succession.getCountries().isEmpty()) {
-                for (WikiNamedResource country : succession.getCountries()) {
+            if (!succession.getSuccessionLinks().isEmpty()) {
+                for (WikiNamedResource country : succession.getSuccessionLinks()) {
                     WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
                             .title(country.getDisplayText().trim())
                             .from(succession.getFrom())
@@ -93,7 +93,7 @@ public class WikiServiceWikipedia implements WikiService {
             }
             else {
                 WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
-                        .title(succession.getCountriesRaw())
+                        .title(succession.getSuccessionRaw())
                         .from(succession.getFrom())
                         .to(succession.getTo())
                         .predecessor(succession.getPredecessor())
