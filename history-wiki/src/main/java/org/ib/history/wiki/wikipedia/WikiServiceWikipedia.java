@@ -2,12 +2,16 @@ package org.ib.history.wiki.wikipedia;
 
 import org.ib.history.wiki.domain.*;
 import org.ib.history.wiki.parser.RoyaltyParser;
+import org.ib.history.wiki.parser.TemplateParser;
 import org.ib.history.wiki.service.WikiService;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class WikiServiceWikipedia implements WikiService {
+
+    private TemplateParser templateParser = new TemplateParser();
 
     @Override
     public WikiPerson getPerson(String wikiPage) {
@@ -27,7 +31,7 @@ public class WikiServiceWikipedia implements WikiService {
                 .issue(royalty.getIssues())
                 .house(royalty.getHouses());
 
-        parseSuccession2(builder, royalty);
+        parseSuccession3(builder, royalty);
 
         return builder.build();
     }
@@ -40,10 +44,9 @@ public class WikiServiceWikipedia implements WikiService {
     private void parseSuccession(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
             String concatenated = "";
-            if (succession.getSuccessionLinks().size()==1) {
+            if (succession.getSuccessionLinks().size() == 1) {
                 concatenated = succession.getSuccessionLinks().get(0).getDisplayText();
-            }
-            else if (succession.getSuccessionLinks().size()>1) {
+            } else if (succession.getSuccessionLinks().size() > 1) {
                 concatenated = succession.getSuccessionLinks().stream().map(s -> s.getDisplayText()).collect(Collectors.joining(", "));
             }
 
@@ -51,7 +54,7 @@ public class WikiServiceWikipedia implements WikiService {
 
             boolean isTitle = true;
             String title = "";
-            for (int i=0; i<tokens.length; i++) {
+            for (int i = 0; i < tokens.length; i++) {
                 if (tokens[i].equalsIgnoreCase("of")) {
                     isTitle = false;
                     continue;
@@ -90,10 +93,24 @@ public class WikiServiceWikipedia implements WikiService {
                             .successor(succession.getSuccessor());
                     builder.succession(successionBuilder.build());
                 }
-            }
-            else {
+            } else {
                 WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
                         .title(succession.getSuccessionRaw())
+                        .from(succession.getFrom())
+                        .to(succession.getTo())
+                        .predecessor(succession.getPredecessor())
+                        .successor(succession.getSuccessor());
+                builder.succession(successionBuilder.build());
+            }
+        }
+    }
+
+    private void parseSuccession3(WikiPerson.Builder builder, Royalty royalty) {
+        for (Royalty.Succession succession : royalty.getSuccessions()) {
+            String sentence = succession.getSuccessionNoLinksNoSmall();
+            if (sentence != null) {
+                WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
+                        .title(sentence)
                         .from(succession.getFrom())
                         .to(succession.getTo())
                         .predecessor(succession.getPredecessor())

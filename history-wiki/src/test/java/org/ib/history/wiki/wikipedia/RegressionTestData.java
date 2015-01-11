@@ -72,12 +72,14 @@ public class RegressionTestData {
                                         .predecessor(new WikiNamedResource("Edgar the Ætheling"))
                                         .successor(new WikiNamedResource("William II of England", "William II"))
                                                 // predecessor [[Harold Godwinson|Harold II]]
+                                        .title("King of England")
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1035).month(7).day(3).build())
                                         .to(new FlexibleDate.Builder().year(1087).month(9).day(9).build())
                                         .predecessor(new WikiNamedResource("Robert the Magnificent"))
                                         .successor(new WikiNamedResource("Robert Curthose"))
+                                        .title("Duke of Normandy")
                                         .build())
                 ));
 
@@ -97,18 +99,21 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("William II, Prince of Orange", "William II"))
                                         .successor(new WikiNamedResource("John William Friso, Prince of Orange", "John William Friso"))
+                                        .title("Prince of Orange")
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1672).month(7).noDay().build())
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("William II, Prince of Orange", "William II"))
                                         .successor(new WikiNamedResource("William IV, Prince of Orange", "William IV"))
+                                        .title("Stadtholder of Holland, Zeeland, Utrecht, Gelderland and Overijssel")
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1689).month(2).day(13).build())
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("James II of England", "James II & VII"))
                                         .successor(new WikiNamedResource("Anne, Queen of Great Britain", "Anne"))
+                                        .title("King of England, Scotland and Ireland")
                                         .build())
                 ));
 
@@ -132,7 +137,15 @@ public class RegressionTestData {
                                 new WikiNamedResource("Edward VI of England"),
                                 new WikiNamedResource("Henry FitzRoy, 1st Duke of Richmond and Somerset", "Henry Fitzroy")),
                         Arrays.asList(new WikiNamedResource("House of Tudor")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1509).month(4).day(21).build())
+                                        .to(new FlexibleDate.Builder().year(1547).month(1).day(28).build())
+                                        .predecessor(new WikiNamedResource("Henry VII of England", "Henry VII"))
+                                        .successor(new WikiNamedResource("Edward VI of England", "Edward VI"))
+                                        .title("King of England; Lord/King of Ireland")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Louis_I_of_Hungary",
@@ -151,7 +164,22 @@ public class RegressionTestData {
                                 new WikiNamedResource("Jadwiga of Poland", "Hedwig of Poland")
                         ),
                         Arrays.asList(new WikiNamedResource("Capetian House of Anjou")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1342).month(7).day(21).build())
+                                        .to(new FlexibleDate.Builder().year(1382).month(9).day(10).build())
+                                        .predecessor(new WikiNamedResource("Charles I of Hungary", "Charles I"))
+                                        .successor(new WikiNamedResource("Mary of Hungary", "Mary"))
+                                        .title("King of Hungary and Croatia")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1370).month(11).day(17).build())
+                                        .to(new FlexibleDate.Builder().year(1382).month(9).day(10).build())
+                                        .predecessor(new WikiNamedResource("Casimir III of Poland", "Casimir III"))
+                                        .successor(new WikiNamedResource("Jadwiga of Poland", "Hedwig"))
+                                        .title("King of Poland")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Anne_of_Austria",
@@ -166,7 +194,15 @@ public class RegressionTestData {
                                 new WikiNamedResource("Louis XIV of France"),
                                 new WikiNamedResource("Philippe I, Duke of Orléans", "Philippe, Duke of Orléans")),
                         Arrays.asList(new WikiNamedResource("House of Habsburg")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1615).month(11).day(24).build())
+                                        .to(new FlexibleDate.Builder().year(1643).month(5).day(14).build())
+                                        .predecessor(null)
+                                        .successor(null)
+                                        .title("Queen consort of France and Navarre")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Empress_Matilda",
@@ -184,7 +220,22 @@ public class RegressionTestData {
                                 new WikiNamedResource("Geoffrey, Count of Nantes"),
                                 new WikiNamedResource("William FitzEmpress", "William X, Count of Poitou")),
                         Arrays.asList(new WikiNamedResource("Norman dynasty", "Normandy")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1114).month(1).day(7).build())
+                                        .to(new FlexibleDate.Builder().year(1125).month(5).day(23).build())
+                                        .predecessor(null)
+                                        .successor(null)
+                                        .title("Holy Roman Empress, Queen of the Romans")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1141).month(4).day(7).build())
+                                        .to(new FlexibleDate.Builder().year(1141).month(11).day(1).build())
+                                        .predecessor(new WikiNamedResource("Stephen, King of England", "Stephen"))
+                                        .successor(new WikiNamedResource("Stephen, King of England", "Stephen"))
+                                        .title("Lady of the English (disputed)")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Stephen,_King_of_England",
@@ -200,7 +251,22 @@ public class RegressionTestData {
                                 new WikiNamedResource("Marie I, Countess of Boulogne"),
                                 new WikiNamedResource("William I, Count of Boulogne")),
                         Arrays.asList(new WikiNamedResource("Counts of Blois", "House of Blois")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1135).month(12).day(22).build())
+                                        .to(new FlexibleDate.Builder().year(1141).month(4).noDay().build())
+                                        .predecessor(new WikiNamedResource("Henry I of England", "Henry I"))
+                                        .successor(new WikiNamedResource("Empress Matilda", "Matilda"))
+                                        .title("King of England")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1141).month(11).noDay().build())
+                                        .to(new FlexibleDate.Builder().year(1154).month(10).day(25).build())
+                                        .predecessor(new WikiNamedResource("Empress Matilda", "Matilda"))
+                                        .successor(new WikiNamedResource("Henry II of England", "Henry II"))
+                                        .title("King of England")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Charles_II_of_England",
@@ -222,7 +288,22 @@ public class RegressionTestData {
                                 new WikiNamedResource("Charles Lennox, 1st Duke of Richmond", "Charles Lennox, Duke of Richmond")
                         ),
                         Arrays.asList(new WikiNamedResource("House of Stuart")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1660).month(5).day(29).build())
+                                        .to(new FlexibleDate.Builder().year(1685).month(2).day(6).build())
+                                        .predecessor(new WikiNamedResource("Charles I of England", "Charles I"))
+                                        .successor(new WikiNamedResource("James II of England", "James II & VII"))
+                                        .title("King of England, Scotland, and Ireland")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1649).month(1).day(30).build())
+                                        .to(new FlexibleDate.Builder().year(1651).month(9).day(3).build())
+                                        .predecessor(new WikiNamedResource("Charles I of England", "Charles I"))
+                                        .successor(null)
+                                        .title("King of Scotland")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("James_II_of_England",
@@ -245,7 +326,16 @@ public class RegressionTestData {
                                 new WikiNamedResource("Henry FitzJames")
                         ),
                         Arrays.asList(new WikiNamedResource("House of Stuart")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1685).month(2).day(6).build())
+                                        .to(new FlexibleDate.Builder().year(1688).month(12).day(11).build())
+                                        .predecessor(new WikiNamedResource("Charles II of England", "Charles II"))
+                                        .successor(new WikiNamedResource("William III of England", "William III & II"))
+                                        // successor [[Mary II of England|Mary II]]
+                                        .title("King of England, Scotland and Ireland")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Henry_V_of_England",
@@ -258,7 +348,15 @@ public class RegressionTestData {
                         Arrays.asList(new WikiNamedResource("Catherine of Valois")),
                         Arrays.asList(new WikiNamedResource("Henry VI of England")),
                         Arrays.asList(new WikiNamedResource("House of Lancaster")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1413).month(3).day(20).build())
+                                        .to(new FlexibleDate.Builder().year(1422).month(8).day(31).build())
+                                        .predecessor(new WikiNamedResource("Henry IV of England", "Henry IV"))
+                                        .successor(new WikiNamedResource("Henry VI of England", "Henry VI"))
+                                        .title("King of England; Lord of Ireland")
+                                        .build()
+                        )
                 ));
 
         expectedData.put("Edward_VII",
@@ -278,7 +376,18 @@ public class RegressionTestData {
                                 // Prince Alexander John of Wales
                         ),
                         Arrays.asList(new WikiNamedResource("House of Saxe-Coburg and Gotha", "Saxe-Coburg and Gotha")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1901).month(1).day(22).build())
+                                        .to(new FlexibleDate.Builder().year(1910).month(5).day(6).build())
+                                        .predecessor(null)
+                                        .successor(null)
+                                        .title("King of the United Kingdom and the British Dominions, Emperor of India")
+                                        .build()
+                                // likely error:
+                                // predecessor1    = [[Queen Victoria|Victoria]]
+                                // successor1      = [[George V]]
+                        )
                 ));
 
         expectedData.put("Matthias_Corvinus",
@@ -294,7 +403,39 @@ public class RegressionTestData {
                                 new WikiNamedResource("Beatrice of Naples")),
                         Arrays.asList(new WikiNamedResource("John Corvinus")),
                         Arrays.asList(new WikiNamedResource("House of Hunyadi")),
-                        Arrays.asList()
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1458).noMonth().noDay().build())
+                                        .to(new FlexibleDate.Builder().year(1490).noMonth().noDay().build())
+                                        .predecessor(new WikiNamedResource("Ladislaus the Posthumous", "Ladislaus V"))
+                                        .successor(new WikiNamedResource("Vladislas II of Bohemia and Hungary", "Vladislaus II"))
+                                        .title("King of Hungary and Croatia")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1469).noMonth().noDay().build())
+                                        .to(new FlexibleDate.Builder().year(1490).noMonth().noDay().build())
+                                        .predecessor(new WikiNamedResource("George of Poděbrady"))
+                                        .successor(new WikiNamedResource("Vladislas II of Bohemia and Hungary", "Vladislaus II"))
+                                        .title("King of Bohemia")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1487).noMonth().noDay().build())
+                                        .to(new FlexibleDate.Builder().year(1490).noMonth().noDay().build())
+                                        .predecessor(new WikiNamedResource("Frederick III, Holy Roman Emperor", "Frederick V"))
+                                        .successor(new WikiNamedResource("Frederick III, Holy Roman Emperor", "Frederick V"))
+                                        .title("Duke of Austria")
+                                        .build()
+                        )
                 ));
     }
+
+    /*
+                                    new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year().month().day().build())
+                                        .to(new FlexibleDate.Builder().year().month().day().build())
+                                        .predecessor(new WikiNamedResource(""))
+                                        .successor(new WikiNamedResource(""))
+                                        .title("")
+                                        .build()
+     */
 }

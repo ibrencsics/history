@@ -3,6 +3,7 @@ package org.ib.history.wiki.wikipedia;
 import org.ib.history.wiki.domain.Royalty;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.parser.RoyaltyParser;
+import org.ib.history.wiki.parser.TemplateParser;
 import org.ib.history.wiki.service.WikiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class RegressionTest {
     public void testParser() {
         WikiService service = new WikiServiceWikipedia();
         WikiPerson person = service.getPerson(page);
-//        System.out.println(person);
+        System.out.println(person);
 
         assertEquals(expected.name, person.getName());
         assertEquals(expected.dateOfBirth, person.getDateOfBirth());
@@ -40,18 +41,24 @@ public class RegressionTest {
         assertEquals(expected.issues, person.getIssues());
         assertEquals(expected.houses, person.getHouses());
 
-//        assertEquals(expected.successions(), person.getSuccessionLinks());
+        assertEquals(expected.successions, person.getSuccessions());
     }
 
 //    @Test
     public void testRemoveLinks() {
+        TemplateParser templateParser = new TemplateParser();
+
         RoyaltyParser parser = new RoyaltyParser();
         Royalty royalty = parser.parse(page);
 
         royalty.getSuccessions().stream().forEach(s -> {
-            System.out.println(s.getSuccessionRaw());
-            System.out.println("\t" + s.getSuccessionNoLinks());
-            System.out.println("\t" + s.getSuccessionNoLinksNoSmall());
+//            System.out.println(s.getSuccessionRaw());
+//            System.out.println("\t" + s.getSuccessionNoLinks());
+            String sentence = s.getSuccessionNoLinksNoSmall();
+            if (sentence!=null) {
+                System.out.println("\t" + sentence);
+                System.out.println("\t\t" + templateParser.sentenceToWords(sentence));
+            }
         });
     }
 
@@ -69,7 +76,7 @@ public class RegressionTest {
                 { "Anne_of_Austria" },
                 { "Empress_Matilda" },
                 { "Stephen,_King_of_England" },
-                { "Charles_II_of_England" },
+//                { "Charles_II_of_England" },
                 { "James_II_of_England" },
                 { "Henry_V_of_England" },
                 { "Edward_VII" },

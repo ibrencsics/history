@@ -79,7 +79,7 @@ public class WikiSuccession {
                 "from=" + from +
                 ", to=" + to +
 //                ", country='" + country + '\'' +
-//                ", title='" + title + '\'' +
+                ", title='" + title + '\'' +
                 ", predecessor=" + predecessor +
                 ", successor=" + successor +
                 '}';
@@ -96,7 +96,7 @@ public class WikiSuccession {
         if (from != null ? !from.equals(that.from) : that.from != null) return false;
         if (predecessor != null ? !predecessor.equals(that.predecessor) : that.predecessor != null) return false;
         if (successor != null ? !successor.equals(that.successor) : that.successor != null) return false;
-//        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (to != null ? !to.equals(that.to) : that.to != null) return false;
 
         return true;
