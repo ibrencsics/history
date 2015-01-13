@@ -55,12 +55,12 @@ public class ExportEnglishKings {
 //        writer.append("\n\n");
 
         List<WikiSuccession> sucs = person.getSuccessions().stream()
-                .filter(s -> s.getTitle() != null)
+//                .filter(s -> s.getTitle() != null)
 //                .filter(s -> (s.getTitle().toLowerCase().contains("england") ||
 //                        s.getTitle().toLowerCase().contains("great britain") ||
 //                        s.getTitle().toLowerCase().contains("united kingdom")
 //                ))
-                .filter(s -> (s.getTitle().toLowerCase().contains("hungary")))
+//                .filter(s -> (s.getTitle().toLowerCase().contains("hungary")))
                 .collect(Collectors.toList());
 
         for (WikiSuccession suc : sucs) {

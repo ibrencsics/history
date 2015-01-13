@@ -1,13 +1,17 @@
 package org.ib.history.wiki.domain;
 
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.tuples.Tuple2;
+
+import java.util.List;
+import java.util.Optional;
 
 public class WikiSuccession {
 
     private FlexibleDate from;
     private FlexibleDate to;
-    private String country;
-    private String title;
+    private Optional<String> raw = Optional.empty();
+    private Optional<Tuple2<String,List<String>>> titleAndCountries = Optional.empty();
     private WikiNamedResource predecessor;
     private WikiNamedResource successor;
 
@@ -19,12 +23,12 @@ public class WikiSuccession {
         return to;
     }
 
-    public String getCountry() {
-        return country;
+    public Optional<String> getRaw() {
+        return raw;
     }
 
-    public String getTitle() {
-        return title;
+    public Optional<Tuple2<String, List<String>>> getTitleAndCountries() {
+        return titleAndCountries;
     }
 
     public WikiNamedResource getPredecessor() {
@@ -48,13 +52,13 @@ public class WikiSuccession {
             return this;
         }
 
-        public Builder country(String country) {
-            wikiSuccession.country = country;
+        public Builder raw(String raw) {
+            wikiSuccession.raw = Optional.of(raw);
             return this;
         }
 
-        public Builder title(String title) {
-            wikiSuccession.title = title;
+        public Builder titleAndCountries(Tuple2<String,List<String>> titleAndCountries) {
+            wikiSuccession.titleAndCountries = Optional.of(titleAndCountries);
             return this;
         }
 
@@ -75,11 +79,18 @@ public class WikiSuccession {
 
     @Override
     public String toString() {
+
+        String titleAndCountry = ", titleAndCountry= ";
+        if (titleAndCountries.isPresent()) {
+            titleAndCountry += titleAndCountries.get().element1() + ":" + titleAndCountries.get().element2();
+        } else if (raw.isPresent()) {
+            titleAndCountry += raw.get();
+        }
+
         return "WikiSuccession{" +
                 "from=" + from +
                 ", to=" + to +
-//                ", country='" + country + '\'' +
-                ", title='" + title + '\'' +
+                titleAndCountry +
                 ", predecessor=" + predecessor +
                 ", successor=" + successor +
                 '}';
@@ -96,7 +107,29 @@ public class WikiSuccession {
         if (from != null ? !from.equals(that.from) : that.from != null) return false;
         if (predecessor != null ? !predecessor.equals(that.predecessor) : that.predecessor != null) return false;
         if (successor != null ? !successor.equals(that.successor) : that.successor != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+//        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (raw.isPresent()) {
+            if (that.getRaw().isPresent()) {
+                if (!raw.get().equals(that.getRaw().get())) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (that.getRaw().isPresent()) {
+            return false;
+        }
+        if (titleAndCountries.isPresent()) {
+            if (that.getTitleAndCountries().isPresent()) {
+                if (!titleAndCountries.get().equals(that.getTitleAndCountries().get())) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (that.getTitleAndCountries().isPresent()) {
+            return false;
+        }
         if (to != null ? !to.equals(that.to) : that.to != null) return false;
 
         return true;
@@ -106,8 +139,6 @@ public class WikiSuccession {
     public int hashCode() {
         int result = from != null ? from.hashCode() : 0;
         result = 31 * result + (to != null ? to.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (predecessor != null ? predecessor.hashCode() : 0);
         result = 31 * result + (successor != null ? successor.hashCode() : 0);
         return result;

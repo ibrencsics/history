@@ -24,5 +24,9 @@ public class DateParserTest {
         dates = dateParser.parseDateEnglishFormat("[[circa|c.]] 1092 or 1096");
         assertEquals(new FlexibleDate.Builder().year(1092).noMonth().noDay().build(), dates.get(0));
         assertEquals(new FlexibleDate.Builder().year(1096).noMonth().noDay().build(), dates.get(1));
+
+        //
+        dates = dateParser.parseDateEnglishFormat("10 September 1382 (aged 56)");
+        assertEquals(new FlexibleDate.Builder().year(1382).month(9).day(10).build(), dates.get(0));
     }
 }

@@ -1,6 +1,7 @@
 package org.ib.history.wiki.wikipedia;
 
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiSuccession;
 
@@ -72,14 +73,14 @@ public class RegressionTestData {
                                         .predecessor(new WikiNamedResource("Edgar the Ætheling"))
                                         .successor(new WikiNamedResource("William II of England", "William II"))
                                                 // predecessor [[Harold Godwinson|Harold II]]
-                                        .title("King of England")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1035).month(7).day(3).build())
                                         .to(new FlexibleDate.Builder().year(1087).month(9).day(9).build())
                                         .predecessor(new WikiNamedResource("Robert the Magnificent"))
                                         .successor(new WikiNamedResource("Robert Curthose"))
-                                        .title("Duke of Normandy")
+                                        .titleAndCountries(new Tuple2<>("Duke", Arrays.asList("Normandy")))
                                         .build())
                 ));
 
@@ -99,21 +100,22 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("William II, Prince of Orange", "William II"))
                                         .successor(new WikiNamedResource("John William Friso, Prince of Orange", "John William Friso"))
-                                        .title("Prince of Orange")
+                                        .titleAndCountries(new Tuple2<>("Prince", Arrays.asList("Orange")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1672).month(7).noDay().build())
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("William II, Prince of Orange", "William II"))
                                         .successor(new WikiNamedResource("William IV, Prince of Orange", "William IV"))
-                                        .title("Stadtholder of Holland, Zeeland, Utrecht, Gelderland and Overijssel")
+                                        .titleAndCountries(new Tuple2<>("Stadtholder",
+                                                Arrays.asList("Holland", "Zeeland", "Utrecht", "Gelderland", "Overijssel")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1689).month(2).day(13).build())
                                         .to(new FlexibleDate.Builder().year(1702).month(3).day(8).build())
                                         .predecessor(new WikiNamedResource("James II of England", "James II & VII"))
                                         .successor(new WikiNamedResource("Anne, Queen of Great Britain", "Anne"))
-                                        .title("King of England, Scotland and Ireland")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England", "Scotland", "Ireland")))
                                         .build())
                 ));
 
@@ -143,7 +145,7 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1547).month(1).day(28).build())
                                         .predecessor(new WikiNamedResource("Henry VII of England", "Henry VII"))
                                         .successor(new WikiNamedResource("Edward VI of England", "Edward VI"))
-                                        .title("King of England; Lord/King of Ireland")
+                                        .raw("King of England; Lord/King of Ireland")
                                         .build()
                         )
                 ));
@@ -156,7 +158,7 @@ public class RegressionTestData {
                         new WikiNamedResource("Charles I of Hungary"),
                         new WikiNamedResource("Elizabeth of Poland, Queen of Hungary", "Elizabeth of Poland"),
                         Arrays.asList(
-                                new WikiNamedResource("Margaret of Luxembourg"),
+                                new WikiNamedResource("Margaret of Bohemia, Queen of Hungary", "Margaret of Bohemia"),
                                 new WikiNamedResource("Elizabeth of Bosnia")),
                         Arrays.asList(
                                 new WikiNamedResource("Catherine of Hungary (1370–1378)", "Catherine of Hungary"),
@@ -166,18 +168,18 @@ public class RegressionTestData {
                         Arrays.asList(new WikiNamedResource("Capetian House of Anjou")),
                         Arrays.asList(
                                 new WikiSuccession.Builder()
-                                        .from(new FlexibleDate.Builder().year(1342).month(7).day(21).build())
-                                        .to(new FlexibleDate.Builder().year(1382).month(9).day(10).build())
+                                        .from(new FlexibleDate.Builder().year(1342).noMonth().noDay().build())
+                                        .to(new FlexibleDate.Builder().year(1382).noMonth().noDay().build())
                                         .predecessor(new WikiNamedResource("Charles I of Hungary", "Charles I"))
                                         .successor(new WikiNamedResource("Mary of Hungary", "Mary"))
-                                        .title("King of Hungary and Croatia")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("Hungary", "Croatia")))
                                         .build(),
                                 new WikiSuccession.Builder()
-                                        .from(new FlexibleDate.Builder().year(1370).month(11).day(17).build())
-                                        .to(new FlexibleDate.Builder().year(1382).month(9).day(10).build())
+                                        .from(new FlexibleDate.Builder().year(1370).noMonth().noDay().build())
+                                        .to(new FlexibleDate.Builder().year(1382).noMonth().noDay().build())
                                         .predecessor(new WikiNamedResource("Casimir III of Poland", "Casimir III"))
                                         .successor(new WikiNamedResource("Jadwiga of Poland", "Hedwig"))
-                                        .title("King of Poland")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("Poland")))
                                         .build()
                         )
                 ));
@@ -200,7 +202,7 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1643).month(5).day(14).build())
                                         .predecessor(null)
                                         .successor(null)
-                                        .title("Queen consort of France and Navarre")
+                                        .titleAndCountries(new Tuple2<>("Queen consort", Arrays.asList("France", "Navarre")))
                                         .build()
                         )
                 ));
@@ -226,14 +228,16 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1125).month(5).day(23).build())
                                         .predecessor(null)
                                         .successor(null)
-                                        .title("Holy Roman Empress, Queen of the Romans")
+//                                        .title("Holy Roman Empress, Queen of the Romans")
+                                        .titleAndCountries(new Tuple2<>("Holy Roman Empress Queen", Arrays.asList("Romans")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1141).month(4).day(7).build())
                                         .to(new FlexibleDate.Builder().year(1141).month(11).day(1).build())
                                         .predecessor(new WikiNamedResource("Stephen, King of England", "Stephen"))
                                         .successor(new WikiNamedResource("Stephen, King of England", "Stephen"))
-                                        .title("Lady of the English (disputed)")
+//                                        .title("Lady of the English (disputed)")
+                                        .titleAndCountries(new Tuple2<>("Lady", Arrays.asList("English")))
                                         .build()
                         )
                 ));
@@ -257,14 +261,14 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1141).month(4).noDay().build())
                                         .predecessor(new WikiNamedResource("Henry I of England", "Henry I"))
                                         .successor(new WikiNamedResource("Empress Matilda", "Matilda"))
-                                        .title("King of England")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1141).month(11).noDay().build())
                                         .to(new FlexibleDate.Builder().year(1154).month(10).day(25).build())
                                         .predecessor(new WikiNamedResource("Empress Matilda", "Matilda"))
                                         .successor(new WikiNamedResource("Henry II of England", "Henry II"))
-                                        .title("King of England")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England")))
                                         .build()
                         )
                 ));
@@ -294,14 +298,16 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1685).month(2).day(6).build())
                                         .predecessor(new WikiNamedResource("Charles I of England", "Charles I"))
                                         .successor(new WikiNamedResource("James II of England", "James II & VII"))
-                                        .title("King of England, Scotland, and Ireland")
+//                                        .title("King of England, Scotland, and Ireland")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England", "Scotland", "Ireland")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1649).month(1).day(30).build())
                                         .to(new FlexibleDate.Builder().year(1651).month(9).day(3).build())
                                         .predecessor(new WikiNamedResource("Charles I of England", "Charles I"))
                                         .successor(null)
-                                        .title("King of Scotland")
+//                                        .title("King of Scotland")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("Scotland")))
                                         .build()
                         )
                 ));
@@ -332,8 +338,8 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1688).month(12).day(11).build())
                                         .predecessor(new WikiNamedResource("Charles II of England", "Charles II"))
                                         .successor(new WikiNamedResource("William III of England", "William III & II"))
-                                        // successor [[Mary II of England|Mary II]]
-                                        .title("King of England, Scotland and Ireland")
+                                                // successor [[Mary II of England|Mary II]]
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England", "Scotland", "Ireland")))
                                         .build()
                         )
                 ));
@@ -354,7 +360,7 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1422).month(8).day(31).build())
                                         .predecessor(new WikiNamedResource("Henry IV of England", "Henry IV"))
                                         .successor(new WikiNamedResource("Henry VI of England", "Henry VI"))
-                                        .title("King of England; Lord of Ireland")
+                                        .raw("King of England; Lord of Ireland")
                                         .build()
                         )
                 ));
@@ -371,7 +377,7 @@ public class RegressionTestData {
                                 new WikiNamedResource("Prince Albert Victor, Duke of Clarence and Avondale"),
                                 new WikiNamedResource("George V"),
                                 new WikiNamedResource("Louise, Princess Royal"),
-                                new WikiNamedResource("Princess Victoria of the United Kingdom"),
+                                new WikiNamedResource("Princess Victoria of the United Kingdom", "Princess Victoria"),
                                 new WikiNamedResource("Maud of Wales", "Maud, Queen of Norway")
                                 // Prince Alexander John of Wales
                         ),
@@ -382,7 +388,7 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1910).month(5).day(6).build())
                                         .predecessor(null)
                                         .successor(null)
-                                        .title("King of the United Kingdom and the British Dominions, Emperor of India")
+                                        .raw("King of the United Kingdom and the British Dominions, Emperor of India")
                                         .build()
                                 // likely error:
                                 // predecessor1    = [[Queen Victoria|Victoria]]
@@ -409,21 +415,21 @@ public class RegressionTestData {
                                         .to(new FlexibleDate.Builder().year(1490).noMonth().noDay().build())
                                         .predecessor(new WikiNamedResource("Ladislaus the Posthumous", "Ladislaus V"))
                                         .successor(new WikiNamedResource("Vladislas II of Bohemia and Hungary", "Vladislaus II"))
-                                        .title("King of Hungary and Croatia")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("Hungary", "Croatia")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1469).noMonth().noDay().build())
                                         .to(new FlexibleDate.Builder().year(1490).noMonth().noDay().build())
                                         .predecessor(new WikiNamedResource("George of Poděbrady"))
                                         .successor(new WikiNamedResource("Vladislas II of Bohemia and Hungary", "Vladislaus II"))
-                                        .title("King of Bohemia")
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("Bohemia")))
                                         .build(),
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1487).noMonth().noDay().build())
                                         .to(new FlexibleDate.Builder().year(1490).noMonth().noDay().build())
                                         .predecessor(new WikiNamedResource("Frederick III, Holy Roman Emperor", "Frederick V"))
                                         .successor(new WikiNamedResource("Frederick III, Holy Roman Emperor", "Frederick V"))
-                                        .title("Duke of Austria")
+                                        .titleAndCountries(new Tuple2<>("Duke", Arrays.asList("Austria")))
                                         .build()
                         )
                 ));

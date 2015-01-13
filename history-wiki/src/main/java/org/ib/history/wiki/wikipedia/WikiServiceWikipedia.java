@@ -1,11 +1,14 @@
 package org.ib.history.wiki.wikipedia;
 
+import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.wiki.domain.*;
 import org.ib.history.wiki.parser.RoyaltyParser;
 import org.ib.history.wiki.parser.TemplateParser;
 import org.ib.history.wiki.service.WikiService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,90 +34,58 @@ public class WikiServiceWikipedia implements WikiService {
                 .issue(royalty.getIssues())
                 .house(royalty.getHouses());
 
-        parseSuccession3(builder, royalty);
+        parseSuccession(builder, royalty);
 
         return builder.build();
     }
 
-    // Succession{, countries=[{p='King of Hungary'}, {p='King of Croatia', t='Croatia'}], from=1342-7-21, to=1382-9-10}
-    // Succession{, countries=[{p='King of Poland'}], from=1370-11-17, to=1382-9-10}}
-    // Succession{, countries=[{p='Principality of Orange', t='Prince of Orange'}], from=1650-11-4, to=1702-3-8}
-    // Succession{, countries=[{p='Stadtholder', t='Stadtholder of Holland, Zeeland, Utrecht, Gelderland and Overijssel'}], from=1672-7, to=1702-3-8}
-    // Succession{, countries=[{p='List of English monarchs', t='King of England'}, {p='List of Scottish monarchs', t='Scotland'}, {p='King of Ireland', t='Ireland'}], from=1689-2-13, to=1702-3-8}}
     private void parseSuccession(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
-            String concatenated = "";
-            if (succession.getSuccessionLinks().size() == 1) {
-                concatenated = succession.getSuccessionLinks().get(0).getDisplayText();
-            } else if (succession.getSuccessionLinks().size() > 1) {
-                concatenated = succession.getSuccessionLinks().stream().map(s -> s.getDisplayText()).collect(Collectors.joining(", "));
-            }
-
-            String[] tokens = concatenated.replace(",", "").split("\\s");
-
-            boolean isTitle = true;
-            String title = "";
-            for (int i = 0; i < tokens.length; i++) {
-                if (tokens[i].equalsIgnoreCase("of")) {
-                    isTitle = false;
-                    continue;
-                }
-
-                if (isTitle) {
-                    title += tokens[i] + " ";
-                    continue;
-                }
-
-                if (!Arrays.asList("and").contains(tokens[i])) {
-                    String country = tokens[i];
-
-                    WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
-                            .country(country.trim())
-                            .title(title.trim())
-                            .from(succession.getFrom())
-                            .to(succession.getTo())
-                            .predecessor(succession.getPredecessor())
-                            .successor(succession.getSuccessor());
-                    builder.succession(successionBuilder.build());
-                }
-            }
-        }
-    }
-
-    private void parseSuccession2(WikiPerson.Builder builder, Royalty royalty) {
-        for (Royalty.Succession succession : royalty.getSuccessions()) {
-            if (!succession.getSuccessionLinks().isEmpty()) {
-                for (WikiNamedResource country : succession.getSuccessionLinks()) {
-                    WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
-                            .title(country.getDisplayText().trim())
-                            .from(succession.getFrom())
-                            .to(succession.getTo())
-                            .predecessor(succession.getPredecessor())
-                            .successor(succession.getSuccessor());
-                    builder.succession(successionBuilder.build());
-                }
-            } else {
-                WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
-                        .title(succession.getSuccessionRaw())
-                        .from(succession.getFrom())
-                        .to(succession.getTo())
-                        .predecessor(succession.getPredecessor())
-                        .successor(succession.getSuccessor());
-                builder.succession(successionBuilder.build());
-            }
-        }
-    }
-
-    private void parseSuccession3(WikiPerson.Builder builder, Royalty royalty) {
-        for (Royalty.Succession succession : royalty.getSuccessions()) {
             String sentence = succession.getSuccessionNoLinksNoSmall();
+
             if (sentence != null) {
                 WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()
-                        .title(sentence)
                         .from(succession.getFrom())
                         .to(succession.getTo())
                         .predecessor(succession.getPredecessor())
                         .successor(succession.getSuccessor());
+
+                List<String> words = templateParser.sentenceToWords(sentence);
+
+                if (Collections.frequency(words, "of") > 1) {
+                    successionBuilder.raw(sentence);
+                } else {
+                    StringBuilder titleBuilder = new StringBuilder();
+                    List<String> countries = new ArrayList<>();
+                    boolean isTitle = true;
+
+                    for (String word : words) {
+                        if (word.equals("of")) {
+                            isTitle = false;
+                            continue;
+                        }
+
+                        if (Arrays.asList("and", "the", "disputed").contains(word)) {
+                            continue;
+                        }
+
+                        if (isTitle) {
+                            titleBuilder.append(word + " ");
+                        } else {
+                            countries.add(word);
+                        }
+
+
+                    }
+
+                    successionBuilder.titleAndCountries(
+                            new Tuple2<>(
+                                    titleBuilder.toString().trim(),
+                                    countries
+                            )
+                    );
+                }
+
                 builder.succession(successionBuilder.build());
             }
         }
