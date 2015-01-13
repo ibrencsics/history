@@ -21,22 +21,12 @@
         <dependency>
             <groupId>net.sourceforge</groupId>
             <artifactId>jwbf</artifactId>
-            <version>3.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-rs-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http-hc</artifactId>
         </dependency>
 
         <dependency>

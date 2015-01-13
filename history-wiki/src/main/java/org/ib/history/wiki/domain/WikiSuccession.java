@@ -103,11 +103,9 @@ public class WikiSuccession {
 
         WikiSuccession that = (WikiSuccession) o;
 
-//        if (country != null ? !country.equals(that.country) : that.country != null) return false;
         if (from != null ? !from.equals(that.from) : that.from != null) return false;
         if (predecessor != null ? !predecessor.equals(that.predecessor) : that.predecessor != null) return false;
         if (successor != null ? !successor.equals(that.successor) : that.successor != null) return false;
-//        if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (raw.isPresent()) {
             if (that.getRaw().isPresent()) {
                 if (!raw.get().equals(that.getRaw().get())) {
