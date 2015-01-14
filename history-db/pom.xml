@@ -13,7 +13,6 @@
     <modules>
         <module>history-db-neo4j-sdn</module>
         <module>history-db-neo4j</module>
-        <!--<module>history-db-neo4j</module>-->
     </modules>
 
 </project>
