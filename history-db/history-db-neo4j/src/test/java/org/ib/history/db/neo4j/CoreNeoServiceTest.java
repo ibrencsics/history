@@ -1,5 +1,7 @@
 package org.ib.history.db.neo4j;
 
+import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
 import org.junit.After;
@@ -31,14 +33,17 @@ public class CoreNeoServiceTest {
     public void testSave() {
         long id = neoService.save(person());
         assertThat(id, is(0L));
-        id = neoService.save(person());
-        assertThat(id, is(1L));
+        assertThat(neoService.getPersonsCount(), is(3));
     }
 
     private WikiPerson person() {
-        WikiPerson.Builder personBuilder = new WikiPerson.Builder();
-        personBuilder.name("Béla");
-        personBuilder.wikiPage(WikiResource.fromLocalPart("BélaPage"));
+        WikiPerson.Builder personBuilder = new WikiPerson.Builder()
+                .name("William the Conqueror")
+                .wikiPage(WikiResource.fromLocalPart("William_the_Conqueror"))
+                .dateOfBirth(new FlexibleDate.Builder().year(1028).noMonth().noDay().build())
+                .dateOfDeath(new FlexibleDate.Builder().year(1087).month(9).day(9).build())
+                .father(new WikiNamedResource("Robert I, Duke of Normandy"))
+                .mother(new WikiNamedResource("Herleva", "Herleva of Falaise"));
         return personBuilder.build();
     }
 }
