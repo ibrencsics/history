@@ -1,5 +1,7 @@
 package org.ib.history.db.neo4j;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
@@ -14,6 +16,8 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class CoreNeoServiceTest {
+
+    private static Logger logger = LogManager.getLogger(CoreNeoServiceTest.class);
 
     private GraphDatabaseService graphDb;
     private NeoService neoService;
@@ -31,8 +35,20 @@ public class CoreNeoServiceTest {
 
     @Test
     public void testSave() {
+        logger.debug("Test testSave");
+
         long id = neoService.save(person());
         assertThat(id, is(0L));
+        assertThat(neoService.getPersonsCount(), is(3));
+    }
+
+    @Test
+    public void testSaveTwice() {
+        logger.debug("Test testSaveTwice");
+
+        neoService.save(person());
+        assertThat(neoService.getPersonsCount(), is(3));
+        neoService.save(person());
         assertThat(neoService.getPersonsCount(), is(3));
     }
 
