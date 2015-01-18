@@ -3,6 +3,7 @@ package org.ib.history.wiki.domain;
 import org.ib.history.commons.data.FlexibleDate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,6 +55,11 @@ public class WikiPerson {
             return this;
         }
 
+        public Builder spouse(WikiNamedResource spouse) {
+            wikiPerson.addSpouses(Arrays.asList(spouse));
+            return this;
+        }
+
         public Builder spouse(List<WikiNamedResource> spouses) {
             wikiPerson.addSpouses(spouses);
             return this;
@@ -94,6 +100,10 @@ public class WikiPerson {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public WikiNamedResource getWikiNamedResource() {
+        return new WikiNamedResource(getWikiPage().getLocalPart(), getName());
     }
 
     public FlexibleDate getDateOfBirth() {

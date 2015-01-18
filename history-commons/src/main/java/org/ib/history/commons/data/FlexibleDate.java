@@ -153,9 +153,24 @@ public class FlexibleDate implements IsSerializable {
         }
     }
 
+//    @Override
+//    public String toString() {
+//        return GwtDateFormat.convert(this);
+//    }
+
+
     @Override
     public String toString() {
-        return GwtDateFormat.convert(this);
+        return "FlexibleDate{" +
+                "isThereDay=" + isThereDay +
+                ", isThereMonth=" + isThereMonth +
+                ", isAD=" + isAD +
+                ", isCirca=" + isCirca +
+                ", day=" + day +
+                ", month=" + month +
+                ", year=" + year +
+//                ", value='" + value + '\'' +
+                '}';
     }
 
     @Override
@@ -172,7 +187,7 @@ public class FlexibleDate implements IsSerializable {
         if (isThereMonth != that.isThereMonth) return false;
         if (month != that.month) return false;
         if (year != that.year) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+//        if (value != null ? !value.equals(that.value) : that.value != null) return false;
 
         return true;
     }

@@ -28,13 +28,13 @@ public class Neo4jDateFormat {
                 flexDate.setYear(1);
                 flexDate.setMonth(0);
                 flexDate.setThereMonth(false);
-                flexDate.setDay(1);
+                flexDate.setDay(0); // was 1 for some reason
                 flexDate.setThereDay(false);
             } else if (month==0 && day==0) {
                 flexDate.setYear(year);
                 flexDate.setMonth(0);
                 flexDate.setThereMonth(false);
-                flexDate.setDay(1);
+                flexDate.setDay(0); // was 1 for some reason
                 flexDate.setThereDay(false);
             } else if (day==0) {
                 flexDate.setYear(year);
