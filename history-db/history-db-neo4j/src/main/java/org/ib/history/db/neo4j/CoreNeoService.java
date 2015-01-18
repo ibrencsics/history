@@ -72,6 +72,8 @@ public class CoreNeoService implements NeoService {
             Optional<Node> maybePerson = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
 
             if (maybePerson.isPresent()) {
+                logger.debug("Page [{}] found", wikiPage);
+
                 Node person = maybePerson.get();
 
                 WikiPerson.Builder builder = new WikiPerson.Builder()
@@ -86,6 +88,7 @@ public class CoreNeoService implements NeoService {
 
                 return Optional.of(builder.build());
             } else {
+                logger.debug("Page [{}] not found", wikiPage);
                 return Optional.empty();
             }
         }

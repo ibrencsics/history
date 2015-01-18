@@ -35,6 +35,11 @@
             <artifactId>history-wiki</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.ib</groupId>
+            <artifactId>history-db-neo4j</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- CXF -->
 
@@ -95,10 +100,9 @@
         <!-- Log -->
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
         </dependency>
-
 
         <!-- Test -->
 

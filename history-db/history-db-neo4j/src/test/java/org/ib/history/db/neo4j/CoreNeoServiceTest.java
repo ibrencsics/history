@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.test.TestGraphDatabaseFactory;
 
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class CoreNeoServiceTest {
     public void prepareTestDatabase() {
         graphDb = new TestGraphDatabaseFactory().newImpermanentDatabase();
 //        graphDb = new TestGraphDatabaseFactory().newEmbeddedDatabase("/opt/app-data/history-neo4j-test");
+//        graphDb = new GraphDatabaseFactory().newEmbeddedDatabase("");
         neoService = new CoreNeoService(graphDb);
     }
 
