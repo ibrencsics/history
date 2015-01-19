@@ -173,8 +173,8 @@ public class WikiPerson {
                 ", name='" + name + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", dateOfDeath=" + dateOfDeath +
-                ", \n\tfather=" + father.getLocalPart() +
-                ", mother=" + mother.getLocalPart() +
+                ", \n\tfather=" + (father!=null ? father.getLocalPart() : "") +
+                ", mother=" + (mother!=null ? mother.getLocalPart() : "") +
                 ", \n\tspouses=" + spouses +
                 ", \n\tissues=" + issues +
                 ", \n\thouses=" + houses +

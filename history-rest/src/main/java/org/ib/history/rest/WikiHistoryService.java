@@ -3,6 +3,8 @@ package org.ib.history.rest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.db.neo4j.NeoService;
+import org.ib.history.db.neo4j.WikiRelationships;
+import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.service.WikiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,44 @@ public class WikiHistoryService {
     @Produces("text/csv")
     public String nodes(@PathParam("wikiPage") String wikiPage) {
         logger.info("nodes called for [{}]", wikiPage);
+        return createNodeCsv(getWikiPerson(wikiPage));
+    }
+
+    private String createNodeCsv(WikiPerson wikiPerson) {
+        StringBuilder sb = new StringBuilder("id,name\n");
+
+        addRow(sb, wikiPerson);
+        addRow(sb, wikiPerson.getFather());
+        addRow(sb, wikiPerson.getMother());
+        wikiPerson.getSpouses().stream().forEach(s -> addRow(sb, s));
+        wikiPerson.getIssues().stream().forEach(s -> addRow(sb, s));
+
+        return sb.toString();
+    }
+
+    @GET
+    @Path("/person/{wikiPage}/edges")
+    @Produces("text/csv")
+    public String edges(@PathParam("wikiPage") String wikiPage) {
+        logger.info("edges called for [{}]", wikiPage);
+        return createEdgeCsv(getWikiPerson(wikiPage));
+    }
+
+    private String createEdgeCsv(WikiPerson wikiPerson) {
+        StringBuilder sb = new StringBuilder("source,target,type\n");
+
+        addRow(sb, wikiPerson.getWikiNamedResource(), wikiPerson.getFather(), WikiRelationships.HAS_FATHER);
+        addRow(sb, wikiPerson.getWikiNamedResource(), wikiPerson.getMother(), WikiRelationships.HAS_MOTHER);
+        addRow(sb, wikiPerson.getFather(), wikiPerson.getMother(), WikiRelationships.IS_SPOUSE_OF);
+
+        wikiPerson.getSpouses().stream().forEach(s -> addRow(sb, wikiPerson.getWikiNamedResource(), s, WikiRelationships.IS_SPOUSE_OF));
+        wikiPerson.getIssues().stream().forEach(s -> addRow(sb, wikiPerson.getWikiNamedResource(), s, WikiRelationships.HAS_ISSUE));
+
+        return sb.toString();
+    }
+
+
+    private WikiPerson getWikiPerson(String wikiPage) {
         WikiPerson person;
 
         Optional<WikiPerson> neoPerson = neoService.getPerson(wikiPage);
@@ -64,13 +104,22 @@ public class WikiHistoryService {
             person = neoPerson.get();
         }
 
-        return createNodeCsv(person);
+        return person;
     }
 
-    private String createNodeCsv(WikiPerson wikiPerson) {
-        StringBuilder sb = new StringBuilder("wikiPage,name,dateOfBirth,dateOfDeath\n");
+    private void addRow(StringBuilder sb, WikiPerson wikiPerson) {
+        addRow(sb, wikiPerson.getWikiNamedResource());
+    }
 
+    private void addRow(StringBuilder sb, WikiNamedResource wikiResource) {
+        System.out.println(wikiResource);
+        sb.append("\"").append(wikiResource.getLocalPart()).append("\",\"").append(wikiResource.getDisplayText()).append("\"\n");
+    }
 
-        return sb.toString();
+    private void addRow(StringBuilder sb, WikiNamedResource wikiPerson, WikiNamedResource wikiResource, WikiRelationships relType) {
+        sb.append("\"");
+        sb.append(wikiPerson.getLocalPart()).append("\",\"");
+        sb.append(wikiResource.getLocalPart()).append("\",\"");
+        sb.append(relType).append("\"\n");
     }
 }

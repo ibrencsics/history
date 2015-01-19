@@ -82,6 +82,18 @@ public class CoreNeoService implements NeoService {
                         .dateOfBirth(Neo4jDateFormat.parse((String) person.getProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName())))
                         .dateOfDeath(Neo4jDateFormat.parse((String) person.getProperty(WikiProperties.DATE_OF_DEATH.getPropertyName())));
 
+                List<WikiNamedResource> resources;
+
+                resources = getRelations(person, WikiRelationships.HAS_FATHER);
+                if (!resources.isEmpty()) {
+                    builder.father(resources.get(0));
+                }
+
+                resources = getRelations(person, WikiRelationships.HAS_MOTHER);
+                if (!resources.isEmpty()) {
+                    builder.mother(resources.get(0));
+                }
+
                 builder.spouse(getRelations(person, WikiRelationships.IS_SPOUSE_OF));
                 builder.issue(getRelations(person, WikiRelationships.HAS_ISSUE));
                 builder.house(getRelations(person, WikiRelationships.IN_HOUSE));

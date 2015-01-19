@@ -82,6 +82,10 @@ public class RegressionTest {
                 { "Matthias_Corvinus" },
 
 //                { "Charles_II_of_England" }, // problem with reign
+
+                // TODO
+                // Charles_V,_Holy_Roman_Emperor
+                // Philip_II_of_Spain
         });
     }
 }
