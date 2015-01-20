@@ -1,5 +1,7 @@
 package org.ib.history.wiki.wikipedia;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.wiki.domain.*;
 import org.ib.history.wiki.parser.RoyaltyParser;
@@ -10,9 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WikiServiceWikipedia implements WikiService {
+
+    private static Logger logger = LogManager.getLogger(WikiServiceWikipedia.class);
 
     private TemplateParser templateParser = new TemplateParser();
 
@@ -42,6 +45,8 @@ public class WikiServiceWikipedia implements WikiService {
     private void parseSuccession(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
             String sentence = succession.getSuccessionNoLinksNoSmall();
+            logger.debug("Succession original: {}", succession.getSuccessionRaw());
+            logger.debug("Succession preporcessed: {}", sentence);
 
             if (sentence != null) {
                 WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()

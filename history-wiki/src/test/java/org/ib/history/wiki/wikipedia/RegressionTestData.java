@@ -433,6 +433,60 @@ public class RegressionTestData {
                                         .build()
                         )
                 ));
+
+        expectedData.put("Charles_V,_Holy_Roman_Emperor",
+                new TestVector(
+                        "Charles V",
+                        new FlexibleDate.Builder().year(1500).month(2).day(24).build(),
+                        new FlexibleDate.Builder().year(1558).month(9).day(21).build(),
+                        new WikiNamedResource("Philip I of Castile"),
+                        new WikiNamedResource("Joanna of Castile"),
+                        Arrays.asList(new WikiNamedResource("Isabella of Portugal")),
+                        Arrays.asList(
+                                new WikiNamedResource("Philip II of Spain"),
+                                new WikiNamedResource("Maria of Spain", "Maria, Holy Roman Empress"),
+                                new WikiNamedResource("Joanna of Austria, Princess of Portugal", "Joanna, Princess of Portugal"),
+                                new WikiNamedResource("John of Austria"),
+                                new WikiNamedResource("Margaret of Parma", "Margaret, Duchess of Parma")),
+                        Arrays.asList(new WikiNamedResource("House of Habsburg")),
+                        Arrays.asList(
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1519).month(6).day(28).build())
+                                        .to(new FlexibleDate.Builder().year(1556).month(8).day(27).build())
+                                        .predecessor(new WikiNamedResource("Maximilian I, Holy Roman Emperor", "Maximilian I"))
+                                        .successor(new WikiNamedResource("Ferdinand I, Holy Roman Emperor", "Ferdinand I"))
+                                        .raw("Holy Roman Emperor;King of Germany;King of Italy")
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1516).month(1).day(23).build())
+                                        .to(new FlexibleDate.Builder().year(1556).month(1).day(16).build())
+                                        .predecessor(new WikiNamedResource("Joanna of Castile", "Joanna")) // and [[Ferdinand II of Aragon|Ferdinand II]]
+                                        .successor(new WikiNamedResource("Philip II of Spain", "Philip II"))
+                                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("Spain")))
+                                        .build(),
+                                new WikiSuccession.Builder()
+                                        .from(new FlexibleDate.Builder().year(1506).month(9).day(25).build())
+                                        .to(new FlexibleDate.Builder().year(1555).month(10).day(25).build())
+                                        .predecessor(new WikiNamedResource("Philip I of Castile", "Philip IV"))
+                                        .successor(new WikiNamedResource("Philip II of Spain", "Philip V"))
+                                        .raw("Lord of the Netherlands; Count Palatine of Burgundy")
+                                        .build()
+                        )
+                ));
+        expectedData.put("John_Hunyadi",
+                new TestVector(
+                        null,
+                        new FlexibleDate.Builder().year(1406).noMonth().noDay().build(),
+                        new FlexibleDate.Builder().year(1456).month(8).day(11).build(),
+                        new WikiNamedResource("Voyk"),
+                        new WikiNamedResource("Elizabeth Morsina"),
+                        Arrays.asList(new WikiNamedResource("Erzsébet Szilágyi (noblewoman)", "Erzsébet Szilágyi")),
+                        Arrays.asList(
+                                new WikiNamedResource("Ladislaus Hunyadi"),
+                                new WikiNamedResource("Matthias Corvinus")),
+                        Arrays.asList(new WikiNamedResource("House of Hunyadi")),
+                        Arrays.asList()
+                ));
     }
 
     /*

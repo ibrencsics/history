@@ -28,7 +28,7 @@ public class RegressionTest {
     public void testParser() {
         WikiService service = new WikiServiceWikipedia();
         WikiPerson person = service.getPerson(page);
-        System.out.println(person);
+//        System.out.println(person);
 
         assertEquals(expected.name, person.getName());
         assertEquals(expected.dateOfBirth, person.getDateOfBirth());
@@ -80,12 +80,10 @@ public class RegressionTest {
                 { "Henry_V_of_England" },
                 { "Edward_VII" },
                 { "Matthias_Corvinus" },
+                { "Charles_V,_Holy_Roman_Emperor" },
+                { "John_Hunyadi" }
 
 //                { "Charles_II_of_England" }, // problem with reign
-
-                // TODO
-                // Charles_V,_Holy_Roman_Emperor
-                // Philip_II_of_Spain
         });
     }
 }

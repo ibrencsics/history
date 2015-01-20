@@ -187,7 +187,8 @@ public class CoreNeoService implements NeoService {
             Node node = graphDb.createNode(label);
             node.setProperty(WikiProperties.FULL.getPropertyName(), false);
             node.setProperty(WikiProperties.WIKI_PAGE.getPropertyName(), wikiPage);
-            node.setProperty(WikiProperties.NAME.getPropertyName(), wikiResource.getDisplayText());
+            node.setProperty(WikiProperties.NAME.getPropertyName(),
+                    wikiResource.getDisplayText()!=null ? wikiResource.getDisplayText() : wikiPage);
 
             return new Tuple2<>(node, true);
         } else {

@@ -165,13 +165,13 @@ public class TemplateParser {
             char[] cc = {c1,c2};
 
 
-            if (Arrays.equals(TEMPLATE_START, cc) || Arrays.equals(LINK_START, cc)) {
+            if (Arrays.equals(LINK_START, cc)) {
                 isLink = true;
                 i++;
                 continue;
             }
 
-            if (Arrays.equals(TEMPLATE_END, cc) || Arrays.equals(LINK_END, cc)) {
+            if (Arrays.equals(LINK_END, cc)) {
                 isLink = false;
                 sb.append(links.get(linkPos++).getDisplayText());
                 i++;
@@ -190,18 +190,43 @@ public class TemplateParser {
         return sb.toString();
     }
 
-    // TODO: improve, now it only removes one tag from the end of the text
-    public String removeTag(String text, String tagName) {
-        String startTag = "<" + tagName;
+    public String removeTags(String text, String... tagNames) {
+        String temp=text;
 
-        int startPos = text.indexOf(startTag);
-
-        if (startPos > 0) {
-            return text.substring(0, startPos);
+        for (String tagName : tagNames) {
+            temp = removeTemplate(temp, tagName);
+            temp = removeXml(temp, tagName);
         }
 
-        return text;
+        return temp;
     }
+
+    public String removeTemplate(String text, String templateName) {
+        String pattern = "\\{\\{" + templateName + ".*\\}\\}";
+        return text.replaceAll(pattern, "");
+    }
+
+    public String removeXml(String text, String xmlTag) {
+        String temp = text;
+        String pattern;
+
+        pattern = "<" + xmlTag + ">.*/" + xmlTag + ">";
+        temp = temp.replaceAll(pattern, "");
+
+        pattern = "<" + xmlTag + ">";
+        temp =  temp.replaceAll(pattern, "");
+
+        pattern = "<" + xmlTag + "/>";
+        temp =  temp.replaceAll(pattern, "");
+
+        return temp;
+    }
+
+    public String removeRef(String text) {
+        int startPos = text.indexOf("<ref>");
+        return (startPos>-1) ? text.substring(0,startPos) : text;
+    }
+
 
     public List<String> sentenceToWords(String sentence) {
         String[] words = sentence.split("\\s+");

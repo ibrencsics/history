@@ -2,6 +2,8 @@ package org.ib.history.wiki.parser;
 
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.data.FlexibleDateComparator;
 import org.ib.history.wiki.domain.WikiNamedResource;
@@ -12,8 +14,11 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class RoyaltyParser {
+
+    private static Logger logger = LogManager.getLogger(RoyaltyParser.class);
 
     private TemplateParser templateParser = new TemplateParser();
     private DateParser dateParser = new DateParser();
@@ -51,6 +56,9 @@ public class RoyaltyParser {
     }
 
     public Royalty parse(String page, String wikiText) {
+        logger.debug("Parsing [{}]", page);
+        logger.trace("Wikitext [{}] : {}", page, wikiText);
+
         Optional<String> template = templateParser.getTemplate(wikiText, "Infobox royalty");
         Map<String,String> data = templateParser.getTemplateDataMap(template.get());
         return parse(page, data);
@@ -75,8 +83,8 @@ public class RoyaltyParser {
 
             BiConsumer<Royalty, Tuple2<String,Integer>> parser = parserMap.get(parserKey);
             if (parser != null) {
-//                System.out.println("to parse " + entry.getKey() + ": " + entry.getValue());
-                parser.accept(royalty, new Tuple2<String,Integer>(entry.getValue(), seqNum));
+                logger.debug("to parse {}: {}", entry.getKey(), entry.getValue());
+                parser.accept(royalty, new Tuple2<String, Integer>(entry.getValue(), seqNum));
             }
             else {
 //                System.out.println("no parsing " + entry.getKey());
@@ -113,11 +121,12 @@ public class RoyaltyParser {
         List<WikiNamedResource> links = templateParser.getLinks(dataText);
         succession.setSuccessionLinks(links);
         succession.setSuccessionRaw(dataText);
-        succession.setSuccessionNoLinks(templateParser.removeLinks(dataText));
-        succession.setSuccessionNoLinksNoSmall(
-                templateParser.removeTag(
-                        templateParser.removeTag(
-                            templateParser.removeLinks(dataText), "small"), "br"));
+//        succession.setSuccessionNoLinks(templateParser.removeLinks(dataText));
+//        succession.setSuccessionNoLinksNoSmall(
+//                templateParser.removeTemplate(
+//                        templateParser.removeTemplate(
+//                                templateParser.removeLinks(dataText), "small"), "br"));
+        succession.setSuccessionNoLinksNoSmall(templateParser.removeLinks( templateParser.removeTags(dataText, "small", "br") ));
     }
 
     private void parseReign(Royalty royalty, Tuple2<String,Integer> data) {
@@ -127,8 +136,9 @@ public class RoyaltyParser {
         Royalty.Succession succession = getCurrentSuccession(royalty, data.element2());
 
         // TODO: do some preprocessing
+        String raw = templateParser.removeRef(data.element1());
 
-        List<FlexibleDate> dates = dateParser.parseDateEnglishFormat(data.element1());
+        List<FlexibleDate> dates = dateParser.parseDateEnglishFormat(raw);
         dates.sort(new FlexibleDateComparator());
 
         if (dates.size()>0)
@@ -159,8 +169,9 @@ public class RoyaltyParser {
     }
 
     private Royalty.Succession getCurrentSuccession(Royalty royalty, Integer num) {
+        int currentSize = royalty.getSuccessions().size();
         if (royalty.getSuccessions().size() <= num) {
-            for (int i=0; i <= (num - royalty.getSuccessions().size() + 1); i++) {
+            for (int i=0; i <= (num - currentSize + 1); i++) {
                 royalty.getSuccessions().add(new Royalty.Succession());
             }
         }
@@ -174,11 +185,17 @@ public class RoyaltyParser {
 
     private void parseIssue(Royalty royalty, Tuple2<String,Integer> data) {
         List<WikiNamedResource> links = templateParser.getLinks(data.element1());
-        royalty.getIssues().addAll(links);
+        royalty.getIssues().addAll(doListPostProcessing(links));
     }
 
     private void parseHouse(Royalty royalty, Tuple2<String,Integer> data) {
         List<WikiNamedResource> links = templateParser.getLinks(data.element1());
         royalty.getHouses().addAll(links);
+    }
+
+    private List<WikiNamedResource> doListPostProcessing(List<WikiNamedResource> in) {
+        return in.stream()
+                .filter(s -> !s.equals(new WikiNamedResource("illegitimate")))
+                .collect(Collectors.toList());
     }
 }
