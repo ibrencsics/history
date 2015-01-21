@@ -67,7 +67,7 @@ public class CoreNeoServiceTest {
 
         WikiPerson personIn = person();
         neoService.save(personIn);
-        Optional<WikiPerson> maybePersonOut = neoService.getPerson(personIn.getWikiPage().getLocalPart());
+        Optional<WikiPerson> maybePersonOut = neoService.getPerson(personIn.getWikiPage().getLocalPartNoUnderscore());
 
         if (maybePersonOut.isPresent()) {
             WikiPerson personOut = maybePersonOut.get();
@@ -88,7 +88,7 @@ public class CoreNeoServiceTest {
     private WikiPerson person() {
         WikiPerson.Builder personBuilder = new WikiPerson.Builder()
                 .name("William the Conqueror")
-                .wikiPage(WikiResource.fromLocalPart("William_the_Conqueror"))
+                .wikiPage(WikiResource.fromLocalPart("William the Conqueror"))
                 .dateOfBirth(new FlexibleDate.Builder().year(1028).noMonth().noDay().build())
                 .dateOfDeath(new FlexibleDate.Builder().year(1087).month(9).day(9).build())
                 .father(new WikiNamedResource("Robert I, Duke of Normandy"))

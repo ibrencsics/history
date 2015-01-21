@@ -5,7 +5,8 @@ public enum WikiProperties {
     WIKI_PAGE("wikiPage"),
     NAME("name"),
     DATE_OF_BIRTH("dateOfBirth"),
-    DATE_OF_DEATH("dateOfDeath");
+    DATE_OF_DEATH("dateOfDeath"),
+    GENDER("gender");
 
     private final String propertyName;
 

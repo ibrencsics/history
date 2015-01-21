@@ -23,11 +23,11 @@ public class WikiServiceWikipedia implements WikiService {
     public WikiPerson getPerson(String wikiPage) {
         RoyaltyParser parser = new RoyaltyParser();
         Royalty royalty = parser.parse(wikiPage);
-//        System.out.println(royalty);
+        logger.trace(royalty);
 
         WikiPerson.Builder builder = new WikiPerson.Builder();
 
-        builder.wikiPage(WikiResource.fromLocalPart(wikiPage))
+        builder.wikiPage(WikiResource.fromLocalPartNoUnderscore(wikiPage))
                 .name(royalty.getName())
                 .dateOfBirth(royalty.getDateOfBirth())
                 .dateOfDeath(royalty.getDateOfDeath())
@@ -39,14 +39,17 @@ public class WikiServiceWikipedia implements WikiService {
 
         parseSuccession(builder, royalty);
 
-        return builder.build();
+        WikiPerson wikiPerson = builder.build();
+        logger.debug(wikiPerson);
+
+        return wikiPerson;
     }
 
     private void parseSuccession(WikiPerson.Builder builder, Royalty royalty) {
         for (Royalty.Succession succession : royalty.getSuccessions()) {
             String sentence = succession.getSuccessionNoLinksNoSmall();
-            logger.debug("Succession original: {}", succession.getSuccessionRaw());
-            logger.debug("Succession preporcessed: {}", sentence);
+            logger.trace("Succession original: {}", succession.getSuccessionRaw());
+            logger.trace("Succession preporcessed: {}", sentence);
 
             if (sentence != null) {
                 WikiSuccession.Builder successionBuilder = new WikiSuccession.Builder()

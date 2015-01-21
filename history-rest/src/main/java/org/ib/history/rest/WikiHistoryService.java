@@ -97,6 +97,7 @@ public class WikiHistoryService {
         if (!neoPerson.isPresent()) {
             logger.debug("Calling WikiService");
             WikiPerson wikiPerson = wikiService.getPerson(wikiPage);
+            logger.trace(wikiPerson);
             person = wikiPerson;
             neoService.save(wikiPerson);
         } else {
@@ -113,13 +114,13 @@ public class WikiHistoryService {
 
     private void addRow(StringBuilder sb, WikiNamedResource wikiResource) {
         System.out.println(wikiResource);
-        sb.append("\"").append(wikiResource.getLocalPart()).append("\",\"").append(wikiResource.getDisplayText()).append("\"\n");
+        sb.append("\"").append(wikiResource.getLocalPartNoUnderscore()).append("\",\"").append(wikiResource.getDisplayText()).append("\"\n");
     }
 
     private void addRow(StringBuilder sb, WikiNamedResource wikiPerson, WikiNamedResource wikiResource, WikiRelationships relType) {
         sb.append("\"");
-        sb.append(wikiPerson.getLocalPart()).append("\",\"");
-        sb.append(wikiResource.getLocalPart()).append("\",\"");
+        sb.append(wikiPerson.getLocalPartNoUnderscore()).append("\",\"");
+        sb.append(wikiResource.getLocalPartNoUnderscore()).append("\",\"");
         sb.append(relType).append("\"\n");
     }
 }

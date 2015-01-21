@@ -10,7 +10,7 @@
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <Logger name="org.ib.history.wiki.wikipedia" level="INFO" additivity="false">
+        <Logger name="org.ib.history.wiki.wikipedia" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 

@@ -18,6 +18,10 @@ public class WikiResource {
         return localPart;
     }
 
+    public String getLocalPartNoUnderscore() {
+        return localPart.replace("_", " ");
+    }
+
     public URI getFullWikipedia() {
         try {
             return new URI(WIKIPEDIA_BASE + localPart);
@@ -42,6 +46,9 @@ public class WikiResource {
 
     public static WikiResource fromLocalPart(String localPart) {
         return new WikiResource(localPart.replace(" ", "_"));
+    }
+    public static WikiResource fromLocalPartNoUnderscore(String localPart) {
+        return new WikiResource(localPart.replace("_", " "));
     }
 
     protected static String getLastBitFromUrl(final String url){

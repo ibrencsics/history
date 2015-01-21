@@ -6,7 +6,7 @@ var wiki = {
         d3.select("#controls").selectAll("*").remove();
         wiki.showControls();
         
-        wiki.query("William_the_Conqueror");
+        //wiki.query("William_the_Conqueror");
     },
     
     showControls : function() {
@@ -19,7 +19,7 @@ var wiki = {
         console.log(wikiPage);
         
         d3.select("svg").selectAll("*").remove();
-        wiki.query(wikiPage);
+        wiki.query1(wikiPage);
     },
     
     query : function(wikiPage) {
@@ -29,6 +29,18 @@ var wiki = {
             .await(function(error, file1, file2) {
                 wiki.dataViz(file1, file2);
             });
+    },
+    
+    query1 : function(wikiPage) {
+        d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/nodes", function(nodes) {
+            wiki.query2(wikiPage, nodes);
+        })
+    },
+    
+    query2 : function(wikiPage, nodes) {
+        d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/edges", function(edges) {
+            wiki.dataViz(nodes, edges);
+        })
     },
     
     dataViz : function(nodes, edges) {

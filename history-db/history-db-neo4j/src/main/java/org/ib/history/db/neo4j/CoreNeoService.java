@@ -67,6 +67,7 @@ public class CoreNeoService implements NeoService {
 
     @Override
     public Optional<WikiPerson> getPerson(String wikiPage) {
+        wikiPage = formatWikiPage(wikiPage);
 
         try (Transaction tx = graphDb.beginTx()) {
             Optional<Node> maybePerson = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
@@ -106,18 +107,25 @@ public class CoreNeoService implements NeoService {
         }
     }
 
+    private String formatWikiPage(String wikiPage) {
+        return wikiPage.replace("_", " ");
+    }
 
     private void saveFamily(Node baseNode, WikiPerson wikiPerson) {
         if (wikiPerson.getFather()!=null) {
             Tuple2<Node,Boolean> father = saveBase(wikiPerson.getFather(), WikiLabels.PERSON);
             if (father.element2()) {
                 baseNode.createRelationshipTo(father.element1(), WikiRelationships.HAS_FATHER);
+                father.element1().createRelationshipTo(baseNode, WikiRelationships.HAS_ISSUE);
+                father.element1().setProperty(WikiProperties.GENDER.getPropertyName(), "M");
             }
         }
         if (wikiPerson.getMother()!=null) {
             Tuple2<Node,Boolean> mother = saveBase(wikiPerson.getMother(), WikiLabels.PERSON);
             if (mother.element2()) {
                 baseNode.createRelationshipTo(mother.element1(), WikiRelationships.HAS_MOTHER);
+                mother.element1().createRelationshipTo(baseNode, WikiRelationships.HAS_ISSUE);
+                mother.element1().setProperty(WikiProperties.GENDER.getPropertyName(), "F");
             }
         }
     }
@@ -158,7 +166,7 @@ public class CoreNeoService implements NeoService {
 
     private Tuple2<Node,Boolean> savePerson(WikiPerson wikiPerson) {
         Tuple2<Node,Boolean> person = saveBase(wikiPerson.getWikiNamedResource(), WikiLabels.PERSON);
-        String wikiPage = wikiPerson.getWikiPage().getLocalPart();
+        String wikiPage = wikiPerson.getWikiPage().getLocalPartNoUnderscore();
 
         if (person.element1().getProperty(WikiProperties.FULL.getPropertyName()).equals(false)) {
             logger.debug("Node [{}] already existing but non-full", wikiPage);
@@ -178,7 +186,7 @@ public class CoreNeoService implements NeoService {
     }
 
     private Tuple2<Node,Boolean> saveBase(WikiNamedResource wikiResource, Label label) {
-        String wikiPage = wikiResource.getLocalPart();
+        String wikiPage = wikiResource.getLocalPartNoUnderscore();
         Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, label);
 
         if (!maybeNode.isPresent()) {
