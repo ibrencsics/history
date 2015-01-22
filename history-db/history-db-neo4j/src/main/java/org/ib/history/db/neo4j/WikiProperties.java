@@ -1,7 +1,7 @@
 package org.ib.history.db.neo4j;
 
 public enum WikiProperties {
-    FULL("full"),
+    STATUS("status"),
     WIKI_PAGE("wikiPage"),
     NAME("name"),
     DATE_OF_BIRTH("dateOfBirth"),

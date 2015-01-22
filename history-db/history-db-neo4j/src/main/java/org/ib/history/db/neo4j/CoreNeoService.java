@@ -33,6 +33,7 @@ public class CoreNeoService implements NeoService {
 
     @Override
     public long save(WikiPerson wikiPerson) {
+        logger.debug("save([{}])", wikiPerson.getName());
 
         try (Transaction tx = graphDb.beginTx()) {
             Tuple2<Node,Boolean> person = savePerson(wikiPerson);
@@ -67,13 +68,17 @@ public class CoreNeoService implements NeoService {
 
     @Override
     public Optional<WikiPerson> getPerson(String wikiPage) {
+        logger.debug("getPerson([{}])", wikiPage);
+
         wikiPage = formatWikiPage(wikiPage);
 
         try (Transaction tx = graphDb.beginTx()) {
             Optional<Node> maybePerson = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
 
-            if (maybePerson.isPresent()) {
-                logger.debug("Page [{}] found", wikiPage);
+            if (maybePerson.isPresent() &&
+                    maybePerson.get().getProperty(WikiProperties.STATUS.getPropertyName()).equals(NodeStatus.FULL.name())) {
+
+                logger.debug("Page [{}] found in cache", wikiPage);
 
                 Node person = maybePerson.get();
 
@@ -101,7 +106,7 @@ public class CoreNeoService implements NeoService {
 
                 return Optional.of(builder.build());
             } else {
-                logger.debug("Page [{}] not found", wikiPage);
+                logger.debug("Page [{}] not found in cache", wikiPage);
                 return Optional.empty();
             }
         }
@@ -114,19 +119,17 @@ public class CoreNeoService implements NeoService {
     private void saveFamily(Node baseNode, WikiPerson wikiPerson) {
         if (wikiPerson.getFather()!=null) {
             Tuple2<Node,Boolean> father = saveBase(wikiPerson.getFather(), WikiLabels.PERSON);
-            if (father.element2()) {
-                baseNode.createRelationshipTo(father.element1(), WikiRelationships.HAS_FATHER);
-                father.element1().createRelationshipTo(baseNode, WikiRelationships.HAS_ISSUE);
-                father.element1().setProperty(WikiProperties.GENDER.getPropertyName(), "M");
-            }
+
+            setRelationIfEmpty(baseNode, father.element1(), WikiRelationships.HAS_FATHER);
+            setRelationIfEmpty(father.element1(), baseNode, WikiRelationships.HAS_ISSUE);
+            setPropertyIfEmpty(father.element1(), WikiProperties.GENDER, GenderType.M.name());
         }
         if (wikiPerson.getMother()!=null) {
             Tuple2<Node,Boolean> mother = saveBase(wikiPerson.getMother(), WikiLabels.PERSON);
-            if (mother.element2()) {
-                baseNode.createRelationshipTo(mother.element1(), WikiRelationships.HAS_MOTHER);
-                mother.element1().createRelationshipTo(baseNode, WikiRelationships.HAS_ISSUE);
-                mother.element1().setProperty(WikiProperties.GENDER.getPropertyName(), "F");
-            }
+
+            setRelationIfEmpty(baseNode, mother.element1(), WikiRelationships.HAS_MOTHER);
+            setRelationIfEmpty(mother.element1(), baseNode, WikiRelationships.HAS_ISSUE);
+            setPropertyIfEmpty(mother.element1(), WikiProperties.GENDER, GenderType.F.name());
         }
     }
 
@@ -157,9 +160,8 @@ public class CoreNeoService implements NeoService {
         if (wikiPerson.getHouses()!=null) {
             wikiPerson.getHouses().stream().forEach(h -> {
                 Tuple2<Node,Boolean> house = saveHouse(h);
-                if (house.element2()) {
-                    baseNode.createRelationshipTo(house.element1(), WikiRelationships.IN_HOUSE);
-                }
+
+                setRelationIfEmpty(baseNode, house.element1(), WikiRelationships.IN_HOUSE);
             });
         }
     }
@@ -168,14 +170,14 @@ public class CoreNeoService implements NeoService {
         Tuple2<Node,Boolean> person = saveBase(wikiPerson.getWikiNamedResource(), WikiLabels.PERSON);
         String wikiPage = wikiPerson.getWikiPage().getLocalPartNoUnderscore();
 
-        if (person.element1().getProperty(WikiProperties.FULL.getPropertyName()).equals(false)) {
-            logger.debug("Node [{}] already existing but non-full", wikiPage);
+        if (person.element1().getProperty(WikiProperties.STATUS.getPropertyName()).equals(NodeStatus.BASE.name())) {
+            logger.debug("Node [{}] base -> full", wikiPage);
 
-            person.element1().setProperty(WikiProperties.FULL.getPropertyName(), true);
+            person.element1().setProperty(WikiProperties.STATUS.getPropertyName(), NodeStatus.FULL.name());
             person.element1().setProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfBirth()));
             person.element1().setProperty(WikiProperties.DATE_OF_DEATH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfDeath()));
         } else {
-            logger.debug("Node [{}] already existing and full", wikiPage);
+            logger.debug("Node [{}] full", wikiPage);
         }
 
         return person;
@@ -190,17 +192,17 @@ public class CoreNeoService implements NeoService {
         Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, label);
 
         if (!maybeNode.isPresent()) {
-            logger.debug("Node [{}] not existing, creating now", wikiPage);
+            logger.debug("Node [{}] null -> base", wikiPage);
 
             Node node = graphDb.createNode(label);
-            node.setProperty(WikiProperties.FULL.getPropertyName(), false);
+            node.setProperty(WikiProperties.STATUS.getPropertyName(), NodeStatus.BASE.name());
             node.setProperty(WikiProperties.WIKI_PAGE.getPropertyName(), wikiPage);
             node.setProperty(WikiProperties.NAME.getPropertyName(),
                     wikiResource.getDisplayText()!=null ? wikiResource.getDisplayText() : wikiPage);
 
             return new Tuple2<>(node, true);
         } else {
-            logger.debug("Node [{}] already existing", wikiPage);
+            logger.debug("Node [{}] exist", wikiPage);
             return new Tuple2<>(maybeNode.get(), false);
         }
     }
@@ -217,7 +219,8 @@ public class CoreNeoService implements NeoService {
 //        TraversalDescription traversal = Traversal.description()
         TraversalDescription traversal = graphDb.traversalDescription()
                 .relationships(relation, Direction.OUTGOING)
-                .evaluator(Evaluators.excludeStartPosition());
+                .evaluator(Evaluators.excludeStartPosition())
+                .evaluator(Evaluators.atDepth(1));
 
         Traverser traverser = traversal.traverse(person);
         Iterable<Node> iterable = traverser.nodes();
@@ -231,5 +234,21 @@ public class CoreNeoService implements NeoService {
         }
 
         return ret;
+    }
+
+
+    private void setPropertyIfEmpty(Node node, WikiProperties property, Object value) {
+        if (!node.hasProperty(property.getPropertyName())) {
+            logger.debug("Node [{}] has no [{}] property. Setting it the value {}",
+                    node.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()), property.getPropertyName(), value);
+            node.setProperty(property.getPropertyName(), value);
+        }
+    }
+
+    private void setRelationIfEmpty(Node node, Node otherNode, WikiRelationships relationship) {
+        if (!node.hasRelationship(relationship)) {
+            logger.debug("Node [{}] has no [{}] relation to node [{}]. Creating it now.");
+            node.createRelationshipTo(otherNode, relationship);
+        }
     }
 }
