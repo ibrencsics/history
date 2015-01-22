@@ -69,19 +69,21 @@ public class RegressionTest {
     @Parameterized.Parameters()
     public static Iterable<Object[]> data1() {
         return Arrays.asList(new Object[][] {
-                { "William_the_Conqueror" },
-                { "William_III_of_England" },
-                { "Henry_VIII_of_England" },
-                { "Louis_I_of_Hungary" },
-                { "Anne_of_Austria" },
-                { "Empress_Matilda" },
-                { "Stephen,_King_of_England" },
-                { "James_II_of_England" },
-                { "Henry_V_of_England" },
-                { "Edward_VII" },
-                { "Matthias_Corvinus" },
-                { "Charles_V,_Holy_Roman_Emperor" },
-                { "John_Hunyadi" }
+//                { "William_the_Conqueror" },
+//                { "William_III_of_England" },
+//                { "Henry_VIII_of_England" },
+//                { "Louis_I_of_Hungary" },
+//                { "Anne_of_Austria" },
+//                { "Empress_Matilda" },
+//                { "Stephen,_King_of_England" },
+//                { "James_II_of_England" },
+//                { "Henry_V_of_England" },
+//                { "Edward_VII" },
+//                { "Matthias_Corvinus" },
+//                { "Charles_V,_Holy_Roman_Emperor" },
+//                { "John_Hunyadi" }
+
+                { "Henry_IV_of_France" }
 
 //                { "Charles_II_of_England" }, // problem with reign
         });

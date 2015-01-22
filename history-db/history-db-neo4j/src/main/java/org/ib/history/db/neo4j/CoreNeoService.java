@@ -246,8 +246,23 @@ public class CoreNeoService implements NeoService {
     }
 
     private void setRelationIfEmpty(Node node, Node otherNode, WikiRelationships relationship) {
-        if (!node.hasRelationship(relationship)) {
-            logger.debug("Node [{}] has no [{}] relation to node [{}]. Creating it now.");
+        boolean found = false;
+
+        Iterator<Relationship> iter = node.getRelationships(relationship).iterator();
+        while (iter.hasNext()) {
+            Relationship rel = iter.next();
+            if (otherNode.equals(rel.getEndNode())) {
+                found = true;
+                break;
+            }
+        }
+
+//        if (!node.hasRelationship(relationship)) {
+        if (!found) {
+            logger.debug("Node [{}] has no [{}] relation to node [{}]. Creating it now.",
+                    node.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()),
+                    relationship.name(),
+                    otherNode.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()));
             node.createRelationshipTo(otherNode, relationship);
         }
     }

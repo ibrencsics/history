@@ -12,14 +12,29 @@ var wiki = {
     showControls : function() {
         d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px");
         d3.select("#controls").append("button").attr("id", "go").on("click", wiki.buttonClick).html("Go");
+        
+        var select = d3.select("#controls").append("select").attr("id", "dropdown");
+        select.on("change", function(d) {
+            var value = d3.select(this).property("value");
+            wiki.dropdownChanged(value);
+        })
     },
     
     buttonClick : function() {
+        d3.select("#dropdown").selectAll("*").remove();
+        
         wikiPage = document.getElementById("wikiPage").value;
         console.log(wikiPage);
         
         d3.select("svg").selectAll("*").remove();
         wiki.query1(wikiPage);
+    },
+    
+    dropdownChanged : function(value) {
+        d3.select("#dropdown").selectAll("*").remove();
+        
+        d3.select("svg").selectAll("*").remove();
+        wiki.query1(value);
     },
     
     query : function(wikiPage) {
@@ -82,6 +97,13 @@ var wiki = {
             .call(force.drag())
             .on("click", fixNode)
             .on("dblclick", releaseNode);
+      
+        d3.select("#dropdown")
+                .selectAll("option")
+                .data(nodes)
+                .enter()
+                .append("option")
+                .text(function (d) {return d.id})
       
         function fixNode(d) {
 //            Cif (d.fixed) {
