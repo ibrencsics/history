@@ -137,10 +137,9 @@ public class CoreNeoService implements NeoService {
         if (wikiPerson.getSpouses()!=null) {
             wikiPerson.getSpouses().stream().forEach(s -> {
                 Tuple2<Node,Boolean> spouse = saveBase(s, WikiLabels.PERSON);
-                if (spouse.element2()) {
-                    baseNode.createRelationshipTo(spouse.element1(), WikiRelationships.IS_SPOUSE_OF);
-                    spouse.element1().createRelationshipTo(baseNode, WikiRelationships.IS_SPOUSE_OF);
-                }
+
+                setRelationIfEmpty(baseNode, spouse.element1(), WikiRelationships.IS_SPOUSE_OF);
+                setRelationIfEmpty(spouse.element1(), baseNode, WikiRelationships.IS_SPOUSE_OF);
             });
         }
     }
@@ -149,9 +148,8 @@ public class CoreNeoService implements NeoService {
         if (wikiPerson.getIssues()!=null) {
             wikiPerson.getIssues().stream().forEach(i -> {
                 Tuple2<Node,Boolean> issue = saveBase(i, WikiLabels.PERSON);
-                if (issue.element2()) {
-                    baseNode.createRelationshipTo(issue.element1(), WikiRelationships.HAS_ISSUE);
-                }
+
+                setRelationIfEmpty(baseNode, issue.element1(), WikiRelationships.HAS_ISSUE);
             });
         }
     }

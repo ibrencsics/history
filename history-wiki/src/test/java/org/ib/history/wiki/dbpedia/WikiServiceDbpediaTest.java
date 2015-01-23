@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class WikiServiceDbpediaTest {
 
-    @Test
+//    @Test
     public void testGetPerson() {
         WikiService service = new WikiServiceDbpedia();
 //        WikiPerson person = service.getPerson("William_the_Conqueror");

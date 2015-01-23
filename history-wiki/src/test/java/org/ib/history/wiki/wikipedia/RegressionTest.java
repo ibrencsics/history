@@ -83,7 +83,7 @@ public class RegressionTest {
 //                { "Charles_V,_Holy_Roman_Emperor" },
 //                { "John_Hunyadi" }
 
-                { "Henry_IV_of_France" }
+                { "Maria_Theresa" }
 
 //                { "Charles_II_of_England" }, // problem with reign
         });

@@ -1,5 +1,7 @@
 package org.ib.history.wiki.parser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.commons.tuples.Tuple2;
 
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TemplateParser {
+
+    private static Logger logger = LogManager.getLogger(TemplateParser.class);
 
     private static final char TEMPLATE_START_CHAR = '{';
     private static final char TEMPLATE_END_CHAR = '}';
@@ -41,6 +45,7 @@ public class TemplateParser {
                 }
 
                 String templateName = wikiText.substring(i+1, next_separator).toLowerCase();
+                logger.trace("start template: {}", templateName);
                 templateStack.push(new Tuple2<String, Integer>(templateName, i-1));
                 i = next_separator;
 
@@ -49,10 +54,12 @@ public class TemplateParser {
 
             if (Arrays.equals(TEMPLATE_END, cc)) {
                 Tuple2<String,Integer> templateData = templateStack.pop();
+                logger.trace("end template: {}", templateData.element1());
 
                 List<String> requestedTemplateNamesLowercase = Stream.of(requestedTemplateNames).map(s -> s.toLowerCase()).collect(Collectors.toList());
-                if (requestedTemplateNamesLowercase.contains(templateData.element1())) {
+                if (requestedTemplateNamesLowercase.contains(templateData.element1().trim())) {
                     String template = wikiText.substring(templateData.element2(), i+1);
+                    logger.trace("template: {}", template);
                     return Optional.of(template);
                 }
 
@@ -69,14 +76,14 @@ public class TemplateParser {
         getTemplateData(template)
                 .stream()
                 .forEach( datum -> {
-//                            System.out.println(datum);
+                            logger.trace("datum={}", datum);
                             int keyValueSeparatorPos = datum.indexOf(KEY_VALUE_SEPARATOR);
                             if (keyValueSeparatorPos != -1) {
                                 String key = datum.substring(0, keyValueSeparatorPos /*- 1*/).trim();
-//                                System.out.println(key);
+                                logger.trace("key={}", key);
                                 String value = datum.substring(keyValueSeparatorPos + 1, datum.length()).trim();
                                 data.put(key, value);
-//                                System.out.println("put: " + key + " : " + value);
+                                logger.trace("put: {}={}", key, value);
                             }
                         }
                 );
