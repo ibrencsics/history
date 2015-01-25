@@ -20,9 +20,9 @@ nav,header,footer,article { display:block; }
     
 @media only screen and (max-width:480px) {
 
-    /* do something to the design for small screens */
-    body {
-        background:#000; }
+/* do something to the design for small screens */
+body {
+    background:#000; }
 
 }
 
@@ -65,3 +65,38 @@ path.domain {
     fill: none;
     stroke: black;
 }
+
+
+
+.menu {
+    border: 1px solid black;
+    background-color: grey;
+    display: none;
+    position: relative;
+    list-style-type: none;
+}
+.menu,
+.menu li {
+    padding: 0px;
+    margin: 0px;
+}
+.menu li {
+    color: white;
+}
+.menu > li:hover {
+    background-color: lightblue;
+    color: black;
+}
+/*
+.menu li {
+    display: none;
+}
+*/
+
+.menu.svg li.svg ,
+.menu.svg li.svg li,
+.menu.rect li.rect ,
+.menu.circle li.circle li,
+.menu.circle li.circle {
+    display: block;
+}   

@@ -10,7 +10,7 @@ var wiki = {
     },
     
     showControls : function() {
-        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px");
+        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px").attr("value", "Maria_Theresa");
         d3.select("#controls").append("button").attr("id", "go").on("click", wiki.buttonClick).html("Go");
         
         var select = d3.select("#controls").append("select").attr("id", "dropdown");
@@ -89,21 +89,55 @@ var wiki = {
             .attr("class", "link")
             .style("stroke", "black")
             .style("opacity", .5)
-            .style("stroke-width", function(d) {return d.weight});
-      
+            .style("stroke-width", function(d) {return d.weight})
+            
         var nodeEnter = d3.select("svg").selectAll("g.node").data(nodes, function (d) {return d.id}).enter()
             .append("g")
             .attr("class", "node")
             .call(force.drag())
             .on("click", fixNode)
-            .on("dblclick", releaseNode);
+            .on("dblclick", releaseNode)
+            .on("contextmenu", function(d,i) {
+                showContextMenu(this, d, i);
+                d3.event.preventDefault();
+            })
+            .on("mouseover", function() {
+                d3.select(this)
+                    .style("stroke", "black")
+                    .style("stroke-width", "1px")
+                    .style("cursor", "hand")
+            })
+            .on("mouseleave", function() {
+                d3.select(this)
+                    .style("stroke", "black")
+                    .style("stroke-width", "0px")
+                    .style("cursor", "arrow")
+            })
+            
+        nodeEnter.append("circle")
+            .attr("r", 8)
+            .style("fill", "BLUE")
+            .style("stroke", "black")
+            .style("stroke-width", "1px")
+            
+
+
+        nodeEnter.append("text")
+            .style("text-anchor", "middle")
+            .attr("y", 15)
+            .text(function(d) {return d.name})
       
+      
+        // drop-down menu
+        
         d3.select("#dropdown")
                 .selectAll("option")
                 .data(nodes)
                 .enter()
                 .append("option")
                 .text(function (d) {return d.id})
+      
+        // left click -> fix, unfix
       
         function fixNode(d) {
 //            Cif (d.fixed) {
@@ -120,16 +154,31 @@ var wiki = {
             d.fixed = false;
         }
       
-        nodeEnter.append("circle")
-            .attr("r", 8)
-            .style("fill", "BLUE")
-            .style("stroke", "black")
-            .style("stroke-width", "1px");
+        // right click -> contextmenu
+        
+        d3.text("wiki-contextmenu.html", function(data) {
+            d3.select("#details").append("div").attr("id", "contextmenu").html(data);
+        });
+        
+        function showContextMenu(that) {
+            d3.event.preventDefault();
 
-        nodeEnter.append("text")
-            .style("text-anchor", "middle")
-            .attr("y", 15)
-            .text(function(d) {return d.name})
+            var position = d3.mouse(that);
+            
+//            console.log(d3.select("svg")[0][0])
+
+            var position = d3.mouse(d3.select("body")[0][0]);
+            d3.select('#context-menu')
+                .style('position', 'absolute')
+                .style('left', position[0] + "px")
+                .style('top', position[1] + "px")
+                .style('display', 'inline-block')
+                .on('mouseleave', function() {
+                    d3.select('#context-menu').style('display', 'none');
+                });
+        }
+        
+        // start
 
 //      d3.selectAll("line").attr("marker-end", "url(#Triangle)");
         
