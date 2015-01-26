@@ -30,8 +30,28 @@ svg {
     height: 550px;
     width: 1000px;
     border: 1px solid gray;
+    box-shadow: 10px 10px 5px #888888;
 }
 
+#data {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 150px;
+    left: 1100px;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+#controls {
+    width: 400px;
+    height: 100px;
+    position: absolute;
+    top: 580px;
+    left: 1100px;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+}
 
 #modal {
     width: 400px;

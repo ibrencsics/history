@@ -2,6 +2,7 @@ package org.ib.history.rest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.NeoService;
 import org.ib.history.db.neo4j.WikiRelationships;
 import org.ib.history.wiki.domain.WikiNamedResource;
@@ -56,13 +57,13 @@ public class WikiHistoryService {
     }
 
     private String createNodeCsv(WikiPerson wikiPerson) {
-        StringBuilder sb = new StringBuilder("id,name\n");
+        StringBuilder sb = new StringBuilder("id,name,birth,death\n");
 
         addRow(sb, wikiPerson);
-        addRow(sb, wikiPerson.getFather());
-        addRow(sb, wikiPerson.getMother());
-        wikiPerson.getSpouses().stream().forEach(s -> addRow(sb, s));
-        wikiPerson.getIssues().stream().forEach(s -> addRow(sb, s));
+        addRow(sb, wikiPerson.getFather(), true);
+        addRow(sb, wikiPerson.getMother(), true);
+        wikiPerson.getSpouses().stream().forEach(s -> addRow(sb, s, true));
+        wikiPerson.getIssues().stream().forEach(s -> addRow(sb, s, true));
 
         return sb.toString();
     }
@@ -109,12 +110,18 @@ public class WikiHistoryService {
     }
 
     private void addRow(StringBuilder sb, WikiPerson wikiPerson) {
-        addRow(sb, wikiPerson.getWikiNamedResource());
+        addRow(sb, wikiPerson.getWikiNamedResource(), false);
+        sb.append(",\"").append(Neo4jDateFormat.dateWrapperToString(wikiPerson.getDateOfBirth())).append("\"");
+        sb.append(",\"").append(Neo4jDateFormat.dateWrapperToString(wikiPerson.getDateOfDeath())).append("\"");
+        sb.append("\n");
     }
 
-    private void addRow(StringBuilder sb, WikiNamedResource wikiResource) {
+    private void addRow(StringBuilder sb, WikiNamedResource wikiResource, boolean lineFeed) {
         System.out.println(wikiResource);
-        sb.append("\"").append(wikiResource.getLocalPartNoUnderscore()).append("\",\"").append(wikiResource.getDisplayText()).append("\"\n");
+        sb.append("\"").append(wikiResource.getLocalPartNoUnderscore()).append("\",\"").append(wikiResource.getDisplayText()).append("\"");
+        if (lineFeed) {
+            sb.append(",\"\",\"\"\n");
+        }
     }
 
     private void addRow(StringBuilder sb, WikiNamedResource wikiPerson, WikiNamedResource wikiResource, WikiRelationships relType) {

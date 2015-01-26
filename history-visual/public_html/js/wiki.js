@@ -186,6 +186,10 @@ var wiki = {
                     .selectAll("li")
                     .on("click", function() {
                         if (this.id == "open") {
+                            d3.select('#context-menu')
+                                .style('display', 'none')
+                                .style("cursor", "arrow")
+                            
                             wiki.dropdownChanged(d.id)
                         }
                     })
