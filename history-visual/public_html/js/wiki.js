@@ -115,16 +115,15 @@ var wiki = {
             })
             
         nodeEnter.append("circle")
-            .attr("r", 8)
+            .attr("r", 12)
             .style("fill", "BLUE")
             .style("stroke", "black")
             .style("stroke-width", "1px")
-            
-
 
         nodeEnter.append("text")
             .style("text-anchor", "middle")
-            .attr("y", 15)
+            .style("font-size", "75%")
+            .attr("y", 20)
             .text(function(d) {return d.name})
       
       
@@ -160,7 +159,7 @@ var wiki = {
             d3.select("#details").append("div").attr("id", "contextmenu").html(data);
         });
         
-        function showContextMenu(that) {
+        function showContextMenu(that, d) {
             d3.event.preventDefault();
 
             var position = d3.mouse(that);
@@ -170,12 +169,26 @@ var wiki = {
             var position = d3.mouse(d3.select("body")[0][0]);
             d3.select('#context-menu')
                 .style('position', 'absolute')
-                .style('left', position[0] + "px")
-                .style('top', position[1] + "px")
+                .style('left', (position[0]+20) + "px")
+                .style('top', (position[1]+20) + "px")
                 .style('display', 'inline-block')
+                .on('mouseover', function() {
+                    d3.select('#context-menu')
+                        .style("cursor", "hand")
+                })
                 .on('mouseleave', function() {
-                    d3.select('#context-menu').style('display', 'none');
-                });
+                    d3.select('#context-menu')
+                        .style('display', 'none')
+                        .style("cursor", "arrow")
+                })
+                
+            d3.select("#context-menu")
+                    .selectAll("li")
+                    .on("click", function() {
+                        if (this.id == "open") {
+                            wiki.dropdownChanged(d.id)
+                        }
+                    })
         }
         
         // start
