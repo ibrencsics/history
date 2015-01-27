@@ -381,7 +381,7 @@ public class RegressionTestData {
                                 new WikiNamedResource("Maud of Wales", "Maud, Queen of Norway")
                                 // Prince Alexander John of Wales
                         ),
-                        Arrays.asList(new WikiNamedResource("House of Saxe-Coburg and Gotha", "Saxe-Coburg and Gotha")),
+                        Arrays.asList(new WikiNamedResource("House of Saxe-Coburg and Gotha")),
                         Arrays.asList(
                                 new WikiSuccession.Builder()
                                         .from(new FlexibleDate.Builder().year(1901).month(1).day(22).build())

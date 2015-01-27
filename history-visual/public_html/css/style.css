@@ -61,6 +61,15 @@ svg {
     box-shadow: 10px 10px 5px #888888;
 }
 
+#details table tr th {
+    font-size: 150%;
+}
+
+#details table tr td {
+    font-size: 100%;
+}
+
+/*
 tr {
     border: 1px gray solid;
 }
@@ -70,6 +79,7 @@ td {
 td.data {
     font-weight: 900;
 }
+*/
 
 line {
     shape-rendering: crispEdges;

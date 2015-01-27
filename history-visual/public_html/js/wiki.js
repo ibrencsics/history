@@ -4,6 +4,8 @@ var wiki = {
         d3.select("svg").selectAll("*").remove();
         d3.select("#details").selectAll("*").remove();
         d3.select("#controls").selectAll("*").remove();
+        d3.select("#data").selectAll("*").remove();
+        
         wiki.showControls();
         
         //wiki.query("William_the_Conqueror");
@@ -18,6 +20,10 @@ var wiki = {
             var value = d3.select(this).property("value");
             wiki.dropdownChanged(value);
         })
+
+        d3.text("wiki-modal-details.html", function(data) {
+            d3.select("#data").append("div").attr("id", "details").html(data);
+        });
     },
     
     buttonClick : function() {
@@ -191,6 +197,12 @@ var wiki = {
                                 .style("cursor", "arrow")
                             
                             wiki.dropdownChanged(d.id)
+                        } else if (this.id == "details") {
+                            d3.selectAll("td.data")
+                                    .data(d3.values(d))
+                                    .html(function(p) {
+                                        return p
+                                    });
                         }
                     })
         }

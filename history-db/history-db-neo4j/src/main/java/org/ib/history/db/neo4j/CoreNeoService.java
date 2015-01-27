@@ -112,6 +112,68 @@ public class CoreNeoService implements NeoService {
         }
     }
 
+    @Override
+    public Optional<NeoPerson> getNeoPerson(String wikiPage) {
+        logger.debug("getPerson([{}])", wikiPage);
+
+        wikiPage = formatWikiPage(wikiPage);
+
+        try (Transaction tx = graphDb.beginTx()) {
+            if (isFull(wikiPage)) {
+
+                logger.debug("Page [{}] found in cache", wikiPage);
+
+                NeoPerson neoPerson = getBasicNeoPerson(wikiPage);
+
+                return Optional.of(neoPerson);
+            } else {
+                logger.debug("Page [{}] not found in cache", wikiPage);
+                return Optional.empty();
+            }
+        }
+    }
+
+    private boolean isFull(String wikiPage) {
+        Optional<Node> maybePerson = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
+
+        return  (maybePerson.isPresent() &&
+                maybePerson.get().getProperty(WikiProperties.STATUS.getPropertyName())
+                        .equals(NodeStatus.FULL.name()));
+    }
+
+    private NeoPerson getBasicNeoPerson(String wikiPage) {
+        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
+        if (maybeNode.isPresent()) {
+            Node node = maybeNode.get();
+
+            NeoPerson person = new NeoPerson();
+            person.setWikiPage(wikiPage);
+            person.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
+
+            if (node.hasProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName())) {
+                person.setDateOfBirth(
+                        Neo4jDateFormat.parse((String) node.getProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName()))
+                );
+            }
+
+            if (node.hasProperty(WikiProperties.DATE_OF_DEATH.getPropertyName())) {
+                person.setDateOfDeath(
+                        Neo4jDateFormat.parse((String) node.getProperty(WikiProperties.DATE_OF_DEATH.getPropertyName()))
+                );
+            }
+
+            if (node.hasProperty(WikiProperties.GENDER.getPropertyName())) {
+                person.setGender(
+                        GenderType.valueOf((String) node.getProperty(WikiProperties.GENDER.getPropertyName()))
+                );
+            }
+
+            return person;
+        }
+
+        throw new RuntimeException("WikiPage not found: " + wikiPage);
+    }
+
     private String formatWikiPage(String wikiPage) {
         return wikiPage.replace("_", " ");
     }
@@ -122,14 +184,14 @@ public class CoreNeoService implements NeoService {
 
             setRelationIfEmpty(baseNode, father.element1(), WikiRelationships.HAS_FATHER);
             setRelationIfEmpty(father.element1(), baseNode, WikiRelationships.HAS_ISSUE);
-            setPropertyIfEmpty(father.element1(), WikiProperties.GENDER, GenderType.M.name());
+            setPropertyIfEmpty(father.element1(), WikiProperties.GENDER, GenderType.MALE.name());
         }
         if (wikiPerson.getMother()!=null) {
             Tuple2<Node,Boolean> mother = saveBase(wikiPerson.getMother(), WikiLabels.PERSON);
 
             setRelationIfEmpty(baseNode, mother.element1(), WikiRelationships.HAS_MOTHER);
             setRelationIfEmpty(mother.element1(), baseNode, WikiRelationships.HAS_ISSUE);
-            setPropertyIfEmpty(mother.element1(), WikiProperties.GENDER, GenderType.F.name());
+            setPropertyIfEmpty(mother.element1(), WikiProperties.GENDER, GenderType.FEMALE.name());
         }
     }
 
