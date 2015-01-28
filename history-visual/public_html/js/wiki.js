@@ -12,7 +12,7 @@ var wiki = {
     },
     
     showControls : function() {
-        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px").attr("value", "Maria_Theresa");
+        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px").attr("value", "William_the_Conqueror");
         d3.select("#controls").append("button").attr("id", "go").on("click", wiki.buttonClick).html("Go");
         
         var select = d3.select("#controls").append("select").attr("id", "dropdown");

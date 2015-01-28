@@ -3,6 +3,8 @@ package org.ib.history.rest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.utils.Neo4jDateFormat;
+import org.ib.history.db.neo4j.GenderType;
+import org.ib.history.db.neo4j.NeoPerson;
 import org.ib.history.db.neo4j.NeoService;
 import org.ib.history.db.neo4j.WikiRelationships;
 import org.ib.history.wiki.domain.WikiNamedResource;
@@ -53,7 +55,10 @@ public class WikiHistoryService {
     @Produces("text/csv")
     public String nodes(@PathParam("wikiPage") String wikiPage) {
         logger.info("nodes called for [{}]", wikiPage);
-        return createNodeCsv(getWikiPerson(wikiPage));
+//        return createNodeCsv(getWikiPerson(wikiPage));
+        NeoPerson neoPerson = getNeoPerson(wikiPage);
+        logger.trace(neoPerson);
+        return createNodeCsv(neoPerson);
     }
 
     private String createNodeCsv(WikiPerson wikiPerson) {
@@ -64,6 +69,17 @@ public class WikiHistoryService {
         addRow(sb, wikiPerson.getMother(), true);
         wikiPerson.getSpouses().stream().forEach(s -> addRow(sb, s, true));
         wikiPerson.getIssues().stream().forEach(s -> addRow(sb, s, true));
+
+        return sb.toString();
+    }
+
+    private String createNodeCsv(NeoPerson neoPerson) {
+        StringBuilder sb = new StringBuilder("id,name,birth,death,gender\n");
+        addRow(sb, neoPerson);
+        addRow(sb, neoPerson.getFather().get());
+        addRow(sb, neoPerson.getMother().get());
+        neoPerson.getSpouses().stream().forEach(s -> addRow(sb, s));
+        neoPerson.getIssues().stream().forEach(s -> addRow(sb, s));
 
         return sb.toString();
     }
@@ -109,11 +125,36 @@ public class WikiHistoryService {
         return person;
     }
 
+    private NeoPerson getNeoPerson(String wikiPage) {
+        Optional<NeoPerson> maybeNeoPerson = neoService.getNeoPerson(wikiPage);
+
+        if (!maybeNeoPerson.isPresent()) {
+            logger.debug("Calling WikiService");
+            WikiPerson wikiPerson = wikiService.getPerson(wikiPage);
+            neoService.save(wikiPerson);
+            maybeNeoPerson = neoService.getNeoPerson(wikiPage);
+        } else {
+            logger.debug("Returning from cache");
+        }
+
+        return maybeNeoPerson.get();
+    }
+
     private void addRow(StringBuilder sb, WikiPerson wikiPerson) {
         addRow(sb, wikiPerson.getWikiNamedResource(), false);
         sb.append(",\"").append(Neo4jDateFormat.dateWrapperToString(wikiPerson.getDateOfBirth())).append("\"");
         sb.append(",\"").append(Neo4jDateFormat.dateWrapperToString(wikiPerson.getDateOfDeath())).append("\"");
         sb.append("\n");
+    }
+
+    private void addRow(StringBuilder sb, NeoPerson neoPerson) {
+        String q = "\"", sep = ",\"", br = "\n";
+        sb.append(q).append(neoPerson.getWikiPage()).append(q)
+                .append(sep).append(neoPerson.getName()).append(q)
+                .append(sep).append(neoPerson.getDateOfBirth().isPresent() ? Neo4jDateFormat.dateWrapperToString(neoPerson.getDateOfBirth().get()) : "").append(q)
+                .append(sep).append(neoPerson.getDateOfDeath().isPresent() ? Neo4jDateFormat.dateWrapperToString(neoPerson.getDateOfDeath().get()) : "").append(q)
+                .append(sep).append(neoPerson.getGender().orElse(GenderType.UNKNOWN).name()).append(q)
+                .append(br);
     }
 
     private void addRow(StringBuilder sb, WikiNamedResource wikiResource, boolean lineFeed) {
