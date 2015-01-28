@@ -42,10 +42,13 @@ public class CoreNeoServiceNeoPersonTest {
         WikiPerson personIn = person();
         neoService.save(personIn);
 
+        neoService.save(child());
+
         Optional<NeoPerson> maybePersonOut = neoService.getNeoPerson(personIn.getWikiPage().getLocalPart());
 
         if (maybePersonOut.isPresent()) {
             NeoPerson personOut = maybePersonOut.get();
+            logger.info(personOut);
 
             assertThat(personOut.getWikiPage(), is(personIn.getWikiPage().getLocalPartNoUnderscore()));
             assertThat(personOut.getName(), is(personIn.getName()));
@@ -71,6 +74,20 @@ public class CoreNeoServiceNeoPersonTest {
                         new WikiNamedResource("Richard of Normandy", "Richard"),
                         new WikiNamedResource("William II of England")
                 ))
+                .house(Arrays.asList(new WikiNamedResource("Norman dynasty")));
+        return personBuilder.build();
+    }
+
+    private WikiPerson child() {
+        WikiPerson.Builder personBuilder = new WikiPerson.Builder()
+                .name("William II of England")
+                .wikiPage(WikiResource.fromLocalPart("William II of England"))
+                .dateOfBirth(new FlexibleDate.Builder().year(1056).noMonth().noDay().build())
+                .dateOfDeath(new FlexibleDate.Builder().year(1100).month(8).day(2).build())
+                .father(new WikiNamedResource("William the Conqueror"))
+                .mother(new WikiNamedResource("Matilda of Flanders"))
+                .spouse(Arrays.asList())
+                .issue(Arrays.asList())
                 .house(Arrays.asList(new WikiNamedResource("Norman dynasty")));
         return personBuilder.build();
     }

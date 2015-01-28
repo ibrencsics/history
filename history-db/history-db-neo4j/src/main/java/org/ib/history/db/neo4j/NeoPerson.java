@@ -1,42 +1,27 @@
 package org.ib.history.db.neo4j;
 
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.utils.Neo4jDateFormat;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class NeoPerson {
+public class NeoPerson extends NeoBaseData {
 
-    private String wikiPage;
-    private String name;
+    private Optional<FlexibleDate> dateOfBirth = Optional.empty();
+    private Optional<FlexibleDate> dateOfDeath = Optional.empty();
+    private Optional<GenderType> gender = Optional.empty();
 
-    private Optional<FlexibleDate> dateOfBirth;
-    private Optional<FlexibleDate> dateOfDeath;
-    private Optional<GenderType> gender;
-
-    private Optional<NeoPerson> father;
-    private Optional<NeoPerson> mother;
+    private Optional<NeoPerson> father = Optional.empty();
+    private Optional<NeoPerson> mother = Optional.empty();
 
     private List<NeoPerson> spouses = new ArrayList<>(1);
     private List<NeoPerson> issues = new ArrayList<>(5);
+    private List<NeoHouse> houses = new ArrayList<>(1);
 
-
-    public String getWikiPage() {
-        return wikiPage;
-    }
-
-    public void setWikiPage(String wikiPage) {
-        this.wikiPage = wikiPage;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Optional<FlexibleDate> getDateOfBirth() {
         return dateOfBirth;
@@ -76,5 +61,55 @@ public class NeoPerson {
 
     public void setMother(Optional<NeoPerson> mother) {
         this.mother = mother;
+    }
+
+
+    public List<NeoPerson> getIssues() {
+        return Collections.unmodifiableList(issues);
+    }
+
+    public void addIssue(NeoPerson issue) {
+        this.issues.add(issue);
+    }
+
+    public List<NeoPerson> getSpouses() {
+        return Collections.unmodifiableList(spouses);
+    }
+
+    public void addSpouse(NeoPerson spouse) {
+        this.spouses.add(spouse);
+    }
+
+    public List<NeoHouse> getHouses() {
+        return Collections.unmodifiableList(houses);
+    }
+
+    public void addHouse(NeoHouse house) {
+        this.houses.add(house);
+    }
+
+    @Override
+    public String toString() {
+        return "\nNeoPerson{" +
+                "wikiPage='" + getWikiPage() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", dateOfBirth=" + (dateOfBirth.isPresent() ? Neo4jDateFormat.dateWrapperToString(dateOfBirth.get()) : "") +
+                ", dateOfDeath=" + (dateOfDeath.isPresent() ? Neo4jDateFormat.dateWrapperToString(dateOfDeath.get()) : "")  +
+                ", gender=" + gender +
+                "\n, father=" + (father.isPresent() ? father.get().toBaseString() : "") +
+                "\n, mother=" + (mother.isPresent() ? mother.get().toBaseString() : "") +
+                "\n, spouses=" + spouses.stream().map(spouse -> spouse.toBaseString()).collect(Collectors.joining(", ")) +
+                "\n, issues=" + issues.stream().map(issue -> issue.toBaseString()).collect(Collectors.joining(", ")) +
+                "\n, houses=" + houses.stream().map(house -> house.toString()).collect(Collectors.joining(", ")) +
+                '}';
+    }
+
+    public String toBaseString() {
+        return "NeoPerson{" +
+                "wikiPage='" + getWikiPage() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", dateOfBirth=" + (dateOfBirth.isPresent() ? Neo4jDateFormat.dateWrapperToString(dateOfBirth.get()) : "") +
+                ", dateOfDeath=" + (dateOfDeath.isPresent() ? Neo4jDateFormat.dateWrapperToString(dateOfDeath.get()) : "")  +
+                ", gender=" + gender;
     }
 }
