@@ -12,7 +12,7 @@ var wiki = {
     },
     
     showControls : function() {
-        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px").attr("value", "William_the_Conqueror");
+        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px").attr("value", "Louis_I_of_Hungary");
         d3.select("#controls").append("button").attr("id", "go").on("click", wiki.buttonClick).html("Go");
         
         var select = d3.select("#controls").append("select").attr("id", "dropdown");
@@ -43,26 +43,32 @@ var wiki = {
         wiki.query1(value);
     },
     
-    query : function(wikiPage) {
+    /*query : function(wikiPage) {
         queue()
             .defer(d3.csv, "http://localhost:8080/history/wiki/person/" + wikiPage + "/nodes")
             .defer(d3.csv, "http://localhost:8080/history/wiki/person/" + wikiPage + "/edges")
             .await(function(error, file1, file2) {
                 wiki.dataViz(file1, file2);
             });
-    },
+    },*/
     
-    query1 : function(wikiPage) {
+    query1 : function(wikiPage, callback) {
         d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/nodes", function(nodes) {
-            wiki.query2(wikiPage, nodes);
+            wiki.query2(wikiPage, nodes, callback);
         })
     },
     
-    query2 : function(wikiPage, nodes) {
+    query2 : function(wikiPage, nodes, callback) {
         d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/edges", function(edges) {
-            wiki.dataViz(nodes, edges);
+            if (callback!=null) {
+                callback(nodes, edges)
+            } else {
+                wiki.dataViz(nodes, edges);
+            }
         })
     },
+    
+    // visualization
     
     dataViz : function(nodes, edges) {
         var nodeHash = {};
@@ -90,51 +96,8 @@ var wiki = {
             .size([500,500]).nodes(nodes)
             .links(edges).on("tick", forceTick);
 
-        d3.select("svg").selectAll("line.link").data(edges, function (d) {return d.source.id + "-" + d.target.id}).enter()
-            .append("line")
-            .attr("class", "link")
-            .style("stroke", "black")
-            .style("opacity", .5)
-            .style("stroke-width", function(d) {return d.weight})
-            
-        var nodeEnter = d3.select("svg").selectAll("g.node").data(nodes, function (d) {return d.id}).enter()
-            .append("g")
-            .attr("class", "node")
-            .call(force.drag())
-            .on("click", fixNode)
-            .on("dblclick", releaseNode)
-            .on("contextmenu", function(d,i) {
-                showContextMenu(this, d, i);
-                d3.event.preventDefault();
-            })
-            .on("mouseover", function() {
-                d3.select(this)
-                    .style("stroke", "black")
-                    .style("stroke-width", "1px")
-                    .style("cursor", "hand")
-            })
-            .on("mouseleave", function() {
-                d3.select(this)
-                    .style("stroke", "black")
-                    .style("stroke-width", "0px")
-                    .style("cursor", "arrow")
-            })
-            
-        nodeEnter.append("circle")
-            .attr("r", 12)
-            .style("fill", "BLUE")
-            .style("stroke", "black")
-            .style("stroke-width", "1px")
-
-        nodeEnter.append("text")
-            .style("text-anchor", "middle")
-            .style("font-size", "75%")
-            .attr("y", 20)
-            .text(function(d) {return d.name})
+        showGraph(nodes, edges);
       
-      
-        // drop-down menu
-        
         d3.select("#dropdown")
                 .selectAll("option")
                 .data(nodes)
@@ -142,29 +105,82 @@ var wiki = {
                 .append("option")
                 .text(function (d) {return d.id})
       
+        d3.text("wiki-contextmenu.html", function(data) {
+            d3.select("#details").append("div").attr("id", "contextmenu").html(data);
+        });
+        
+//      d3.selectAll("line").attr("marker-end", "url(#Triangle)");
+        
+        force.start();
+
+
+        // functions
+
+        // show graph
+
+        function showGraph(nodes, edges) {
+            d3.select("svg").selectAll("line.link").data(edges, function (d) {return d.source.id + "-" + d.target.id}).enter()
+                .append("line")
+                .attr("class", "link")
+                .style("stroke", "black")
+                .style("opacity", .5)
+                .style("stroke-width", function(d) {return d.weight})
+
+            var nodeEnter = d3.select("svg").selectAll("g.node").data(nodes, function (d) {return d.id}).enter()
+                .append("g")
+                .attr("class", "node")
+                .call(force.drag())
+                .on("click", fixNode)
+                .on("dblclick", releaseNode)
+                .on("contextmenu", function(d,i) {
+                    showContextMenu(this, d, i);
+                    d3.event.preventDefault();
+                })
+                .on("mouseover", function() {
+                    d3.select(this)
+                        .style("stroke", "black")
+                        .style("stroke-width", "1px")
+                        .style("cursor", "hand")
+                })
+                .on("mouseleave", function() {
+                    d3.select(this)
+                        .style("stroke", "black")
+                        .style("stroke-width", "0px")
+                        .style("cursor", "arrow")
+                })
+
+            nodeEnter.append("circle")
+                .attr("r", 12)
+                .style("fill", function(d) {
+                    gender = d.gender;
+                    if (gender == "MALE") return "BLUE";
+                    else if (gender == "FEMALE") return "RED";
+                    else return "GREY";
+                })
+                .style("stroke", "black")
+                .style("stroke-width", "1px")
+
+            nodeEnter.append("text")
+                .style("text-anchor", "middle")
+                .style("font-size", "75%")
+                .attr("y", 20)
+                .text(function(d) {return d.name})
+        }
+
         // left click -> fix, unfix
       
         function fixNode(d) {
-//            Cif (d.fixed) {
-//                d3.select(this).select("circle").style("stroke-width", 1);
-//                d.fixed = false;
-//            } else {
-                d3.select(this).select("circle").style("stroke-width", 3);
-                d.fixed = true;
-//            }
+            d3.select(this).select("circle").style("stroke-width", 3);
+            d.fixed = true;
         }
         
         function releaseNode(d) {
             d3.select(this).select("circle").style("stroke-width", 1);
             d.fixed = false;
         }
-      
-        // right click -> contextmenu
         
-        d3.text("wiki-contextmenu.html", function(data) {
-            d3.select("#details").append("div").attr("id", "contextmenu").html(data);
-        });
-        
+        // right click -> context menu
+
         function showContextMenu(that, d) {
             d3.event.preventDefault();
 
@@ -203,15 +219,139 @@ var wiki = {
                                     .html(function(p) {
                                         return p
                                     });
+                        } else if (this.id == "hide") {
+                            hideNode(d)
+                        } else if (this.id == "extract") {
+                            extractNode(d)
                         }
+                        
+                        d3.select("#context-menu").style('display', 'none');
                     })
         }
-        
-        // start
 
-//      d3.selectAll("line").attr("marker-end", "url(#Triangle)");
+        // hide, extract
         
-        force.start();
+        function hideNode(node) {
+            force.stop();
+            
+            var originalNodes = force.nodes(); //#a
+            var originalLinks = force.links();
+            
+            var influentialNodes = originalNodes.filter(function (d) {
+                return d != node;
+            });
+            
+            var influentialLinks = originalLinks.filter(function (d) {
+                return influentialNodes.indexOf(d.source) > -1 &&
+                        influentialNodes.indexOf(d.target) > -1;
+            }); //#b
+            
+            d3.selectAll("g.node")
+                .data(influentialNodes, function (d) {return d.id})
+                .exit()
+                .transition() //#c
+                .duration(1000)
+                .style("opacity", 0)
+                .remove();
+            
+            d3.selectAll("line.link")
+                .data(influentialLinks, function (d) {
+                    return d.source.id + "-" + d.target.id;
+                })
+                .exit()
+                .transition()
+                .duration(1000)
+                .style("opacity", 0)
+                .remove();
+            
+            force
+                .nodes(influentialNodes)
+                .links(influentialLinks);
+            
+            force.start();
+        }
+        
+        function extractNode(node) {
+            wiki.query1(node.id, extractNodeCallback)
+        }
+        
+        function extractNodeCallback(nodes, edges) {
+            console.log("here")
+            
+            force.stop();
+         
+            var nodeHash = {};
+            for (x in nodes) {
+                nodeHash[nodes[x].id] = nodes[x];
+            }
+            for (x in edges) {
+                if (edges[x].type == "IS_SPOUSE_OF") {
+                    edges[x].weight = 5;
+                } else {
+                    edges[x].weight = 1;
+                }
+                edges[x].source = nodeHash[edges[x].source];
+                edges[x].target = nodeHash[edges[x].target];
+            }
+            
+            var oldEdges = force.links();
+            var oldNodes = force.nodes();
+            
+//            console.log(nodes)
+//            console.log(oldNodes)
+            
+            var newNodes = nodes.filter(function(node) {
+                for (var oldNode in oldNodes) {
+                    if (node.id == oldNodes[oldNode].id) {
+                        return false;
+                    }
+                }
+                
+                oldNodes.push(node)
+                return true;
+            })
+            
+            console.log(oldEdges)
+            console.log(edges)
+            for (var i in oldEdges) {
+//                console.log(oldEdges[i])
+            }
+            
+            var newEdges = edges.filter(function(edge) {
+                for (var i in oldEdges) {
+//                    console.log(oldEdges[i].source.id + " : " + edge.source)
+//                    console.log(oldEdges[i].target.id + " : " + edge.target)
+                    if (oldEdges[i].source.id == edge.source.id &&
+                            oldEdges[i].target.id == edge.target.id) {
+                        return false
+                    }
+                }
+              
+//                console.log(edge)
+                oldEdges.push(edge);
+                return true;
+            })
+            
+//            console.log(newNodes)
+//            console.log(newEdges)
+            
+//            var newNode1 = {id: "raj", followers: 100, following: 67};
+//            var newNode2 = {id: "wu", followers: 50, following: 33};
+//            var newEdge1 = {source: oldNodes[0], target: newNode1, weight: 5};
+//            var newEdge2 = {source: oldNodes[0], target: newNode2, weight: 5};
+            
+//            oldEdges.push(newEdge1,newEdge2);
+//            oldNodes.push(newNode1,newNode2);
+
+            force.links(oldEdges).nodes(oldNodes);
+            
+            showGraph(oldNodes, oldEdges)
+            
+            force.start()
+        }
+
+
+        // force
 
         function forceTick() {
             d3.selectAll("line.link")
