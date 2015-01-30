@@ -276,8 +276,6 @@ var wiki = {
         }
         
         function extractNodeCallback(nodes, edges) {
-            console.log("here")
-            
             force.stop();
          
             var nodeHash = {};
@@ -297,9 +295,6 @@ var wiki = {
             var oldEdges = force.links();
             var oldNodes = force.nodes();
             
-//            console.log(nodes)
-//            console.log(oldNodes)
-            
             var newNodes = nodes.filter(function(node) {
                 for (var oldNode in oldNodes) {
                     if (node.id == oldNodes[oldNode].id) {
@@ -311,38 +306,26 @@ var wiki = {
                 return true;
             })
             
-            console.log(oldEdges)
-            console.log(edges)
-            for (var i in oldEdges) {
-//                console.log(oldEdges[i])
+
+            var oldNodeHash = {};
+            for (x in oldNodes) {
+                oldNodeHash[oldNodes[x].id] = oldNodes[x];
             }
-            
+
             var newEdges = edges.filter(function(edge) {
                 for (var i in oldEdges) {
-//                    console.log(oldEdges[i].source.id + " : " + edge.source)
-//                    console.log(oldEdges[i].target.id + " : " + edge.target)
-                    if (oldEdges[i].source.id == edge.source.id &&
-                            oldEdges[i].target.id == edge.target.id) {
+                    if (isSameEdge(oldEdges[i], edge)) {
                         return false
                     }
                 }
+                
+                edge.source = oldNodeHash[edge.source.id]
+                edge.target = oldNodeHash[edge.target.id]
               
-//                console.log(edge)
                 oldEdges.push(edge);
                 return true;
             })
             
-//            console.log(newNodes)
-//            console.log(newEdges)
-            
-//            var newNode1 = {id: "raj", followers: 100, following: 67};
-//            var newNode2 = {id: "wu", followers: 50, following: 33};
-//            var newEdge1 = {source: oldNodes[0], target: newNode1, weight: 5};
-//            var newEdge2 = {source: oldNodes[0], target: newNode2, weight: 5};
-            
-//            oldEdges.push(newEdge1,newEdge2);
-//            oldNodes.push(newNode1,newNode2);
-
             force.links(oldEdges).nodes(oldNodes);
             
             showGraph(oldNodes, oldEdges)
@@ -350,6 +333,14 @@ var wiki = {
             force.start()
         }
 
+        function isSameEdge(edge1, edge2) {
+            es1 = edge1.source.id;
+            et1 = edge1.target.id;
+            es2 = edge2.source.id;
+            et2 = edge2.target.id;
+            
+            return ((es1+et1) == (es2+et2)) || ((es1+et1) == (et2+es2)) 
+        }
 
         // force
 
