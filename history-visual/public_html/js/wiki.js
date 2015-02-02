@@ -110,6 +110,7 @@ var wiki = {
             nodeHash = {};
             for (x in nodes) {
                 nodeHash[nodes[x].id] = nodes[x];
+                nodes[x].selected=false;
             }
             for (x in edges) {
                 if (edges[x].type == "IS_SPOUSE_OF") {
@@ -145,8 +146,8 @@ var wiki = {
                     .append("g")
                     .attr("class", "node")
                     .call(force.drag())
-                    .on("click", fixNode)
-                    .on("dblclick", releaseNode)
+                    .on("click", selectNode)
+                    .on("dblclick", fixNode)
                     .on("contextmenu", function(d,i) {
                         showContextMenu(this, d, "node")
                         d3.event.preventDefault();
@@ -184,17 +185,26 @@ var wiki = {
             node.exit().remove;
         }
 
-        // left click -> fix, unfix
+        // left click, double click -> select, fix
+        
+        function selectNode(d) {
+            if (!d.selected) {
+                d3.select(this).select("circle").classed({'node-selected': true}).style("stroke-width", 3);
+                d.selected = true;
+            } else {
+                d3.select(this).select("circle").classed({'node-selected': false}).style("stroke-width", 1);
+                d.selected = false;
+            }
+        }
       
         function fixNode(d) {
-            console.log(d)
-            d3.select(this).select("circle").classed({'node-selected': true}).style("stroke-width", 3);
-            d.fixed = true;
-        }
-        
-        function releaseNode(d) {
-            d3.select(this).select("circle").style("stroke-width", 1);
-            d.fixed = false;
+            if (!d.fixed) {
+                d3.select(this).select("circle");
+                d.fixed = true;
+            } else {
+                d3.select(this).select("circle");
+                d.fixed = false;
+            }
         }
         
         // right click -> context menu
@@ -231,6 +241,24 @@ var wiki = {
                         .style("cursor", "arrow")
                     context = null;
                 })
+                
+            d3.select("#svg-context-menu")
+                    .selectAll("li")
+                    .on("click", function() {
+                        var allSelected = d3.selectAll("circle.node-selected");
+                        for (var selected in allSelected) {
+                            if (allSelected.hasOwnProperty(selected)) {
+                                console.log(allSelected[selected])
+                                selectedNodes = allSelected[selected];
+                                for (var selectedNode in selectedNodes) {
+                                    if (selectedNodes.hasOwnProperty(selectedNode) && ("__data__" in selectedNodes[selectedNode])) {
+                                        hideNode(selectedNodes[selectedNode].__data__)
+                                    }
+                                }
+                            }
+                        }
+                    }
+            )
         }
 
         function showNodeContextMenu(that, d) {
