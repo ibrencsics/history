@@ -27,11 +27,9 @@ var wiki = {
             d3.select("#details").append("div").attr("id", "node-contextmenu").html(data);
         });
         
-//        d3.select("svg")
-//                .on("contextmenu", function(d,i) {
-//                    showBaseContextMenu(this, d, i);
-////                    d3.event.preventDefault();
-//                })
+        d3.text("svg-contextmenu.html", function(data) {
+            d3.select("#details").append("div").attr("id", "svg-contextmenu").html(data);
+        });
     },
     
     buttonClick : function() {
@@ -78,27 +76,35 @@ var wiki = {
     // visualization
     
     dataViz : function(nodes, edges) {
+        var context = null;
         populateEdges(nodes, edges);
-        
-        var weightScale = d3.scale.linear().domain(d3.extent(edges, function(d) {return d.weight})).range([.1,1])
-        
-        force = d3.layout.force()
-//          .charge(-1000)
-            .charge(function (d) {return d.weight * -500})
-            .gravity(.3)
-            .linkDistance(50)
-            .linkStrength(function (d) {return weightScale(d.weight)})
-            .size([500,500])
-            .nodes(nodes)
-            .links(edges)
-            .on("tick", forceTick);
-
+        init();
         showGraph(nodes, edges);
-      
         force.start();
 
 
         // functions
+        
+        function init() {
+            var weightScale = d3.scale.linear().domain(d3.extent(edges, function(d) {return d.weight})).range([.1,1])
+        
+            force = d3.layout.force()
+//              .charge(-1000)
+                .charge(function (d) {return d.weight * -500})
+                .gravity(.3)
+                .linkDistance(50)
+                .linkStrength(function (d) {return weightScale(d.weight)})
+                .size([500,500])
+                .nodes(nodes)
+                .links(edges)
+                .on("tick", forceTick);
+            
+            d3.select("svg")
+                .on("contextmenu", function() {
+                    showContextMenu(this, null, "svg");
+                    d3.event.preventDefault();
+                })
+        }
 
         function populateEdges(nodes, edges) {
             nodeHash = {};
@@ -142,7 +148,7 @@ var wiki = {
                     .on("click", fixNode)
                     .on("dblclick", releaseNode)
                     .on("contextmenu", function(d,i) {
-                        showNodeContextMenu(this, d, i);
+                        showContextMenu(this, d, "node")
                         d3.event.preventDefault();
                     })
                     .on("mouseover", function() {
@@ -193,11 +199,43 @@ var wiki = {
         
         // right click -> context menu
 
+        function showContextMenu(that, d, newContext) {
+            if (context) {
+                if (context !== newContext) {
+//                    console.log('contextmenu: cannot execute for context: ' + newContext + ' while in current context: ' + context);
+                    return;
+                }
+            }
+            context = newContext;
+            d3.event.preventDefault();
+          
+            if (context == "svg") {
+                showSvgContextMenu()
+            } else if (context == "node") {
+                showNodeContextMenu(that, d)
+            }
+        }
+
+        function showSvgContextMenu() {
+            d3.event.preventDefault();
+            
+            var position = d3.mouse(d3.select("body")[0][0]);
+            d3.select('#svg-context-menu')
+                .style('position', 'absolute')
+                .style('left', position[0] + "px")
+                .style('top', position[1] + "px")
+                .style('display', 'inline-block')
+                .on('mouseleave', function() {
+                    d3.select('#svg-context-menu')
+                        .style('display', 'none')
+                        .style("cursor", "arrow")
+                    context = null;
+                })
+        }
+
         function showNodeContextMenu(that, d) {
             d3.event.preventDefault();
 
-            var position = d3.mouse(that);
-            
 //            console.log(d3.select("svg")[0][0])
 
             var position = d3.mouse(d3.select("body")[0][0]);
@@ -214,6 +252,7 @@ var wiki = {
                     d3.select('#node-context-menu')
                         .style('display', 'none')
                         .style("cursor", "arrow")
+                    context = null;
                 })
                 
             d3.select("#node-context-menu")
