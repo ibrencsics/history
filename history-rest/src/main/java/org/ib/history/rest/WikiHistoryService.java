@@ -84,6 +84,11 @@ public class WikiHistoryService {
         return sb.toString();
     }
 
+//    @GET
+//    @Path("/person/{wikiPage}/details")
+//    @Produces("application/json")
+
+
     @GET
     @Path("/person/{wikiPage}/edges")
     @Produces("text/csv")

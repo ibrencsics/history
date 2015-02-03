@@ -156,7 +156,7 @@ public class CoreNeoService implements NeoService {
 
                 resources = getRelations(node, WikiRelationships.IN_HOUSE);
                 for (WikiNamedResource resource : resources) {
-
+                    neoPerson.addHouse(getNeoHouse(resource.getLocalPart()));
                 }
 
                 return Optional.of(neoPerson);
@@ -183,9 +183,10 @@ public class CoreNeoService implements NeoService {
     }
 
     private NeoPerson getBasicNeoPerson(Node node, String wikiPage) {
-        NeoPerson person = new NeoPerson();
-        person.setWikiPage(wikiPage);
-        person.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
+//        NeoPerson person = new NeoPerson();
+//        person.setWikiPage(wikiPage);
+//        person.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
+        NeoPerson person = getBaseData(node, wikiPage, NeoPerson.class);
 
         if (node.hasProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName())) {
             person.setDateOfBirth(
@@ -206,6 +207,32 @@ public class CoreNeoService implements NeoService {
         }
 
         return person;
+    }
+
+    private NeoHouse getNeoHouse(String wikiPage) {
+        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, WikiLabels.HOUSE);
+        if (maybeNode.isPresent()) {
+            return getNeoHouse(maybeNode.get(), wikiPage);
+        }
+
+        throw new RuntimeException("WikiPage not found: " + wikiPage);
+    }
+
+    private NeoHouse getNeoHouse(Node node, String wikiPage) {
+        return getBaseData(node, wikiPage, NeoHouse.class);
+    }
+
+    private <T extends NeoBaseData> T getBaseData(Node node, String wikiPage, Class<T> type) {
+        try {
+            T inst = type.newInstance();
+            inst.setWikiPage(wikiPage);
+            inst.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
+            return inst;
+        } catch (InstantiationException e) {
+            throw  new IllegalArgumentException(e);
+        } catch (IllegalAccessException e) {
+            throw  new IllegalArgumentException(e);
+        }
     }
 
     private String formatWikiPage(String wikiPage) {

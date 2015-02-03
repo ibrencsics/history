@@ -146,8 +146,8 @@ var wiki = {
                     .append("g")
                     .attr("class", "node")
                     .call(force.drag())
-                    .on("click", selectNode)
-                    .on("dblclick", fixNode)
+                    .on("click", fixNode)
+                    .on("dblclick", selectNode)
                     .on("contextmenu", function(d,i) {
                         showContextMenu(this, d, "node")
                         d3.event.preventDefault();
@@ -201,10 +201,10 @@ var wiki = {
             if (!d.fixed) {
                 d3.select(this).select("circle");
                 d.fixed = true;
-            } else {
+            } /*else {
                 d3.select(this).select("circle");
                 d.fixed = false;
-            }
+            }*/
         }
         
         // right click -> context menu
@@ -302,6 +302,8 @@ var wiki = {
                             hideNode(d)
                         } else if (this.id == "extract") {
                             extractNode(d)
+                        } else if (this.id == "towiki") {
+                            window.open("http://en.wikipedia.org/wiki/" + d.id)
                         }
                         
                         d3.select("#node-context-menu").style('display', 'none');

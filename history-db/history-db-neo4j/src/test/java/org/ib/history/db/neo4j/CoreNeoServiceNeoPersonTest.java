@@ -29,6 +29,7 @@ public class CoreNeoServiceNeoPersonTest {
     @Before
     public void prepareTestDatabase() {
         graphDb = new TestGraphDatabaseFactory().newImpermanentDatabase();
+//        graphDb = new TestGraphDatabaseFactory().newEmbeddedDatabase("/opt/app-data/history-neo4j-test");
         neoService = new CoreNeoService(graphDb);
     }
 
