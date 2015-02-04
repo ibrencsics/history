@@ -1,4 +1,4 @@
-package org.ib.history.db.neo4j;
+package org.ib.history.db.neo4j.data;
 
 public class NeoBaseData {
 

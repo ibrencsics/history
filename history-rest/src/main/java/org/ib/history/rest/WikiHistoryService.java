@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.GenderType;
-import org.ib.history.db.neo4j.NeoPerson;
+import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.db.neo4j.NeoService;
 import org.ib.history.db.neo4j.WikiRelationships;
 import org.ib.history.wiki.domain.WikiNamedResource;

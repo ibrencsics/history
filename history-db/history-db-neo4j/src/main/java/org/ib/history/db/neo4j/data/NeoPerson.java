@@ -1,7 +1,8 @@
-package org.ib.history.db.neo4j;
+package org.ib.history.db.neo4j.data;
 
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.utils.Neo4jDateFormat;
+import org.ib.history.db.neo4j.GenderType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,8 @@ public class NeoPerson extends NeoBaseData {
     private List<NeoPerson> spouses = new ArrayList<>(1);
     private List<NeoPerson> issues = new ArrayList<>(5);
     private List<NeoHouse> houses = new ArrayList<>(1);
+
+    private List<NeoSuccession> successions = new ArrayList<>(3);
 
 
     public Optional<FlexibleDate> getDateOfBirth() {
@@ -88,6 +91,16 @@ public class NeoPerson extends NeoBaseData {
         this.houses.add(house);
     }
 
+
+    public List<NeoSuccession> getSuccessions() {
+        return Collections.unmodifiableList(successions);
+    }
+
+    public void addSuccession(NeoSuccession succession) {
+        this.successions.add(succession);
+    }
+
+
     @Override
     public String toString() {
         return "\nNeoPerson{" +
@@ -101,6 +114,7 @@ public class NeoPerson extends NeoBaseData {
                 "\n, spouses=" + spouses.stream().map(spouse -> spouse.toBaseString()).collect(Collectors.joining(", ")) +
                 "\n, issues=" + issues.stream().map(issue -> issue.toBaseString()).collect(Collectors.joining(", ")) +
                 "\n, houses=" + houses.stream().map(house -> house.toString()).collect(Collectors.joining(", ")) +
+                "\n, successions=" + successions.stream().map(s -> s.toString()).collect(Collectors.joining(", ")) +
                 '}';
     }
 

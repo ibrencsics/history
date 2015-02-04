@@ -1,10 +1,10 @@
-package org.ib.history.db.neo4j;
+package org.ib.history.db.neo4j.data;
 
-public class NeoHouse extends NeoBaseData {
+public class NeoCountry extends NeoBaseData {
 
     @Override
     public String toString() {
-        return "\nNeoHouse{" +
+        return "\nNeoCountry{" +
                 "wikiPage='" + getWikiPage() +
                 ", name='" + getName();
 

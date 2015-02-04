@@ -4,6 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.commons.utils.Neo4jDateFormat;
+import org.ib.history.db.neo4j.data.NeoBaseData;
+import org.ib.history.db.neo4j.data.NeoHouse;
+import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
@@ -67,6 +70,7 @@ public class CoreNeoService implements NeoService {
     }
 
     @Override
+    @Deprecated
     public Optional<WikiPerson> getPerson(String wikiPage) {
         logger.debug("getPerson([{}])", wikiPage);
 

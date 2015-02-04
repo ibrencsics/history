@@ -3,6 +3,7 @@ package org.ib.history.db.neo4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
@@ -14,8 +15,10 @@ import org.neo4j.test.TestGraphDatabaseFactory;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isIn;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -55,6 +58,13 @@ public class CoreNeoServiceNeoPersonTest {
             assertThat(personOut.getName(), is(personIn.getName()));
             assertThat(personOut.getDateOfBirth().get(), is(personIn.getDateOfBirth()));
             assertThat(personOut.getDateOfDeath().get(), is(personIn.getDateOfDeath()));
+
+            assertThat(personOut.getFather().get().getWikiPage(), is(personIn.getFather().getLocalPartNoUnderscore()));
+            assertThat(personOut.getMother().get().getWikiPage(), is(personIn.getMother().getLocalPartNoUnderscore()));
+
+            personOut.getHouses().stream().forEach(house -> {
+                assertThat(house.getWikiPage(), isIn(personIn.getHouses().stream().map(h -> h.getLocalPartNoUnderscore()).collect(Collectors.toList())));
+            });
         } else {
             fail("No WikiPerson found");
         }
