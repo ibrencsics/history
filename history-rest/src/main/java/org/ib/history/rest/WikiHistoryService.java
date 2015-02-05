@@ -4,9 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.GenderType;
+import org.ib.history.db.neo4j.data.NeoHouse;
 import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.db.neo4j.NeoService;
 import org.ib.history.db.neo4j.WikiRelationships;
+import org.ib.history.rest.data.JsonHouse;
+import org.ib.history.rest.data.JsonPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.service.WikiService;
@@ -21,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Path("/wiki")
@@ -84,9 +88,40 @@ public class WikiHistoryService {
         return sb.toString();
     }
 
-//    @GET
-//    @Path("/person/{wikiPage}/details")
-//    @Produces("application/json")
+    @GET
+    @Path("/person/{wikiPage}/details")
+    @Produces("application/json")
+    public JsonPerson personDetails(@PathParam("wikiPage") String wikiPage) {
+        logger.info("node details called for [{}]", wikiPage);
+        NeoPerson neoPerson = getNeoPerson(wikiPage);
+        logger.trace(neoPerson);
+
+        return getJsonPerson(neoPerson);
+    }
+
+    private JsonPerson getJsonPerson(NeoPerson neoPerson) {
+        JsonPerson jsonPerson = new JsonPerson();
+
+        jsonPerson.setWikiPage(neoPerson.getWikiPage());
+        jsonPerson.setName(neoPerson.getName());
+        neoPerson.getDateOfBirth().ifPresent(date -> jsonPerson.setDateOfBirth(Neo4jDateFormat.serialize(date)));
+        neoPerson.getDateOfDeath().ifPresent(date -> jsonPerson.setDateOfDeath(Neo4jDateFormat.serialize(date)));
+
+        neoPerson.getFather().ifPresent(father -> jsonPerson.setFather(getJsonPerson(father)));
+        neoPerson.getMother().ifPresent(mother -> jsonPerson.setMother(getJsonPerson(mother)));
+
+        if (!neoPerson.getHouses().isEmpty())
+            jsonPerson.setHouses(neoPerson.getHouses().stream().map(house -> getJsonHouse(house)).collect(Collectors.toList()));
+
+        return jsonPerson;
+    }
+
+    private JsonHouse getJsonHouse(NeoHouse neoHouse) {
+        JsonHouse jsonHouse = new JsonHouse();
+        jsonHouse.setWikiPage(neoHouse.getWikiPage());
+        jsonHouse.setName(neoHouse.getName());
+        return jsonHouse;
+    }
 
 
     @GET
