@@ -44,6 +44,7 @@ public class CoreNeoService implements NeoService {
             saveSpouses(person.element1(), wikiPerson);
             saveIssues(person.element1(), wikiPerson);
             saveHouses(person.element1(), wikiPerson);
+            saveSuccessions(person.element1(), wikiPerson);
             tx.success();
 
             return person.element1().getId();
@@ -162,6 +163,9 @@ public class CoreNeoService implements NeoService {
                 for (WikiNamedResource resource : resources) {
                     neoPerson.addHouse(getNeoHouse(resource.getLocalPart()));
                 }
+
+                resources = getRelations(node, WikiRelationships.RULES);
+//                for (Wiki)
 
                 return Optional.of(neoPerson);
             } else {
@@ -291,6 +295,26 @@ public class CoreNeoService implements NeoService {
         }
     }
 
+    private void saveSuccessions(Node baseNode, WikiPerson wikiPerson) {
+        if (wikiPerson.getSuccessions()!=null) {
+            wikiPerson.getSuccessions().stream().forEach(succ -> {
+                if (succ.getTitleAndCountries().isPresent()) {
+                    succ.getTitleAndCountries().get().element2().stream().forEach(country -> {
+
+//                        Tuple2<Node,Boolean> countryNode = saveCountry(new WikiNamedResource("", country));
+//                        Relationship relation = setRelationIfEmpty(baseNode, countryNode.element1(), WikiRelationships.RULES);
+//                        setPropertyIfEmpty(relation, WikiProperties.JOB_FROM, Neo4jDateFormat.serialize(succ.getFrom()));
+//                        setPropertyIfEmpty(relation, WikiProperties.JOB_TO, Neo4jDateFormat.serialize(succ.getTo()));
+//                        setPropertyIfEmpty(relation, WikiProperties.JOB_TITLE, succ.getTitleAndCountries().get().element1());
+
+
+
+                    });
+                }
+            });
+        }
+    }
+
     private Tuple2<Node,Boolean> savePerson(WikiPerson wikiPerson) {
         Tuple2<Node,Boolean> person = saveBase(wikiPerson.getWikiNamedResource(), WikiLabels.PERSON);
         String wikiPage = wikiPerson.getWikiPage().getLocalPartNoUnderscore();
@@ -312,9 +336,22 @@ public class CoreNeoService implements NeoService {
         return saveBase(wikiHouse, WikiLabels.HOUSE);
     }
 
+    private Tuple2<Node,Boolean> saveCountry(WikiNamedResource wikiCountry) {
+        return saveBase(wikiCountry, WikiLabels.COUNTRY);
+    }
+
     private Tuple2<Node,Boolean> saveBase(WikiNamedResource wikiResource, Label label) {
         String wikiPage = wikiResource.getLocalPartNoUnderscore();
-        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, label);
+        Optional<Node> maybeNode = Optional.empty();
+
+        if (!"".equals(wikiPage)) {
+            maybeNode = getNodeByWikiPage(wikiPage, label);
+        }
+
+        if (!maybeNode.isPresent()) {
+            String name = wikiResource.getDisplayText();
+            maybeNode = getNodeByName(name, label);
+        }
 
         if (!maybeNode.isPresent()) {
             logger.debug("Node [{}] null -> base", wikiPage);
@@ -335,6 +372,14 @@ public class CoreNeoService implements NeoService {
     private Optional<Node> getNodeByWikiPage(String wikiPage, Label label) {
         ResourceIterable<Node> existingNodes = graphDb.findNodesByLabelAndProperty(
                 label, WikiProperties.WIKI_PAGE.getPropertyName(), wikiPage);
+        ResourceIterator<Node> iterator = existingNodes.iterator();
+
+        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
+    }
+
+    private Optional<Node> getNodeByName(String name, Label label) {
+        ResourceIterable<Node> existingNodes = graphDb.findNodesByLabelAndProperty(
+                label, WikiProperties.NAME.getPropertyName(), name);
         ResourceIterator<Node> iterator = existingNodes.iterator();
 
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
@@ -370,7 +415,17 @@ public class CoreNeoService implements NeoService {
         }
     }
 
-    private void setRelationIfEmpty(Node node, Node otherNode, WikiRelationships relationship) {
+    private void setPropertyIfEmpty(Relationship relation, WikiProperties property, Object value) {
+        if (!relation.hasProperty(property.getPropertyName())) {
+            logger.debug("Relation [{} -> {}] has no [{}] property. Setting it the value {}",
+                    relation.getStartNode().getProperty(WikiProperties.WIKI_PAGE.getPropertyName()),
+                    relation.getEndNode().getProperty(WikiProperties.WIKI_PAGE.getPropertyName()),
+                    property.getPropertyName(), value);
+            relation.setProperty(property.getPropertyName(), value);
+        }
+    }
+
+    private Relationship setRelationIfEmpty(Node node, Node otherNode, WikiRelationships relationship) {
         boolean found = false;
 
         Iterator<Relationship> iter = node.getRelationships(relationship).iterator();
@@ -378,7 +433,7 @@ public class CoreNeoService implements NeoService {
             Relationship rel = iter.next();
             if (otherNode.equals(rel.getEndNode())) {
                 found = true;
-                break;
+                return rel;
             }
         }
 
@@ -388,7 +443,13 @@ public class CoreNeoService implements NeoService {
                     node.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()),
                     relationship.name(),
                     otherNode.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()));
-            node.createRelationshipTo(otherNode, relationship);
+            return node.createRelationshipTo(otherNode, relationship);
         }
+
+        throw new RuntimeException("");
+    }
+
+    private Relationship setJobIfEmpty() {
+        return null;
     }
 }

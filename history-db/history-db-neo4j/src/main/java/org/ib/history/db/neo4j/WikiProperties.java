@@ -6,7 +6,10 @@ public enum WikiProperties {
     NAME("name"),
     DATE_OF_BIRTH("dateOfBirth"),
     DATE_OF_DEATH("dateOfDeath"),
-    GENDER("gender");
+    GENDER("gender"),
+    JOB_FROM("from"),
+    JOB_TO("to"),
+    JOB_TITLE("title");
 
     private final String propertyName;
 

@@ -3,10 +3,12 @@ package org.ib.history.db.neo4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
+import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
+import org.ib.history.wiki.domain.WikiSuccession;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +67,10 @@ public class CoreNeoServiceNeoPersonTest {
             personOut.getHouses().stream().forEach(house -> {
                 assertThat(house.getWikiPage(), isIn(personIn.getHouses().stream().map(h -> h.getLocalPartNoUnderscore()).collect(Collectors.toList())));
             });
+
+            personOut.getSuccessions().stream().forEach(succ -> {
+//                System.out.println(succ);
+            });
         } else {
             fail("No WikiPerson found");
         }
@@ -85,7 +91,22 @@ public class CoreNeoServiceNeoPersonTest {
                         new WikiNamedResource("Richard of Normandy", "Richard"),
                         new WikiNamedResource("William II of England")
                 ))
-                .house(Arrays.asList(new WikiNamedResource("Norman dynasty")));
+                .house(Arrays.asList(new WikiNamedResource("Norman dynasty")))
+                .succession(new WikiSuccession.Builder()
+                        .from(new FlexibleDate.Builder().year(1066).month(12).day(25).build())
+                        .to(new FlexibleDate.Builder().year(1087).month(9).day(9).build())
+                        .predecessor(new WikiNamedResource("Edgar the Ætheling"))
+                        .successor(new WikiNamedResource("William II of England", "William II"))
+                        .titleAndCountries(new Tuple2<>("King", Arrays.asList("England")))
+                        .build())
+                .succession(new WikiSuccession.Builder()
+                        .from(new FlexibleDate.Builder().year(1035).month(7).day(3).build())
+                        .to(new FlexibleDate.Builder().year(1087).month(9).day(9).build())
+                        .predecessor(new WikiNamedResource("Robert the Magnificent"))
+                        .successor(new WikiNamedResource("Robert Curthose"))
+                        .titleAndCountries(new Tuple2<>("Duke", Arrays.asList("Normandy")))
+                        .build());
+
         return personBuilder.build();
     }
 
