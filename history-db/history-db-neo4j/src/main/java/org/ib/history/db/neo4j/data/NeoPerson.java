@@ -96,6 +96,10 @@ public class NeoPerson extends NeoBaseData {
         return Collections.unmodifiableList(successions);
     }
 
+    public void setSuccessions(List<NeoSuccession> successions) {
+        this.successions = successions;
+    }
+
     public void addSuccession(NeoSuccession succession) {
         this.successions.add(succession);
     }
@@ -125,5 +129,11 @@ public class NeoPerson extends NeoBaseData {
                 ", dateOfBirth=" + (dateOfBirth.isPresent() ? Neo4jDateFormat.dateWrapperToString(dateOfBirth.get()) : "") +
                 ", dateOfDeath=" + (dateOfDeath.isPresent() ? Neo4jDateFormat.dateWrapperToString(dateOfDeath.get()) : "")  +
                 ", gender=" + gender;
+    }
+
+    public String toWikiNameResourseString() {
+        return "NeoPerson{" +
+                "wikiPage='" + getWikiPage() + '\'' +
+                ", name='" + getName() + '\'';
     }
 }

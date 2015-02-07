@@ -9,7 +9,8 @@ public enum WikiProperties {
     GENDER("gender"),
     JOB_FROM("from"),
     JOB_TO("to"),
-    JOB_TITLE("title");
+    JOB_TITLE("title"),
+    JOB_RAW("raw");
 
     private final String propertyName;
 

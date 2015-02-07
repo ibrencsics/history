@@ -7,9 +7,11 @@ import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.data.NeoBaseData;
 import org.ib.history.db.neo4j.data.NeoHouse;
 import org.ib.history.db.neo4j.data.NeoPerson;
+import org.ib.history.db.neo4j.data.NeoSuccession;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
+import org.ib.history.wiki.domain.WikiSuccession;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.traversal.*;
 import org.neo4j.graphdb.traversal.Traverser;
@@ -164,8 +166,7 @@ public class CoreNeoService implements NeoService {
                     neoPerson.addHouse(getNeoHouse(resource.getLocalPart()));
                 }
 
-                resources = getRelations(node, WikiRelationships.RULES);
-//                for (Wiki)
+                neoPerson.setSuccessions(getJobs(node));
 
                 return Optional.of(neoPerson);
             } else {
@@ -175,77 +176,8 @@ public class CoreNeoService implements NeoService {
         }
     }
 
-    private boolean isFull(Optional<Node> node) {
-        return  (node.isPresent() &&
-                node.get().getProperty(WikiProperties.STATUS.getPropertyName())
-                        .equals(NodeStatus.FULL.name()));
-    }
 
-    private NeoPerson getBasicNeoPerson(String wikiPage) {
-        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
-        if (maybeNode.isPresent()) {
-            return getBasicNeoPerson(maybeNode.get(), wikiPage);
-        }
-
-        throw new RuntimeException("WikiPage not found: " + wikiPage);
-    }
-
-    private NeoPerson getBasicNeoPerson(Node node, String wikiPage) {
-//        NeoPerson person = new NeoPerson();
-//        person.setWikiPage(wikiPage);
-//        person.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
-        NeoPerson person = getBaseData(node, wikiPage, NeoPerson.class);
-
-        if (node.hasProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName())) {
-            person.setDateOfBirth(
-                    Neo4jDateFormat.parse((String) node.getProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName()))
-            );
-        }
-
-        if (node.hasProperty(WikiProperties.DATE_OF_DEATH.getPropertyName())) {
-            person.setDateOfDeath(
-                    Neo4jDateFormat.parse((String) node.getProperty(WikiProperties.DATE_OF_DEATH.getPropertyName()))
-            );
-        }
-
-        if (node.hasProperty(WikiProperties.GENDER.getPropertyName())) {
-            person.setGender(
-                    GenderType.valueOf((String) node.getProperty(WikiProperties.GENDER.getPropertyName()))
-            );
-        }
-
-        return person;
-    }
-
-    private NeoHouse getNeoHouse(String wikiPage) {
-        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, WikiLabels.HOUSE);
-        if (maybeNode.isPresent()) {
-            return getNeoHouse(maybeNode.get(), wikiPage);
-        }
-
-        throw new RuntimeException("WikiPage not found: " + wikiPage);
-    }
-
-    private NeoHouse getNeoHouse(Node node, String wikiPage) {
-        return getBaseData(node, wikiPage, NeoHouse.class);
-    }
-
-    private <T extends NeoBaseData> T getBaseData(Node node, String wikiPage, Class<T> type) {
-        try {
-            T inst = type.newInstance();
-            inst.setWikiPage(wikiPage);
-            inst.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
-            return inst;
-        } catch (InstantiationException e) {
-            throw  new IllegalArgumentException(e);
-        } catch (IllegalAccessException e) {
-            throw  new IllegalArgumentException(e);
-        }
-    }
-
-    private String formatWikiPage(String wikiPage) {
-        return wikiPage.replace("_", " ");
-    }
+    // Save methods
 
     private void saveFamily(Node baseNode, WikiPerson wikiPerson) {
         if (wikiPerson.getFather()!=null) {
@@ -296,27 +228,52 @@ public class CoreNeoService implements NeoService {
     }
 
     private void saveSuccessions(Node baseNode, WikiPerson wikiPerson) {
-        if (wikiPerson.getSuccessions()!=null) {
-            wikiPerson.getSuccessions().stream().forEach(succ -> {
-                if (succ.getTitleAndCountries().isPresent()) {
-                    succ.getTitleAndCountries().get().element2().stream().forEach(country -> {
-
-//                        Tuple2<Node,Boolean> countryNode = saveCountry(new WikiNamedResource("", country));
-//                        Relationship relation = setRelationIfEmpty(baseNode, countryNode.element1(), WikiRelationships.RULES);
-//                        setPropertyIfEmpty(relation, WikiProperties.JOB_FROM, Neo4jDateFormat.serialize(succ.getFrom()));
-//                        setPropertyIfEmpty(relation, WikiProperties.JOB_TO, Neo4jDateFormat.serialize(succ.getTo()));
-//                        setPropertyIfEmpty(relation, WikiProperties.JOB_TITLE, succ.getTitleAndCountries().get().element1());
-
-
-
-                    });
-                }
-            });
+        if (!baseNode.hasRelationship(WikiRelationships.AS)) {
+            if (wikiPerson.getSuccessions() != null) {
+                wikiPerson.getSuccessions().stream().forEach(succ -> {
+                    if (succ.getTitleAndCountries().isPresent()) {
+                        setJobIfEmpty(baseNode, succ);
+                    }
+                });
+            }
         }
     }
 
+    private void setJobIfEmpty(Node baseNode, WikiSuccession wikiSuccession) {
+
+        Node jobNode = graphDb.createNode(WikiLabels.JOB);
+        jobNode.setProperty(WikiProperties.JOB_FROM.getPropertyName(), Neo4jDateFormat.serialize(wikiSuccession.getFrom()));
+        jobNode.setProperty(WikiProperties.JOB_TO.getPropertyName(), Neo4jDateFormat.serialize(wikiSuccession.getTo()));
+
+        if (wikiSuccession.getTitleAndCountries().isPresent()) {
+            Tuple2<String,List<String>> titleAndCountries = wikiSuccession.getTitleAndCountries().get();
+            jobNode.setProperty(WikiProperties.JOB_TITLE.getPropertyName(), titleAndCountries.element1());
+
+            titleAndCountries.element2().stream().forEach(country -> {
+                Node countryNode = saveCountry(new WikiNamedResource("", country)).element1();
+                jobNode.createRelationshipTo(countryNode, WikiRelationships.RULES);
+            });
+        } else if (wikiSuccession.getRaw().isPresent()) {
+            jobNode.setProperty(WikiProperties.JOB_RAW.getPropertyName(), wikiSuccession.getRaw().get());
+        }
+
+        if (wikiSuccession.getPredecessor()!=null) {
+            Node predecessorNode = savePerson(wikiSuccession.getPredecessor()).element1();
+            jobNode.createRelationshipTo(predecessorNode, WikiRelationships.PREDECESSOR);
+        }
+
+        if (wikiSuccession.getSuccessor()!=null) {
+            Node successorNode = savePerson(wikiSuccession.getSuccessor()).element1();
+            jobNode.createRelationshipTo(successorNode, WikiRelationships.SUCCESSOR);
+        }
+
+        baseNode.createRelationshipTo(jobNode, WikiRelationships.AS);
+    }
+
+    // Create nodes
+
     private Tuple2<Node,Boolean> savePerson(WikiPerson wikiPerson) {
-        Tuple2<Node,Boolean> person = saveBase(wikiPerson.getWikiNamedResource(), WikiLabels.PERSON);
+        Tuple2<Node,Boolean> person = savePerson(wikiPerson.getWikiNamedResource());
         String wikiPage = wikiPerson.getWikiPage().getLocalPartNoUnderscore();
 
         if (person.element1().getProperty(WikiProperties.STATUS.getPropertyName()).equals(NodeStatus.BASE.name())) {
@@ -330,6 +287,10 @@ public class CoreNeoService implements NeoService {
         }
 
         return person;
+    }
+
+    private Tuple2<Node, Boolean> savePerson(WikiNamedResource wikiPerson) {
+        return saveBase(wikiPerson, WikiLabels.PERSON);
     }
 
     private Tuple2<Node,Boolean> saveHouse(WikiNamedResource wikiHouse) {
@@ -369,43 +330,7 @@ public class CoreNeoService implements NeoService {
         }
     }
 
-    private Optional<Node> getNodeByWikiPage(String wikiPage, Label label) {
-        ResourceIterable<Node> existingNodes = graphDb.findNodesByLabelAndProperty(
-                label, WikiProperties.WIKI_PAGE.getPropertyName(), wikiPage);
-        ResourceIterator<Node> iterator = existingNodes.iterator();
-
-        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
-    }
-
-    private Optional<Node> getNodeByName(String name, Label label) {
-        ResourceIterable<Node> existingNodes = graphDb.findNodesByLabelAndProperty(
-                label, WikiProperties.NAME.getPropertyName(), name);
-        ResourceIterator<Node> iterator = existingNodes.iterator();
-
-        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
-    }
-
-    private List<WikiNamedResource> getRelations(Node person, RelationshipType relation) {
-//        TraversalDescription traversal = Traversal.description()
-        TraversalDescription traversal = graphDb.traversalDescription()
-                .relationships(relation, Direction.OUTGOING)
-                .evaluator(Evaluators.excludeStartPosition())
-                .evaluator(Evaluators.atDepth(1));
-
-        Traverser traverser = traversal.traverse(person);
-        Iterable<Node> iterable = traverser.nodes();
-
-        List<WikiNamedResource> ret = new ArrayList<>(1);
-
-        for (Node mode : iterable) {
-            String nodeWikiPage = (String) mode.getProperty(WikiProperties.WIKI_PAGE.getPropertyName());
-            String nodeName = (String) mode.getProperty(WikiProperties.NAME.getPropertyName());
-            ret.add(new WikiNamedResource(nodeWikiPage, nodeName));
-        }
-
-        return ret;
-    }
-
+    // Create properties, relations
 
     private void setPropertyIfEmpty(Node node, WikiProperties property, Object value) {
         if (!node.hasProperty(property.getPropertyName())) {
@@ -437,7 +362,6 @@ public class CoreNeoService implements NeoService {
             }
         }
 
-//        if (!node.hasRelationship(relationship)) {
         if (!found) {
             logger.debug("Node [{}] has no [{}] relation to node [{}]. Creating it now.",
                     node.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()),
@@ -449,7 +373,163 @@ public class CoreNeoService implements NeoService {
         throw new RuntimeException("");
     }
 
-    private Relationship setJobIfEmpty() {
-        return null;
+    // Queries
+
+    private NeoPerson getBasicNeoPerson(String wikiPage) {
+        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
+        if (maybeNode.isPresent()) {
+            return getBasicNeoPerson(maybeNode.get(), wikiPage);
+        }
+
+        throw new RuntimeException("WikiPage not found: " + wikiPage);
+    }
+
+    private NeoPerson getBasicNeoPerson(Node node) {
+        if (node.hasProperty(WikiProperties.WIKI_PAGE.getPropertyName())) {
+            return getBasicNeoPerson(node, (String) node.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()));
+        }
+
+        throw new RuntimeException("WikiPage not found: " + node);
+    }
+
+    private NeoPerson getBasicNeoPerson(Node node, String wikiPage) {
+        NeoPerson person = getBaseData(node, wikiPage, NeoPerson.class);
+
+        if (node.hasProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName())) {
+            person.setDateOfBirth(
+                    Neo4jDateFormat.parse((String) node.getProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName()))
+            );
+        }
+
+        if (node.hasProperty(WikiProperties.DATE_OF_DEATH.getPropertyName())) {
+            person.setDateOfDeath(
+                    Neo4jDateFormat.parse((String) node.getProperty(WikiProperties.DATE_OF_DEATH.getPropertyName()))
+            );
+        }
+
+        if (node.hasProperty(WikiProperties.GENDER.getPropertyName())) {
+            person.setGender(
+                    GenderType.valueOf((String) node.getProperty(WikiProperties.GENDER.getPropertyName()))
+            );
+        }
+
+        return person;
+    }
+
+    private NeoHouse getNeoHouse(String wikiPage) {
+        Optional<Node> maybeNode = getNodeByWikiPage(wikiPage, WikiLabels.HOUSE);
+        if (maybeNode.isPresent()) {
+            return getNeoHouse(maybeNode.get(), wikiPage);
+        }
+
+        throw new RuntimeException("WikiPage not found: " + wikiPage);
+    }
+
+    private NeoHouse getNeoHouse(Node node, String wikiPage) {
+        return getBaseData(node, wikiPage, NeoHouse.class);
+    }
+
+    private <T extends NeoBaseData> T getBaseData(Node node, String wikiPage, Class<T> type) {
+        try {
+            T inst = type.newInstance();
+            inst.setWikiPage(wikiPage);
+            inst.setName((String) node.getProperty(WikiProperties.NAME.getPropertyName()));
+            return inst;
+        } catch (InstantiationException e) {
+            throw  new IllegalArgumentException(e);
+        } catch (IllegalAccessException e) {
+            throw  new IllegalArgumentException(e);
+        }
+    }
+
+    private Optional<Node> getNodeByWikiPage(String wikiPage, Label label) {
+        ResourceIterable<Node> existingNodes = graphDb.findNodesByLabelAndProperty(
+                label, WikiProperties.WIKI_PAGE.getPropertyName(), wikiPage);
+        ResourceIterator<Node> iterator = existingNodes.iterator();
+
+        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
+    }
+
+    private Optional<Node> getNodeByName(String name, Label label) {
+        ResourceIterable<Node> existingNodes = graphDb.findNodesByLabelAndProperty(
+                label, WikiProperties.NAME.getPropertyName(), name);
+        ResourceIterator<Node> iterator = existingNodes.iterator();
+
+        return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
+    }
+
+    private List<WikiNamedResource> getRelations(Node person, RelationshipType relation) {
+        Iterable<Node> iterable = queryRelations(person, relation);
+
+        List<WikiNamedResource> ret = new ArrayList<>(1);
+
+        for (Node mode : iterable) {
+            String nodeWikiPage = (String) mode.getProperty(WikiProperties.WIKI_PAGE.getPropertyName());
+            String nodeName = (String) mode.getProperty(WikiProperties.NAME.getPropertyName());
+            ret.add(new WikiNamedResource(nodeWikiPage, nodeName));
+        }
+
+        return ret;
+    }
+
+    private List<NeoSuccession> getJobs(Node person) {
+        Iterable<Node> iterable = queryRelations(person, WikiRelationships.AS);
+
+        List<NeoSuccession> successions = new ArrayList<>(3);
+
+        for (Node jobNode : iterable) {
+            NeoSuccession succ = new NeoSuccession();
+
+            if (jobNode.hasProperty(WikiProperties.JOB_FROM.getPropertyName())) {
+                succ.setFrom(Neo4jDateFormat.parse((String) jobNode.getProperty(WikiProperties.JOB_FROM.getPropertyName())));
+            }
+
+            if (jobNode.hasProperty(WikiProperties.JOB_TO.getPropertyName())) {
+                succ.setTo(Neo4jDateFormat.parse((String) jobNode.getProperty(WikiProperties.JOB_TO.getPropertyName())));
+            }
+
+            if (jobNode.hasProperty(WikiProperties.JOB_TITLE.getPropertyName())) {
+                succ.setTitle((String) jobNode.getProperty(WikiProperties.JOB_TITLE.getPropertyName()));
+            }
+
+            // supports only one predecessor now
+            queryRelations(jobNode, WikiRelationships.PREDECESSOR).forEach(node -> {
+                succ.setPredecessor(getBasicNeoPerson(node));
+            });
+
+            // supports only one successor now
+            queryRelations(jobNode, WikiRelationships.SUCCESSOR).forEach(node -> {
+                succ.setSuccessor(getBasicNeoPerson(node));
+            });
+
+            successions.add(succ);
+        }
+
+        return successions;
+    }
+
+    private Iterable<Node> queryRelations(Node node, RelationshipType relation) {
+//        TraversalDescription traversal = Traversal.description()
+        TraversalDescription traversal = graphDb.traversalDescription()
+                .relationships(relation, Direction.OUTGOING)
+                .evaluator(Evaluators.excludeStartPosition())
+                .evaluator(Evaluators.atDepth(1));
+
+        Traverser traverser = traversal.traverse(node);
+        Iterable<Node> iterable = traverser.nodes();
+
+        return iterable;
+    }
+
+    // Misc
+
+    private String formatWikiPage(String wikiPage) {
+        return wikiPage.replace("_", " ");
+    }
+
+    private boolean isFull(Optional<Node> node) {
+        return  (node.isPresent() &&
+                node.get().getProperty(WikiProperties.STATUS.getPropertyName())
+                        .equals(NodeStatus.FULL.name()));
     }
 }
