@@ -4,11 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.GenderType;
+import org.ib.history.db.neo4j.data.NeoCountry;
 import org.ib.history.db.neo4j.data.NeoHouse;
 import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.db.neo4j.NeoService;
 import org.ib.history.db.neo4j.WikiRelationships;
+import org.ib.history.db.neo4j.data.NeoSuccession;
+import org.ib.history.rest.data.JsonCountry;
 import org.ib.history.rest.data.JsonHouse;
+import org.ib.history.rest.data.JsonJob;
 import org.ib.history.rest.data.JsonPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
@@ -113,6 +117,14 @@ public class WikiHistoryService {
         if (!neoPerson.getHouses().isEmpty())
             jsonPerson.setHouses(neoPerson.getHouses().stream().map(house -> getJsonHouse(house)).collect(Collectors.toList()));
 
+        if (!neoPerson.getSpouses().isEmpty()) {
+            jsonPerson.setSpouses(neoPerson.getSpouses().stream().map(spouse -> getJsonPerson(spouse)).collect(Collectors.toList()));
+        }
+
+        if (!neoPerson.getSuccessions().isEmpty()) {
+            jsonPerson.setJobs(neoPerson.getSuccessions().stream().map(succ -> getJsonJob(succ)).collect(Collectors.toList()));
+        }
+
         return jsonPerson;
     }
 
@@ -121,6 +133,24 @@ public class WikiHistoryService {
         jsonHouse.setWikiPage(neoHouse.getWikiPage());
         jsonHouse.setName(neoHouse.getName());
         return jsonHouse;
+    }
+
+    private JsonJob getJsonJob(NeoSuccession neoSucc) {
+        JsonJob jsonJob = new JsonJob();
+        jsonJob.setTitle(neoSucc.getTitle());
+        neoSucc.getFrom().ifPresent(date -> jsonJob.setFrom(Neo4jDateFormat.serialize(date)));
+        neoSucc.getTo().ifPresent(date -> jsonJob.setTo(Neo4jDateFormat.serialize(date)));
+        neoSucc.getPredecessor().ifPresent(pred -> jsonJob.setPredecessor(getJsonPerson(pred)));
+        neoSucc.getSuccessor().ifPresent(succ -> jsonJob.setSuccecessor(getJsonPerson(succ)));
+        jsonJob.setCountries(neoSucc.getCountries().stream().map(c -> getJsonCountry(c)).collect(Collectors.toList()));
+        return jsonJob;
+    }
+
+    private JsonCountry getJsonCountry(NeoCountry neoCountry) {
+        JsonCountry jsonCountry = new JsonCountry();
+        jsonCountry.setWikiPage(neoCountry.getWikiPage());
+        jsonCountry.setName(neoCountry.getName());
+        return jsonCountry;
     }
 
 

@@ -12,8 +12,9 @@ public class JsonPerson extends JsonBase {
     private JsonPerson father;
     private JsonPerson mother;
 
+    private List<JsonPerson> spouses;
     private List<JsonHouse> houses;
-
+    private List<JsonJob> jobs;
 
     public String getDateOfBirth() {
         return dateOfBirth;
@@ -47,11 +48,27 @@ public class JsonPerson extends JsonBase {
         this.mother = mother;
     }
 
+    public List<JsonPerson> getSpouses() {
+        return spouses;
+    }
+
+    public void setSpouses(List<JsonPerson> spouses) {
+        this.spouses = spouses;
+    }
+
     public List<JsonHouse> getHouses() {
         return houses;
     }
 
     public void setHouses(List<JsonHouse> houses) {
         this.houses = houses;
+    }
+
+    public List<JsonJob> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<JsonJob> jobs) {
+        this.jobs = jobs;
     }
 }

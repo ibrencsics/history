@@ -4,10 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.commons.utils.Neo4jDateFormat;
-import org.ib.history.db.neo4j.data.NeoBaseData;
-import org.ib.history.db.neo4j.data.NeoHouse;
-import org.ib.history.db.neo4j.data.NeoPerson;
-import org.ib.history.db.neo4j.data.NeoSuccession;
+import org.ib.history.db.neo4j.data.*;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
@@ -429,6 +426,14 @@ public class CoreNeoService implements NeoService {
         return getBaseData(node, wikiPage, NeoHouse.class);
     }
 
+    private NeoCountry getNeoCountry(Node node) {
+        if (node.hasProperty(WikiProperties.WIKI_PAGE.getPropertyName())) {
+            return getBaseData(node, (String) node.getProperty(WikiProperties.WIKI_PAGE.getPropertyName()), NeoCountry.class);
+        }
+
+        throw new RuntimeException("WikiPage not found: " + node);
+    }
+
     private <T extends NeoBaseData> T getBaseData(Node node, String wikiPage, Class<T> type) {
         try {
             T inst = type.newInstance();
@@ -500,6 +505,10 @@ public class CoreNeoService implements NeoService {
             // supports only one successor now
             queryRelations(jobNode, WikiRelationships.SUCCESSOR).forEach(node -> {
                 succ.setSuccessor(getBasicNeoPerson(node));
+            });
+
+            queryRelations(jobNode, WikiRelationships.RULES).forEach(node -> {
+                succ.addCountry(getNeoCountry(node));
             });
 
             successions.add(succ);
