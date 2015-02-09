@@ -38,7 +38,8 @@ var wiki = {
         wikiPage = document.getElementById("wikiPage").value;
         
         d3.select("svg").selectAll("*").remove();
-        wiki.query1(wikiPage);
+        //wiki.query1(wikiPage);
+        wiki.queryFull(wikiPage);
     },
     
     dropdownChanged : function(value) {
@@ -57,6 +58,7 @@ var wiki = {
             });
     },*/
     
+    /*
     query1 : function(wikiPage, callback) {
         d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/nodes", function(nodes) {
             wiki.query2(wikiPage, nodes, callback);
@@ -71,6 +73,42 @@ var wiki = {
                 wiki.dataViz(nodes, edges);
             }
         })
+    },
+    */
+    
+    queryFull : function(wikiPage, callback) {
+        d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(person) {
+            nodes = new Array();
+            nodes.push({id: person.wikiPage, name: person.name, birth: person.dateOfBirth, death: person.dateOfDeath, gender: "UNKNOWN"});
+            nodes.push({id: person.father.wikiPage, name: person.father.name, birth: "", death: "", gender: "MALE"});
+            nodes.push({id: person.mother.wikiPage, name: person.mother.name, birth: "", death: "", gender: "FEMALE"});
+            for (i in person.spouses) {
+                spouse = person.spouses[i];
+                nodes.push({id: spouse.wikiPage, name: spouse.name, birth: "", death: "", gender: "UNKNOWN"});
+            }
+            for (i in person.issues) {
+                issue = person.issues[i];
+                nodes.push({id: issue.wikiPage, name: issue.name, birth: "", death: "", gender: "UNKNOWN"});
+            }
+            
+            edges = new Array();
+            edges.push({source: person.wikiPage, target: person.father.wikiPage, type: "HAS_FATHER"});
+            edges.push({source: person.wikiPage, target: person.mother.wikiPage, type: "HAS_MOTHER"});
+            for (i in person.spouses) {
+                spouse = person.spouses[i];
+                edges.push({source: person.wikiPage, target: spouse.wikiPage, type: "IS_SPOUSE_OF"});
+            }
+            for (i in person.issues) {
+                issue = person.issues[i];
+                edges.push({source: person.wikiPage, target: issue.wikiPage, type: "HAS_ISSUE"});
+            }
+            
+            if (callback != null) {
+                callback(nodes, edges);
+            } else {
+                wiki.dataViz(nodes, edges);
+            }
+        });
     },
     
     // visualization
@@ -353,7 +391,7 @@ var wiki = {
         }
         
         function extractNode(node) {
-            wiki.query1(node.id, extractNodeCallback)
+            wiki.queryFull(node.id, extractNodeCallback)
         }
         
         function extractNodeCallback(nodes, edges) {

@@ -13,6 +13,7 @@ public class JsonPerson extends JsonBase {
     private JsonPerson mother;
 
     private List<JsonPerson> spouses;
+    private List<JsonPerson> issues;
     private List<JsonHouse> houses;
     private List<JsonJob> jobs;
 
@@ -54,6 +55,14 @@ public class JsonPerson extends JsonBase {
 
     public void setSpouses(List<JsonPerson> spouses) {
         this.spouses = spouses;
+    }
+
+    public List<JsonPerson> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<JsonPerson> issues) {
+        this.issues = issues;
     }
 
     public List<JsonHouse> getHouses() {

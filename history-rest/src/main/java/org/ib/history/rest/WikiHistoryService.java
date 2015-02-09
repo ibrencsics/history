@@ -121,6 +121,10 @@ public class WikiHistoryService {
             jsonPerson.setSpouses(neoPerson.getSpouses().stream().map(spouse -> getJsonPerson(spouse)).collect(Collectors.toList()));
         }
 
+        if (!neoPerson.getIssues().isEmpty()) {
+            jsonPerson.setIssues(neoPerson.getIssues().stream().map(issue -> getJsonPerson(issue)).collect(Collectors.toList()));
+        }
+
         if (!neoPerson.getSuccessions().isEmpty()) {
             jsonPerson.setJobs(neoPerson.getSuccessions().stream().map(succ -> getJsonJob(succ)).collect(Collectors.toList()));
         }
