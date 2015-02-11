@@ -1,6 +1,6 @@
 var wiki = {
     
-    persons: [],
+    persons: {},
     nodeHash: {},
     
     show : function() {
@@ -81,19 +81,26 @@ var wiki = {
     
     queryFull : function(wikiPage, callback) {
         d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(person) {
-            wiki.persons.push(person);
+            wiki.persons[person.wikiPage] = person;
             
             nodes = new Array();
+            nodesShort = new Array();
             nodes.push({id: person.wikiPage, name: person.name, birth: person.dateOfBirth, death: person.dateOfDeath, gender: "UNKNOWN", full: true});
+            nodesShort.push({id: person.wikiPage, name: person.name, gender: "UNKNOWN"});
             nodes.push({id: person.father.wikiPage, name: person.father.name, birth: "", death: "", gender: "MALE"});
+            nodesShort.push({id: person.father.wikiPage, name: person.father.name, gender: "MALE"});
             nodes.push({id: person.mother.wikiPage, name: person.mother.name, birth: "", death: "", gender: "FEMALE"});
+            nodesShort.push({id: person.mother.wikiPage, name: person.mother.name, gender: "FEMALE"});
+            
             for (i in person.spouses) {
                 spouse = person.spouses[i];
                 nodes.push({id: spouse.wikiPage, name: spouse.name, birth: "", death: "", gender: "UNKNOWN"});
+                nodesShort.push({id: spouse.wikiPage, name: spouse.name, gender: "UNKNOWN"});
             }
             for (i in person.issues) {
                 issue = person.issues[i];
                 nodes.push({id: issue.wikiPage, name: issue.name, birth: "", death: "", gender: "UNKNOWN"});
+                nodesShort.push({id: issue.wikiPage, name: issue.name, gender: "UNKNOWN"});
             }
             
             edges = new Array();
@@ -110,10 +117,10 @@ var wiki = {
             
             if (callback != null) {
                 wiki.processNodes(nodes, edges, false);
-                callback(nodes, edges);
+                callback(nodesShort, edges);
             } else {
                 wiki.processNodes(nodes, edges, true);
-                wiki.dataViz(nodes, edges);
+                wiki.dataViz(nodesShort, edges);
             }
         });
     },
@@ -129,11 +136,13 @@ var wiki = {
             if (!wiki.nodeHash.hasOwnProperty(node.id)) {
                 wiki.nodeHash[node.id] = node;
             } else if (node.hasOwnProperty('full')) {
-                node.gender = wiki.nodeHash[node.id].gender;
                 wiki.nodeHash[node.id] = node;
             } 
+            
+            if (wiki.nodeHash[node.id].gender == "UNKNOWN") {
+                wiki.nodeHash[node.id].gender = node.gender;
+            }
         }
-        
     },
     
     // visualization
@@ -356,11 +365,33 @@ var wiki = {
                             
                             wiki.dropdownChanged(d.id)
                         } else if (this.id == "details") {
-                            d3.selectAll("td.data")
-                                    .data(d3.values(wiki.nodeHash[d.id]))
-                                    .html(function(p) {
-                                        return p
-                                    });
+//                            d3.selectAll("td.data")
+//                                    .data(d3.values(wiki.nodeHash[d.id]))
+//                                    .html(function(p) {
+//                                        return p
+//                                    });
+                            person = wiki.nodeHash[d.id];    
+                            personFull = wiki.persons[d.id];
+                            d3.select("td.data-id").html(function() {return person.id});
+                            d3.select("td.data-name").html(function() {return person.name});
+                            d3.select("td.data-birth").html(function() {return person.birth});
+                            d3.select("td.data-death").html(function() {return person.death});
+                            d3.select("td.data-gender").html(function() {return person.gender});
+                            if (personFull != null) {
+                                d3.selectAll("table.data-house")
+                                        .selectAll("tr")
+                                        .data(personFull.houses)
+                                        .enter()
+                                        .append("tr")
+                                        .append("td")
+                                        .html(function(h) {return h.name});
+                            } else {
+                                d3.selectAll("table.data-house")
+                                        .selectAll("tr")
+                                        .data([])
+                                        .exit()
+                                        .remove();
+                            } 
                         } else if (this.id == "hide") {
                             hideNode(d)
                         } else if (this.id == "extract") {
@@ -426,6 +457,10 @@ var wiki = {
             
             var oldEdges = force.links();
             var oldNodes = force.nodes();
+            
+            for (i in oldNodes) {
+                oldNodes[i].gender = wiki.nodeHash[oldNodes[i].id].gender;
+            }
             
             var newNodes = nodes.filter(function(node) {
                 for (var oldNode in oldNodes) {
