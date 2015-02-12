@@ -82,6 +82,7 @@ var wiki = {
     queryFull : function(wikiPage, callback) {
         d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(person) {
             wiki.persons[person.wikiPage] = person;
+            console.log(person);
             
             nodes = new Array();
             nodesShort = new Array();
@@ -365,33 +366,7 @@ var wiki = {
                             
                             wiki.dropdownChanged(d.id)
                         } else if (this.id == "details") {
-//                            d3.selectAll("td.data")
-//                                    .data(d3.values(wiki.nodeHash[d.id]))
-//                                    .html(function(p) {
-//                                        return p
-//                                    });
-                            person = wiki.nodeHash[d.id];    
-                            personFull = wiki.persons[d.id];
-                            d3.select("td.data-id").html(function() {return person.id});
-                            d3.select("td.data-name").html(function() {return person.name});
-                            d3.select("td.data-birth").html(function() {return person.birth});
-                            d3.select("td.data-death").html(function() {return person.death});
-                            d3.select("td.data-gender").html(function() {return person.gender});
-                            if (personFull != null) {
-                                d3.selectAll("table.data-house")
-                                        .selectAll("tr")
-                                        .data(personFull.houses)
-                                        .enter()
-                                        .append("tr")
-                                        .append("td")
-                                        .html(function(h) {return h.name});
-                            } else {
-                                d3.selectAll("table.data-house")
-                                        .selectAll("tr")
-                                        .data([])
-                                        .exit()
-                                        .remove();
-                            } 
+                            showData(d);
                         } else if (this.id == "hide") {
                             hideNode(d)
                         } else if (this.id == "extract") {
@@ -402,6 +377,90 @@ var wiki = {
                         
                         d3.select("#node-context-menu").style('display', 'none');
                     })
+        }
+        
+        // data
+        
+        function showData(d) {
+//          d3.selectAll("td.data")
+//              .data(d3.values(wiki.nodeHash[d.id]))
+//              .html(function(p) {
+//                   return p
+//              });
+            person = wiki.nodeHash[d.id];    
+            personFull = wiki.persons[d.id];
+            d3.select("td.data-id").html(function() {return person.id});
+            d3.select("td.data-name").html(function() {return person.name});
+            d3.select("td.data-birth").html(function() {return person.birth});
+            d3.select("td.data-death").html(function() {return person.death});
+            d3.select("td.data-gender").html(function() {return person.gender});
+            
+            d3.selectAll("table.data-house")
+                    .selectAll("tr")
+                    .data([])
+                    .exit()
+                    .remove();
+            d3.selectAll("table.data-spouse")
+                    .selectAll("tr")
+                    .data([])
+                    .exit()
+                    .remove();
+            d3.selectAll("table.data-issue")
+                    .selectAll("tr")
+                    .data([])
+                    .exit()
+                    .remove();
+
+            d3.selectAll("tr.data-job")
+                    .data([])
+                    .exit()
+                    .remove();
+            
+            if (personFull != null) {
+                d3.selectAll("table.data-house")
+                        .selectAll("tr")
+                        .data(personFull.houses)
+                        .enter()
+                        .append("tr")
+                        .append("td")
+                        .html(function(h) {return h.name});
+                d3.selectAll("table.data-spouse")
+                        .selectAll("tr")
+                        .data(personFull.spouses)
+                        .enter()
+                        .append("tr")
+                        .append("td")
+                        .html(function(s) {return s.name});
+                d3.selectAll("table.data-issue")
+                        .selectAll("tr")
+                        .data(personFull.issues)
+                        .enter()
+                        .append("tr")
+                        .append("td")
+                        .html(function(s) {return s.name});
+                
+                d3.select("table.data-jobs")
+                        .selectAll("tr.data-job")
+                        .data(personFull.jobs)
+                        .enter()
+                        .append("tr")
+                        .attr("class", "data-job")
+                
+                d3.selectAll("tr.data-job")
+                        .selectAll("td")
+                        .data(function(d) {
+//                            return d3.entries(d)
+                            countries = new Array();
+                            d.countries.forEach(function(v,i,a) {countries.push(v.name);});
+                            return [countries, d.from, d.to, d.title];
+                        })
+                        .enter()
+                        .append("td")
+                        .html(function(d) {
+                            return d;
+                        });
+                        
+            }   
         }
 
         // hide, extract

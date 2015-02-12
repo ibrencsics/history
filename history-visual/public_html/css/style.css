@@ -34,20 +34,21 @@ svg {
 }
 
 #data {
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 450px;
     position: absolute;
     top: 150px;
     left: 1100px;
     border: 1px black solid;
     box-shadow: 10px 10px 5px #888888;
+    overflow: scroll;
 }
 
 #controls {
     width: 400px;
-    height: 100px;
+    height: 50px;
     position: absolute;
-    top: 580px;
+    top: 630px;
     left: 1100px;
     border: 1px black solid;
     box-shadow: 10px 10px 5px #888888;
@@ -62,10 +63,10 @@ svg {
 }
 
 #details table tr th {
-    font-size: 150%;
+    font-size: 120%;
 }
 
-#details table tr td {
+#details table td {
     font-size: 100%;
 }
 
