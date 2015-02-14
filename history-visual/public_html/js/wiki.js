@@ -87,7 +87,7 @@ var wiki = {
             }
             for (i in person.issues) {
                 issue = person.issues[i];
-                edges.push({source: person.wikiPage, target: issue.wikiPage, type: "HAS_ISSUE"});
+                edges.push({source: issue.wikiPage, target: person.wikiPage, type: "HAS_ISSUE"});
             }
             
             if (callback != null) {
@@ -138,7 +138,7 @@ var wiki = {
             force = d3.layout.force()
 //              .charge(-1000)
                 .charge(function (d) {return d.weight * -500})
-                .gravity(.3)
+                .gravity(.2)
                 .linkDistance(50)
                 .linkStrength(function (d) {return weightScale(d.weight)})
                 .size([1200,500])
@@ -146,16 +146,19 @@ var wiki = {
                 .links(edges)
                 .on("tick", forceTick);
             
-            d3.select("svg")
+            svg = d3.select("svg")
+                .on("click", function() {
+                    hideContextMenu();
+                })
                 .on("contextmenu", function() {
                     showContextMenu(this, null, "svg");
                     d3.event.preventDefault();
                 })
                 
-            var marker = d3.select("svg").append('defs')
+            var marker = svg.append('defs')
                 .append('marker')
                 .attr("id", "Triangle")
-                .attr("refX", 24)
+                .attr("refX", 64)
                 .attr("refY", 6)
                 .attr("markerUnits", 'userSpaceOnUse')
                 .attr("markerWidth", 12)
@@ -163,8 +166,18 @@ var wiki = {
                 .attr("orient", 'auto')
                 .append('path')
                 .attr("d", 'M 0 0 12 6 0 12 3 6');    
-        }
+        
+//            treeZoom = d3.behavior.zoom();
+//            treeZoom.on("zoom", zoomed);
+//            d3.select("svg").call(treeZoom)
 
+//            function zoomed() {
+//                var zoomTranslate = treeZoom.translate();
+//                console.log(zoomTranslate)
+//                d3.select("g.node").attr("transform", "translate("+zoomTranslate[0]+","+zoomTranslate[1]+")")
+//            }
+        }
+        
         function populateEdges(nodes, edges) {
             nodeHash = {};
             for (x in nodes) {
@@ -199,7 +212,7 @@ var wiki = {
 
             d3.selectAll("line")
                     .attr("marker-end", function(d) {
-                        if (d.type == "HAS_FATHER" || d.type == "HAS_MOTHER") {
+                        if (d.type == "HAS_FATHER" || d.type == "HAS_MOTHER" || d.type == "HAS_ISSUE") {
                             return "url(#Triangle)";
                         }
                     });
@@ -220,14 +233,14 @@ var wiki = {
                     })
                     .on("mouseover", function() {
                         d3.select(this)
-                            .style("stroke", "black")
-                            .style("stroke-width", "1px")
+//                            .stylce("stroke", "black")
+//                            .style("stroke-width", "1px")
                             .style("cursor", "hand")
                     })
                     .on("mouseleave", function() {
                         d3.select(this)
-                            .style("stroke", "black")
-                            .style("stroke-width", "0px")
+//                            .style("stroke", "black")
+//                            .style("stroke-width", "0px")
                             .style("cursor", "arrow")
                     })
 
@@ -250,7 +263,7 @@ var wiki = {
             
             node.exit().remove;
         }
-
+        
         // left click, double click -> select, fix
         
         function selectNode(d) {
@@ -278,7 +291,6 @@ var wiki = {
         function showContextMenu(that, d, newContext) {
             if (context) {
                 if (context !== newContext) {
-//                    console.log('contextmenu: cannot execute for context: ' + newContext + ' while in current context: ' + context);
                     return;
                 }
             }
@@ -291,6 +303,11 @@ var wiki = {
                 showNodeContextMenu(that, d)
             }
         }
+        
+        function hideContextMenu() {
+            hideSvgContextMenu();
+            hideNodeContextMenu();
+        }
 
         function showSvgContextMenu() {
             d3.event.preventDefault();
@@ -301,12 +318,7 @@ var wiki = {
                 .style('left', position[0] + "px")
                 .style('top', position[1] + "px")
                 .style('display', 'inline-block')
-                .on('mouseleave', function() {
-                    d3.select('#svg-context-menu')
-                        .style('display', 'none')
-                        .style("cursor", "arrow")
-                    context = null;
-                })
+                .on('mouseleave', function() { hideSvgContextMenu(); })
                 
             d3.select("#svg-context-menu")
                     .selectAll("li")
@@ -323,8 +335,17 @@ var wiki = {
                                 }
                             }
                         }
+                        
+                        hideSvgContextMenu();
                     }
             )
+        }
+        
+        function hideSvgContextMenu() {
+            d3.select('#svg-context-menu')
+                .style('display', 'none')
+                .style("cursor", "arrow")
+            context = null;
         }
 
         function showNodeContextMenu(that, d) {
@@ -342,12 +363,7 @@ var wiki = {
                     d3.select('#node-context-menu')
                         .style("cursor", "hand")
                 })
-                .on('mouseleave', function() {
-                    d3.select('#node-context-menu')
-                        .style('display', 'none')
-                        .style("cursor", "arrow")
-                    context = null;
-                })
+                .on('mouseleave', function() { hideNodeContextMenu(); })
                 
             d3.select("#node-context-menu")
                     .selectAll("li")
@@ -368,8 +384,16 @@ var wiki = {
                             window.open("http://en.wikipedia.org/wiki/" + d.id)
                         }
                         
-                        d3.select("#node-context-menu").style('display', 'none');
+//                        d3.select("#node-context-menu").style('display', 'none');
+                        hideNodeContextMenu();
                     })
+        }
+        
+        function hideNodeContextMenu() {
+            d3.select('#node-context-menu')
+                .style('display', 'none')
+                .style("cursor", "arrow")
+            context = null;
         }
         
         // data
