@@ -13,14 +13,23 @@ var wiki = {
     },
     
     showControls : function() {
-        d3.select("#controls").append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px").attr("value", "Louis_I_of_Hungary");
-        d3.select("#controls").append("button").attr("id", "go").on("click", wiki.buttonClick).html("Go");
+        d3.select("#controls")
+                .append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px")
+                .attr("value", "Ludwig_I,_King_of_Bavaria")
+                .on("keyup", function() {
+                    if (d3.event.keyCode == 13) {
+                        wiki.buttonClick();
+                    }
+                });
+        d3.select("#controls")
+                .append("button").attr("id", "go").html("Go")
+                .on("click", wiki.buttonClick);
         
-        var select = d3.select("#controls").append("select").attr("id", "dropdown");
-        select.on("change", function(d) {
-            var value = d3.select(this).property("value");
-            wiki.dropdownChanged(value);
-        })
+//        var select = d3.select("#controls").append("select").attr("id", "dropdown");
+//        select.on("change", function(d) {
+//            var value = d3.select(this).property("value");
+//            wiki.dropdownChanged(value);
+//        })
 
         d3.text("wiki-modal-details.html", function(data) {
             d3.select("#data").append("div").attr("id", "details").html(data);
@@ -36,53 +45,21 @@ var wiki = {
     },
     
     buttonClick : function() {
-        d3.select("#dropdown").selectAll("*").remove();
-        
+//        d3.select("#dropdown").selectAll("*").remove();
         wikiPage = document.getElementById("wikiPage").value;
-        
         d3.select("svg").selectAll("*").remove();
-        //wiki.query1(wikiPage);
         wiki.queryFull(wikiPage);
     },
     
     dropdownChanged : function(value) {
-        d3.select("#dropdown").selectAll("*").remove();
-        
+//        d3.select("#dropdown").selectAll("*").remove();
         d3.select("svg").selectAll("*").remove();
         wiki.queryFull(value);
     },
     
-    /*query : function(wikiPage) {
-        queue()
-            .defer(d3.csv, "http://localhost:8080/history/wiki/person/" + wikiPage + "/nodes")
-            .defer(d3.csv, "http://localhost:8080/history/wiki/person/" + wikiPage + "/edges")
-            .await(function(error, file1, file2) {
-                wiki.dataViz(file1, file2);
-            });
-    },*/
-    
-    /*
-    query1 : function(wikiPage, callback) {
-        d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/nodes", function(nodes) {
-            wiki.query2(wikiPage, nodes, callback);
-        })
-    },
-    
-    query2 : function(wikiPage, nodes, callback) {
-        d3.csv("http://localhost:8080/history/wiki/person/" + wikiPage + "/edges", function(edges) {
-            if (callback!=null) {
-                callback(nodes, edges)
-            } else {
-                wiki.dataViz(nodes, edges);
-            }
-        })
-    },
-    */
-    
     queryFull : function(wikiPage, callback) {
         d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(person) {
             wiki.persons[person.wikiPage] = person;
-//            console.log(person);
             
             nodes = new Array();
             nodes.push({id: person.wikiPage, name: person.name, gender: person.gender, full: true});
@@ -164,7 +141,7 @@ var wiki = {
                 .gravity(.3)
                 .linkDistance(50)
                 .linkStrength(function (d) {return weightScale(d.weight)})
-                .size([500,500])
+                .size([1200,500])
                 .nodes(nodes)
                 .links(edges)
                 .on("tick", forceTick);
@@ -174,6 +151,18 @@ var wiki = {
                     showContextMenu(this, null, "svg");
                     d3.event.preventDefault();
                 })
+                
+            var marker = d3.select("svg").append('defs')
+                .append('marker')
+                .attr("id", "Triangle")
+                .attr("refX", 24)
+                .attr("refY", 6)
+                .attr("markerUnits", 'userSpaceOnUse')
+                .attr("markerWidth", 12)
+                .attr("markerHeight", 18)
+                .attr("orient", 'auto')
+                .append('path')
+                .attr("d", 'M 0 0 12 6 0 12 3 6');    
         }
 
         function populateEdges(nodes, edges) {
@@ -207,6 +196,13 @@ var wiki = {
                     .style("opacity", .5)
                     .style("stroke-width", function(d) {return d.weight})
             link.exit().remove;
+
+            d3.selectAll("line")
+                    .attr("marker-end", function(d) {
+                        if (d.type == "HAS_FATHER" || d.type == "HAS_MOTHER") {
+                            return "url(#Triangle)";
+                        }
+                    });
 
             node = d3.select("svg")
                     .selectAll("g.node")

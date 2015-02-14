@@ -108,8 +108,8 @@ public class WikiHistoryService {
 
         jsonPerson.setWikiPage(neoPerson.getWikiPage());
         jsonPerson.setName(neoPerson.getName());
-        neoPerson.getDateOfBirth().ifPresent(date -> jsonPerson.setDateOfBirth(Neo4jDateFormat.serialize(date)));
-        neoPerson.getDateOfDeath().ifPresent(date -> jsonPerson.setDateOfDeath(Neo4jDateFormat.serialize(date)));
+        neoPerson.getDateOfBirth().ifPresent(date -> jsonPerson.setDateOfBirth(Neo4jDateFormat.dateWrapperToString(date)));
+        neoPerson.getDateOfDeath().ifPresent(date -> jsonPerson.setDateOfDeath(Neo4jDateFormat.dateWrapperToString(date)));
         neoPerson.getGender().ifPresent(gender -> jsonPerson.setGender(gender.name()));
 
         neoPerson.getFather().ifPresent(father -> jsonPerson.setFather(getJsonPerson(father)));
@@ -143,8 +143,8 @@ public class WikiHistoryService {
     private JsonJob getJsonJob(NeoSuccession neoSucc) {
         JsonJob jsonJob = new JsonJob();
         jsonJob.setTitle(neoSucc.getTitle());
-        neoSucc.getFrom().ifPresent(date -> jsonJob.setFrom(Neo4jDateFormat.serialize(date)));
-        neoSucc.getTo().ifPresent(date -> jsonJob.setTo(Neo4jDateFormat.serialize(date)));
+        neoSucc.getFrom().ifPresent(date -> jsonJob.setFrom(Neo4jDateFormat.dateWrapperToString(date)));
+        neoSucc.getTo().ifPresent(date -> jsonJob.setTo(Neo4jDateFormat.dateWrapperToString(date)));
         neoSucc.getPredecessor().ifPresent(pred -> jsonJob.setPredecessor(getJsonPerson(pred)));
         neoSucc.getSuccessor().ifPresent(succ -> jsonJob.setSuccecessor(getJsonPerson(succ)));
         jsonJob.setCountries(neoSucc.getCountries().stream().map(c -> getJsonCountry(c)).collect(Collectors.toList()));
