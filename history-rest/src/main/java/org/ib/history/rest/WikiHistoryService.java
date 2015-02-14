@@ -110,6 +110,7 @@ public class WikiHistoryService {
         jsonPerson.setName(neoPerson.getName());
         neoPerson.getDateOfBirth().ifPresent(date -> jsonPerson.setDateOfBirth(Neo4jDateFormat.serialize(date)));
         neoPerson.getDateOfDeath().ifPresent(date -> jsonPerson.setDateOfDeath(Neo4jDateFormat.serialize(date)));
+        neoPerson.getGender().ifPresent(gender -> jsonPerson.setGender(gender.name()));
 
         neoPerson.getFather().ifPresent(father -> jsonPerson.setFather(getJsonPerson(father)));
         neoPerson.getMother().ifPresent(mother -> jsonPerson.setMother(getJsonPerson(mother)));

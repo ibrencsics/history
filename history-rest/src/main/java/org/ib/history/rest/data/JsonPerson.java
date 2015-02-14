@@ -8,6 +8,7 @@ public class JsonPerson extends JsonBase {
 
     private String dateOfBirth;
     private String dateOfDeath;
+    private String gender = "UNKNOWN";
 
     private JsonPerson father;
     private JsonPerson mother;
@@ -31,6 +32,14 @@ public class JsonPerson extends JsonBase {
 
     public void setDateOfDeath(String dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public JsonPerson getFather() {

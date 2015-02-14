@@ -239,8 +239,14 @@ public class CoreNeoService implements NeoService {
     private void setJobIfEmpty(Node baseNode, WikiSuccession wikiSuccession) {
 
         Node jobNode = graphDb.createNode(WikiLabels.JOB);
-        jobNode.setProperty(WikiProperties.JOB_FROM.getPropertyName(), Neo4jDateFormat.serialize(wikiSuccession.getFrom()));
-        jobNode.setProperty(WikiProperties.JOB_TO.getPropertyName(), Neo4jDateFormat.serialize(wikiSuccession.getTo()));
+
+        if (wikiSuccession.getFrom()!=null) {
+            jobNode.setProperty(WikiProperties.JOB_FROM.getPropertyName(), Neo4jDateFormat.serialize(wikiSuccession.getFrom()));
+        }
+
+        if (wikiSuccession.getTo()!=null) {
+            jobNode.setProperty(WikiProperties.JOB_TO.getPropertyName(), Neo4jDateFormat.serialize(wikiSuccession.getTo()));
+        }
 
         if (wikiSuccession.getTitleAndCountries().isPresent()) {
             Tuple2<String,List<String>> titleAndCountries = wikiSuccession.getTitleAndCountries().get();

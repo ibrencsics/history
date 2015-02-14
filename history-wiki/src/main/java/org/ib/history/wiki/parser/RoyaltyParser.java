@@ -59,7 +59,8 @@ public class RoyaltyParser {
         logger.debug("Parsing [{}]", page);
         logger.trace("Wikitext [{}] : {}", page, wikiText);
 
-        Optional<String> template = templateParser.getTemplate(wikiText, "Infobox royalty", "infobox nobility");
+        Optional<String> template = templateParser.getTemplate(wikiText,
+                "Infobox royalty", "infobox nobility", "infobox monarch", "Infobox officeholder");
         logger.debug(template.get());
         Map<String,String> data = templateParser.getTemplateDataMap(template.get());
         return parse(page, data);
