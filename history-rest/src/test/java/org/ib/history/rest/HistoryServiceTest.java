@@ -29,7 +29,7 @@ public class HistoryServiceTest {
 
     private static Server server;
 
-    @BeforeClass
+//    @BeforeClass
     public static void initialize() throws Exception {
         configureLogging();
         startServer();
@@ -46,10 +46,10 @@ public class HistoryServiceTest {
 
     private static void startServer() throws Exception {
         JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
-        sf.setResourceClasses(HistoryService.class);
+//        sf.setResourceClasses(HistoryService.class);
 
         sf.setProviders(getProviders());
-        sf.setResourceProvider(HistoryService.class, new SingletonResourceProvider(new HistoryService(), true));
+//        sf.setResourceProvider(HistoryService.class, new SingletonResourceProvider(new HistoryService(), true));
         sf.setAddress(ENDPOINT_ADDRESS);
         sf.getInInterceptors().add(new LoggingInInterceptor());
         sf.getOutInterceptors().add(new LoggingOutInterceptor());
@@ -63,7 +63,7 @@ public class HistoryServiceTest {
         return providers;
     }
 
-    @AfterClass
+//    @AfterClass
     public static void destroy() throws Exception {
         server.stop();
         server.destroy();
@@ -88,7 +88,7 @@ public class HistoryServiceTest {
         assertEquals("England", countryData.getName());
     }
 
-    @Test
+//    @Test
     public void testCountries() {
         WebClient client = WebClient.create(ENDPOINT_ADDRESS + "/test/countries", getProviders());
 
