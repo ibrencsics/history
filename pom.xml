@@ -9,11 +9,9 @@
 
     <modules>
         <module>history-db</module>
-        <!--<module>history-family-tree</module>-->
         <module>history-commons</module>
         <module>history-rest</module>
         <module>history-wiki</module>
-        <!--<module>history-d3</module>-->
     </modules>
 
     <properties>

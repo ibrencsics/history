@@ -1,7 +1,0 @@
-{"id":11,"locales":{"DE":{"id":10,"name":"Normannische Dynastie"},"HU":{"id":9,"name":"Normandiai ház"}},"name":"House of Normandy"}
-{"id":12,"name":"House of Flanders"}
-{"id":13,"name":"House of Blois"}
-{"id":14,"name":"House of Dunkeld"}
-{"id":15,"name":"House of Plantagenet"}
-{"id":131829,"name":"House of Poitiers"}
-{"id":131833,"name":"House of Capet"}
