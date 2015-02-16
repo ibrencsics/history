@@ -20,7 +20,6 @@
 
     <jaxrs:server id="historyService" address="/history">
         <jaxrs:serviceBeans>
-            <bean class="org.ib.history.rest.HistoryService"/>
             <ref bean="wikiHistoryService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
@@ -33,7 +32,6 @@
     <bean id="cors-filter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
 
 
-    <import resource="classpath:sdn-ApplicationContext.xml"/>
     <context:component-scan base-package="org.ib.history" />
 
     <!-- Neo4j -->

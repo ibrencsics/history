@@ -5,15 +5,10 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.ib.history.commons.data.CountryData;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -77,23 +72,5 @@ public class HistoryServiceTest {
 
         Response response = client.get();
         assertEquals("pong", response.readEntity(String.class));
-    }
-
-//    @Test
-    public void testCountry() {
-        WebClient client = WebClient.create(ENDPOINT_ADDRESS + "/test/country", getProviders());
-
-        Response response = client.get();
-        CountryData countryData = response.readEntity(CountryData.class);
-        assertEquals("England", countryData.getName());
-    }
-
-//    @Test
-    public void testCountries() {
-        WebClient client = WebClient.create(ENDPOINT_ADDRESS + "/test/countries", getProviders());
-
-        Response response = client.get();
-//        CountryData countryData = response.readEntity(CountryData.class);
-//        assertEquals("England", countryData.name());
     }
 }

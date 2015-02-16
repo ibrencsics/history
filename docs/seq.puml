@@ -1,0 +1,26 @@
+@startuml
+
+actor Client as C
+participant "Browser App" as B
+participant REST as R
+participant "Wiki Parser" as WP
+participant "Wiki Cache" as WC
+participant Wikipedia as W
+participant Neo4j as N
+
+C -> B
+B -> R: Ajax
+R -> WC: get page
+WC -> N: get page
+N --> WC: not found
+WC --> R: not found
+R -> WP: get page
+WP -> MediawikiAPI
+W --> WP: wikitext
+WP --> R:
+R -> WC: store
+WC -> N: store
+WC --> R: found
+R --> B:
+
+@enduml
