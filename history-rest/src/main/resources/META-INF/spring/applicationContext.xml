@@ -35,6 +35,7 @@
     <context:component-scan base-package="org.ib.history" />
 
     <!-- Neo4j -->
+
     <bean id="graphDbFactory" class="org.neo4j.graphdb.factory.GraphDatabaseFactory"/>
     <bean id="graphDb" factory-bean="graphDbFactory" factory-method="newEmbeddedDatabase">
         <constructor-arg value="/opt/app-data/history-neo4j-rest"/>
@@ -43,7 +44,12 @@
         <constructor-arg ref="graphDb"/>
     </bean>
 
+    <bean class="org.ib.history.db.neo4j.NeoInitializer" init-method="init">
+        <constructor-arg ref="graphDb"/>
+    </bean>
+
     <!-- Wiki -->
+
     <bean class="org.ib.history.wiki.wikipedia.WikiServiceWikipedia"/>
     <bean id="wikiHistoryService" class="org.ib.history.rest.WikiHistoryService"/>
 </beans>
