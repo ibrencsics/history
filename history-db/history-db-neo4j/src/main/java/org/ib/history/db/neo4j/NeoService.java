@@ -9,7 +9,5 @@ import java.util.Optional;
 public interface NeoService {
     long save(WikiPerson wikiPerson);
     int countOf(Label label);
-    @Deprecated
-    Optional<WikiPerson> getPerson(String wikiPage);
     Optional<NeoPerson> getNeoPerson(String wikiPage);
 }

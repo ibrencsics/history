@@ -182,20 +182,20 @@ public class WikiHistoryService {
 
 
     private WikiPerson getWikiPerson(String wikiPage) {
-        WikiPerson person;
+        WikiPerson person=null;
 
-        Optional<WikiPerson> neoPerson = neoService.getPerson(wikiPage);
-
-        if (!neoPerson.isPresent()) {
-            logger.debug("Calling WikiService");
-            WikiPerson wikiPerson = wikiService.getPerson(wikiPage);
-            logger.trace(wikiPerson);
-            person = wikiPerson;
-            neoService.save(wikiPerson);
-        } else {
-            logger.debug("Returning from cache");
-            person = neoPerson.get();
-        }
+//        Optional<WikiPerson> neoPerson = neoService.getPerson(wikiPage);
+//
+//        if (!neoPerson.isPresent()) {
+//            logger.debug("Calling WikiService");
+//            WikiPerson wikiPerson = wikiService.getPerson(wikiPage);
+//            logger.trace(wikiPerson);
+//            person = wikiPerson;
+//            neoService.save(wikiPerson);
+//        } else {
+//            logger.debug("Returning from cache");
+//            person = neoPerson.get();
+//        }
 
         return person;
     }

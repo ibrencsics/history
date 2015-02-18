@@ -70,53 +70,6 @@ public class CoreNeoService implements NeoService {
     }
 
     @Override
-    @Deprecated
-    public Optional<WikiPerson> getPerson(String wikiPage) {
-        logger.debug("getPerson([{}])", wikiPage);
-
-        wikiPage = formatWikiPage(wikiPage);
-
-        try (Transaction tx = graphDb.beginTx()) {
-            Optional<Node> maybePerson = getNodeByWikiPage(wikiPage, WikiLabels.PERSON);
-
-            if (maybePerson.isPresent() &&
-                    maybePerson.get().getProperty(WikiProperties.STATUS.getPropertyName()).equals(NodeStatus.FULL.name())) {
-
-                logger.debug("Page [{}] found in cache", wikiPage);
-
-                Node person = maybePerson.get();
-
-                WikiPerson.Builder builder = new WikiPerson.Builder()
-                        .wikiPage(WikiResource.fromLocalPart(wikiPage))
-                        .name((String) person.getProperty(WikiProperties.NAME.getPropertyName()))
-                        .dateOfBirth(Neo4jDateFormat.parse((String) person.getProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName())))
-                        .dateOfDeath(Neo4jDateFormat.parse((String) person.getProperty(WikiProperties.DATE_OF_DEATH.getPropertyName())));
-
-                List<WikiNamedResource> resources;
-
-                resources = getRelations(person, WikiRelationships.HAS_FATHER);
-                if (!resources.isEmpty()) {
-                    builder.father(resources.get(0));
-                }
-
-                resources = getRelations(person, WikiRelationships.HAS_MOTHER);
-                if (!resources.isEmpty()) {
-                    builder.mother(resources.get(0));
-                }
-
-                builder.spouse(getRelations(person, WikiRelationships.IS_SPOUSE_OF));
-                builder.issue(getRelations(person, WikiRelationships.HAS_ISSUE));
-                builder.house(getRelations(person, WikiRelationships.IN_HOUSE));
-
-                return Optional.of(builder.build());
-            } else {
-                logger.debug("Page [{}] not found in cache", wikiPage);
-                return Optional.empty();
-            }
-        }
-    }
-
-    @Override
     public Optional<NeoPerson> getNeoPerson(String wikiPage) {
         logger.debug("getPerson([{}])", wikiPage);
 
@@ -286,7 +239,7 @@ public class CoreNeoService implements NeoService {
             person.element1().setProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfBirth()));
             person.element1().setProperty(WikiProperties.DATE_OF_DEATH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfDeath()));
         } else {
-            logger.debug("Node [{}] full", wikiPage);
+            logger.debug("Node [{}] already full", wikiPage);
         }
 
         return person;
