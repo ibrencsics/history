@@ -228,7 +228,7 @@ public class WikiHistoryService {
                 .append(sep).append(neoPerson.getName()).append(q)
                 .append(sep).append(neoPerson.getDateOfBirth().isPresent() ? Neo4jDateFormat.dateWrapperToString(neoPerson.getDateOfBirth().get()) : "").append(q)
                 .append(sep).append(neoPerson.getDateOfDeath().isPresent() ? Neo4jDateFormat.dateWrapperToString(neoPerson.getDateOfDeath().get()) : "").append(q)
-                .append(sep).append(neoPerson.getGender().orElse(GenderType.UNKNOWN).name()).append(q)
+//                .append(sep).append(neoPerson.getGender().orElse(GenderType.UNKNOWN).name()).append(q)
                 .append(br);
     }
 

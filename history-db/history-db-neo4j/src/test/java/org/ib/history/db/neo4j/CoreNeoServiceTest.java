@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.db.neo4j.data.NeoBaseData;
+import org.ib.history.db.neo4j.data.NeoCountry;
 import org.ib.history.db.neo4j.data.NeoHouse;
 import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
@@ -25,8 +26,10 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class CoreNeoServiceTest {
@@ -84,40 +87,40 @@ public class CoreNeoServiceTest {
         if (maybePersonOut.isPresent()) {
             NeoPerson personOut = maybePersonOut.get();
 
-            assertThat(personOut.getWikiPage(), is(personIn.getWikiPage().getLocalPartNoUnderscore()));
-            assertThat(personOut.getName(), is(personIn.getName()));
+            assertBaseNeoBaseData(personOut, new WikiNamedResource(personIn.getWikiPage().getLocalPartNoUnderscore(), personIn.getName()));
             assertThat(personOut.getDateOfBirth().get(), is(personIn.getDateOfBirth()));
             assertThat(personOut.getDateOfDeath().get(), is(personIn.getDateOfDeath()));
+            assertThat(personOut.getGender(), is(Optional.empty()));
 
-            assertThat(personOut.getFather().get().getWikiPage(), is(personIn.getFather().getLocalPartNoUnderscore()));
-            assertThat(personOut.getFather().get().getName(), is(personIn.getFather().getDisplayText()));
-            assertThat(personOut.getMother().get().getWikiPage(), is(personIn.getMother().getLocalPartNoUnderscore()));
-            assertThat(personOut.getMother().get().getName(), is(personIn.getMother().getDisplayText()));
+            assertTrue(personOut.getFather().isPresent());
+            assertBaseNeoPerson(personOut.getFather().get(), personIn.getFather(), Optional.of(GenderType.MALE));
 
-            assertThat(personOut.getSpouses(), hasSize(personIn.getSpouses().size()));
-            personOut.getSpouses().stream().forEach(spouse -> {
-                assertThat(spouse.getWikiPage(), isIn(toStringList(personIn.getSpouses(), w -> w.getLocalPartNoUnderscore())));
-                assertThat(spouse.getName(), isIn(toStringList(personIn.getSpouses(), w -> w.getDisplayText())));
-            });
+            assertTrue(personOut.getMother().isPresent());
+            assertBaseNeoPerson(personOut.getMother().get(), personIn.getMother(), Optional.of(GenderType.FEMALE));
 
-            assertThat(personOut.getIssues(), hasSize(personIn.getIssues().size()));
-            personOut.getIssues().stream().forEach(issue -> {
-                assertThat(issue.getWikiPage(), isIn(toStringList(personIn.getIssues(), w -> w.getLocalPartNoUnderscore())));
-                assertThat(issue.getName(), isIn(toStringList(personIn.getIssues(), w -> w.getDisplayText())));
-            });
-
-            assertThat(personOut.getHouses(), hasSize(personIn.getHouses().size()));
-            personOut.getHouses().stream().forEach(house -> {
-                assertThat(house.getWikiPage(), isIn(toStringList(personIn.getHouses(), w -> w.getLocalPartNoUnderscore())));
-                assertThat(house.getName(), isIn(toStringList(personIn.getHouses(), w -> w.getDisplayText())));
-            });
+            assertBaseNeoPersonList(personOut.getSpouses(), personIn.getSpouses());
+            assertBaseNeoPersonList(personOut.getIssues(), personIn.getIssues());
+            assertBaseNeoBaseDataList(personOut.getHouses(), personIn.getHouses());
 
             assertThat(personOut.getSuccessions().size(), is(personIn.getSuccessions().size()));
-            personOut.getSuccessions().stream().forEach(job -> {
-                List<WikiSuccession> wikiJobs = personIn.getSuccessions().stream()
-                        .filter(wikiSucc -> wikiSucc.getFrom().equals(job.getFrom())).collect(Collectors.toList());
-                // TODO: fix
-                assertThat(wikiJobs, hasSize(0));
+            personOut.getSuccessions().stream().forEach(jobOut -> {
+
+                assertTrue(jobOut.getFrom().isPresent());
+
+                Optional<WikiSuccession> maybeJobIn = personIn.getSuccessions().stream()
+                        .filter(jobIn -> jobIn.getFrom().equals(jobOut.getFrom().get()))
+                        .findAny();
+                assertTrue(maybeJobIn.isPresent());
+                WikiSuccession jobIn = maybeJobIn.get();
+
+                assertThat(jobOut.getFrom().get(), is(jobIn.getFrom()));
+                assertTrue(jobOut.getTo().isPresent());
+                assertThat(jobOut.getTo().get(), is(jobIn.getTo()));
+                assertThat(jobOut.getTitle(), is(jobIn.getTitleAndCountries().get().element1()));
+                assertThat(toStringList(jobOut.getCountries(), c -> c.getName()), is(jobIn.getTitleAndCountries().get().element2()));
+
+                assertBaseNeoPerson(jobOut.getPredecessor().get(), jobIn.getPredecessor(), Optional.empty());
+                assertBaseNeoPerson(jobOut.getSuccessor().get(), jobIn.getSuccessor(), Optional.empty());
             });
 
         } else {
@@ -125,18 +128,51 @@ public class CoreNeoServiceTest {
         }
     }
 
-//    private <T> List<String> toStringList(List<T> objectList, Class<? super T> type) {
-//        if (type.isAssignableFrom(NeoBaseData.class)) {
-//            return objectList.stream().map(p -> ((NeoBaseData) p).getWikiPage()).collect(Collectors.toList());
-//        } else if (type == WikiNamedResource.class) {
-//            return objectList.stream().map(w -> ((WikiNamedResource)w).getLocalPartNoUnderscore()).collect(Collectors.toList());
-//        }
-//
-//        throw new IllegalArgumentException("Type not supported: " + type);
-//    }
-
     private <T> List<String> toStringList(List<T> objectList, Function<? super T, String> function) {
         return objectList.stream().map(w -> function.apply(w)).collect(Collectors.toList());
+    }
+
+    private void assertBaseNeoPersonList(List<NeoPerson> outList, List<WikiNamedResource> inList) {
+        assertThat(outList, hasSize(inList.size()));
+        outList.stream().forEach(personOut -> {
+            Optional<WikiNamedResource> maybePersonIn = inList.stream()
+                    .filter(spouseIn -> spouseIn.getLocalPart().equals(personOut.getWikiPage()))
+                    .findAny();
+            assertTrue(maybePersonIn.isPresent());
+            assertBaseNeoPerson(personOut, maybePersonIn.get(), Optional.empty());
+        });
+    }
+
+    private void assertBaseNeoBaseDataList(List<? extends NeoBaseData> outList, List<WikiNamedResource> inList) {
+        assertThat(outList, hasSize(inList.size()));
+        outList.stream().forEach(dataOut -> {
+            Optional<WikiNamedResource> maybeDataIn = inList.stream()
+                    .filter(spouseIn -> spouseIn.getLocalPart().equals(dataOut.getWikiPage()))
+                    .findAny();
+            assertTrue(maybeDataIn.isPresent());
+            assertBaseNeoBaseData(dataOut, maybeDataIn.get());
+        });
+    }
+
+    private void assertFullNeoPerson(NeoPerson personOut) {
+
+    }
+
+    private void assertBaseNeoPerson(NeoPerson personOut, WikiNamedResource personIn, Optional<GenderType> expectedGender) {
+        assertBaseNeoBaseData(personOut, personIn);
+        assertThat(personOut.getDateOfBirth(), is(Optional.empty()));
+        assertThat(personOut.getDateOfDeath(), is(Optional.empty()));
+        assertThat(personOut.getFather(), is(Optional.empty()));
+        assertThat(personOut.getMother(), is(Optional.empty()));
+        assertThat(personOut.getHouses(), hasSize(0));
+        assertThat(personOut.getSpouses(), hasSize(0));
+        assertThat(personOut.getIssues(), hasSize(0));
+        assertThat(personOut.getGender(), is(expectedGender));
+    }
+
+    private void assertBaseNeoBaseData(NeoBaseData dataOut, WikiNamedResource dataIn) {
+        assertThat(dataOut.getWikiPage(), is(dataIn.getLocalPartNoUnderscore()));
+        assertThat(dataOut.getName(), anyOf( is(dataIn.getDisplayText()), is(dataIn.getLocalPartNoUnderscore()) ));
     }
 
 
