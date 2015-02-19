@@ -27,6 +27,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
@@ -86,47 +87,69 @@ public class CoreNeoServiceTest {
 
         if (maybePersonOut.isPresent()) {
             NeoPerson personOut = maybePersonOut.get();
-
-            assertBaseNeoBaseData(personOut, new WikiNamedResource(personIn.getWikiPage().getLocalPartNoUnderscore(), personIn.getName()));
-            assertThat(personOut.getDateOfBirth().get(), is(personIn.getDateOfBirth()));
-            assertThat(personOut.getDateOfDeath().get(), is(personIn.getDateOfDeath()));
-            assertThat(personOut.getGender(), is(Optional.empty()));
-
-            assertTrue(personOut.getFather().isPresent());
-            assertBaseNeoPerson(personOut.getFather().get(), personIn.getFather(), Optional.of(GenderType.MALE));
-
-            assertTrue(personOut.getMother().isPresent());
-            assertBaseNeoPerson(personOut.getMother().get(), personIn.getMother(), Optional.of(GenderType.FEMALE));
-
-            assertBaseNeoPersonList(personOut.getSpouses(), personIn.getSpouses());
-            assertBaseNeoPersonList(personOut.getIssues(), personIn.getIssues());
-            assertBaseNeoBaseDataList(personOut.getHouses(), personIn.getHouses());
-
-            assertThat(personOut.getSuccessions().size(), is(personIn.getSuccessions().size()));
-            personOut.getSuccessions().stream().forEach(jobOut -> {
-
-                assertTrue(jobOut.getFrom().isPresent());
-
-                Optional<WikiSuccession> maybeJobIn = personIn.getSuccessions().stream()
-                        .filter(jobIn -> jobIn.getFrom().equals(jobOut.getFrom().get()))
-                        .findAny();
-                assertTrue(maybeJobIn.isPresent());
-                WikiSuccession jobIn = maybeJobIn.get();
-
-                assertThat(jobOut.getFrom().get(), is(jobIn.getFrom()));
-                assertTrue(jobOut.getTo().isPresent());
-                assertThat(jobOut.getTo().get(), is(jobIn.getTo()));
-                assertThat(jobOut.getTitle(), is(jobIn.getTitleAndCountries().get().element1()));
-                assertThat(toStringList(jobOut.getCountries(), c -> c.getName()), is(jobIn.getTitleAndCountries().get().element2()));
-
-                assertBaseNeoPerson(jobOut.getPredecessor().get(), jobIn.getPredecessor(), Optional.empty());
-                assertBaseNeoPerson(jobOut.getSuccessor().get(), jobIn.getSuccessor(), Optional.empty());
-            });
-
+            assertFullNeoPerson(personOut, personIn, Optional.empty());
         } else {
             fail("No WikiPerson found");
         }
     }
+
+    @Test
+    public void testBaseAfterFull() {
+        logger.debug("Test testBaseAfterFull");
+
+        Optional<NeoPerson> maybePersonOut;
+
+        WikiPerson personIn = person();
+
+        // save Full
+        neoService.save(personIn);
+        maybePersonOut = neoService.getNeoPerson(personIn.getWikiPage().getLocalPartNoUnderscore());
+        assertTrue(maybePersonOut.isPresent());
+        assertFullNeoPerson(maybePersonOut.get(), personIn, Optional.empty());
+
+        // save Base, ensure there is no change
+        neoService.save(personBase());
+        maybePersonOut = neoService.getNeoPerson(personIn.getWikiPage().getLocalPartNoUnderscore());
+        assertTrue(maybePersonOut.isPresent());
+        assertFullNeoPerson(maybePersonOut.get(), personIn, Optional.empty());
+    }
+
+    @Test
+    public void testChild() {
+        logger.debug("Test testChild");
+
+        Optional<NeoPerson> maybePersonOut;
+
+        WikiPerson personIn = person();
+        WikiPerson childIn = child();
+
+        neoService.save(personIn);
+        neoService.save(childIn);
+
+        maybePersonOut = neoService.getNeoPerson(personIn.getWikiPage().getLocalPartNoUnderscore());
+        NeoPerson personOut = maybePersonOut.get();
+
+        // check if the parent gender has been set
+        assertThat(personOut.getGender(), is(Optional.of(GenderType.MALE)));
+
+        // check if the child got Full
+        NeoPerson childOut = personOut.getIssues().stream()
+                .filter(issue -> issue.getWikiPage().equals(childIn.getWikiPage().getLocalPartNoUnderscore()))
+                .findAny().get();
+
+        assertBaseNeoBaseData(childOut, new WikiNamedResource(childIn.getWikiPage().getLocalPartNoUnderscore(), childIn.getName()));
+        assertThat(childOut.getDateOfBirth().get(), is(childIn.getDateOfBirth()));
+        assertThat(childOut.getDateOfDeath().get(), is(childIn.getDateOfDeath()));
+
+        // check if the child lists are not populated
+        assertThat(childOut.getFather(), is(Optional.empty()));
+        assertThat(childOut.getMother(), is(Optional.empty()));
+        assertThat(childOut.getSpouses(), hasSize(0));
+        assertThat(childOut.getIssues(), hasSize(0));
+        assertThat(childOut.getHouses(), hasSize(0));
+        assertThat(childOut.getSuccessions(), hasSize(0));
+    }
+
 
     private <T> List<String> toStringList(List<T> objectList, Function<? super T, String> function) {
         return objectList.stream().map(w -> function.apply(w)).collect(Collectors.toList());
@@ -154,8 +177,42 @@ public class CoreNeoServiceTest {
         });
     }
 
-    private void assertFullNeoPerson(NeoPerson personOut) {
+    private void assertFullNeoPerson(NeoPerson personOut, WikiPerson personIn, Optional<GenderType> maybeGender) {
+        assertBaseNeoBaseData(personOut, new WikiNamedResource(personIn.getWikiPage().getLocalPartNoUnderscore(), personIn.getName()));
+        assertThat(personOut.getDateOfBirth().get(), is(personIn.getDateOfBirth()));
+        assertThat(personOut.getDateOfDeath().get(), is(personIn.getDateOfDeath()));
+        assertThat(personOut.getGender(), is(maybeGender));
 
+        assertTrue(personOut.getFather().isPresent());
+        assertBaseNeoPerson(personOut.getFather().get(), personIn.getFather(), Optional.of(GenderType.MALE));
+
+        assertTrue(personOut.getMother().isPresent());
+        assertBaseNeoPerson(personOut.getMother().get(), personIn.getMother(), Optional.of(GenderType.FEMALE));
+
+        assertBaseNeoPersonList(personOut.getSpouses(), personIn.getSpouses());
+        assertBaseNeoPersonList(personOut.getIssues(), personIn.getIssues());
+        assertBaseNeoBaseDataList(personOut.getHouses(), personIn.getHouses());
+
+        assertThat(personOut.getSuccessions().size(), is(personIn.getSuccessions().size()));
+        personOut.getSuccessions().stream().forEach(jobOut -> {
+
+            assertTrue(jobOut.getFrom().isPresent());
+
+            Optional<WikiSuccession> maybeJobIn = personIn.getSuccessions().stream()
+                    .filter(jobIn -> jobIn.getFrom().equals(jobOut.getFrom().get()))
+                    .findAny();
+            assertTrue(maybeJobIn.isPresent());
+            WikiSuccession jobIn = maybeJobIn.get();
+
+            assertThat(jobOut.getFrom().get(), is(jobIn.getFrom()));
+            assertTrue(jobOut.getTo().isPresent());
+            assertThat(jobOut.getTo().get(), is(jobIn.getTo()));
+            assertThat(jobOut.getTitle(), is(jobIn.getTitleAndCountries().get().element1()));
+            assertThat(toStringList(jobOut.getCountries(), c -> c.getName()), is(jobIn.getTitleAndCountries().get().element2()));
+
+            assertBaseNeoPerson(jobOut.getPredecessor().get(), jobIn.getPredecessor(), Optional.empty());
+            assertBaseNeoPerson(jobOut.getSuccessor().get(), jobIn.getSuccessor(), Optional.empty());
+        });
     }
 
     private void assertBaseNeoPerson(NeoPerson personOut, WikiNamedResource personIn, Optional<GenderType> expectedGender) {
@@ -206,6 +263,13 @@ public class CoreNeoServiceTest {
                         .titleAndCountries(new Tuple2<>("Duke", Arrays.asList("Normandy")))
                         .build());
 
+        return personBuilder.build();
+    }
+
+    private WikiPerson personBase() {
+        WikiPerson.Builder personBuilder = new WikiPerson.Builder()
+                .name("William the Conqueror")
+                .wikiPage(WikiResource.fromLocalPart("William the Conqueror"));
         return personBuilder.build();
     }
 
