@@ -63,16 +63,16 @@ var wiki = {
             
             nodes = new Array();
             nodes.push({id: person.wikiPage, name: person.name, gender: person.gender, full: true});
-            nodes.push({id: person.father.wikiPage, name: person.father.name, gender: person.father.gender});
-            nodes.push({id: person.mother.wikiPage, name: person.mother.name, gender: person.mother.gender});
+            nodes.push({id: person.father.wikiPage, name: person.father.name, birth: person.father.dateOfBirth, death: person.father.dateOfDeath, gender: person.father.gender});
+            nodes.push({id: person.mother.wikiPage, name: person.mother.name, birth: person.mother.dateOfBirth, death: person.mother.dateOfDeath, gender: person.mother.gender});
             
             for (i in person.spouses) {
                 spouse = person.spouses[i];
-                nodes.push({id: spouse.wikiPage, name: spouse.name, gender: spouse.gender});
+                nodes.push({id: spouse.wikiPage, name: spouse.name, birth: spouse.dateOfBirth, death: spouse.dateOfDeath, gender: spouse.gender});
             }
             for (i in person.issues) {
                 issue = person.issues[i];
-                nodes.push({id: issue.wikiPage, name: issue.name, gender: issue.gender});
+                nodes.push({id: issue.wikiPage, name: issue.name, birth: issue.dateOfBirth, death: issue.dateOfDeath, gender: issue.gender});
             }
             
             edges = new Array();
@@ -326,7 +326,6 @@ var wiki = {
                         var allSelected = d3.selectAll("circle.node-selected");
                         for (var selected in allSelected) {
                             if (allSelected.hasOwnProperty(selected)) {
-                                console.log(allSelected[selected])
                                 selectedNodes = allSelected[selected];
                                 for (var selectedNode in selectedNodes) {
                                     if (selectedNodes.hasOwnProperty(selectedNode) && ("__data__" in selectedNodes[selectedNode])) {
@@ -401,7 +400,6 @@ var wiki = {
         function showData(d) {
             person = wiki.nodeHash[d.id];    
             personFull = wiki.persons[d.id];
-            console.log(personFull);
             
             d3.select("td.data-id").html(function() {return person.id});
             d3.select("td.data-name").html(function() {return person.name});
@@ -411,12 +409,12 @@ var wiki = {
             d3.selectAll("table.data-spouse").selectAll("tr").data([]).exit().remove();
             d3.selectAll("table.data-issue").selectAll("tr").data([]).exit().remove();
             d3.selectAll("tr.data-job").data([]).exit().remove();
-
+            
             d3.select("td.data-birth").html(function(d) {
-                return (personFull!=null && personFull.hasOwnProperty("dateOfBirth")) ? personFull.dateOfBirth : "";
+                return (personFull!=null && personFull.hasOwnProperty("dateOfBirth")) ? personFull.dateOfBirth : person.birth;
             });
             d3.select("td.data-death").html(function(d) {
-                return (personFull!=null && personFull.hasOwnProperty("dateOfDeath")) ? personFull.dateOfDeath : "";
+                return (personFull!=null && personFull.hasOwnProperty("dateOfDeath")) ? personFull.dateOfDeath : person.death;
             });
             d3.select("td.data-father").html(function(d) {
                 return (personFull!=null && personFull.hasOwnProperty("father")) ? personFull.father.name : "";

@@ -126,6 +126,17 @@ public class CoreNeoService implements NeoService {
         }
     }
 
+    @Override
+    public void delete(String wikiPage) {
+        try (Transaction tx = graphDb.beginTx()) {
+            Node node = getNodeByWikiPage(wikiPage, WikiLabels.PERSON).get();
+            for (Relationship r : node.getRelationships()) {
+                r.delete();
+            }
+            node.delete();
+            tx.success();
+        }
+    }
 
     // Save methods
 

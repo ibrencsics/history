@@ -10,4 +10,5 @@ public interface NeoService {
     long save(WikiPerson wikiPerson);
     int countOf(Label label);
     Optional<NeoPerson> getNeoPerson(String wikiPage);
+    void delete(String wikiPage);
 }
