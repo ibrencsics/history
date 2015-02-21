@@ -51,7 +51,13 @@ var wiki = {
         wiki.queryFull(wikiPage);
     },
     
-    dropdownChanged : function(value) {
+    deleteAndQueryFull : function(value) {
+        d3.json("http://localhost:8080/history/wiki/person/" + value + "/delete", function() {
+            wiki.cleanAndQueryFull(value);
+        });
+    },
+    
+    cleanAndQueryFull : function(value) {
 //        d3.select("#dropdown").selectAll("*").remove();
         d3.select("svg").selectAll("*").remove();
         wiki.queryFull(value);
@@ -372,7 +378,7 @@ var wiki = {
                                 .style('display', 'none')
                                 .style("cursor", "arrow")
                             
-                            wiki.dropdownChanged(d.id)
+                            wiki.cleanAndQueryFull(d.id)
                         } else if (this.id == "details") {
                             showData(d);
                         } else if (this.id == "hide") {
@@ -381,6 +387,8 @@ var wiki = {
                             extractNode(d)
                         } else if (this.id == "towiki") {
                             window.open("http://en.wikipedia.org/wiki/" + d.id)
+                        } else if (this.id == "delete") {
+                            wiki.deleteAndQueryFull(d.id);
                         }
                         
 //                        d3.select("#node-context-menu").style('display', 'none');
@@ -584,7 +592,8 @@ var wiki = {
             
             return ((es1+et1) == (es2+et2)) || ((es1+et1) == (et2+es2)) ;
         }
-
+        
+        
         // force
 
         function forceTick() {

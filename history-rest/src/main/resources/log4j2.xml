@@ -10,7 +10,7 @@
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <Logger name="org.ib.history.rest" level="TRACE" additivity="false">
+        <Logger name="org.ib.history.rest" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 
