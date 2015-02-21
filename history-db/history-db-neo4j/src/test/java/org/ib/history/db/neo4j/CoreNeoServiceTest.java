@@ -57,9 +57,7 @@ public class CoreNeoServiceTest {
         logger.debug("Test testSave");
 
         neoService.save(person());
-        assertThat(neoService.countOf(WikiLabels.PERSON), is(9));
-        assertThat(neoService.countOf(WikiLabels.HOUSE), is(1));
-        assertThat(neoService.countOf(WikiLabels.COUNTRY), is(2));
+        assertNumOfNodes();
     }
 
     @Test
@@ -67,14 +65,10 @@ public class CoreNeoServiceTest {
         logger.debug("Test testSaveTwice");
 
         neoService.save(person());
-        assertThat(neoService.countOf(WikiLabels.PERSON), is(9));
-        assertThat(neoService.countOf(WikiLabels.HOUSE), is(1));
-        assertThat(neoService.countOf(WikiLabels.COUNTRY), is(2));
+        assertNumOfNodes();
 
         neoService.save(person());
-        assertThat(neoService.countOf(WikiLabels.PERSON), is(9));
-        assertThat(neoService.countOf(WikiLabels.HOUSE), is(1));
-        assertThat(neoService.countOf(WikiLabels.COUNTRY), is(2));
+        assertNumOfNodes();
     }
 
     @Test
@@ -150,6 +144,46 @@ public class CoreNeoServiceTest {
         assertThat(childOut.getSuccessions(), hasSize(0));
     }
 
+    @Test
+    public void testDelete() {
+        logger.debug("Test testDelete");
+
+        final WikiPerson personIn = person();
+
+        neoService.save(personIn);
+        assertNumOfNodes();
+
+        neoService.delete(personIn.getWikiPage().getLocalPart());
+        neoService.save(personIn);
+        assertNumOfNodes();
+    }
+
+    @Test
+    public void testDeleteWithChild() {
+        logger.debug("Test testDelete");
+
+        final WikiPerson personIn = person();
+        final WikiPerson childIn = child();
+
+        neoService.save(personIn);
+        neoService.save(childIn);
+        assertNumOfNodes();
+
+        neoService.delete(personIn.getWikiPage().getLocalPart());
+        neoService.save(personIn);
+        assertNumOfNodes();
+
+        neoService.delete(childIn.getWikiPage().getLocalPart());
+        neoService.save(childIn);
+        assertNumOfNodes();
+    }
+
+
+    private void assertNumOfNodes() {
+        assertThat(neoService.countOf(WikiLabels.PERSON), is(9));
+        assertThat(neoService.countOf(WikiLabels.HOUSE), is(1));
+        assertThat(neoService.countOf(WikiLabels.COUNTRY), is(2));
+    }
 
     private <T> List<String> toStringList(List<T> objectList, Function<? super T, String> function) {
         return objectList.stream().map(w -> function.apply(w)).collect(Collectors.toList());
