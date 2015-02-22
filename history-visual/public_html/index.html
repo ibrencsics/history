@@ -8,7 +8,6 @@
     
     <!--external css-->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/family-tree.css">
 
     <meta charset="utf-8" />
     <script src="js/libs/d3/d3.js" type="text/JavaScript"></script>
@@ -16,47 +15,38 @@
 </head>
 <body>
 
-<header id="header" role="banner">
-    <h1><a href="/">Visual History</a></h1>
-</header>
+    <header id="header" role="banner">
+        <h1><a href="/">Visual History</a></h1>
+    </header>
 
-<nav id="nav" role="navigation">
-    <ul>
-        <li><a href="#" id="chart1">Chart1</a></li>
-        <li><a href="#" id="chart2">Chart2</a></li>
-        <li><a href="#" id="family-tree">Family Tree</a></li>
-        <li><a href="#" id="E1">E1</a></li>
-        <li><a href="#" id="E2">E2</a></li>
-        <li><a href="#" id="E3">E3</a></li>
-        <li><a href="#" id="E4">E4</a></li>
-        <li><a href="#" id="W1">W1</a></li>
-    </ul>
-</nav>
+    <nav id="nav" role="navigation">
+        <ul>
+            <li><a href="#" id="W1">Wiki Browser</a></li>
+            <li><a href="#" id="W2">About</a></li>
+        </ul>
+    </nav>
 
-<article id="main" role="main">
-[content here]
-</article>
-    
-    <div id="details"></div>
-    
-    <div id="viz">
-      <svg>
-      </svg>
+    <article id="about" role="main" style="display: none">
+    [content here]
+    </article>
+
+    <div id="wikiBrowser">
+        <div id="details"></div>
+
+        <div id="viz">
+          <svg>
+          </svg>
+        </div>
+
+        <div id="data"></div>
+
+        <div id="controls"></div>
     </div>
-    
-    <div id="data"></div>
-
-    <div id="controls"></div>
-
 
     <footer id="footer" role="contentinfo">
         <p id="copy">&copy; 2014 Visual History</p>
     </footer>
 
-    <script src="js/04_10.js"></script>
-    <script src="js/04_20.js"></script>
-    <script src="js/family-tree.js"></script>
-    <script src="js/english-kings.js"></script>
     <script src="js/wiki.js"></script>
     <script src="js/script.js"></script>
 

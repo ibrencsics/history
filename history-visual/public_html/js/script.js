@@ -1,27 +1,20 @@
-function doTheThing(){
-    alert('This is the thing!');
-}
+window.onload = function() {
+    selectW1();
+};
 
-var elem3 = document.getElementById("chart1");
-elem3.addEventListener('click', case0410.show, false);
+var selectW1 = function() {
+    document.getElementById('wikiBrowser').style.display = 'inline';
+    document.getElementById('about').style.display = 'none';
+    wiki.show();
+};
 
-var elem4 = document.getElementById("chart2");
-elem4.addEventListener('click', case0420.show, false);
+var selectW2 = function() {
+    document.getElementById('wikiBrowser').style.display = 'none';
+    document.getElementById('about').style.display = 'inline';
+};
 
-var elem5 = document.getElementById("family-tree");
-elem5.addEventListener('click', familyTree.show, false)
+var w1 = document.getElementById("W1");
+w1.addEventListener('click', selectW1, false);
 
-var elem6 = document.getElementById("E1");
-elem6.addEventListener('click', englishKingsCh3.show, false)
-
-var elem7 = document.getElementById("E2");
-elem7.addEventListener('click', englishKingsCh4.show, false)
-
-var elem8 = document.getElementById("E3");
-elem8.addEventListener('click', englishKingsCh5.show, false)
-
-var elem9 = document.getElementById("E4");
-elem9.addEventListener('click', englishKingsCh6.show, false)
-
-var elem10 = document.getElementById("W1");
-elem10.addEventListener('click', wiki.show, false)
+var w2 = document.getElementById("W2");
+w2.addEventListener('click', selectW2, false);
