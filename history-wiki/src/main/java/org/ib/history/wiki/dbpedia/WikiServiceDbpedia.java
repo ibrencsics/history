@@ -15,6 +15,7 @@ import org.ib.history.wiki.service.WikiService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class WikiServiceDbpedia implements WikiService {
@@ -74,7 +75,7 @@ public class WikiServiceDbpedia implements WikiService {
             "}";
 
     @Override
-    public WikiPerson getPerson(String wikiPage) {
+    public Optional<WikiPerson> getPerson(String wikiPage) {
         WikiResource wikiResource = WikiResource.fromLocalPart(wikiPage);
 
         WikiPerson.Builder builder = new WikiPerson.Builder();
@@ -89,7 +90,7 @@ public class WikiServiceDbpedia implements WikiService {
 
 //        ResultSetFormatter.out( results );
 
-        return builder.build();
+        return Optional.of(builder.build());
     }
 
     private void queryBasicData(WikiPerson.Builder builder, WikiResource wikiResource) {

@@ -20,10 +20,7 @@ import org.ib.history.wiki.service.WikiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
@@ -47,7 +44,7 @@ public class WikiHistoryService {
     @Path("/person/{wikiPage}")
     @Produces(MediaType.APPLICATION_JSON)
     public WikiPerson getPerson(@PathParam("wikiPage") String wikiPage) {
-        return wikiService.getPerson(wikiPage);
+        return wikiService.getPerson(wikiPage).get();
     }
 
     @GET
@@ -64,25 +61,36 @@ public class WikiHistoryService {
     @Produces("application/json")
     public JsonPerson personDetails(@PathParam("wikiPage") String wikiPage) {
         logger.info("node details called for [{}]", wikiPage);
-        NeoPerson neoPerson = getNeoPerson(wikiPage);
-        logger.trace(neoPerson);
 
-        return getJsonPerson(neoPerson);
+        Optional<NeoPerson> neoPerson = getNeoPerson(wikiPage);
+
+        if (neoPerson.isPresent()) {
+            logger.trace(neoPerson.get());
+            return getJsonPerson(neoPerson.get());
+        } else {
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    private NeoPerson getNeoPerson(String wikiPage) {
+    private Optional<NeoPerson> getNeoPerson(String wikiPage) {
         Optional<NeoPerson> maybeNeoPerson = neoService.getNeoPerson(wikiPage);
 
         if (!maybeNeoPerson.isPresent()) {
             logger.debug("Calling WikiService");
-            WikiPerson wikiPerson = wikiService.getPerson(wikiPage);
-            neoService.save(wikiPerson);
-            maybeNeoPerson = neoService.getNeoPerson(wikiPage);
+
+            Optional<WikiPerson> maybeWikiPerson = wikiService.getPerson(wikiPage);
+            if (maybeWikiPerson.isPresent()) {
+                neoService.save(maybeWikiPerson.get());
+                maybeNeoPerson = neoService.getNeoPerson(wikiPage);
+            } else {
+                // parsing failed
+                neoService.saveFailed(wikiPage);
+            }
         } else {
             logger.debug("Returning from cache");
         }
 
-        return maybeNeoPerson.get();
+        return maybeNeoPerson;
     }
 
     private JsonPerson getJsonPerson(NeoPerson neoPerson) {

@@ -142,6 +142,18 @@ public class CoreNeoService implements NeoService {
         }
     }
 
+    @Override
+    public void saveFailed(String wikiPage) {
+        logger.debug("saveFailed([{}])", wikiPage);
+
+        try (Transaction tx = graphDb.beginTx()) {
+            Node node = graphDb.createNode(WikiLabels.FAILED_PERSON);
+            node.setProperty(WikiProperties.WIKI_PAGE.getPropertyName(), wikiPage);
+            tx.success();
+        }
+    }
+
+
     // Save methods
 
     private void saveFamily(Node baseNode, WikiPerson wikiPerson) {

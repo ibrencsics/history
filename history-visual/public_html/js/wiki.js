@@ -64,7 +64,12 @@ var wiki = {
     },
     
     queryFull : function(wikiPage, callback) {
-        d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(person) {
+        d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(error, person) {
+            if (error) {
+                window.alert("Parsing error");
+                return;
+            }
+            
             wiki.persons[person.wikiPage] = person;
             
             nodes = new Array();

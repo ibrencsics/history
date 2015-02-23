@@ -11,4 +11,5 @@ public interface NeoService {
     int countOf(Label label);
     Optional<NeoPerson> getNeoPerson(String wikiPage);
     void delete(String wikiPage);
+    void saveFailed(String wikiPage);
 }

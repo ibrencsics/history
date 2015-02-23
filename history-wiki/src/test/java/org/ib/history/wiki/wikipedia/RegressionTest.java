@@ -27,7 +27,7 @@ public class RegressionTest {
     @Test
     public void testParser() {
         WikiService service = new WikiServiceWikipedia();
-        WikiPerson person = service.getPerson(page);
+        WikiPerson person = service.getPerson(page).get();
 //        System.out.println(person);
 
         assertEquals(expected.name, person.getName());

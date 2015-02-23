@@ -8,10 +8,7 @@ import org.ib.history.wiki.parser.RoyaltyParser;
 import org.ib.history.wiki.parser.TemplateParser;
 import org.ib.history.wiki.service.WikiService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class WikiServiceWikipedia implements WikiService {
 
@@ -20,29 +17,34 @@ public class WikiServiceWikipedia implements WikiService {
     private TemplateParser templateParser = new TemplateParser();
 
     @Override
-    public WikiPerson getPerson(String wikiPage) {
+    public Optional<WikiPerson> getPerson(String wikiPage) {
         RoyaltyParser parser = new RoyaltyParser();
-        Royalty royalty = parser.parse(wikiPage);
-        logger.trace(royalty);
-
         WikiPerson.Builder builder = new WikiPerson.Builder();
 
-        builder.wikiPage(WikiResource.fromLocalPartNoUnderscore(wikiPage))
-                .name(royalty.getName())
-                .dateOfBirth(royalty.getDateOfBirth())
-                .dateOfDeath(royalty.getDateOfDeath())
-                .father(royalty.getFather())
-                .mother(royalty.getMother())
-                .spouse(royalty.getSpouses())
-                .issue(royalty.getIssues())
-                .house(royalty.getHouses());
+        try {
+            Royalty royalty = parser.parse(wikiPage);
+            logger.trace(royalty);
 
-        parseSuccession(builder, royalty);
+            builder.wikiPage(WikiResource.fromLocalPartNoUnderscore(wikiPage))
+                    .name(royalty.getName())
+                    .dateOfBirth(royalty.getDateOfBirth())
+                    .dateOfDeath(royalty.getDateOfDeath())
+                    .father(royalty.getFather())
+                    .mother(royalty.getMother())
+                    .spouse(royalty.getSpouses())
+                    .issue(royalty.getIssues())
+                    .house(royalty.getHouses());
+
+            parseSuccession(builder, royalty);
+        } catch (Exception e) {
+            logger.error("Wiki parsing failed", e);
+            return Optional.empty();
+        }
 
         WikiPerson wikiPerson = builder.build();
         logger.debug(wikiPerson);
 
-        return wikiPerson;
+        return Optional.of(wikiPerson);
     }
 
     private void parseSuccession(WikiPerson.Builder builder, Royalty royalty) {

@@ -47,7 +47,7 @@ public class ExportEnglishKings {
         }
         kingNameCache.add(personName);
 
-        WikiPerson person = service.getPerson(personName);
+        WikiPerson person = service.getPerson(personName).get();
         System.out.println(person);
 
 
