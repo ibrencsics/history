@@ -3,14 +3,14 @@ window.onload = function() {
 };
 
 var selectW1 = function() {
-    document.getElementById('wikiBrowser').style.display = 'inline';
+    document.getElementById('wikingDiv').style.display = 'block';
     document.getElementById('about').style.display = 'none';
     wiki.show();
 };
 
 var selectW2 = function() {
-    document.getElementById('wikiBrowser').style.display = 'none';
-    document.getElementById('about').style.display = 'inline';
+    document.getElementById('wikingDiv').style.display = 'none';
+    document.getElementById('about').style.display = 'block';
 };
 
 var w1 = document.getElementById("W1");

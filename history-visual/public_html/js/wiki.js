@@ -5,7 +5,7 @@ var wiki = {
     
     show : function() {
         d3.select("svg").selectAll("*").remove();
-        d3.select("#details").selectAll("*").remove();
+//        d3.select("#wikiBrowser").selectAll("*").remove();
         d3.select("#controls").selectAll("*").remove();
         d3.select("#data").selectAll("*").remove();
         
@@ -36,11 +36,11 @@ var wiki = {
         });
         
         d3.text("node-contextmenu.html", function(data) {
-            d3.select("#details").append("div").attr("id", "node-contextmenu").html(data);
+            d3.select("#wikingDiv").append("div").attr("id", "node-contextmenu").html(data);
         });
         
         d3.text("svg-contextmenu.html", function(data) {
-            d3.select("#details").append("div").attr("id", "svg-contextmenu").html(data);
+            d3.select("#wikingDiv").append("div").attr("id", "svg-contextmenu").html(data);
         });
     },
     

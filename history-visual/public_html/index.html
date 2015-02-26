@@ -11,7 +11,7 @@
 
     <meta charset="utf-8" />
     <script src="js/libs/d3/d3.js" type="text/JavaScript"></script>
-    <script src="js/libs/queue/queue.js" type="text/JavaScript"></script>
+    <!--<script src="js/libs/queue/queue.js" type="text/JavaScript"></script>-->
 </head>
 <body>
 
@@ -30,17 +30,14 @@
     [content here]
     </article>
 
-    <div id="wikiBrowser">
-        <div id="details"></div>
-
-        <div id="viz">
-          <svg>
-          </svg>
+    <div id="wikingDiv" class="wikingMain cf">
+        <div class="svgcontainer">
+            <svg class="shadow"/>
         </div>
-
-        <div id="data"></div>
-
-        <div id="controls"></div>
+        <aside class="sidebar">
+            <div id="controls" class="shadow"></div>
+            <div id="data" class="shadow"></div>
+        </aside>
     </div>
 
     <footer id="footer" role="contentinfo">

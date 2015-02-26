@@ -18,40 +18,59 @@ nav,header,footer,article { display:block; }
     color:#fff;
     padding:0 10px; }
     
-@media only screen and (max-width:480px) {
-
-/* do something to the design for small screens */
+/*@media only screen and (max-width:480px) {
 body {
     background:#000; }
 
+}*/
+
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+     clear: both;
+}
+.cf {
+    *zoom: 1; /* for IE6 and IE7 */
+}
+
+.shadow {
+    border: 1px solid gray;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.wikingMain {
+    width: 1600px;
+    margin: 0 auto;
+    /*outline: solid 1px red;*/
+    /*background: green;*/
+}
+
+.svgcontainer {
+    float: left;
+    padding: 5px;
+}
+
+.sidebar {
+    width: 360px;
+    float: right;
+    padding: 5px;
 }
 
 svg {
     height: 550px;
     width: 1200px;
-    border: 1px solid gray;
-    box-shadow: 10px 10px 5px #888888;
-}
-
-#data {
-    width: 400px;
-    height: 450px;
-    position: absolute;
-    top: 230px;
-    left: 1300px;
-    border: 1px black solid;
-    box-shadow: 10px 10px 5px #888888;
-    overflow: scroll;
 }
 
 #controls {
-    width: 400px;
-    height: 50px;
-    position: absolute;
-    top: 150px;
-    left: 1300px;
-    border: 1px black solid;
-    box-shadow: 10px 10px 5px #888888;
+    margin: 5px 0px 30px 0px;
+}
+
+#data {
+    width: 360px;
+    height: 400px;
+    overflow: scroll;
 }
 
 #modal {
@@ -62,13 +81,6 @@ svg {
     box-shadow: 10px 10px 5px #888888;
 }
 
-#details table tr th {
-    font-size: 120%;
-}
-
-#details table td {
-    font-size: 100%;
-}
 
 /*
 tr {
