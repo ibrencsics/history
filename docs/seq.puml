@@ -2,21 +2,22 @@
 
 actor Client as C
 participant "Browser App" as B
-participant REST as R
+participant "REST +\napp logic" as R
 participant "Wiki Parser" as WP
-participant "Wiki Cache" as WC
+participant "Wiki Cache\nlogic" as WC
 participant Wikipedia as W
 participant Neo4j as N
 
-C -> B
+C -> B: get person
 B -> R: Ajax
 R -> WC: get page
 WC -> N: get page
 N --> WC: not found
 WC --> R: not found
 R -> WP: get page
-WP -> MediawikiAPI
+WP -> W: get page
 W --> WP: wikitext
+WP -> WP: parse wikitext
 WP --> R:
 R -> WC: store
 WC -> N: store

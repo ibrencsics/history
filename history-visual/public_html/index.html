@@ -15,33 +15,80 @@
 </head>
 <body>
 
-    <header id="header" role="banner">
-        <h1><a href="/">Visual History</a></h1>
-    </header>
+    <div class="center-global cf">
+        <header id="header" role="banner">
+            <h1><a href="/">Visual History</a></h1>
 
-    <nav id="nav" role="navigation">
-        <ul>
-            <li><a href="#" id="W1">Wiki Browser</a></li>
-            <li><a href="#" id="W2">About</a></li>
-        </ul>
-    </nav>
+            <nav id="nav" role="navigation">
+                <ul>
+                    <li><a href="#" id="W1">Wiking</a></li>
+                    <li><a href="#" id="W2">About</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
 
-    <article id="about" role="main" style="display: none">
-    [content here]
-    </article>
-
-    <div id="wikingDiv" class="wikingMain cf">
+    <div id="wikingDiv" class="center-global cf">
         <div class="svgcontainer">
             <svg class="shadow"/>
         </div>
         <aside class="sidebar">
-            <div id="controls" class="shadow"></div>
+            <div id="controls" class="shadow">
+                <input id="wikiPage" type="text" class="wikiPageInput"/>
+                <button id="go">Go</button>
+            </div>
             <div id="data" class="shadow"></div>
         </aside>
     </div>
+    
+    <article id="about" role="main" class="center-global unvisible shadow">
+        <h1>Motivation</h1>
+        <h1>Usage</h1>
+        <p>Using the Wiking tool is very simple. Just enter a Wikipedia article about a royal person to the
+        textbox on the right, and press Enter. The corresponding Wikipedia article will be retrieved, parsed,
+        and the person together with her/his connections visualized. The visualization is based on a so-called
+        force-directed graph. The nodes behave like planets having gravitation and particles having electric charge.
+        By left clicking on a node, an dragging it to a desired position, we can fix a single node. When right 
+        clicking on a node, a context menu is visualized with the following options:</p>
+        <ul>
+            <li>Extract</li>
+            <li>Open as new</li>
+            <li>Show data</li>
+            <li>Hide</li>
+            <li>Open in Wikipedia</li>
+            <li>Delete and reload</li>
+        </ul>
+        <p>By double clicking a node, the node gets selected. After selecting several nodes, and right clicking
+        on the display window, another context menu is displayed. It has a single option, it can hide all the
+        selected nodes. This is a convenience feature</p>
+        <h1>How it works</h1>
+        <p>Every time you request for a wiki page (either by entering the page name into the textbox, or by right click + Extract 
+        on a person), a Wikipedia page should be fetched and processed. However, every Wiki page is read and parsed only once from
+        Wikipedia. Once it is read, the parsed info gets cached in our system. The next time someone is asking for the same person, the data is
+        retrieved from out local cache, and we wont contact the Wikipedia. Consequently, the more we use the Wiking
+        tool, the more Wikipedia pages get cached locally, and the more performant will be out application (
+        getting data from out local cache is significantly faster then reading pages from Wikipedia).</p>
+        <h2>Technical background</h2>
+        <p>When the user is requesting for a person, the following sequence is executed:</p>
+        <img src="data/seq.png"/>
+        <ul>
+            <li>An Ajax query containing the requested page is sent to the server</li>
+            <li>The application logic first consults the cache logic whether the corresponding page has already been
+                persisted locally.
+            </li>
+            <li>The local caching is based on a Neo4j graph database.</li>
+            <li>Here we assume, the Neo4j does not contain the requested data</li>
+            <li>The application logic calls the Wiki parser module</li>
+        </ul>
+        <h1>Next steps</h1>
+        <h1>Contribution</h1>
+        <h1>Contact</h1>
+    </article>
 
     <footer id="footer" role="contentinfo">
-        <p id="copy">&copy; 2014 Visual History</p>
+        <div class="center-global cf">
+            <p id="copy">&copy; 2014 Visual History</p>
+        </div>
     </footer>
 
     <script src="js/wiki.js"></script>

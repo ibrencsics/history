@@ -4,25 +4,27 @@ var wiki = {
     nodeHash: {},
     
     show : function() {
-        d3.select("svg").selectAll("*").remove();
+//        d3.select("svg").selectAll("*").remove();
 //        d3.select("#wikiBrowser").selectAll("*").remove();
-        d3.select("#controls").selectAll("*").remove();
+//        d3.select("#controls").selectAll("*").remove();
         d3.select("#data").selectAll("*").remove();
         
         wiki.showControls();
     },
     
     showControls : function() {
-        d3.select("#controls")
-                .append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px")
+//        d3.select("#controls")
+//                .append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px")
+        d3.select("#controls input")
                 .attr("value", "Ludwig_I,_King_of_Bavaria")
                 .on("keyup", function() {
                     if (d3.event.keyCode == 13) {
                         wiki.buttonClick();
                     }
                 });
-        d3.select("#controls")
-                .append("button").attr("id", "go").html("Go")
+                
+        d3.select("#controls button")
+//                .append("button").attr("id", "go").html("Go")
                 .on("click", wiki.buttonClick);
         
 //        var select = d3.select("#controls").append("select").attr("id", "dropdown");
