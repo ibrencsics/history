@@ -18,10 +18,11 @@ R -> WP: get page
 WP -> W: get page
 W --> WP: wikitext
 WP -> WP: parse wikitext
-WP --> R:
+WP --> R: parsed data
 R -> WC: store
 WC -> N: store
-WC --> R: found
-R --> B:
+WC --> R: persisted data
+R --> B: JSON
+B -> B: visualize
 
 @enduml

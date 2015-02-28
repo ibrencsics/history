@@ -1,3 +1,7 @@
+html {
+  overflow-y: scroll; /* prevents page repositioning when a scrollbar is present */
+}
+
 .cf:before, .cf:after {
     content: " ";
     display: table;
@@ -21,6 +25,14 @@
 
 .unvisible {
     display: none;
+}
+
+h1 {
+    font-size: 120%;
+}
+
+h2 {
+    font-size: 100%;
 }
 
 
