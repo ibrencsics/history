@@ -44,25 +44,50 @@
     
     <article id="about" class="center-global unvisible shadow">
         <h1>Motivation</h1>
-            <p>About 10 years ago I had to realize that I knew nothing at all about history. This revelation started to
-            annoy me, so I started to read books, one after the other: the history of England, France,
-            the Habsburgs, the Russians, ... After a few books I concluded, that the individual countries dont have independent
-            histories, but everything is very tightly coupled (likely this surprised me only, other were aware of it already:)). 
-            For instance you cant talk about the history of England without keeping in mind France, Spain, and so on.</p>
-            <p>One thing that was annoying me is that when I was reading something, I very often had the feeling, that
+            <p>About 10 years ago I had to realize that I knew nothing at all about history. This revelation annoyed me, 
+            so I started reading books, one after the other: the history of England, France,
+            the Habsburgs, the Russians, ... However, after finishing a number of books, I started to feel frustrated.
+            
+<!--            After a few books I concluded, that the individual countries dont have independent
+            histories, but everything is very tightly coupled (likely this surprised only me, others were all aware of it already:)). 
+            For instance you can't talk about the history of England without keeping in mind France, Spain, and so on.</p>-->
+<!--            <p>One thing that was annoying me is that when I was reading something, I very often had the feeling, that
             I already read this from another perspective. As an example, when you read the history of England, you encounter
             after a while Henry VIII. His successors faced a conflict with Spain. But surprisingly the spanish king was a 
             Habsburg. And 6 month later, when reading a book about the Habsburgs, you get to the same story. You read again
             about the same conflict, but you already forgot what you read before. You just know that 6 months ago you already
-            read about this, but not sure what exactly.</p>
-            <p>What I desperately needed was a tool with that I could visualize relations and events, that would put me into 'context'. So when I am reading
-            about this english-spanish-Habsburg conflict, I would like to have an overview who is who, what are the relations among them,
-            and what are the events that tie them together. If I had such an application, I could keep it open during book reading,
-            and would have a look at it any time, when I had question marks in front of my eyes.</p>
+            read about this, but not sure what exactly.</p>-->
+            
+            <p>I don't know if you have read the book <i>One Hundred Years of Solitude</i> by Marquez. In the edition of the book I had,
+            there was a family tree included. The Buendia family is quite populous, without a family tree one could get easily lost.
+            I concluded that a simple family tree can keep me in the context, and I am confident when I am reading the story.</p>
+            
+            <p>History is more complicated then the Buendia family, and can hardly be visualized with a tree. In real life, the
+            people, the dynasties are more tightly coupled to each other, and understanding the relations among them is of utmost importance.</p>
+            
+            <p>As an example lets consider a famous English-Spanish conflict. The successors of the English king Henry VIII
+            faced a serious conflict with Spain. The king of Spain happened to be a Habsburg that times. You can encounter this story in
+            many different books: in the history of England, the history of Spain, the history of the Habsburgs, ... In the different books
+            you read the same thing from different angles. Many countries, many dynasties are involved, one can get lost easily.
+            But if we had a tool that would visualize us the 'context', we could have a look at it during reading, and get back the
+            confidence. I desperately needed such a tool with that I could visualize people, relations and events, that would put me into 'context'.</p>
+            
             <p>For the time being, the Wiking tool solves my problem partially. To explain how, lets consider the Henry VIII case. The following
             figure shows what I would generate for myself with Wiking when reading about the aforementioned conflict:</p>
-        
-            <p>todo: mention: 100 ev magany</p>
+            
+            <img src="data/eng-esp.png"/>
+            
+            <p>By playing 5 minutes with the tool, I was able to prepare this figure. I was interested in the English-Spanish conflict,
+            but I found even more. I can now understand lots of details about relations among people and dynasties. Surprisingly there are
+            not that many hops between the Tudors, the Austrian and Spanish Habsburgs, the Aragons, the Bourbons, ... Every time I am reading about
+            these times, I can have a quick look at this figure, and I am in the 'context'. I know who is who, and I don't get lost in the details.</p>
+            
+            <p>The Wiking tool has got its name from <b>Wi</b>kipedia <b>King</b>s. It is a tool that can discover the Wikipedia,
+            like how the vikings discovered the sea. It helps you improving your understanding on history, by giving a visual window to
+            Wikipedia, through that you can browse its excellent content easily.</p>
+            
+            <p>I have several other tools in mind, they will also come to the L3 Portal in the future.</p>
+            
         <h1>Usage</h1>
             <p>Using the Wiking tool is very simple. Just enter a Wikipedia article about a royal person to the
             textbox on the right, and press Enter. The corresponding Wikipedia article will be retrieved, parsed,
@@ -71,16 +96,19 @@
             By left clicking on a node, an dragging it to a desired position, we can fix a single node. When right 
             clicking on a node, a context menu is visualized with the following options:</p>
             <ul>
-                <li>Extract</li>
-                <li>Open as new</li>
-                <li>Show data</li>
-                <li>Hide</li>
-                <li>Open in Wikipedia</li>
-                <li>Delete and reload</li>
+                <li><u>Extract</u>: reads the matching Wikipedia article, and merges it to the current figure</li>
+                <li><u>Open as new</u>: reads the matching Wikipedia article, and visualizes it on a blank screen</li>
+                <li><u>Show data</u>: displays the data of the node in the window on the right</li>
+                <li><u>Hide</u>: remove the node from the figure if it is unimportant for the current case</li>
+                <li><u>Open in Wikipedia</u>: open the matching Wikipedia article in a separate tab</li>
+                <li><u>Delete and reload</u>: Delete the node from the local cache (see later), and reload it from Wikipedia</li>
             </ul>
             <p>By double clicking a node, the node gets selected. After selecting several nodes, and right clicking
             on the display window, another context menu is displayed. It has a single option, it can hide all the
-            selected nodes. This is a convenience feature</p>
+            selected nodes. This is a convenience feature.</p>
+            
+            <p>The thick lines between people mean spouse relationship, the thin lines with arrows mean a parent-child relation. The
+            arrow points from the child to the parent.</p>
         
         <h1>How it works</h1>
             <p>Every time you request for a wiki page (either by entering the page name into the textbox, or by right click + Extract 
@@ -123,28 +151,42 @@
             and additional gender information. This is the explanation why some nodes are blue and red in the browser, and others are gray.</p>
         
         <h1>Next steps</h1>
-            <p>I have dozens of ideas how to improve the Wiking tool</p>
+            <p>I have dozens of ideas how to improve the Wiking tool. All these improvements are on the agenda, I will implement them one 
+                by one to have a decent tool in the end of the road.</p>
+
             <h2>Usability</h2>
+            <p>The tool in the current form misses many convenience features such as selecting and moving many elements together, 
+            storing/reloading figures, ...</p>
+            <h2>Mobile devices support</h2>
+            <p>Currently the tool is not designed for mobile devices.</p>
             <h2>Languages</h2>
+            <p>Only the English Wikipedia can we browse at the moment. It would be a nice feature to support other languages too.</p>
             <h2>Better Wikitext parsing</h2>
+            <p>The wikitext parser I implemented is very basic. It should be revised significantly.</p>
             <h2>Intelligent graph queries</h2>
+            <p>Once we synchronize huge amount of data from Wikipedia to the local Neo4j database, we could run graph queries on the data.
+            The Neo4j data model is a graph, and lots of nice queries are possible, such as give me the shortest path between people, ...</p>
             <h2>More Wikipedia content utilized</h2>
+            <p>Now we are visualizing the family relationships between people. We don't parse and visualize correctly the predecessor, successor
+            information. It would be a nice feature asking for all the members of a certain dynasty, or all the English kings, ... We are also
+            not parsing the events such as the 30 years war, or the battle of waterloo. It would be nice requesting information based on
+            such events too. There are lots of interesting information in Wikipedia that we could utilize.</p>
         
         <h1>Contribution</h1>
             <p>In case you feel interest in the Wiking tool, there are a number of ways to contribute in order to make it better:</p>
             <ul>
-                <li>Use it: By simply using it, you synchronize data from Wikipedia to the local database. With more data in the local
+                <li><u>Use it</u>: By simply using it, you synchronize data from Wikipedia to the local database. With more data in the local
                 database, we can run more exciting graph queries. On the other hand, every time you request for a person that results
                 in Wiki parsing error, I mark the failing page as unparseable, and be able later revise the parser.</li>
-                <li>Improve Wikipedia: The tool is using the infoboxes on the right of the Wiki pages. Many of these infoboxes are
+                <li><u>Improve Wikipedia</u>: The tool is using the infoboxes on the right of the Wiki pages. Many of these infoboxes are
                 challenging to parse, some of them are practically impossible. I will collect the typical scenarios that are not
                 possible to parse by an efficient algorithm. If you are a Wikipedia editor, and interested in this tool, you can
                 keep in mind these scenarios the next time when editing Wiki pages.</li>
-                <li>Coding: The project source code can be found in Github: https://github.com/ibrencsics/history. It is not
+                <li><u>Coding</u>: The project source code can be found in Github: https://github.com/ibrencsics/history. It is not
                 complicated at all, I tried keeping it simple. The frontend is implemented by using the D3 Javascipt library.
                 The backend is based on Spring, Apache CXF, Neo4j. The programming language is Javascript on the frontend, and
                 Java 8 on the backend. In case you feel like contributing, please send me a mail, and/or create a pull request.</li>
-                <li>Brainstorming: I am open to revise the tool in case you have good propositions.</li>
+                <li><u>Brainstorming</u>: I am open to revise the tool in case you have good propositions.</li>
             </ul>
         
         <h1>Contact</h1>
