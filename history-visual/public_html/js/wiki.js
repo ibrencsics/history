@@ -76,8 +76,14 @@ var wiki = {
             
             nodes = new Array();
             nodes.push({id: person.wikiPage, name: person.name, gender: person.gender, full: true});
-            nodes.push({id: person.father.wikiPage, name: person.father.name, birth: person.father.dateOfBirth, death: person.father.dateOfDeath, gender: person.father.gender});
-            nodes.push({id: person.mother.wikiPage, name: person.mother.name, birth: person.mother.dateOfBirth, death: person.mother.dateOfDeath, gender: person.mother.gender});
+            
+            if (person.father != null) {
+                nodes.push({id: person.father.wikiPage, name: person.father.name, birth: person.father.dateOfBirth, death: person.father.dateOfDeath, gender: person.father.gender});
+            }
+            
+            if (person.mother != null) {
+                nodes.push({id: person.mother.wikiPage, name: person.mother.name, birth: person.mother.dateOfBirth, death: person.mother.dateOfDeath, gender: person.mother.gender});
+            }
             
             for (i in person.spouses) {
                 spouse = person.spouses[i];
@@ -90,9 +96,15 @@ var wiki = {
             
             edges = new Array();
             
-            edges.push({source: person.wikiPage, target: person.father.wikiPage, type: "HAS_FATHER"});
-            edges.push({source: person.wikiPage, target: person.mother.wikiPage, type: "HAS_MOTHER"});
-            edges.push({source: person.father.wikiPage, target: person.mother.wikiPage, type: "IS_SPOUSE_OF"});
+            if (person.father != null) {
+                edges.push({source: person.wikiPage, target: person.father.wikiPage, type: "HAS_FATHER"});
+            }
+            if (person.mother != null) {
+                edges.push({source: person.wikiPage, target: person.mother.wikiPage, type: "HAS_MOTHER"});
+            }
+            if (person.father != null && person.mother != null) {
+                edges.push({source: person.father.wikiPage, target: person.mother.wikiPage, type: "IS_SPOUSE_OF"});
+            }
             
             for (i in person.spouses) {
                 spouse = person.spouses[i];

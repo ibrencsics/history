@@ -31,11 +31,13 @@ public class RoyaltyParser {
         parserMap.put("death_date", this::parseDeathDate);
         parserMap.put("father", this::parseFather);
         parserMap.put("mother", this::parseMother);
+        parserMap.put("parents", this::parseParents);
         parserMap.put("succession", this::parseSuccession);
         parserMap.put("reign", this::parseReign);
         parserMap.put("spouse", this::parseSpouse);
         parserMap.put("spouses", this::parseSpouse);
         parserMap.put("issue", this::parseIssue);
+        parserMap.put("children", this::parseIssue);
         parserMap.put("house", this::parseHouse);
         parserMap.put("predecessor", this::parsePredecessor);
         parserMap.put("successor", this::parseSuccessor);
@@ -60,7 +62,8 @@ public class RoyaltyParser {
         logger.trace("Wikitext [{}] : {}", page, wikiText);
 
         Optional<String> template = templateParser.getTemplate(wikiText,
-                "Infobox royalty", "infobox nobility", "infobox monarch", "Infobox officeholder");
+                "Infobox royalty", "infobox nobility", "infobox monarch", "Infobox officeholder", "Infobox president", "Infobox person",
+                "Infobox prime minister");
         logger.debug(template.get());
         Map<String,String> data = templateParser.getTemplateDataMap(template.get());
         return parse(page, data);
@@ -106,6 +109,17 @@ public class RoyaltyParser {
 
     private void parseDeathDate(Royalty royalty, Tuple2<String,Integer> data) {
         royalty.setDateOfDeath(dateParser.parse(data.element1()));
+    }
+
+    private void parseParents(Royalty royalty, Tuple2<String,Integer> data) {
+        List<WikiNamedResource> parents = templateParser.getLinks(data.element1());
+        if (!parents.isEmpty()) {
+            // we assume the father comes first: poor assumption
+            royalty.setFather(parents.get(0));
+            if (parents.size() > 1) {
+                royalty.setMother(parents.get(1));
+            }
+        }
     }
 
     private void parseFather(Royalty royalty, Tuple2<String,Integer> data) { royalty.setFather(templateParser.parseLink(data.element1())); }
@@ -187,6 +201,7 @@ public class RoyaltyParser {
 
     private void parseIssue(Royalty royalty, Tuple2<String,Integer> data) {
         List<WikiNamedResource> links = templateParser.getLinks(data.element1());
+        System.out.println(links);
         royalty.getIssues().addAll(doListPostProcessing(links));
     }
 

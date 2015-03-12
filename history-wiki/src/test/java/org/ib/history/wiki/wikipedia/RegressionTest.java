@@ -86,6 +86,10 @@ public class RegressionTest {
 //                { "Mary_I_of_England" }
 //                { "Maria_Theresa" }
 
+//                {"George_H._W._Bush"}
+//                {"Bill_Clinton"}
+//                {"Arnold_Schwarzenegger"}
+
 //                { "Charles_II_of_England" }, // problem with reign
         });
     }

@@ -15,7 +15,7 @@
 
     <div class="center-global cf">
         <header id="header" role="banner">
-            <h1>The LifeLong Learning Portal (L3-Po)</h1>
+            <h1>The LifeLong Learning Portal (L3-PO)</h1>
 
             <nav id="nav" role="navigation">
                 <ul>
@@ -48,16 +48,6 @@
             so I started reading books, one after the other: the history of England, France,
             the Habsburgs, the Russians, ... However, after finishing a number of books, I started to feel frustrated.
             
-<!--            After a few books I concluded, that the individual countries dont have independent
-            histories, but everything is very tightly coupled (likely this surprised only me, others were all aware of it already:)). 
-            For instance you can't talk about the history of England without keeping in mind France, Spain, and so on.</p>-->
-<!--            <p>One thing that was annoying me is that when I was reading something, I very often had the feeling, that
-            I already read this from another perspective. As an example, when you read the history of England, you encounter
-            after a while Henry VIII. His successors faced a conflict with Spain. But surprisingly the spanish king was a 
-            Habsburg. And 6 month later, when reading a book about the Habsburgs, you get to the same story. You read again
-            about the same conflict, but you already forgot what you read before. You just know that 6 months ago you already
-            read about this, but not sure what exactly.</p>-->
-            
             <p>I don't know if you have read the book <i>One Hundred Years of Solitude</i> by Marquez. In the edition of the book I had,
             there was a family tree included. The Buendia family is quite populous, without a family tree one could get easily lost.
             I concluded that a simple family tree can keep me in the context, and I am confident when I am reading the story.</p>
@@ -89,7 +79,7 @@
             <p>I have several other tools in mind, they will also come to the L3 Portal in the future.</p>
             
         <h1>Usage</h1>
-            <p>Using the Wiking tool is very simple. Just enter a Wikipedia article about a royal person to the
+            <p>Using the Wiking tool is very simple. Just enter a Wikipedia article about a historically or politically 'important' person to the
             textbox on the right, and press Enter. The corresponding Wikipedia article will be retrieved, parsed,
             and the person together with her/his connections visualized. The visualization is based on a so-called
             force-directed graph. The nodes behave like planets having gravitation and particles having electric charge.
@@ -134,7 +124,8 @@
                 <li>The browser application visualizes the data</li>
             </ul>
             <p>The Wikipedia pages about historical people typically contain an infobox in the top right corner. At the moment we are
-            parsing infoboxes with template names 'royalty', 'nobility', 'monarch', 'officeholder'. These templates contain more or less
+            parsing infoboxes with template names 'royalty', 'nobility', 'monarch', 'officeholder', 'president', 'person', 'prime minister'. 
+            These templates contain more or less
             the same information, the parser logic is the same for all. It is important to note that reading one wiki page results in more
             than one nodes in the Neo4j database, and in the web browser window. If we request for a certain page, the infobox contains
             references to many other people: issues, spouses, parents, predecessors, successors. We parse all these people, store, and
@@ -150,19 +141,30 @@
             <p>To recap, each node in Neo4j (and in the web browser) has a lifecycle. They might have basic information only, full data,
             and additional gender information. This is the explanation why some nodes are blue and red in the browser, and others are gray.</p>
         
-        <h1>Next steps</h1>
+        <h1>Next steps, known issues</h1>
             <p>I have dozens of ideas how to improve the Wiking tool. All these improvements are on the agenda, I will implement them one 
                 by one to have a decent tool in the end of the road.</p>
 
             <h2>Usability</h2>
-            <p>The tool in the current form misses many convenience features such as selecting and moving many elements together, 
-            storing/reloading figures, ...</p>
+            <p>The tool in the current form misses many convenience features such as</p>
+            <ul>
+                <li>Selecting and moving many elements together</li>
+                <li>Exporting figures as SVG, PNG, PDF, ...</li>
+                <li>Storing/reloading figures</li>
+            </ul>
             <h2>Mobile devices support</h2>
             <p>Currently the tool is not designed for mobile devices.</p>
             <h2>Languages</h2>
             <p>Only the English Wikipedia can we browse at the moment. It would be a nice feature to support other languages too.</p>
             <h2>Better Wikitext parsing</h2>
-            <p>The wikitext parser I implemented is very basic. It should be revised significantly.</p>
+            <p>The wikitext parser I implemented is very basic. It should be revised significantly. In case there are more then one 
+                aliases pointing to the same Wikipedia artice, the Wiking tool visualizes them as two separate people.</p>
+            <h2>Neo4j issues</h2>
+            <p>The tool is using the default Neo4j transaction isolation level Read Committed. In very rare cases this can lead to
+            deadlocks. In case 2 users request simultaneously for 2 wikipedia articles, that are related to each other, but none of them exists in
+            Neo4j, after Wikitext parsing the 2 graphs are persisted to Neo4j in paralel. As these new graphs are overlapping, it can happen
+            that 2 overlapping nodes are created so that 1 is created (and locked) by the first graph, the second by the second graph, and then they
+            are waiting for each other. I dont think this case will come up often.</p>
             <h2>Intelligent graph queries</h2>
             <p>Once we synchronize huge amount of data from Wikipedia to the local Neo4j database, we could run graph queries on the data.
             The Neo4j data model is a graph, and lots of nice queries are possible, such as give me the shortest path between people, ...</p>
@@ -171,7 +173,7 @@
             information. It would be a nice feature asking for all the members of a certain dynasty, or all the English kings, ... We are also
             not parsing the events such as the 30 years war, or the battle of waterloo. It would be nice requesting information based on
             such events too. There are lots of interesting information in Wikipedia that we could utilize.</p>
-        
+      
         <h1>Contribution</h1>
             <p>In case you feel interest in the Wiking tool, there are a number of ways to contribute in order to make it better:</p>
             <ul>
@@ -181,7 +183,9 @@
                 <li><u>Improve Wikipedia</u>: The tool is using the infoboxes on the right of the Wiki pages. Many of these infoboxes are
                 challenging to parse, some of them are practically impossible. I will collect the typical scenarios that are not
                 possible to parse by an efficient algorithm. If you are a Wikipedia editor, and interested in this tool, you can
-                keep in mind these scenarios the next time when editing Wiki pages.</li>
+                keep in mind these scenarios the next time when editing Wiki pages. In case you update a Wikipedia article, you can
+                right click the node in the Wiking workplace and select 'Delete and reload'. This way the Neo4j cached content is
+                replaced.</li>
                 <li><u>Coding</u>: The project source code can be found in Github: https://github.com/ibrencsics/history. It is not
                 complicated at all, I tried keeping it simple. The frontend is implemented by using the D3 Javascipt library.
                 The backend is based on Spring, Apache CXF, Neo4j. The programming language is Javascript on the frontend, and
@@ -196,7 +200,7 @@
 
     <footer id="footer" role="contentinfo">
         <div class="center-global cf">
-            <p id="copy">&copy; 2015 L3-Po</p>
+            <p id="copy">&copy; 2015 L3-PO</p>
         </div>
     </footer>
 
