@@ -66,6 +66,7 @@ var wiki = {
     },
     
     queryFull : function(wikiPage, callback) {
+        //console.log(window.location.pathname.split('/'));
         d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(error, person) {
             if (error) {
                 window.alert("Parsing error");
@@ -159,14 +160,15 @@ var wiki = {
         
         function init() {
             var weightScale = d3.scale.linear().domain(d3.extent(edges, function(d) {return d.weight})).range([.1,1])
-        
+            var svg = d3.select("svg");
+            
             force = d3.layout.force()
 //              .charge(-1000)
                 .charge(function (d) {return d.weight * -500})
                 .gravity(.2)
                 .linkDistance(50)
                 .linkStrength(function (d) {return weightScale(d.weight)})
-                .size([1200,500])
+                .size([svg.style("width").replace("px",""), svg.style("height").replace("px","")])
                 .nodes(nodes)
                 .links(edges)
                 .on("tick", forceTick);
