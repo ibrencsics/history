@@ -1,24 +1,14 @@
 package org.ib.history.db.neo4j;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.commons.tuples.Tuple2;
 import org.ib.history.db.neo4j.data.NeoBaseData;
-import org.ib.history.db.neo4j.data.NeoCountry;
-import org.ib.history.db.neo4j.data.NeoHouse;
 import org.ib.history.db.neo4j.data.NeoPerson;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
 import org.ib.history.wiki.domain.WikiSuccession;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.test.TestGraphDatabaseFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,24 +23,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class CoreNeoServiceTest {
-
-    private static Logger logger = LogManager.getLogger(CoreNeoServiceTest.class);
-
-    private GraphDatabaseService graphDb;
-    private NeoService neoService;
-
-    @Before
-    public void prepareTestDatabase() {
-        graphDb = new TestGraphDatabaseFactory().newImpermanentDatabase();
-//        graphDb = new TestGraphDatabaseFactory().newEmbeddedDatabase("/opt/app-data/history-neo4j-test");
-        neoService = new CoreNeoService(graphDb);
-    }
-
-    @After
-    public void destroyTestDatabase() {
-        graphDb.shutdown();
-    }
+public class CoreNeoServiceTest extends NeoBaseTest {
 
     @Test
     public void testSave() {

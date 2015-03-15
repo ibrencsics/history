@@ -263,7 +263,9 @@ public class CoreNeoService implements NeoService {
             logger.debug("Node [{}] base -> full", wikiPage);
 
             person.element1().setProperty(WikiProperties.STATUS.getPropertyName(), NodeStatus.FULL.name());
-            person.element1().setProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfBirth()));
+            if (wikiPerson.getDateOfBirth() != null) {
+                person.element1().setProperty(WikiProperties.DATE_OF_BIRTH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfBirth()));
+            }
             if (wikiPerson.getDateOfDeath() != null) {
                 person.element1().setProperty(WikiProperties.DATE_OF_DEATH.getPropertyName(), Neo4jDateFormat.serialize(wikiPerson.getDateOfDeath()));
             }

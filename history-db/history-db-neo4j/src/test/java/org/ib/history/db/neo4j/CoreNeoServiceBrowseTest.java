@@ -1,17 +1,11 @@
 package org.ib.history.db.neo4j;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.data.FlexibleDate;
 import org.ib.history.wiki.domain.WikiNamedResource;
 import org.ib.history.wiki.domain.WikiPerson;
 import org.ib.history.wiki.domain.WikiResource;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.test.TestGraphDatabaseFactory;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -21,26 +15,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 @Ignore
-public class CoreNeoServiceBrowseTest {
-
-    private static Logger logger = LogManager.getLogger(CoreNeoServiceBrowseTest.class);
-
-    private GraphDatabaseService graphDb;
-    private NeoService neoService;
-
-    @Before
-    public void prepareTestDatabase() {
-        graphDb = new TestGraphDatabaseFactory().newImpermanentDatabase();
-//        graphDb = new TestGraphDatabaseFactory().newEmbeddedDatabase("/opt/app-data/history-neo4j-test");
-//        graphDb = new GraphDatabaseFactory().newEmbeddedDatabase("");
-        neoService = new CoreNeoService(graphDb);
-    }
-
-    @After
-    public void destroyTestDatabase() {
-        graphDb.shutdown();
-    }
-
+public class CoreNeoServiceBrowseTest extends NeoBaseTest {
 
     @Test
     public void test() {
