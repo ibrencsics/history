@@ -169,6 +169,10 @@ path.domain {
     background-color: lightblue;
     color: black;
 }
+
+.menu-mobile {
+    font-size: 150%;
+}
 /*
 .menu li {
     display: none;

@@ -4,17 +4,12 @@ var wiki = {
     nodeHash: {},
     
     show : function() {
-//        d3.select("svg").selectAll("*").remove();
-//        d3.select("#wikiBrowser").selectAll("*").remove();
-//        d3.select("#controls").selectAll("*").remove();
         d3.select("#data").selectAll("*").remove();
-        
+
         wiki.showControls();
     },
     
     showControls : function() {
-//        d3.select("#controls")
-//                .append("input").attr("id", "wikiPage").attr("type", "text").style("width", "300px")
         d3.select("#controls input")
                 .attr("value", "Ludwig_I,_King_of_Bavaria")
                 .on("keyup", function() {
@@ -24,15 +19,8 @@ var wiki = {
                 });
                 
         d3.select("#controls button")
-//                .append("button").attr("id", "go").html("Go")
                 .on("click", wiki.buttonClick);
         
-//        var select = d3.select("#controls").append("select").attr("id", "dropdown");
-//        select.on("change", function(d) {
-//            var value = d3.select(this).property("value");
-//            wiki.dropdownChanged(value);
-//        })
-
         d3.text("wiki-modal-details.html", function(data) {
             d3.select("#data").append("div").attr("id", "details").html(data);
         });
@@ -47,7 +35,6 @@ var wiki = {
     },
     
     buttonClick : function() {
-//        d3.select("#dropdown").selectAll("*").remove();
         wikiPage = document.getElementById("wikiPage").value;
         d3.select("svg").selectAll("*").remove();
         wiki.queryFull(wikiPage);
@@ -60,7 +47,6 @@ var wiki = {
     },
     
     cleanAndQueryFull : function(value) {
-//        d3.select("#dropdown").selectAll("*").remove();
         d3.select("svg").selectAll("*").remove();
         wiki.queryFull(value);
     },
@@ -223,7 +209,7 @@ var wiki = {
         }
 
         // show graph
-
+        
         function showGraph(nodes, edges) {
             link = d3.select("svg")
                     .selectAll("line.link")
@@ -252,7 +238,8 @@ var wiki = {
                     .append("g")
                     .attr("class", "node")
                     .call(force.drag())
-                    .on("click", fixNode)
+                    .on("mouseup", fixNode)
+                    .on("touchend", fixNode)
                     .on("dblclick", selectNode)
                     .on("contextmenu", function(d,i) {
                         showContextMenu(this, d, "node")
@@ -304,8 +291,8 @@ var wiki = {
         }
       
         function fixNode(d) {
-            if (!d.fixed) {
-                d3.select(this).select("circle");
+            if (!d.fixed || d.fixed==2) {
+                //d3.select(this).select("circle");
                 d.fixed = true;
             } /*else {
                 d3.select(this).select("circle");
@@ -389,6 +376,9 @@ var wiki = {
                     d3.select('#node-context-menu')
                         .style("cursor", "hand")
                 })
+                .classed("menu-mobile", function () {
+                    return isMobile.any;
+                })        
                 .on('mouseleave', function() { hideNodeContextMenu(); })
                 
             d3.select("#node-context-menu")
