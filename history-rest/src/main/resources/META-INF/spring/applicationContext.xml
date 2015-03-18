@@ -43,6 +43,9 @@
     <bean class="org.ib.history.db.neo4j.CoreNeoService">
         <constructor-arg ref="graphDb"/>
     </bean>
+    <bean class="org.ib.history.db.neo4j.cypher.NeoCypherServiceImpl">
+        <constructor-arg ref="graphDb"/>
+    </bean>
 
     <bean class="org.ib.history.db.neo4j.NeoInitializer" init-method="init">
         <constructor-arg ref="graphDb"/>

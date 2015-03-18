@@ -4,12 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ib.history.commons.utils.Neo4jDateFormat;
 import org.ib.history.db.neo4j.GenderType;
-import org.ib.history.db.neo4j.data.NeoCountry;
-import org.ib.history.db.neo4j.data.NeoHouse;
-import org.ib.history.db.neo4j.data.NeoPerson;
+import org.ib.history.db.neo4j.cypher.NeoCypherService;
+import org.ib.history.db.neo4j.data.*;
 import org.ib.history.db.neo4j.NeoService;
 import org.ib.history.db.neo4j.WikiRelationships;
-import org.ib.history.db.neo4j.data.NeoSuccession;
 import org.ib.history.rest.data.JsonCountry;
 import org.ib.history.rest.data.JsonHouse;
 import org.ib.history.rest.data.JsonJob;
@@ -39,6 +37,9 @@ public class WikiHistoryService {
 
     @Autowired
     private NeoService neoService;
+
+    @Autowired
+    private NeoCypherService neoCypherService;
 
     @GET
     @Path("/person/{wikiPage}")
@@ -153,5 +154,19 @@ public class WikiHistoryService {
     public Response deletePerson(@PathParam("wikiPage") String wikiPage) {
         neoService.delete(wikiPage);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/person/suggestion/{pattern}")
+    @Produces("application/json")
+    public List<String> getSuggestions(@PathParam("pattern") String pattern) {
+        return neoCypherService.getPersonsByPattern(pattern);
+    }
+
+    @GET
+    @Path("/statistics")
+    @Produces("application/json")
+    public NeoStatistics getStatistics() {
+        return neoCypherService.getStatistics();
     }
 }
