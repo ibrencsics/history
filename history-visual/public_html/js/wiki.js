@@ -18,6 +18,18 @@ var wiki = {
                     }
                 });
                 
+        $("#controls input").autocomplete({
+            source: function (request, response) {
+                $.get("http://localhost:8080/history/wiki/person/suggestion/" + request.term, {
+                    //query: request.term
+                }, function (data) {
+                    response(data);
+                });
+            },
+            minLength: 3,
+            delay: 500
+        });
+                
         d3.select("#controls button")
                 .on("click", wiki.buttonClick);
         
