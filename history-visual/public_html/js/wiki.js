@@ -29,6 +29,13 @@ var wiki = {
             minLength: 3,
             delay: 500
         });
+        
+        $("#cypherSubmit").click(function() {
+            console.log($("#cypherQuery").val());
+            $.post("http://localhost:8080/history/wiki/cypher", $("#cypherQuery").val(), function(result) {
+                $("#cypherResult").val(result);
+            })
+        });
                 
         d3.select("#controls button")
                 .on("click", wiki.buttonClick);

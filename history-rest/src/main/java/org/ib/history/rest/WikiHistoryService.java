@@ -169,4 +169,11 @@ public class WikiHistoryService {
     public NeoStatistics getStatistics() {
         return neoCypherService.getStatistics();
     }
+
+    @POST
+    @Path("/cypher")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String execute(String query) {
+        return neoCypherService.execute(query);
+    }
 }

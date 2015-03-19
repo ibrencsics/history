@@ -34,12 +34,13 @@
                 <ul>
                     <li><a href="#" id="W1">Wiking</a></li>
                     <li><a href="#" id="W2">About</a></li>
+                    <li><a href="#" id="W3">Admin</a></li>
                 </ul>
             </nav>
         </header>
     </div>
 
-    <div id="wikingDiv" class="center-global cf">
+    <div id="wikingDiv" class="center-global cf tab">
 
         <div class="svgcontainer">
             <svg class="shadow"/>
@@ -55,7 +56,7 @@
 
     </div>
     
-    <article id="about" class="center-global unvisible shadow">
+    <article id="about" class="center-global unvisible shadow tab">
         <h1>Motivation</h1>
             <p>About 10 years ago I had to realize that I knew nothing at all about history. This revelation annoyed me, 
             so I started reading books, one after the other: the history of England, France,
@@ -214,6 +215,14 @@
         <p>Please contact me in case of any questions, suggestions, concerns.</p>
         <a href="mailto:ivan.brencsics@gmail.com">ivan.brencsics@gmail.com</a>
     </article>
+    
+    <div id="admin" class="center-global cf tab">
+        <div class="admincontainer shadow">
+            <textarea id="cypherQuery" rows="4" cols="100">match (p:PERSON) return count(p)</textarea>
+            <button id="cypherSubmit">Go</button>
+            <textarea id="cypherResult" rows="30" cols="180"></textarea>
+        </div>
+    </div>
 
     <footer id="footer" role="contentinfo">
         <div class="center-global cf">

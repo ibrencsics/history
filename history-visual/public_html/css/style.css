@@ -121,6 +121,10 @@ svg {
     width: 100%;
 }
 
+textarea {
+    overflow: scroll;
+}
+
 /*
 tr {
     border: 1px gray solid;

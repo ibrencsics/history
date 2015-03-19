@@ -69,6 +69,17 @@ public class NeoCypherServiceImpl implements NeoCypherService {
         return stat;
     }
 
+    @Override
+    public String execute(String query) {
+        try (Transaction tx = graphDb.beginTx()) {
+            ExecutionEngine engine = new ExecutionEngine(graphDb);
+            ExecutionResult result = engine.execute(query);
+            tx.success();
+
+            return result.dumpToString();
+        }
+    }
+
     private Long getCountOf(ExecutionEngine engine, WikiLabels label) {
         ExecutionResult result = engine.execute("match (p:" + label.name() + ") return count(p)");
         return getLongResult(result);

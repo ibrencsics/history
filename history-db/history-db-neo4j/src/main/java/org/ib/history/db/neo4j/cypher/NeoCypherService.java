@@ -7,4 +7,5 @@ import java.util.List;
 public interface NeoCypherService {
     List<String> getPersonsByPattern(String pattern);
     NeoStatistics getStatistics();
+    String execute(String query);
 }

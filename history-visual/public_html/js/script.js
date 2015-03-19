@@ -5,18 +5,34 @@ window.onload = function() {
 };
 
 var selectW1 = function() {
+    hideAll();
     document.getElementById('wikingDiv').style.display = 'block';
-    document.getElementById('about').style.display = 'none';
     wiki.show();
 };
 
 var selectW2 = function() {
-    document.getElementById('wikingDiv').style.display = 'none';
+    hideAll();
     document.getElementById('about').style.display = 'block';
 };
+
+var selectW3 = function() {
+    hideAll();
+    document.getElementById('admin').style.display = 'block';
+}
+
+var hideAll = function() {
+    var input = document.getElementsByClassName("tab");
+    var inputList = Array.prototype.slice.call(input);
+    inputList.forEach(function(tab) {tab.style.display = 'none'});
+}
+
+
 
 var w1 = document.getElementById("W1");
 w1.addEventListener('click', selectW1, false);
 
 var w2 = document.getElementById("W2");
 w2.addEventListener('click', selectW2, false);
+
+var w3 = document.getElementById("W3");
+w3.addEventListener('click', selectW3, false);
