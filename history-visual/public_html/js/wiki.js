@@ -1,7 +1,14 @@
 var wiki = {
     
+    testMode: true,
+    
     persons: {},
     nodeHash: {},
+    
+    baseUrl : function() {
+        base = "/history-rest/wiki";
+        return wiki.testMode ? "http://localhost:8080" + base : base;
+    },
     
     show : function() {
         d3.select("#data").selectAll("*").remove();
@@ -20,7 +27,7 @@ var wiki = {
                 
         $("#controls input").autocomplete({
             source: function (request, response) {
-                $.get("http://localhost:8080/history/wiki/person/suggestion/" + request.term, {
+                $.get(wiki.baseUrl() + "/person/suggestion/" + request.term, {
                     //query: request.term
                 }, function (data) {
                     response(data);
@@ -32,7 +39,7 @@ var wiki = {
         
         $("#cypherSubmit").click(function() {
             console.log($("#cypherQuery").val());
-            $.post("http://localhost:8080/history/wiki/cypher", $("#cypherQuery").val(), function(result) {
+            $.post(wiki.baseUrl() + "/cypher", $("#cypherQuery").val(), function(result) {
                 $("#cypherResult").val(result);
             })
         });
@@ -60,7 +67,7 @@ var wiki = {
     },
     
     deleteAndQueryFull : function(value) {
-        d3.json("http://localhost:8080/history/wiki/person/" + value + "/delete", function() {
+        d3.json(wiki.baseUrl() + "/person/" + value + "/delete", function() {
             wiki.cleanAndQueryFull(value);
         });
     },
@@ -72,7 +79,7 @@ var wiki = {
     
     queryFull : function(wikiPage, callback) {
         //console.log(window.location.pathname.split('/'));
-        d3.json("http://localhost:8080/history/wiki/person/" + wikiPage + "/details", function(error, person) {
+        d3.json(wiki.baseUrl() + "/person/" + wikiPage + "/details", function(error, person) {
             if (error) {
                 window.alert("Parsing error");
                 return;

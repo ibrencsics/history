@@ -18,7 +18,7 @@
         </cxf:features>
     </cxf:bus>
 
-    <jaxrs:server id="historyService" address="/history">
+    <jaxrs:server id="historyService" address="/">
         <jaxrs:serviceBeans>
             <ref bean="wikiHistoryService"/>
         </jaxrs:serviceBeans>

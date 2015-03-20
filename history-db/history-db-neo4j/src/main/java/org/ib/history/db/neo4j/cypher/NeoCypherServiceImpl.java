@@ -77,6 +77,8 @@ public class NeoCypherServiceImpl implements NeoCypherService {
             tx.success();
 
             return result.dumpToString();
+        } catch (Exception ex) {
+            return ex.getMessage();
         }
     }
 
