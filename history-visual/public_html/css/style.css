@@ -1,5 +1,7 @@
 html {
   overflow-y: scroll; /* prevents page repositioning when a scrollbar is present */
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
 }
 
 .cf:before, .cf:after {
@@ -14,8 +16,8 @@ html {
 }
 
 .shadow {
-    border: 1px solid gray;
-    box-shadow: 10px 10px 5px #888888;
+    /*border: 1px solid gray;*/
+    box-shadow: 10px 10px 20px #cccccc;
 }
 
 .center-global {
@@ -35,13 +37,22 @@ h2 {
     font-size: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: #60c7e6;
+}
+
 
 nav,header,footer,article { display:block; }
 
 #nav {
-    background:#c00;
-    padding:10px;
-    overflow:hidden; }
+    float: right;
+    margin-right: 25%;
+    /*background:#c00;*/
+    /*padding:10px;*/
+    padding-top: 40px;
+    /*overflow:hidden;*/ 
+}
 
 #nav ul {
     list-style:none;
@@ -52,8 +63,19 @@ nav,header,footer,article { display:block; }
     float:left; }
     
 #nav li a {
-    color:#fff;
-    padding:0 10px; }
+    font-size: 16pt;
+    text-transform: uppercase;
+    padding:0 10px;
+    -webkit-transition: color .4s ease-out;
+    -moz-transition: color .4s ease-out;
+    o-transition: color .4s ease-out;
+    transition: color .4s ease-out;
+}
+
+nav li a:hover {
+     text-decoration: none;
+     color: #333333;
+}
     
 /*@media only screen and (max-width:480px) {
 body {
@@ -67,42 +89,58 @@ body {
 
 html, body {
     height: 90%;
+    background-image: url("../data/l3po_bg.png")
 }
 
 .svgcontainer {
     width: 75%;
-    height: 100%;
+    height: 90%;
     float: left;
     padding: 5px;
 }
 
 .sidebar {
-    width: 20%;
-    height: 100%;
+    width: 22%;
+    height: 90%;
     float: right;
     padding: 5px;
 }
 
 svg {
     width: 100%;
-    height: 100%;
+    height: 96%;
+    background-color: white;
+    border-radius: 20px;
 }
 
 #controls {
     width: 100%;
-    height: 6%;
-    padding: 5px;
-    margin: 5px 0px 30px 0px;
+    height: 3%;
+    /*padding: 5px;*/
+    margin: 0px 0px 15px 0px;
+    
+    /*-webkit-box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
+    
+    /*background-color: white;*/
+    /*border-radius: 5px;*/
+}
+
+#data {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
     
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-#data {
-    width: 100%;
-    height: 70%;
-    overflow: scroll;
+#data-inner tr td {
 }
 
 #modal {
@@ -114,15 +152,70 @@ svg {
 }
 
 .wikiPageInput {
-    width: 80%;
+    width: 93%;
+    /*height: 70%;*/
+    float: left;
+    border: 0;
+    margin: 1px;
+    padding: 2px;
 }
+
+.wikiPageInput:focus {
+    outline: 0;
+}
+
+#go {
+    float: left;
+    width: 4%;
+    margin: 0px 0px 0px 2px;
+    /*margin: 3% 2% 3% 0%;*/
+}
+
 
 #about {
     width: 100%;
+    background-color: white;
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#admin {
+    width: 100%;
+    background-color: white;
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    padding: 20px;
+    border-radius: 20px;
 }
 
 textarea {
     overflow: scroll;
+}
+
+#footer {
+    color: #333333;
+}
+
+textarea {
+    resize: both;
+}
+
+#cypherQuery {
+    width: 50em;
+    height: 4em;
+}
+
+#cypherResult {
+    width: 90em;
+    height: 30em;
 }
 
 /*
@@ -170,7 +263,7 @@ path.domain {
     color: white;
 }
 .menu > li:hover {
-    background-color: lightblue;
+    background-color: #60c7e6;
     color: black;
 }
 

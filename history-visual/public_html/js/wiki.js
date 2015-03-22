@@ -28,7 +28,6 @@ var wiki = {
         $("#controls input").autocomplete({
             source: function (request, response) {
                 $.get(wiki.baseUrl() + "/person/suggestion/" + request.term, {
-                    //query: request.term
                 }, function (data) {
                     response(data);
                 });
@@ -36,6 +35,8 @@ var wiki = {
             minLength: 3,
             delay: 500
         });
+        
+        $("#controls input").focusin(function() {this.select();})
         
         $("#cypherSubmit").click(function() {
             console.log($("#cypherQuery").val());
@@ -48,7 +49,7 @@ var wiki = {
                 .on("click", wiki.buttonClick);
         
         d3.text("wiki-modal-details.html", function(data) {
-            d3.select("#data").append("div").attr("id", "details").html(data);
+            d3.select("#data").append("div").attr("id", "data-inner").html(data);
         });
         
         d3.text("node-contextmenu.html", function(data) {
@@ -288,9 +289,9 @@ var wiki = {
                     .attr("r", 12)
                     .style("fill", function(d) {
                         gender = d.gender;
-                        if (gender == "MALE") return "BLUE";
-                        else if (gender == "FEMALE") return "RED";
-                        else return "GREY";
+                        if (gender == "MALE") return "#60c7e6";
+                        else if (gender == "FEMALE") return "#e66095";
+                        else return "#cccccc";
                     })
                     .style("stroke", "black")
                     .style("stroke-width", "1px")

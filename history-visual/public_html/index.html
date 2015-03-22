@@ -28,13 +28,13 @@
 
     <div class="center-global cf">
         <header id="header" role="banner">
-            <h1>The LifeLong Learning Portal (L3-PO)</h1>
-
+            <img src="data/l3po_logo.png"/>
+            
             <nav id="nav" role="navigation">
                 <ul>
                     <li><a href="#" id="W1">Wiking</a></li>
                     <li><a href="#" id="W2">About</a></li>
-                    <li><a href="#" id="W3">Admin</a></li>
+                    <li><a href="#" id="W3">Cypher</a></li>
                 </ul>
             </nav>
         </header>
@@ -43,14 +43,14 @@
     <div id="wikingDiv" class="center-global cf tab">
 
         <div class="svgcontainer">
+            <div id="controls">
+                <input id="wikiPage" type="text" class="wikiPageInput shadow"/>
+                <button id="go" class="shadow">Go</button>
+            </div>
             <svg class="shadow"/>
         </div>
 
         <aside class="sidebar">
-            <div id="controls" class="shadow">
-                <input id="wikiPage" type="text" class="wikiPageInput"/>
-                <button id="go">Go</button>
-            </div>
             <div id="data" class="shadow"></div>
         </aside>
 
@@ -216,9 +216,9 @@
         <a href="mailto:ivan.brencsics@gmail.com">ivan.brencsics@gmail.com</a>
     </article>
     
-    <div id="admin" class="center-global cf tab">
-        <div class="admincontainer shadow">
-            <textarea id="cypherQuery" rows="4" cols="100">match (p:PERSON) return count(p)</textarea>
+    <div id="admin" class="center-global cf shadow tab">
+        <div class="admincontainer">
+            <textarea id="cypherQuery">match (p:PERSON) return count(p)</textarea>
             <button id="cypherSubmit">Go</button>
             <textarea id="cypherResult" rows="30" cols="180"></textarea>
         </div>
