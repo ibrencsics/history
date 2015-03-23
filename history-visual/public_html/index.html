@@ -39,6 +39,8 @@
             </nav>
         </header>
     </div>
+    
+    <div id="warnDiv" class="unvisible"></div>
 
     <div id="wikingDiv" class="center-global cf tab">
 
@@ -168,7 +170,7 @@
             </ul>
             <h2>Mobile devices support</h2>
             <p>Currently the tool is not designed for mobile devices, it gives the best user experience on laptops or desktop computers.
-            Other then these I performed tests by using a 10.5" Android tablet.</p>
+            I tested it by using a 10.5" Android tablet, it works, but does not give currently a good user experience.</p>
             <h2>Languages</h2>
             <p>Only the English Wikipedia can we browse at the moment. It would be a nice feature to support other languages too.</p>
             <h2>Better Wikitext parsing</h2>
@@ -182,7 +184,9 @@
             are waiting for each other. I dont think this case will come up often.</p>
             <h2>Intelligent graph queries</h2>
             <p>Once we synchronize huge amount of data from Wikipedia to the local Neo4j database, we could run graph queries on the data.
-            The Neo4j data model is a graph, and lots of nice queries are possible, such as give me the shortest path between people, ...</p>
+            The Neo4j data model is a graph, and lots of nice queries are possible, such as give me the shortest path between people, ... There is a
+            third tab next to "WIKING" and "ABOUT" called "CYPHER". The ones familiar with Cypher can issue Cypher queries to the Neo4j.
+            This feature is included for the ones having more interest in the internals.</p>
             <h2>More Wikipedia content utilized</h2>
             <p>Now we are visualizing the family relationships between people. We don't parse and visualize correctly the predecessor, successor
             information. It would be a nice feature asking for all the members of a certain dynasty, or all the English kings, ... We are also
@@ -205,7 +209,7 @@
                 right click the node in the Wiking workplace and select 'Delete and reload'. This way the Neo4j cached content is
                 replaced.</li>
                 <li><u>Coding</u>: The project source code can be found in Github: https://github.com/ibrencsics/history. It is not
-                complicated at all, I tried keeping it simple. The frontend is implemented by using the D3 Javascipt library.
+                complicated at all, I tried keeping it simple. The frontend is implemented by using the D3 Javascipt library, and some jQuery.
                 The backend is based on Spring, Apache CXF, Neo4j. The programming language is Javascript on the frontend, and
                 Java 8 on the backend. In case you feel like contributing, please send me a mail, and/or create a pull request.</li>
                 <li><u>Brainstorming</u>: I am open to revise the tool in case you have good propositions.</li>

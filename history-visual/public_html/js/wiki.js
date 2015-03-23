@@ -18,7 +18,7 @@ var wiki = {
     
     showControls : function() {
         d3.select("#controls input")
-                .attr("value", "Ludwig_I,_King_of_Bavaria")
+                .attr("value", "Charles V, Holy Roman Emperor")
                 .on("keyup", function() {
                     if (d3.event.keyCode == 13) {
                         wiki.buttonClick();
@@ -59,6 +59,14 @@ var wiki = {
         d3.text("svg-contextmenu.html", function(data) {
             d3.select("#wikingDiv").append("div").attr("id", "svg-contextmenu").html(data);
         });
+        
+        var isWarn = isMobile.any || window.width <=1024;
+        d3.select("#warnDiv")
+                .style("display", function() {
+                    return isWarn ? "block" : "none";
+                })
+                .style("color", "RED")
+                .html("At the moment the application is optimized for bigger screens")
     },
     
     buttonClick : function() {

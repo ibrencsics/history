@@ -27,6 +27,11 @@ html {
 
 .unvisible {
     display: none;
+    /*visibility: hidden;*/
+}
+
+.visible {
+    /*visibility: visible;*/
 }
 
 h1 {

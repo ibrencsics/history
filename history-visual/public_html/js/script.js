@@ -27,7 +27,6 @@ var hideAll = function() {
 }
 
 
-
 var w1 = document.getElementById("W1");
 w1.addEventListener('click', selectW1, false);
 

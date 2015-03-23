@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -35,6 +37,13 @@ public class NeoCypherServiceImplTest extends NeoBaseTest {
 
         NeoStatistics stat = neoCypherService.getStatistics();
         assertThat(stat.getPersonNodeCount(), is(2L));
+    }
+
+    @Test
+    public void testStopMutation() {
+        NeoCypherServiceImpl impl = (NeoCypherServiceImpl) neoCypherService;
+        assertFalse(impl.stopMutation("match (p:PERSON) return count(p)"));
+        assertTrue(impl.stopMutation("create (p:PERSON)"));
     }
 
     private void populateDb() {

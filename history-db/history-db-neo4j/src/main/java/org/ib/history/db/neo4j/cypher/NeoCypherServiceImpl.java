@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.ib.history.db.neo4j.WikiLabels.*;
 
@@ -71,6 +72,10 @@ public class NeoCypherServiceImpl implements NeoCypherService {
 
     @Override
     public String execute(String query) {
+        if (stopMutation(query)) {
+            return "Mutating queries are not allowed";
+        }
+
         try (Transaction tx = graphDb.beginTx()) {
             ExecutionEngine engine = new ExecutionEngine(graphDb);
             ExecutionResult result = engine.execute(query);
@@ -80,6 +85,27 @@ public class NeoCypherServiceImpl implements NeoCypherService {
         } catch (Exception ex) {
             return ex.getMessage();
         }
+    }
+
+    boolean stopMutation(String query) {
+        String lowQuery = query.toLowerCase();
+        String[] forbidden = {"create", "insert", "update", "delete"};
+
+//        boolean filter = false;
+//
+//        Stream.of(forbidden).
+//                map(f -> lowQuery.contains(f))
+//                .reduce(false, (f1, f2) -> f1 | f2);
+//
+//        return filter;
+
+        for (String f : forbidden) {
+            if (lowQuery.contains(f)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Long getCountOf(ExecutionEngine engine, WikiLabels label) {
