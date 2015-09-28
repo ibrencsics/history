@@ -63,7 +63,7 @@ public class RoyaltyParser {
 
         Optional<String> template = templateParser.getTemplate(wikiText,
                 "Infobox royalty", "infobox nobility", "infobox monarch", "Infobox officeholder", "Infobox president", "Infobox person",
-                "Infobox prime minister");
+                "Infobox prime minister", "Infobox politician", "Infobox scientist", "Infobox Christian leader");
         logger.debug(template.get());
         Map<String,String> data = templateParser.getTemplateDataMap(template.get());
         return parse(page, data);
