@@ -1,0 +1,39 @@
+/*.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+     clear: both;
+}
+.cf {
+    *zoom: 1;  for IE6 and IE7 
+}
+
+.center-global {
+  max-width: 1600px;
+  margin: 0 auto;
+}*/
+
+* {
+    margin  : 0;
+    padding : 0;
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing    : border-box;
+    box-sizing         : border-box;
+  }
+  
+  #spa {
+    position : absolute;
+    top      : 8px;
+    left     : 8px;
+    bottom   : 8px;
+    right    : 8px;
+
+    min-height : 500px;
+    min-width  : 500px;
+    overflow   : hidden;
+
+    /*background-color : #fff;*/
+    /*border-radius    : 0 8px 0 8px;*/
+    background-image: url("../img/l3po_bg.png")
+  }
