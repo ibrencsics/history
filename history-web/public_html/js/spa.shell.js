@@ -16,18 +16,6 @@ spa.shell = (function () {
   var
     configMap = {
       main_html : String()
-//        + '<div class="center-global cf">'
-//            + '<header id="header" role="banner">'
-//                + '<img src="img/l3po_logo.png"/>'
-//                + '<nav id="nav" role="navigation">'
-//                    + '<ul>'
-//                        + '<li><a href="#" id="W1">Wiking</a></li>'
-//                        + '<li><a href="#" id="W2">About</a></li>'
-//                        + '<li><a href="#" id="W3">Cypher</a></li>'
-//                    + '</ul>'
-//                + '</nav>'
-//            + '</header>'
-//        + '</div>'
         + '<div class="spa-shell-header"></div>'
         + '<div class="spa-shell-warning"></div>'
         + '<div class="spa-shell-workspace"></div>'
@@ -46,7 +34,11 @@ spa.shell = (function () {
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$container;
-    jqueryMap = { $container : $container };
+    jqueryMap = { 
+        $container : $container,
+        $wiking      : $container.find( '.spa-shell-workspace' ),
+        $header      : $container.find( '.spa-shell-header' )
+    };
   };
   // End DOM method /setJqueryMap/
   //--------------------- END DOM METHODS ----------------------
@@ -60,6 +52,13 @@ spa.shell = (function () {
     stateMap.$container = $container;
     $container.html( configMap.main_html );
     setJqueryMap();
+    
+    // configure and initialize feature modules
+    spa.wiking.configModule( {} );
+    spa.wiking.initModule( jqueryMap.$wiking );
+    
+    spa.header.configModule( {} );
+    spa.header.initModule( jqueryMap.$header );
   };
   // End PUBLIC method /initModule/
 
