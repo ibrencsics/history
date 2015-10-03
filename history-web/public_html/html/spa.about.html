@@ -1,0 +1,161 @@
+<article id="about" class="center-global shadow tab">
+    <h1>Motivation</h1>
+        <p>About 10 years ago I had to realize that I knew nothing at all about history. This revelation annoyed me, 
+        so I started reading books, one after the other: the history of England, France,
+        the Habsburgs, the Russians, ... However, after finishing a number of books, I started to feel frustrated.
+
+        <p>I don't know if you have read the book <i>One Hundred Years of Solitude</i> by Marquez. In the edition of the book I had,
+        there was a family tree included. The Buendia family is quite populous, without a family tree one could get easily lost.
+        I concluded that a simple family tree can keep me in the context, and I am confident when I am reading the story.</p>
+
+        <p>History is more complicated then the Buendia family, and can hardly be visualized with a tree. In real life, the
+        people, the dynasties are more tightly coupled to each other, and understanding the relations among them is of utmost importance.</p>
+
+        <p>As an example lets consider a famous English-Spanish conflict. The successors of the English king Henry VIII
+        faced a serious conflict with Spain. The king of Spain happened to be a Habsburg that times. You can encounter this story in
+        many different books: in the history of England, the history of Spain, the history of the Habsburgs, ... In the different books
+        you read the same thing from different angles. Many countries, many dynasties are involved, one can get lost easily.
+        But if we had a tool that would visualize us the 'context', we could have a look at it during reading, and get back the
+        confidence. I desperately needed such a tool with that I could visualize people, relations and events, that would put me into 'context'.</p>
+
+        <p>For the time being, the Wiking tool solves my problem partially. To explain how, lets consider the Henry VIII case. The following
+        figure shows what I would generate for myself with Wiking when reading about the aforementioned conflict:</p>
+
+        <img src="img/eng-esp.png"/>
+
+        <p>By playing 5 minutes with the tool, I was able to prepare this figure. I was interested in the English-Spanish conflict,
+        but I found even more. I can now understand lots of details about relations among people and dynasties. Surprisingly there are
+        not that many hops between the Tudors, the Austrian and Spanish Habsburgs, the Aragons, the Bourbons, ... Every time I am reading about
+        these times, I can have a quick look at this figure, and I am in the 'context'. I know who is who, and I don't get lost in the details.</p>
+
+        <p>The Wiking tool has got its name from <b>Wi</b>kipedia <b>King</b>s. It is a tool that can discover the Wikipedia,
+        like how the vikings discovered the sea. It helps you improving your understanding on history, by giving a visual window to
+        Wikipedia, through that you can browse its excellent content easily.</p>
+
+        <p>I have several other tools in mind, they will also come to the L3 Portal in the future.</p>
+
+    <h1>Usage</h1>
+        <p>Using the Wiking tool is very simple. Just enter a Wikipedia article about a historically or politically 'important' person to the
+        textbox on the right, and press Enter. The corresponding Wikipedia article will be retrieved, parsed,
+        and the person together with her/his connections visualized. The visualization is based on a so-called
+        force-directed graph. The nodes behave like planets having gravitation and particles having electric charge.
+        By left clicking on a node, and dragging it to a desired position, we can fix a single node. When right 
+        clicking on a node, a context menu is visualized with the following options:</p>
+        <ul>
+            <li><u>Extract</u>: reads the matching Wikipedia article, and merges it to the current figure</li>
+            <li><u>Open as new</u>: reads the matching Wikipedia article, and visualizes it on a blank screen</li>
+            <li><u>Show data</u>: displays the data of the node in the window on the right</li>
+            <li><u>Hide</u>: remove the node from the figure if it is unimportant for the current case</li>
+            <li><u>Open in Wikipedia</u>: open the matching Wikipedia article in a separate tab</li>
+            <li><u>Delete and reload</u>: Delete the node from the local cache (see later), and reload it from Wikipedia</li>
+        </ul>
+        <p>By double clicking a node, the node gets selected. After selecting several nodes, and right clicking
+        on the display window, another context menu is displayed. It has a single option, it can hide all the
+        selected nodes. This is a convenience feature.</p>
+
+        <p>The thick lines between people mean spouse relationship, the thin lines with arrows mean a parent-child relation. The
+        arrow points from the child to the parent.</p>
+
+    <h1>How it works</h1>
+        <p>Every time you request for a wiki page (either by entering the page name into the textbox, or by right click + Extract 
+        on a person), a Wikipedia page should be fetched and processed. However, every Wiki page is read and parsed only once from
+        Wikipedia. Once a page is read, the parsed info gets cached in our system. The next time someone is asking for the same person, the data is
+        retrieved from our local cache, and we wont contact the Wikipedia. Consequently, the more we use the Wiking
+        tool, the more Wikipedia pages get cached locally, and the more performant our application will be (
+        getting data from out local cache is significantly faster then reading pages from Wikipedia).</p>
+        <h2>Technical background</h2>
+        <p>When the user is requesting for a person, the following sequence is executed:</p>
+        <img src="img/seq.png"/>
+        <ul>
+            <li>An Ajax query containing the requested page name is sent to the server</li>
+            <li>The application logic first consults the cache logic whether the corresponding page has already been
+                persisted locally. The local cache is implemented by a Neo4j graph database.
+            </li>
+            <li>Here we assume, the Neo4j does not contain the requested data</li>
+            <li>The application logic calls the Wiki parser module</li>
+            <li>The Wiki parser downloads the wiki page from Wikipedia, and parses the important information out of it</li>
+            <li>The application logic asks the Cache logic to persist the data in Neo4j.</li>
+            <li>After persisting the data, the Cache logic returns the data in the appropriate format</li>
+            <li>The application logic turns the data to JSON, and sends it to the browser application</li>
+            <li>The browser application visualizes the data</li>
+        </ul>
+        <p>The Wikipedia pages about historical people typically contain an infobox in the top right corner. At the moment we are
+        parsing infoboxes with template names 'royalty', 'nobility', 'monarch', 'officeholder', 'president', 'person', 'prime minister'. 
+        These templates contain more or less
+        the same information, the parser logic is the same for all. It is important to note that reading one wiki page results in more
+        than one nodes in the Neo4j database, and in the web browser window. If we request for a certain page, the infobox contains
+        references to many other people: issues, spouses, parents, predecessors, successors. We parse all these people, store, and
+        visualize them. However, there is an important difference: the main person about that the page is written, has more information
+        included on the page: date of birth, date of death, roles (e.g. king of England), ... The referred people have only a name.
+        So for instance if we parse the page about Henry VIII, we have lots of information about him, but only the name of the others
+        that are in relation to him. We store all this data in Neo4j. The next time someone requests for a person that is related to 
+        Henry VIII, we see that in Neo4j we have partial data only, so we fetch the appropriate Wikipedia page, parse it, and merge
+        the result to Neo4j. This means that every node in Neo4j has a lifecycle. First it might contain only limited data (name),
+        and later full data. There is one more additional lifecycle step. We want to be able decide the gender of people. This information
+        is not present in the infoboxes. What we can do is that when we read a Wiki page, we identify who are the father and mother
+        of the current person, and mark the father and mother node in Neo4j as 'male' and 'female' respectively.</p>
+        <p>To recap, each node in Neo4j (and in the web browser) has a lifecycle. They might have basic information only, full data,
+        and additional gender information. This is the explanation why some nodes are blue and red in the browser, and others are gray.</p>
+
+    <h1>Next steps, known issues</h1>
+        <p>I have dozens of ideas how to improve the Wiking tool. All these improvements are on the agenda, I will implement them one 
+            by one to have a decent tool in the end of the road.</p>
+
+        <h2>Usability</h2>
+        <p>The tool in the current form misses many convenience features such as</p>
+        <ul>
+            <li>Selecting and moving many elements together</li>
+            <li>Exporting figures as SVG, PNG, PDF, ...</li>
+            <li>Storing/reloading figures</li>
+        </ul>
+        <h2>Mobile devices support</h2>
+        <p>Currently the tool is not designed for mobile devices, it gives the best user experience on laptops or desktop computers.
+        I tested it by using a 10.5" Android tablet, it works, but does not give currently a good user experience.</p>
+        <h2>Languages</h2>
+        <p>Only the English Wikipedia can we browse at the moment. It would be a nice feature to support other languages too.</p>
+        <h2>Better Wikitext parsing</h2>
+        <p>The wikitext parser I implemented is very basic. It should be revised significantly. In case there are more then one 
+            aliases pointing to the same Wikipedia artice, the Wiking tool visualizes them as two separate people.</p>
+        <h2>Neo4j issues</h2>
+        <p>The tool is using the default Neo4j transaction isolation level Read Committed. In very rare cases this can lead to
+        deadlocks. In case 2 users request simultaneously for 2 wikipedia articles, that are related to each other, but none of them exists in
+        Neo4j, after Wikitext parsing the 2 graphs are persisted to Neo4j in paralel. As these new graphs are overlapping, it can happen
+        that 2 overlapping nodes are created so that 1 is created (and locked) by the first graph, the second by the second graph, and then they
+        are waiting for each other. I dont think this case will come up often.</p>
+        <h2>Intelligent graph queries</h2>
+        <p>Once we synchronize huge amount of data from Wikipedia to the local Neo4j database, we could run graph queries on the data.
+        The Neo4j data model is a graph, and lots of nice queries are possible, such as give me the shortest path between people, ... There is a
+        third tab next to "WIKING" and "ABOUT" called "CYPHER". The ones familiar with Cypher can issue Cypher queries to the Neo4j.
+        This feature is included for the ones having more interest in the internals.</p>
+        <h2>More Wikipedia content utilized</h2>
+        <p>Now we are visualizing the family relationships between people. We don't parse and visualize correctly the predecessor, successor
+        information. It would be a nice feature asking for all the members of a certain dynasty, or all the English kings, ... We are also
+        not parsing the events such as the 30 years war, or the battle of waterloo. It would be nice requesting information based on
+        such events too. There are lots of interesting information in Wikipedia that we could utilize.</p>
+        <h2>Wikidata</h2>
+        <p>I was not aware of the project Wikidata when implementing the Wiki parser. By using Wikidata it is likely easier to get
+        scructured Wikipedia data. I will consider using it in the future.</p>
+
+    <h1>Contribution</h1>
+        <p>In case you feel interest in the Wiking tool, there are a number of ways to contribute in order to make it better:</p>
+        <ul>
+            <li><u>Use it</u>: By simply using it, you synchronize data from Wikipedia to the local database. With more data in the local
+            database, we can run more exciting graph queries. On the other hand, every time you request for a person that results
+            in Wiki parsing error, I mark the failing page as unparseable, and be able later revise the parser.</li>
+            <li><u>Improve Wikipedia</u>: The tool is using the infoboxes on the right of the Wiki pages. Many of these infoboxes are
+            challenging to parse, some of them are practically impossible. I will collect the typical scenarios that are not
+            possible to parse by an efficient algorithm. If you are a Wikipedia editor, and interested in this tool, you can
+            keep in mind these scenarios the next time when editing Wiki pages. In case you update a Wikipedia article, you can
+            right click the node in the Wiking workplace and select 'Delete and reload'. This way the Neo4j cached content is
+            replaced.</li>
+            <li><u>Coding</u>: The project source code can be found in Github: https://github.com/ibrencsics/history. It is not
+            complicated at all, I tried keeping it simple. The frontend is implemented by using the D3 Javascipt library, and some jQuery.
+            The backend is based on Spring, Apache CXF, Neo4j. The programming language is Javascript on the frontend, and
+            Java 8 on the backend. In case you feel like contributing, please send me a mail, and/or create a pull request.</li>
+            <li><u>Brainstorming</u>: I am open to revise the tool in case you have good propositions.</li>
+        </ul>
+
+    <h1>Contact</h1>
+    <p>Please contact me in case of any questions, suggestions, concerns.</p>
+    <a href="mailto:ivan.brencsics@gmail.com">ivan.brencsics@gmail.com</a>
+</article>

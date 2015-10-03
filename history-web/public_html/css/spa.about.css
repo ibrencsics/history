@@ -1,0 +1,24 @@
+#about {
+    width: 100%;
+    background-color: white;
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    padding: 20px;
+    border-radius: 20px;
+}
+
+h1 {
+    font-size: 130%;
+}
+
+h2 {
+    font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #60c7e6;
+}

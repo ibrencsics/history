@@ -35,7 +35,7 @@ spa.shell = (function () {
   setJqueryMap = function () {
     var $container = stateMap.$container;
     jqueryMap = { 
-        $container : $container,
+        $container   : $container,
         $wiking      : $container.find( '.spa-shell-workspace' ),
         $header      : $container.find( '.spa-shell-header' )
     };
@@ -54,11 +54,13 @@ spa.shell = (function () {
     setJqueryMap();
     
     // configure and initialize feature modules
-    spa.wiking.configModule( {} );
-    spa.wiking.initModule( jqueryMap.$wiking );
+//    spa.wiking.configModule( {} );
+//    spa.wiking.initModule( jqueryMap.$wiking );
     
     spa.header.configModule( {} );
     spa.header.initModule( jqueryMap.$header );
+    
+    spa.about.initModule( jqueryMap.$wiking );
   };
   // End PUBLIC method /initModule/
 

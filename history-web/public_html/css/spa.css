@@ -6,7 +6,13 @@
     box-sizing         : border-box;
   }
   
-  #spa {
+/*html {*/
+  /*overflow-y: scroll;  prevents page repositioning when a scrollbar is present */
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  /*font-size: 14px;*/
+/*}*/
+  
+#spa {
     position : absolute;
     top      : 8px;
     left     : 8px;
@@ -20,4 +26,25 @@
     /*background-color : #fff;*/
     /*border-radius    : 0 8px 0 8px;*/
     background-image: url("../img/l3po_bg.png")
-  }
+}
+  
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+     clear: both;
+}
+.cf {
+    *zoom: 1;  // for IE6 and IE7 
+}
+
+.center-global {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.shadow {
+    /*border: 1px solid gray;*/
+    box-shadow: 10px 10px 20px #cccccc;
+}

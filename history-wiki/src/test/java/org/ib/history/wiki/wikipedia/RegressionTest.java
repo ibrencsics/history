@@ -91,6 +91,7 @@ public class RegressionTest {
 //                {"Arnold_Schwarzenegger"}
 
 //                { "Charles_II_of_England" }, // problem with reign
+                { "Albert_I_of_Germany" }
         });
     }
 }
