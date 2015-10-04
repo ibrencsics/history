@@ -24,7 +24,9 @@ spa.header = (function () {
                 + '</nav>'
             + '</header>'
         + '</div>',
-      settable_map : {}
+      settable_map : {
+          set_page_anchor : true
+      }
     },
     stateMap  = { $container : null },
     jqueryMap = {},
