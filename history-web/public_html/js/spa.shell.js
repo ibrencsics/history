@@ -25,9 +25,12 @@ spa.shell = (function () {
                 + '<div class="spa-shell-workspace"></div>'
                 + '<div class="spa-shell-footer"></div>'
     },
-    stateMap = {$container: null},
+    
+    stateMap = { anchor_map : {} },
+    
     jqueryMap = {},
-            copyAnchorMap, setJqueryMap, initModule;
+            
+    copyAnchorMap, setJqueryMap, initModule;
 
     copyAnchorMap = function () {
         return $.extend(true, {}, stateMap.anchor_map);
@@ -50,7 +53,7 @@ spa.shell = (function () {
 
         // Begin merge changes into anchor map
         KEYVAL:
-                for (key_name in arg_map) {
+        for (key_name in arg_map) {
             if (arg_map.hasOwnProperty(key_name)) {
 
                 // skip dependent keys during iteration
@@ -95,8 +98,6 @@ spa.shell = (function () {
             is_ok = true,
             anchor_map_previous = copyAnchorMap();
 
-        console.log("onHashChange");
-
         // attempt to parse anchor
         try {
             anchor_map_proposed = $.uriAnchor.makeAnchorMap();
@@ -111,24 +112,17 @@ spa.shell = (function () {
         _s_page_previous = anchor_map_previous._s_page;
         _s_page_proposed = anchor_map_proposed._s_page;
         
-        console.log('prev: ' + _s_page_previous);
-        console.log('curr: ' + _s_page_proposed);
-
         // Begin adjust page component if changed
         if (!anchor_map_previous || _s_page_previous !== _s_page_proposed) {
             s_page_proposed = anchor_map_proposed.page;
             switch (s_page_proposed) {
                 case 'wiking' :
-                    console.log("wiking page opened");
-                    
                     spa.wiking.configModule( {} );
                     spa.wiking.initModule( jqueryMap.$workspace );
                     
 //                    is_ok = spa.page.setSliderPosition('opened');
                     break;
                 case 'about' :
-                    console.log("about page opened");
-                  
                     spa.about.configModule( {} );
                     spa.about.initModule( jqueryMap.$workspace );
                     

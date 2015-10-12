@@ -26,9 +26,12 @@ spa.header = (function () {
         + '</div>',
       settable_map : {
           set_page_anchor : true
-      }
+      },
+      set_page_anchor : null
     },
-    stateMap  = { $container : null },
+    stateMap  = { 
+        position_type    : 'wiking' 
+    },
     jqueryMap = {},
 
     setJqueryMap, configModule, initModule
@@ -38,6 +41,24 @@ spa.header = (function () {
         var $container = stateMap.$container;
         jqueryMap = { $container : $container };
     };
+    
+    onSelect = function (event) {
+        var set_page_anchor = configMap.set_page_anchor;
+        
+        switch(event.target.id) {
+            case 'W1' :
+                set_page_anchor('wiking');
+                break;
+            case 'W2' :
+                set_page_anchor('about');
+                break;
+            case 'W3' :
+                break;
+            default :
+                break;
+        }
+        return false;
+    }
 
     configModule = function ( input_map ) {
         spa.util.setConfigMap({
@@ -52,6 +73,9 @@ spa.header = (function () {
         $container.html( configMap.main_html );
         stateMap.$container = $container;
         setJqueryMap();
+        
+        $("nav ul li a").click(onSelect);
+        
         return true;
     };
 
