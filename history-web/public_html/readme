@@ -1,0 +1,3 @@
+docker build -t history-web .
+docker run -d -p 80:80 history-web
+docker exec -i -t evil_lichterman bash
