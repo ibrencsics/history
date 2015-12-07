@@ -4,5 +4,5 @@ RUN apt-get update && \
   apt-get clean
 ENV APACHE_LOG_DIR /var/log/apache2
 EXPOSE 80
-ADD . /var/www/html/
+ADD public_html /var/www/html/
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
