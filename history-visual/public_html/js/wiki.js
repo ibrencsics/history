@@ -1,6 +1,6 @@
 var wiki = {
     
-    testMode: true,
+    testMode: false,
     
     persons: {},
     nodeHash: {},
